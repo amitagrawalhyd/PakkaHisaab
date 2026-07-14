@@ -1,0 +1,9 @@
+bin/
+obj/
+publish/
+*.user
+.vs/
+.idea/
+*.keystore
+appsettings.Production.json
+src/PakkaHisaab.Maui/Resources/Fonts/*.ttf

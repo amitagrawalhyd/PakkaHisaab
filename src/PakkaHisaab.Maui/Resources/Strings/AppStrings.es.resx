@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Tagline" xml:space="preserve">
+    <value>Toca. Registra. Salda.</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Common_Or" xml:space="preserve">
+    <value>o</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Common_Saved" xml:space="preserve">
+    <value>Guardado</value>
+  </data>
+  <data name="Dash_OpenCalendar" xml:space="preserve">
+    <value>Calendario</value>
+  </data>
+  <data name="Dash_Settle" xml:space="preserve">
+    <value>Saldar</value>
+  </data>
+  <data name="Dash_TotalPayable" xml:space="preserve">
+    <value>A pagar este mes:</value>
+  </data>
+  <data name="Login_CreateAccount" xml:space="preserve">
+    <value>Crear cuenta</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>Correo electrónico</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="Login_SignIn" xml:space="preserve">
+    <value>Iniciar sesión</value>
+  </data>
+  <data name="Login_TryDemo" xml:space="preserve">
+    <value>Probar demo</value>
+  </data>
+  <data name="Notify_AttendanceBody" xml:space="preserve">
+    <value>Marca la asistencia de hoy de {0}. Por defecto: presente.</value>
+  </data>
+  <data name="Notify_AttendanceTitle" xml:space="preserve">
+    <value>Recordatorio de asistencia</value>
+  </data>
+  <data name="Notify_SalaryBody" xml:space="preserve">
+    <value>El salario de {0} está pendiente. Toca para saldar.</value>
+  </data>
+  <data name="Notify_SalaryTitle" xml:space="preserve">
+    <value>Salario pendiente</value>
+  </data>
+  <data name="Report_FinalPayable" xml:space="preserve">
+    <value>Total a pagar</value>
+  </data>
+  <data name="Settings_DeleteAccount" xml:space="preserve">
+    <value>Eliminar mi cuenta y datos</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="Settings_Logout" xml:space="preserve">
+    <value>Cerrar sesión</value>
+  </data>
+  <data name="Status_Absent" xml:space="preserve">
+    <value>Ausente</value>
+  </data>
+  <data name="Status_HalfDay" xml:space="preserve">
+    <value>Medio día</value>
+  </data>
+  <data name="Status_Present" xml:space="preserve">
+    <value>Presente</value>
+  </data>
+  <data name="Tab_Home" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="Tab_Reports" xml:space="preserve">
+    <value>Informes</value>
+  </data>
+  <data name="Tab_Settings" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+</root>

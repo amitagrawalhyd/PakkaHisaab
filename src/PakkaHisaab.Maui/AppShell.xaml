@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:PakkaHisaab.Maui.Views"
+       xmlns:helpers="clr-namespace:PakkaHisaab.Maui.Helpers"
+       x:Class="PakkaHisaab.Maui.AppShell"
+       Shell.BackgroundColor="{StaticResource Surface}"
+       Shell.TabBarBackgroundColor="{StaticResource Surface}"
+       Shell.TabBarTitleColor="{StaticResource Primary}"
+       Shell.TabBarUnselectedColor="{StaticResource TextMuted}"
+       FlyoutBehavior="Disabled">
+
+    <!-- Entry flow -->
+    <ShellContent Route="onboarding" ContentTemplate="{DataTemplate views:OnboardingPage}" Shell.NavBarIsVisible="False" />
+    <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}" Shell.NavBarIsVisible="False" />
+
+    <!-- Main app -->
+    <TabBar Route="main">
+        <Tab Title="{helpers:Translate Tab_Home}">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialIcons" Glyph="{x:Static helpers:IconFont.Home}" Color="{StaticResource Primary}" />
+            </Tab.Icon>
+            <ShellContent Route="dashboard" ContentTemplate="{DataTemplate views:DashboardPage}" Shell.NavBarIsVisible="False" />
+        </Tab>
+        <Tab Title="{helpers:Translate Tab_Reports}">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialIcons" Glyph="{x:Static helpers:IconFont.PictureAsPdf}" Color="{StaticResource Primary}" />
+            </Tab.Icon>
+            <ShellContent Route="reports" ContentTemplate="{DataTemplate views:ReportsPage}" Shell.NavBarIsVisible="False" />
+        </Tab>
+        <Tab Title="{helpers:Translate Tab_Settings}">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialIcons" Glyph="{x:Static helpers:IconFont.Settings}" Color="{StaticResource Primary}" />
+            </Tab.Icon>
+            <ShellContent Route="settings" ContentTemplate="{DataTemplate views:SettingsPage}" Shell.NavBarIsVisible="False" />
+        </Tab>
+    </TabBar>
+</Shell>

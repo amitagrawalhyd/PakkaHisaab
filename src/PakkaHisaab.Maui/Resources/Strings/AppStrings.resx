@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Tagline" xml:space="preserve">
+    <value>Tap. Track. Settle.</value>
+  </data>
+  <data name="Calendar_Ledger" xml:space="preserve">
+    <value>Advances &amp; Ledger</value>
+  </data>
+  <data name="Calendar_Summary" xml:space="preserve">
+    <value>Absent {0} day(s) · Payable ₹ {1:N0}</value>
+  </data>
+  <data name="Calendar_UnitsPrompt" xml:space="preserve">
+    <value>Units delivered ({0})</value>
+  </data>
+  <data name="Calendar_UnitsSummary" xml:space="preserve">
+    <value>{0:0.#} {1} delivered · Payable ₹ {2:N0}</value>
+  </data>
+  <data name="Calendar_UnitsTitle" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="Category_Cleaner" xml:space="preserve">
+    <value>Cleaner</value>
+  </data>
+  <data name="Category_Cook" xml:space="preserve">
+    <value>Cook</value>
+  </data>
+  <data name="Category_Driver" xml:space="preserve">
+    <value>Driver</value>
+  </data>
+  <data name="Category_Gardener" xml:space="preserve">
+    <value>Gardener</value>
+  </data>
+  <data name="Category_HouseHelp" xml:space="preserve">
+    <value>House Help</value>
+  </data>
+  <data name="Category_MilkMan" xml:space="preserve">
+    <value>Milkman</value>
+  </data>
+  <data name="Category_Newspaper" xml:space="preserve">
+    <value>Newspaper</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Category_Tutor" xml:space="preserve">
+    <value>Tutor</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Common_Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Common_Or" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Common_Saved" xml:space="preserve">
+    <value>Saved</value>
+  </data>
+  <data name="Dash_DemoBanner" xml:space="preserve">
+    <value>Demo mode — sample data, sync off. Data stays on this device.</value>
+  </data>
+  <data name="Dash_Empty" xml:space="preserve">
+    <value>No helpers yet. Tap + to add your first helper.</value>
+  </data>
+  <data name="Dash_OpenCalendar" xml:space="preserve">
+    <value>Calendar</value>
+  </data>
+  <data name="Dash_Settle" xml:space="preserve">
+    <value>Settle</value>
+  </data>
+  <data name="Dash_TotalPayable" xml:space="preserve">
+    <value>Payable this month:</value>
+  </data>
+  <data name="Day_Fr" xml:space="preserve">
+    <value>Fr</value>
+  </data>
+  <data name="Day_Mo" xml:space="preserve">
+    <value>Mo</value>
+  </data>
+  <data name="Day_Sa" xml:space="preserve">
+    <value>Sa</value>
+  </data>
+  <data name="Day_Su" xml:space="preserve">
+    <value>Su</value>
+  </data>
+  <data name="Day_Th" xml:space="preserve">
+    <value>Th</value>
+  </data>
+  <data name="Day_Tu" xml:space="preserve">
+    <value>Tu</value>
+  </data>
+  <data name="Day_We" xml:space="preserve">
+    <value>We</value>
+  </data>
+  <data name="Forecast_Pattern" xml:space="preserve">
+    <value>Usually absent on {0}s · ~{1}/month</value>
+  </data>
+  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
+    <value>Allowed absences per month</value>
+  </data>
+  <data name="HelperForm_CarryOver" xml:space="preserve">
+    <value>Carry over unused leave</value>
+  </data>
+  <data name="HelperForm_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
+    <value>Remove this helper and their records from the app?</value>
+  </data>
+  <data name="HelperForm_MonthlyWage" xml:space="preserve">
+    <value>Monthly wage (₹)</value>
+  </data>
+  <data name="HelperForm_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="HelperForm_NameRequired" xml:space="preserve">
+    <value>Please enter a name</value>
+  </data>
+  <data name="HelperForm_PerUnit" xml:space="preserve">
+    <value>Paid per delivery unit (milk, paper…)</value>
+  </data>
+  <data name="HelperForm_RatePerUnit" xml:space="preserve">
+    <value>Rate per unit (₹)</value>
+  </data>
+  <data name="HelperForm_Title" xml:space="preserve">
+    <value>Helper</value>
+  </data>
+  <data name="HelperForm_UnitLabel" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="HelperForm_UpiId" xml:space="preserve">
+    <value>UPI ID (for payments)</value>
+  </data>
+  <data name="HelperForm_WhatsApp" xml:space="preserve">
+    <value>WhatsApp number</value>
+  </data>
+  <data name="LedgerType_Advance" xml:space="preserve">
+    <value>Advance</value>
+  </data>
+  <data name="LedgerType_Bonus" xml:space="preserve">
+    <value>Bonus</value>
+  </data>
+  <data name="LedgerType_Deduction" xml:space="preserve">
+    <value>Deduction</value>
+  </data>
+  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
+    <value>Delivery charge</value>
+  </data>
+  <data name="LedgerType_SalaryPayment" xml:space="preserve">
+    <value>Salary payment</value>
+  </data>
+  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
+    <value>Advances this month</value>
+  </data>
+  <data name="Ledger_Amount" xml:space="preserve">
+    <value>Amount (₹)</value>
+  </data>
+  <data name="Ledger_Empty" xml:space="preserve">
+    <value>No entries this month. Tap + to log an advance.</value>
+  </data>
+  <data name="Ledger_InvalidAmount" xml:space="preserve">
+    <value>Enter a valid amount</value>
+  </data>
+  <data name="Ledger_NewEntry" xml:space="preserve">
+    <value>New ledger entry</value>
+  </data>
+  <data name="Ledger_Note" xml:space="preserve">
+    <value>Note (optional)</value>
+  </data>
+  <data name="Login_CreateAccount" xml:space="preserve">
+    <value>Create account</value>
+  </data>
+  <data name="Login_DemoHint" xml:space="preserve">
+    <value>Instant, offline, no sign-up. Explore with sample data for Geeta (house help) and Raju (milkman).</value>
+  </data>
+  <data name="Login_DisplayName" xml:space="preserve">
+    <value>Your name</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Login_Failed" xml:space="preserve">
+    <value>Sign-in failed. Check your details and connection.</value>
+  </data>
+  <data name="Login_MissingFields" xml:space="preserve">
+    <value>Please enter email and password</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Login_SignIn" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="Login_ToggleMode" xml:space="preserve">
+    <value>New here? Create an account · Have one? Sign in</value>
+  </data>
+  <data name="Login_TryDemo" xml:space="preserve">
+    <value>Try Demo</value>
+  </data>
+  <data name="Notify_AttendanceBody" xml:space="preserve">
+    <value>Mark today's attendance for {0}. Default: Present.</value>
+  </data>
+  <data name="Notify_AttendanceTitle" xml:space="preserve">
+    <value>Attendance reminder</value>
+  </data>
+  <data name="Notify_SalaryBody" xml:space="preserve">
+    <value>Salary for {0} is pending. Tap to settle.</value>
+  </data>
+  <data name="Notify_SalaryTitle" xml:space="preserve">
+    <value>Salary due</value>
+  </data>
+  <data name="Onboard_GetStarted" xml:space="preserve">
+    <value>Get Started</value>
+  </data>
+  <data name="Onboard_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Onboard_Skip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="Onboard_Slide1_Body" xml:space="preserve">
+    <value>Tap a date to mark Present, Absent or Half-Day. Milk and deliveries too — everything lands in one clean khata.</value>
+  </data>
+  <data name="Onboard_Slide1_Title" xml:space="preserve">
+    <value>The 2-Tap Ledger</value>
+  </data>
+  <data name="Onboard_Slide2_Body" xml:space="preserve">
+    <value>A daily 5 PM reminder asks about today's attendance. Mark 'Absent' right from the notification — no need to open the app.</value>
+  </data>
+  <data name="Onboard_Slide2_Title" xml:space="preserve">
+    <value>Never Forget at 5 PM</value>
+  </data>
+  <data name="Onboard_Slide3_Body" xml:space="preserve">
+    <value>Wage minus absences minus advances — computed for you. Pay with any UPI app or log cash, and share PDF reports on WhatsApp.</value>
+  </data>
+  <data name="Onboard_Slide3_Title" xml:space="preserve">
+    <value>Settle in Seconds via UPI</value>
+  </data>
+  <data name="Report_Absences" xml:space="preserve">
+    <value>Absences</value>
+  </data>
+  <data name="Report_Advances" xml:space="preserve">
+    <value>Advances</value>
+  </data>
+  <data name="Report_Bonuses" xml:space="preserve">
+    <value>Bonuses</value>
+  </data>
+  <data name="Report_Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Report_Deduction" xml:space="preserve">
+    <value>deduction</value>
+  </data>
+  <data name="Report_FinalPayable" xml:space="preserve">
+    <value>Final payable</value>
+  </data>
+  <data name="Report_GeneratedBy" xml:space="preserve">
+    <value>Generated by</value>
+  </data>
+  <data name="Report_GrossWage" xml:space="preserve">
+    <value>Gross wage</value>
+  </data>
+  <data name="Report_Helper" xml:space="preserve">
+    <value>Helper</value>
+  </data>
+  <data name="Report_HouseholdTitle" xml:space="preserve">
+    <value>Household Summary</value>
+  </data>
+  <data name="Report_LedgerTitle" xml:space="preserve">
+    <value>Helper Monthly Ledger</value>
+  </data>
+  <data name="Report_Movements" xml:space="preserve">
+    <value>Money movements</value>
+  </data>
+  <data name="Report_ShareTitle" xml:space="preserve">
+    <value>Share report</value>
+  </data>
+  <data name="Report_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Report_Units" xml:space="preserve">
+    <value>Units</value>
+  </data>
+  <data name="Report_UnpaidAbsences" xml:space="preserve">
+    <value>Unpaid absences</value>
+  </data>
+  <data name="Reports_GenerateShare" xml:space="preserve">
+    <value>Generate &amp; share PDF</value>
+  </data>
+  <data name="Reports_HouseholdDescription" xml:space="preserve">
+    <value>Master summary across all your helpers</value>
+  </data>
+  <data name="Reports_LedgerDescription" xml:space="preserve">
+    <value>Daily attendance &amp; money trail for one helper</value>
+  </data>
+  <data name="Reports_Title" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="Security_RootedMessage" xml:space="preserve">
+    <value>This device appears rooted/jailbroken. Your financial data may be less secure here. We recommend using PakkaHisaab on a standard device.</value>
+  </data>
+  <data name="Security_RootedTitle" xml:space="preserve">
+    <value>Device warning</value>
+  </data>
+  <data name="Settings_Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="Settings_DeleteAccount" xml:space="preserve">
+    <value>Delete My Account &amp; Data</value>
+  </data>
+  <data name="Settings_DeleteDemoNote" xml:space="preserve">
+    <value>Demo data is wiped from this device.</value>
+  </data>
+  <data name="Settings_DeleteFailed" xml:space="preserve">
+    <value>Could not delete the account. Check your password and connection.</value>
+  </data>
+  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
+    <value>Enter your password to confirm</value>
+  </data>
+  <data name="Settings_DeleteTitle" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
+  <data name="Settings_DeleteWarning" xml:space="preserve">
+    <value>This permanently erases your account and every helper, attendance and payment record — on this device and our servers. This cannot be undone.</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_Legal" xml:space="preserve">
+    <value>Legal</value>
+  </data>
+  <data name="Settings_Logout" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="Settings_Privacy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="Settings_Terms" xml:space="preserve">
+    <value>Terms of Service</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settle_AmountToPay" xml:space="preserve">
+    <value>Amount to pay (edit if needed)</value>
+  </data>
+  <data name="Settle_ConfirmBody" xml:space="preserve">
+    <value>Did you complete the payment of ₹ {1:N0} to {0}?</value>
+  </data>
+  <data name="Settle_ConfirmTitle" xml:space="preserve">
+    <value>Payment done?</value>
+  </data>
+  <data name="Settle_ConfirmYes" xml:space="preserve">
+    <value>Yes, paid</value>
+  </data>
+  <data name="Settle_InvalidAmount" xml:space="preserve">
+    <value>Enter a valid amount</value>
+  </data>
+  <data name="Settle_LogCash" xml:space="preserve">
+    <value>Log cash payment</value>
+  </data>
+  <data name="Settle_NoUpiApp" xml:space="preserve">
+    <value>No UPI app found on this device</value>
+  </data>
+  <data name="Settle_NoUpiIdHint" xml:space="preserve">
+    <value>Add a UPI ID to this helper to enable one-tap UPI payment.</value>
+  </data>
+  <data name="Settle_PayVia" xml:space="preserve">
+    <value>Pay via UPI</value>
+  </data>
+  <data name="Settle_Recorded" xml:space="preserve">
+    <value>Payment recorded</value>
+  </data>
+  <data name="Settle_Title" xml:space="preserve">
+    <value>Settlement</value>
+  </data>
+  <data name="Settle_UpiNote" xml:space="preserve">
+    <value>Salary {0} - PakkaHisaab</value>
+  </data>
+  <data name="Status_Absent" xml:space="preserve">
+    <value>Absent</value>
+  </data>
+  <data name="Status_HalfDay" xml:space="preserve">
+    <value>Half-Day</value>
+  </data>
+  <data name="Status_Present" xml:space="preserve">
+    <value>Present</value>
+  </data>
+  <data name="Tab_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Tab_Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="Tab_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Voice_NotUnderstood" xml:space="preserve">
+    <value>Sorry, I didn't catch that. Try: 'Gave Geeta 500 advance'.</value>
+  </data>
+</root>

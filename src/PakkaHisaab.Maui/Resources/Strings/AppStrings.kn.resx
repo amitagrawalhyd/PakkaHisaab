@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Tagline" xml:space="preserve">
+    <value>ಟ್ಯಾಪ್ ಮಾಡಿ. ಟ್ರ್ಯಾಕ್ ಮಾಡಿ. ಸೆಟಲ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>ರದ್ದುಮಾಡಿ</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>ಅಳಿಸಿ</value>
+  </data>
+  <data name="Common_Or" xml:space="preserve">
+    <value>ಅಥವಾ</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>ಉಳಿಸಿ</value>
+  </data>
+  <data name="Common_Saved" xml:space="preserve">
+    <value>ಉಳಿಸಲಾಗಿದೆ</value>
+  </data>
+  <data name="Dash_OpenCalendar" xml:space="preserve">
+    <value>ಕ್ಯಾಲೆಂಡರ್</value>
+  </data>
+  <data name="Dash_Settle" xml:space="preserve">
+    <value>ಸೆಟಲ್</value>
+  </data>
+  <data name="Dash_TotalPayable" xml:space="preserve">
+    <value>ಈ ತಿಂಗಳು ಪಾವತಿಸಬೇಕಾದದ್ದು:</value>
+  </data>
+  <data name="Login_CreateAccount" xml:space="preserve">
+    <value>ಖಾತೆ ರಚಿಸಿ</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>ಇಮೇಲ್</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>ಪಾಸ್‌ವರ್ಡ್</value>
+  </data>
+  <data name="Login_SignIn" xml:space="preserve">
+    <value>ಸೈನ್ ಇನ್</value>
+  </data>
+  <data name="Login_TryDemo" xml:space="preserve">
+    <value>ಡೆಮೊ ಪ್ರಯತ್ನಿಸಿ</value>
+  </data>
+  <data name="Notify_AttendanceBody" xml:space="preserve">
+    <value>{0} ಅವರ ಇಂದಿನ ಹಾಜರಾತಿ ಗುರುತಿಸಿ. ಡೀಫಾಲ್ಟ್: ಹಾಜರು.</value>
+  </data>
+  <data name="Notify_AttendanceTitle" xml:space="preserve">
+    <value>ಹಾಜರಾತಿ ಜ್ಞಾಪನೆ</value>
+  </data>
+  <data name="Notify_SalaryBody" xml:space="preserve">
+    <value>{0} ಸಂಬಳ ಬಾಕಿಯಿದೆ. ಸೆಟಲ್ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Notify_SalaryTitle" xml:space="preserve">
+    <value>ಸಂಬಳ ಬಾಕಿ</value>
+  </data>
+  <data name="Report_FinalPayable" xml:space="preserve">
+    <value>ಪಾವತಿಸಬೇಕಾದ ಮೊತ್ತ</value>
+  </data>
+  <data name="Settings_DeleteAccount" xml:space="preserve">
+    <value>ನನ್ನ ಖಾತೆ ಮತ್ತು ಡೇಟಾ ಅಳಿಸಿ</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>ಭಾಷೆ</value>
+  </data>
+  <data name="Settings_Logout" xml:space="preserve">
+    <value>ಲಾಗ್ ಔಟ್</value>
+  </data>
+  <data name="Status_Absent" xml:space="preserve">
+    <value>ಗೈರುಹಾಜರು</value>
+  </data>
+  <data name="Status_HalfDay" xml:space="preserve">
+    <value>ಅರ್ಧ ದಿನ</value>
+  </data>
+  <data name="Status_Present" xml:space="preserve">
+    <value>ಹಾಜರು</value>
+  </data>
+  <data name="Tab_Home" xml:space="preserve">
+    <value>ಮುಖಪುಟ</value>
+  </data>
+  <data name="Tab_Reports" xml:space="preserve">
+    <value>ವರದಿಗಳು</value>
+  </data>
+  <data name="Tab_Settings" xml:space="preserve">
+    <value>ಸೆಟ್ಟಿಂಗ್‌ಗಳು</value>
+  </data>
+</root>

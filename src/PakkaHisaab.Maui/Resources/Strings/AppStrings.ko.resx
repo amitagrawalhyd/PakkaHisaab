@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Tagline" xml:space="preserve">
+    <value>탭하고, 기록하고, 정산하세요.</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="Common_Or" xml:space="preserve">
+    <value>또는</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>저장</value>
+  </data>
+  <data name="Common_Saved" xml:space="preserve">
+    <value>저장됨</value>
+  </data>
+  <data name="Dash_OpenCalendar" xml:space="preserve">
+    <value>캘린더</value>
+  </data>
+  <data name="Dash_Settle" xml:space="preserve">
+    <value>정산</value>
+  </data>
+  <data name="Dash_TotalPayable" xml:space="preserve">
+    <value>이번 달 지급액:</value>
+  </data>
+  <data name="Login_CreateAccount" xml:space="preserve">
+    <value>계정 만들기</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>이메일</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>비밀번호</value>
+  </data>
+  <data name="Login_SignIn" xml:space="preserve">
+    <value>로그인</value>
+  </data>
+  <data name="Login_TryDemo" xml:space="preserve">
+    <value>데모 사용해보기</value>
+  </data>
+  <data name="Notify_AttendanceBody" xml:space="preserve">
+    <value>{0}의 오늘 출근을 기록하세요. 기본값: 출근.</value>
+  </data>
+  <data name="Notify_AttendanceTitle" xml:space="preserve">
+    <value>출근 알림</value>
+  </data>
+  <data name="Notify_SalaryBody" xml:space="preserve">
+    <value>{0}의 급여가 미지급 상태입니다. 탭하여 정산하세요.</value>
+  </data>
+  <data name="Notify_SalaryTitle" xml:space="preserve">
+    <value>급여 지급일</value>
+  </data>
+  <data name="Report_FinalPayable" xml:space="preserve">
+    <value>지급액</value>
+  </data>
+  <data name="Settings_DeleteAccount" xml:space="preserve">
+    <value>내 계정 및 데이터 삭제</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>언어</value>
+  </data>
+  <data name="Settings_Logout" xml:space="preserve">
+    <value>로그아웃</value>
+  </data>
+  <data name="Status_Absent" xml:space="preserve">
+    <value>결근</value>
+  </data>
+  <data name="Status_HalfDay" xml:space="preserve">
+    <value>반일</value>
+  </data>
+  <data name="Status_Present" xml:space="preserve">
+    <value>출근</value>
+  </data>
+  <data name="Tab_Home" xml:space="preserve">
+    <value>홈</value>
+  </data>
+  <data name="Tab_Reports" xml:space="preserve">
+    <value>보고서</value>
+  </data>
+  <data name="Tab_Settings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+</root>

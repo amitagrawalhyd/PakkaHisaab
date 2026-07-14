@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PakkaHisaab.Maui.ViewModels"
+             xmlns:helpers="clr-namespace:PakkaHisaab.Maui.Helpers"
+             x:Class="PakkaHisaab.Maui.Views.HelperFormPage"
+             x:DataType="vm:HelperFormViewModel"
+             Title="{helpers:Translate HelperForm_Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14">
+
+            <Label Style="{StaticResource MutedLabel}" Text="{helpers:Translate HelperForm_Category}" />
+            <Border Style="{StaticResource InputBorder}">
+                <Picker ItemsSource="{Binding Categories}"
+                        SelectedItem="{Binding SelectedCategory}" />
+            </Border>
+
+            <Border Style="{StaticResource InputBorder}">
+                <Entry Placeholder="{helpers:Translate HelperForm_Name}" Text="{Binding Name}" />
+            </Border>
+
+            <Border Style="{StaticResource InputBorder}">
+                <Entry Placeholder="{helpers:Translate HelperForm_WhatsApp}"
+                       Keyboard="Telephone" Text="{Binding WhatsAppNumber}" />
+            </Border>
+
+            <Border Style="{StaticResource InputBorder}">
+                <Entry Placeholder="{helpers:Translate HelperForm_UpiId}" Text="{Binding UpiId}" />
+            </Border>
+
+            <!-- Wage model -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label VerticalOptions="Center" Text="{helpers:Translate HelperForm_PerUnit}" />
+                <Switch Grid.Column="1" IsToggled="{Binding PerUnitWage}"
+                        OnColor="{StaticResource Secondary}" />
+            </Grid>
+
+            <Border Style="{StaticResource InputBorder}"
+                    IsVisible="{Binding IsPerUnit, Converter={StaticResource InvertBool}}">
+                <Entry Placeholder="{helpers:Translate HelperForm_MonthlyWage}"
+                       Keyboard="Numeric" Text="{Binding MonthlyWage}" />
+            </Border>
+
+            <Grid ColumnDefinitions="2*,*" ColumnSpacing="12" IsVisible="{Binding IsPerUnit}">
+                <Border Grid.Column="0" Style="{StaticResource InputBorder}">
+                    <Entry Placeholder="{helpers:Translate HelperForm_RatePerUnit}"
+                           Keyboard="Numeric" Text="{Binding RatePerUnit}" />
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource InputBorder}">
+                    <Entry Placeholder="{helpers:Translate HelperForm_UnitLabel}" Text="{Binding UnitLabel}" />
+                </Border>
+            </Grid>
+
+            <Border Style="{StaticResource InputBorder}"
+                    IsVisible="{Binding IsPerUnit, Converter={StaticResource InvertBool}}">
+                <Entry Placeholder="{helpers:Translate HelperForm_AllowedAbsences}"
+                       Keyboard="Numeric" Text="{Binding AllowedAbsences}" />
+            </Border>
+
+            <Grid ColumnDefinitions="*,Auto"
+                  IsVisible="{Binding IsPerUnit, Converter={StaticResource InvertBool}}">
+                <Label VerticalOptions="Center" Text="{helpers:Translate HelperForm_CarryOver}" />
+                <Switch Grid.Column="1" IsToggled="{Binding CarryOverLeaveAllowed}"
+                        OnColor="{StaticResource Secondary}" />
+            </Grid>
+
+            <Button Text="{helpers:Translate Common_Save}" Command="{Binding SaveCommand}" Margin="0,10,0,0" />
+            <Button Style="{StaticResource DangerButton}" Text="{helpers:Translate Common_Delete}"
+                    Command="{Binding DeleteCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

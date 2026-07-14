@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PakkaHisaab.Maui.ViewModels"
+             xmlns:helpers="clr-namespace:PakkaHisaab.Maui.Helpers"
+             x:Class="PakkaHisaab.Maui.Views.OnboardingPage"
+             x:DataType="vm:OnboardingViewModel">
+
+    <Grid RowDefinitions="*,Auto,Auto" Padding="24,48">
+
+        <!-- 3-slide intro: 2-tap UI · 5 PM notifications · UPI settlements -->
+        <CarouselView Grid.Row="0"
+                      ItemsSource="{Binding Slides}"
+                      Position="{Binding Position, Mode=TwoWay}"
+                      IndicatorView="indicator"
+                      Loop="False">
+            <CarouselView.ItemTemplate>
+                <DataTemplate x:DataType="vm:OnboardingSlide">
+                    <VerticalStackLayout Spacing="28" VerticalOptions="Center">
+                        <Border BackgroundColor="{StaticResource SurfaceAlt}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 40"
+                                WidthRequest="160" HeightRequest="160"
+                                HorizontalOptions="Center">
+                            <Label Style="{StaticResource IconLabel}"
+                                   Text="{Binding Icon}"
+                                   FontSize="72"
+                                   TextColor="{StaticResource Secondary}" />
+                        </Border>
+                        <Label Style="{StaticResource TitleLabel}"
+                               HorizontalTextAlignment="Center"
+                               Text="{Binding TitleKey, Converter={StaticResource TranslateKey}}" />
+                        <Label Style="{StaticResource MutedLabel}"
+                               FontSize="15"
+                               HorizontalTextAlignment="Center"
+                               Text="{Binding BodyKey, Converter={StaticResource TranslateKey}}" />
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+        <IndicatorView Grid.Row="1"
+                       x:Name="indicator"
+                       IndicatorColor="{StaticResource Outline}"
+                       SelectedIndicatorColor="{StaticResource Primary}"
+                       HorizontalOptions="Center"
+                       Margin="0,20" />
+
+        <Grid Grid.Row="2" ColumnDefinitions="*,*" ColumnSpacing="12">
+            <Button Grid.Column="0"
+                    Style="{StaticResource SecondaryButton}"
+                    Text="{helpers:Translate Onboard_Skip}"
+                    Command="{Binding FinishCommand}" />
+            <Button Grid.Column="1"
+                    Text="{helpers:Translate Onboard_Next}"
+                    Command="{Binding NextCommand}"
+                    IsVisible="{Binding IsLastSlide, Converter={StaticResource InvertBool}}" />
+            <Button Grid.Column="1"
+                    Text="{helpers:Translate Onboard_GetStarted}"
+                    Command="{Binding FinishCommand}"
+                    IsVisible="{Binding IsLastSlide}" />
+        </Grid>
+    </Grid>
+</ContentPage>

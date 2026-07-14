@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PakkaHisaab.Maui.ViewModels"
+             xmlns:helpers="clr-namespace:PakkaHisaab.Maui.Helpers"
+             x:Class="PakkaHisaab.Maui.Views.DashboardPage"
+             x:DataType="vm:DashboardViewModel">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Header with the brand logo (requirement: logo in the main dashboard header) -->
+        <Border Grid.Row="0" StrokeThickness="0" Background="{StaticResource HeaderGradient}"
+                StrokeShape="RoundRectangle 0,0,28,28" Padding="24,56,24,24">
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                <Image Grid.Column="0" Source="logo.png" HeightRequest="46" WidthRequest="46" />
+                <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                    <Label Text="PakkaHisaab" FontFamily="PoppinsBold" FontSize="20" TextColor="White" />
+                    <Label Text="{Binding TotalPayable, StringFormat='{0}'}" FontSize="13" TextColor="#CCFBF1">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{helpers:Translate Dash_TotalPayable}" TextColor="#CCFBF1" FontSize="13" />
+                                <Span Text=" " />
+                                <Span Text="{Binding TotalPayable}" TextColor="White" FontFamily="PoppinsSemiBold" FontSize="13" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+                <!-- Voice-to-Ledger mic -->
+                <Border Grid.Column="2" StrokeThickness="0" BackgroundColor="#FFFFFF22"
+                        StrokeShape="RoundRectangle 24" WidthRequest="48" HeightRequest="48">
+                    <Label Style="{StaticResource IconLabel}" Text="{x:Static helpers:IconFont.Mic}"
+                           TextColor="White" FontSize="24" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding VoiceEntryCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+            </Grid>
+        </Border>
+
+        <RefreshView Grid.Row="1" Command="{Binding LoadCommand}" IsRefreshing="{Binding IsBusy}">
+            <ScrollView>
+                <VerticalStackLayout Padding="20" Spacing="14">
+
+                    <!-- Demo banner -->
+                    <Border IsVisible="{Binding IsDemoBannerVisible}"
+                            BackgroundColor="#FEF3C7" Stroke="#F59E0B" StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12" Padding="12">
+                        <Label FontSize="13" TextColor="#92400E"
+                               Text="{helpers:Translate Dash_DemoBanner}" />
+                    </Border>
+
+                    <!-- Empty state -->
+                    <VerticalStackLayout IsVisible="{Binding IsEmpty}" Spacing="12" Padding="0,60">
+                        <Label Style="{StaticResource IconLabel}" FontSize="64"
+                               TextColor="{StaticResource Outline}"
+                               Text="{x:Static helpers:IconFont.Person}" />
+                        <Label Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center"
+                               Text="{helpers:Translate Dash_Empty}" />
+                    </VerticalStackLayout>
+
+                    <!-- Helper cards -->
+                    <CollectionView ItemsSource="{Binding Helpers}" SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:HelperCardViewModel">
+                                <Border Style="{StaticResource Card}" Margin="0,0,0,12">
+                                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*,Auto"
+                                          ColumnSpacing="14" RowSpacing="6">
+
+                                        <Border Grid.RowSpan="2" StrokeThickness="0"
+                                                BackgroundColor="{StaticResource SurfaceAlt}"
+                                                StrokeShape="RoundRectangle 14"
+                                                WidthRequest="52" HeightRequest="52">
+                                            <Label Style="{StaticResource IconLabel}"
+                                                   Text="{Binding CategoryIcon}" FontSize="26" />
+                                        </Border>
+
+                                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                            <Label FontFamily="PoppinsSemiBold" FontSize="16" Text="{Binding Name}" />
+                                            <Label Style="{StaticResource MutedLabel}"
+                                                   Text="{Binding CategoryKey, Converter={StaticResource TranslateKey}}" />
+                                            <Label Style="{StaticResource MutedLabel}" FontSize="11"
+                                                   TextColor="{StaticResource Secondary}"
+                                                   IsVisible="{Binding ForecastLabel, Converter={StaticResource NotEmpty}}"
+                                                   Text="{Binding ForecastLabel}" />
+                                        </VerticalStackLayout>
+
+                                        <VerticalStackLayout Grid.Column="2" Grid.RowSpan="2" Spacing="4"
+                                                             VerticalOptions="Center" HorizontalOptions="End">
+                                            <Label Style="{StaticResource IconLabel}"
+                                                   Text="{Binding TodayStatusIcon}"
+                                                   TextColor="{Binding TodayStatusColor}"
+                                                   HorizontalTextAlignment="End" />
+                                            <Label FontFamily="PoppinsBold" FontSize="15"
+                                                   TextColor="{StaticResource Primary}"
+                                                   Text="{Binding PayableLabel}" />
+                                        </VerticalStackLayout>
+
+                                        <HorizontalStackLayout Grid.Row="1" Grid.Column="1" Spacing="16" Margin="0,4,0,0">
+                                            <Label FontSize="13" TextColor="{StaticResource Secondary}"
+                                                   FontFamily="PoppinsSemiBold"
+                                                   Text="{helpers:Translate Dash_OpenCalendar}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding OpenCalendarCommand, Source={RelativeSource AncestorType={x:Type vm:DashboardViewModel}}}"
+                                                        CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                            <Label FontSize="13" TextColor="{StaticResource Success}"
+                                                   FontFamily="PoppinsSemiBold"
+                                                   Text="{helpers:Translate Dash_Settle}">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                        Command="{Binding OpenSettlementCommand, Source={RelativeSource AncestorType={x:Type vm:DashboardViewModel}}}"
+                                                        CommandParameter="{Binding .}" />
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </HorizontalStackLayout>
+                                    </Grid>
+
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding OpenCalendarCommand, Source={RelativeSource AncestorType={x:Type vm:DashboardViewModel}}}"
+                                            CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+
+        <!-- FAB: add helper -->
+        <Button Grid.Row="1"
+                Text="{x:Static helpers:IconFont.Add}"
+                FontFamily="MaterialIcons" FontSize="26"
+                WidthRequest="60" HeightRequest="60" CornerRadius="30"
+                HorizontalOptions="End" VerticalOptions="End" Margin="0,0,22,22"
+                BackgroundColor="{StaticResource Secondary}"
+                Command="{Binding AddHelperCommand}" />
+    </Grid>
+</ContentPage>

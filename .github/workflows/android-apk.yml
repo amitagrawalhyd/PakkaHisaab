@@ -1,0 +1,86 @@
+# Free Android build & distribution: signed APK built on GitHub's runners and
+# attached to a GitHub Release — users install it directly (sideload), ₹0.
+#
+# Signing:
+#   - With no secrets configured, a THROWAWAY keystore is generated per run
+#     (fine for testing; updates require uninstall/reinstall).
+#   - For a stable identity (in-place updates), add repo secrets:
+#       ANDROID_KEYSTORE_B64   = base64 of your .keystore file
+#       ANDROID_KEYSTORE_PASS  = store password
+#       ANDROID_KEY_ALIAS      = key alias (e.g. pakkahisaab)
+#       ANDROID_KEY_PASS       = key password
+#
+# Trigger: push a tag like v1.0.0, or run manually from the Actions tab.
+name: android-apk
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "microsoft"
+          java-version: "17"
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Install MAUI Android workload
+        run: dotnet workload install maui-android
+
+      - name: Fetch fonts (Poppins + Material Symbols)
+        run: bash tools/get_fonts.sh
+
+      - name: Prepare keystore
+        env:
+          KS_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+        run: |
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > upload.keystore
+            echo "STORE_PASS=${{ secrets.ANDROID_KEYSTORE_PASS }}" >> "$GITHUB_ENV"
+            echo "KEY_ALIAS=${{ secrets.ANDROID_KEY_ALIAS }}"      >> "$GITHUB_ENV"
+            echo "KEY_PASS=${{ secrets.ANDROID_KEY_PASS }}"        >> "$GITHUB_ENV"
+          else
+            echo "No keystore secrets — generating a throwaway signing key."
+            keytool -genkeypair -v -keystore upload.keystore -alias pakkahisaab \
+              -keyalg RSA -keysize 2048 -validity 10000 -storepass cipassword \
+              -keypass cipassword -dname "CN=PakkaHisaab CI, O=ClearKhata, C=IN"
+            echo "STORE_PASS=cipassword" >> "$GITHUB_ENV"
+            echo "KEY_ALIAS=pakkahisaab" >> "$GITHUB_ENV"
+            echo "KEY_PASS=cipassword"   >> "$GITHUB_ENV"
+          fi
+
+      - name: Build signed APK
+        run: |
+          dotnet publish src/PakkaHisaab.Maui -f net8.0-android -c Release \
+            -p:AndroidKeyStore=true \
+            -p:AndroidSigningKeyStore="$PWD/upload.keystore" \
+            -p:AndroidSigningKeyAlias="$KEY_ALIAS" \
+            -p:AndroidSigningStorePass="$STORE_PASS" \
+            -p:AndroidSigningKeyPass="$KEY_PASS" \
+            -p:AndroidPackageFormats=apk
+
+      - name: Collect artifact
+        run: |
+          mkdir -p out
+          find src/PakkaHisaab.Maui/bin/Release/net8.0-android -name "*-Signed.apk" \
+            -exec cp {} out/PakkaHisaab.apk \;
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PakkaHisaab-apk
+          path: out/PakkaHisaab.apk
+
+      - name: Attach APK to the GitHub Release (on tag)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: out/PakkaHisaab.apk

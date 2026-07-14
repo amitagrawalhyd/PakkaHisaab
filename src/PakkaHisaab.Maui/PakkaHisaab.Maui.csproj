@@ -1,0 +1,82 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>PakkaHisaab.Maui</RootNamespace>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <ApplicationTitle>PakkaHisaab</ApplicationTitle>
+    <ApplicationId>com.clearkhata.pakkahisaab</ApplicationId>
+    <ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">12.2</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- App icon: auto-generates Android adaptive icons (bg + fg layers) and the full iOS icon grid
+         from the brand logo (vector recreation of Code_Generated_Image.png). -->
+    <MauiIcon Include="Resources\AppIcon\appicon.svg"
+              ForegroundFile="Resources\AppIcon\appiconfg.svg"
+              Color="#FFFFFF" />
+
+    <!-- Native splash: brand logo centered with the "Tap. Track. Settle." tagline. -->
+    <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#FFFFFF" BaseSize="342,428" />
+
+    <MauiImage Include="Resources\Images\*" />
+    <!-- Icon fonts (Material Symbols) + brand type. Run tools/get_fonts.sh once to download the .ttf files. -->
+    <MauiFont Include="Resources\Fonts\*" />
+    <!-- report_logo.png ships as an asset so QuestPDF can embed it in PDF headers at runtime. -->
+    <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.100" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
+
+    <!-- MVVM (source-generated observable properties + relay commands) -->
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <!-- ISpeechToText (Voice-to-Ledger), Snackbar/Toast, behaviors -->
+    <PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
+
+    <!-- Offline-first local store -->
+    <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.10" />
+
+    <!-- Cross-platform background jobs for silent sync -->
+    <PackageReference Include="Shiny.Hosting.Maui" Version="3.3.4" />
+    <PackageReference Include="Shiny.Jobs" Version="3.3.4" />
+
+    <!-- Local push notifications (5 PM attendance + salary alerts) with action buttons -->
+    <PackageReference Include="Plugin.LocalNotification" Version="11.1.4" />
+
+    <!-- Modern bottom-sheet modals -->
+    <PackageReference Include="Plugin.Maui.BottomSheet" Version="8.0.2" />
+
+    <!-- PDF reports -->
+    <PackageReference Include="QuestPDF" Version="2024.10.2" />
+
+    <!-- Telemetry & crash reporting -->
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.6" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PakkaHisaab.Shared\PakkaHisaab.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Runtime-switchable localization resources (23 languages) -->
+    <EmbeddedResource Update="Resources\Strings\AppStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

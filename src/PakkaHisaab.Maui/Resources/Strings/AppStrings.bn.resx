@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Tagline" xml:space="preserve">
+    <value>ট্যাপ করুন। হিসাব রাখুন। মিটিয়ে দিন।</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>বাতিল</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>মুছুন</value>
+  </data>
+  <data name="Common_Or" xml:space="preserve">
+    <value>অথবা</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>সংরক্ষণ</value>
+  </data>
+  <data name="Common_Saved" xml:space="preserve">
+    <value>সংরক্ষিত</value>
+  </data>
+  <data name="Dash_OpenCalendar" xml:space="preserve">
+    <value>ক্যালেন্ডার</value>
+  </data>
+  <data name="Dash_Settle" xml:space="preserve">
+    <value>মিটিয়ে দিন</value>
+  </data>
+  <data name="Dash_TotalPayable" xml:space="preserve">
+    <value>এ মাসে প্রদেয়:</value>
+  </data>
+  <data name="Login_CreateAccount" xml:space="preserve">
+    <value>অ্যাকাউন্ট তৈরি করুন</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>ইমেইল</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>পাসওয়ার্ড</value>
+  </data>
+  <data name="Login_SignIn" xml:space="preserve">
+    <value>সাইন ইন</value>
+  </data>
+  <data name="Login_TryDemo" xml:space="preserve">
+    <value>ডেমো দেখুন</value>
+  </data>
+  <data name="Notify_AttendanceBody" xml:space="preserve">
+    <value>আজ {0}-এর উপস্থিতি চিহ্নিত করুন। ডিফল্ট: উপস্থিত।</value>
+  </data>
+  <data name="Notify_AttendanceTitle" xml:space="preserve">
+    <value>উপস্থিতির অনুস্মারক</value>
+  </data>
+  <data name="Notify_SalaryBody" xml:space="preserve">
+    <value>{0}-এর বেতন বাকি। মেটাতে ট্যাপ করুন।</value>
+  </data>
+  <data name="Notify_SalaryTitle" xml:space="preserve">
+    <value>বেতন বাকি</value>
+  </data>
+  <data name="Report_FinalPayable" xml:space="preserve">
+    <value>প্রদেয় অর্থ</value>
+  </data>
+  <data name="Settings_DeleteAccount" xml:space="preserve">
+    <value>আমার অ্যাকাউন্ট ও ডেটা মুছুন</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>ভাষা</value>
+  </data>
+  <data name="Settings_Logout" xml:space="preserve">
+    <value>লগ আউট</value>
+  </data>
+  <data name="Status_Absent" xml:space="preserve">
+    <value>অনুপস্থিত</value>
+  </data>
+  <data name="Status_HalfDay" xml:space="preserve">
+    <value>অর্ধদিবস</value>
+  </data>
+  <data name="Status_Present" xml:space="preserve">
+    <value>উপস্থিত</value>
+  </data>
+  <data name="Tab_Home" xml:space="preserve">
+    <value>হোম</value>
+  </data>
+  <data name="Tab_Reports" xml:space="preserve">
+    <value>রিপোর্ট</value>
+  </data>
+  <data name="Tab_Settings" xml:space="preserve">
+    <value>সেটিংস</value>
+  </data>
+</root>

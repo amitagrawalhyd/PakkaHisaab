@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Tagline" xml:space="preserve">
+    <value>ਟੈਪ ਕਰੋ। ਟ੍ਰੈਕ ਕਰੋ। ਹਿਸਾਬ ਚੁਕਾਓ।</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>ਰੱਦ ਕਰੋ</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>ਮਿਟਾਓ</value>
+  </data>
+  <data name="Common_Or" xml:space="preserve">
+    <value>ਜਾਂ</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>ਸੰਭਾਲੋ</value>
+  </data>
+  <data name="Common_Saved" xml:space="preserve">
+    <value>ਸੰਭਾਲਿਆ ਗਿਆ</value>
+  </data>
+  <data name="Dash_OpenCalendar" xml:space="preserve">
+    <value>ਕੈਲੰਡਰ</value>
+  </data>
+  <data name="Dash_Settle" xml:space="preserve">
+    <value>ਹਿਸਾਬ ਚੁਕਾਓ</value>
+  </data>
+  <data name="Dash_TotalPayable" xml:space="preserve">
+    <value>ਇਸ ਮਹੀਨੇ ਦੇਣਯੋਗ:</value>
+  </data>
+  <data name="Login_CreateAccount" xml:space="preserve">
+    <value>ਖਾਤਾ ਬਣਾਓ</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>ਈਮੇਲ</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>ਪਾਸਵਰਡ</value>
+  </data>
+  <data name="Login_SignIn" xml:space="preserve">
+    <value>ਸਾਈਨ ਇਨ</value>
+  </data>
+  <data name="Login_TryDemo" xml:space="preserve">
+    <value>ਡੈਮੋ ਅਜ਼ਮਾਓ</value>
+  </data>
+  <data name="Notify_AttendanceBody" xml:space="preserve">
+    <value>{0} ਦੀ ਅੱਜ ਦੀ ਹਾਜ਼ਰੀ ਲਗਾਓ। ਡਿਫਾਲਟ: ਹਾਜ਼ਰ।</value>
+  </data>
+  <data name="Notify_AttendanceTitle" xml:space="preserve">
+    <value>ਹਾਜ਼ਰੀ ਯਾਦ-ਦਹਾਨੀ</value>
+  </data>
+  <data name="Notify_SalaryBody" xml:space="preserve">
+    <value>{0} ਦੀ ਤਨਖਾਹ ਬਾਕੀ ਹੈ। ਹਿਸਾਬ ਚੁਕਾਉਣ ਲਈ ਟੈਪ ਕਰੋ।</value>
+  </data>
+  <data name="Notify_SalaryTitle" xml:space="preserve">
+    <value>ਤਨਖਾਹ ਬਾਕੀ</value>
+  </data>
+  <data name="Report_FinalPayable" xml:space="preserve">
+    <value>ਭੁਗਤਾਨਯੋਗ ਰਕਮ</value>
+  </data>
+  <data name="Settings_DeleteAccount" xml:space="preserve">
+    <value>ਮੇਰਾ ਖਾਤਾ ਅਤੇ ਡਾਟਾ ਮਿਟਾਓ</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>ਭਾਸ਼ਾ</value>
+  </data>
+  <data name="Settings_Logout" xml:space="preserve">
+    <value>ਲਾਗ ਆਊਟ</value>
+  </data>
+  <data name="Status_Absent" xml:space="preserve">
+    <value>ਗੈਰਹਾਜ਼ਰ</value>
+  </data>
+  <data name="Status_HalfDay" xml:space="preserve">
+    <value>ਅੱਧਾ ਦਿਨ</value>
+  </data>
+  <data name="Status_Present" xml:space="preserve">
+    <value>ਹਾਜ਼ਰ</value>
+  </data>
+  <data name="Tab_Home" xml:space="preserve">
+    <value>ਹੋਮ</value>
+  </data>
+  <data name="Tab_Reports" xml:space="preserve">
+    <value>ਰਿਪੋਰਟਾਂ</value>
+  </data>
+  <data name="Tab_Settings" xml:space="preserve">
+    <value>ਸੈਟਿੰਗਾਂ</value>
+  </data>
+</root>

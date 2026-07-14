@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PakkaHisaab.Maui.ViewModels"
+             xmlns:helpers="clr-namespace:PakkaHisaab.Maui.Helpers"
+             x:Class="PakkaHisaab.Maui.Views.ReportsPage"
+             x:DataType="vm:ReportsViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,56,20,20" Spacing="16">
+
+            <Label Style="{StaticResource TitleLabel}" Text="{helpers:Translate Reports_Title}" />
+
+            <!-- Month picker -->
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Grid.Column="0" Style="{StaticResource SecondaryButton}"
+                        WidthRequest="48" HeightRequest="44" Padding="0"
+                        FontFamily="MaterialIcons" Text="{x:Static helpers:IconFont.ArrowBack}"
+                        Command="{Binding PreviousMonthCommand}" />
+                <Label Grid.Column="1" Style="{StaticResource SectionLabel}"
+                       HorizontalTextAlignment="Center" VerticalOptions="Center"
+                       Text="{Binding MonthLabel}" />
+                <Button Grid.Column="2" Style="{StaticResource SecondaryButton}"
+                        WidthRequest="48" HeightRequest="44" Padding="0" Rotation="180"
+                        FontFamily="MaterialIcons" Text="{x:Static helpers:IconFont.ArrowBack}"
+                        Command="{Binding NextMonthCommand}" />
+            </Grid>
+
+            <!-- Report 1: Helper Monthly Ledger -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Label Style="{StaticResource IconLabel}" FontSize="30"
+                               Text="{x:Static helpers:IconFont.Receipt}" />
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Style="{StaticResource SectionLabel}" Text="{helpers:Translate Report_LedgerTitle}" />
+                            <Label Style="{StaticResource MutedLabel}" Text="{helpers:Translate Reports_LedgerDescription}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <Border Style="{StaticResource InputBorder}">
+                        <Picker ItemsSource="{Binding Helpers}"
+                                ItemDisplayBinding="{Binding Name}"
+                                SelectedItem="{Binding SelectedHelper}" />
+                    </Border>
+                    <Button Text="{helpers:Translate Reports_GenerateShare}"
+                            Command="{Binding GenerateHelperLedgerCommand}"
+                            IsEnabled="{Binding IsNotBusy}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Report 2: Household Summary -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="12">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Label Style="{StaticResource IconLabel}" FontSize="30"
+                               Text="{x:Static helpers:IconFont.Home}" />
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Style="{StaticResource SectionLabel}" Text="{helpers:Translate Report_HouseholdTitle}" />
+                            <Label Style="{StaticResource MutedLabel}" Text="{helpers:Translate Reports_HouseholdDescription}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <Button Text="{helpers:Translate Reports_GenerateShare}"
+                            Command="{Binding GenerateHouseholdSummaryCommand}"
+                            IsEnabled="{Binding IsNotBusy}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

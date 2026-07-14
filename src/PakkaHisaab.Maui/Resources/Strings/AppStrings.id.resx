@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Tagline" xml:space="preserve">
+    <value>Ketuk. Catat. Lunasi.</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Batal</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Hapus</value>
+  </data>
+  <data name="Common_Or" xml:space="preserve">
+    <value>atau</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Simpan</value>
+  </data>
+  <data name="Common_Saved" xml:space="preserve">
+    <value>Tersimpan</value>
+  </data>
+  <data name="Dash_OpenCalendar" xml:space="preserve">
+    <value>Kalender</value>
+  </data>
+  <data name="Dash_Settle" xml:space="preserve">
+    <value>Lunasi</value>
+  </data>
+  <data name="Dash_TotalPayable" xml:space="preserve">
+    <value>Dibayar bulan ini:</value>
+  </data>
+  <data name="Login_CreateAccount" xml:space="preserve">
+    <value>Buat akun</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Kata sandi</value>
+  </data>
+  <data name="Login_SignIn" xml:space="preserve">
+    <value>Masuk</value>
+  </data>
+  <data name="Login_TryDemo" xml:space="preserve">
+    <value>Coba demo</value>
+  </data>
+  <data name="Notify_AttendanceBody" xml:space="preserve">
+    <value>Tandai kehadiran {0} hari ini. Default: hadir.</value>
+  </data>
+  <data name="Notify_AttendanceTitle" xml:space="preserve">
+    <value>Pengingat kehadiran</value>
+  </data>
+  <data name="Notify_SalaryBody" xml:space="preserve">
+    <value>Gaji {0} belum dibayar. Ketuk untuk melunasi.</value>
+  </data>
+  <data name="Notify_SalaryTitle" xml:space="preserve">
+    <value>Gaji jatuh tempo</value>
+  </data>
+  <data name="Report_FinalPayable" xml:space="preserve">
+    <value>Total dibayar</value>
+  </data>
+  <data name="Settings_DeleteAccount" xml:space="preserve">
+    <value>Hapus akun &amp; data saya</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Bahasa</value>
+  </data>
+  <data name="Settings_Logout" xml:space="preserve">
+    <value>Keluar</value>
+  </data>
+  <data name="Status_Absent" xml:space="preserve">
+    <value>Absen</value>
+  </data>
+  <data name="Status_HalfDay" xml:space="preserve">
+    <value>Setengah hari</value>
+  </data>
+  <data name="Status_Present" xml:space="preserve">
+    <value>Hadir</value>
+  </data>
+  <data name="Tab_Home" xml:space="preserve">
+    <value>Beranda</value>
+  </data>
+  <data name="Tab_Reports" xml:space="preserve">
+    <value>Laporan</value>
+  </data>
+  <data name="Tab_Settings" xml:space="preserve">
+    <value>Pengaturan</value>
+  </data>
+</root>

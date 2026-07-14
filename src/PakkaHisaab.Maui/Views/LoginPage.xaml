@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PakkaHisaab.Maui.ViewModels"
+             xmlns:helpers="clr-namespace:PakkaHisaab.Maui.Helpers"
+             x:Class="PakkaHisaab.Maui.Views.LoginPage"
+             x:DataType="vm:LoginViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28,60,28,32" Spacing="18">
+
+            <!-- Brand -->
+            <Image Source="logo.png" HeightRequest="110" HorizontalOptions="Center" />
+            <Label Style="{StaticResource TitleLabel}" HorizontalTextAlignment="Center"
+                   Text="PakkaHisaab" />
+            <Label Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center"
+                   Margin="0,-14,0,10"
+                   Text="{helpers:Translate App_Tagline}" />
+
+            <!-- Credentials -->
+            <Border Style="{StaticResource InputBorder}">
+                <Entry Placeholder="{helpers:Translate Login_Email}"
+                       Keyboard="Email"
+                       Text="{Binding Email}" />
+            </Border>
+            <Border Style="{StaticResource InputBorder}">
+                <Entry Placeholder="{helpers:Translate Login_Password}"
+                       IsPassword="True"
+                       Text="{Binding Password}" />
+            </Border>
+            <Border Style="{StaticResource InputBorder}"
+                    IsVisible="{Binding IsRegisterMode}">
+                <Entry Placeholder="{helpers:Translate Login_DisplayName}"
+                       Text="{Binding DisplayName}" />
+            </Border>
+
+            <Button Text="{helpers:Translate Login_SignIn}"
+                    Command="{Binding SubmitCommand}"
+                    IsVisible="{Binding IsRegisterMode, Converter={StaticResource InvertBool}}"
+                    IsEnabled="{Binding IsNotBusy}" />
+            <Button Text="{helpers:Translate Login_CreateAccount}"
+                    Command="{Binding SubmitCommand}"
+                    IsVisible="{Binding IsRegisterMode}"
+                    IsEnabled="{Binding IsNotBusy}" />
+
+            <Label HorizontalTextAlignment="Center" TextColor="{StaticResource Primary}"
+                   FontFamily="PoppinsSemiBold"
+                   Text="{helpers:Translate Login_ToggleMode}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToggleModeCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <!-- Divider -->
+            <Grid ColumnDefinitions="*,Auto,*" ColumnSpacing="12" Margin="0,8">
+                <BoxView Grid.Column="0" HeightRequest="1" Color="{StaticResource Outline}" VerticalOptions="Center" />
+                <Label Grid.Column="1" Style="{StaticResource MutedLabel}" Text="{helpers:Translate Common_Or}" />
+                <BoxView Grid.Column="2" HeightRequest="1" Color="{StaticResource Outline}" VerticalOptions="Center" />
+            </Grid>
+
+            <!-- Instant Demo Mode: zero-login reviewer track -->
+            <Button Style="{StaticResource SecondaryButton}"
+                    Text="{helpers:Translate Login_TryDemo}"
+                    Command="{Binding TryDemoCommand}"
+                    IsEnabled="{Binding IsNotBusy}" />
+            <Label Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" FontSize="11"
+                   Text="{helpers:Translate Login_DemoHint}" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,43 @@
+# Free CI/CD: build + deploy the API to the Azure F1 web app on every push to main.
+# GitHub Actions is free for public repos (2,000 min/mo on private).
+#
+# One-time setup:
+#   1. Azure Portal → your web app → Get publish profile (download the .PublishSettings XML)
+#   2. GitHub repo → Settings → Secrets → Actions → new secret:
+#        AZURE_WEBAPP_PUBLISH_PROFILE  = <paste the XML>
+#        AZURE_WEBAPP_NAME             = api-pakkahisaab-<suffix>
+name: api-deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/PakkaHisaab.Api/**"
+      - "src/PakkaHisaab.Shared/**"
+      - ".github/workflows/api-deploy.yml"
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Build & publish
+        run: dotnet publish src/PakkaHisaab.Api -c Release -o publish
+
+      - name: Deploy to Azure Web App (F1 free plan)
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: publish
+
+      - name: End-to-end smoke test against the live deployment
+        run: |
+          sleep 30   # let the F1 instance warm up
+          bash deploy/smoke_test.sh "https://${{ secrets.AZURE_WEBAPP_NAME }}.azurewebsites.net"

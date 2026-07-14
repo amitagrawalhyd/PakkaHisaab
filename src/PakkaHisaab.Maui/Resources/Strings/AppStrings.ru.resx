@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Tagline" xml:space="preserve">
+    <value>Нажми. Отслеживай. Рассчитайся.</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Common_Or" xml:space="preserve">
+    <value>или</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Common_Saved" xml:space="preserve">
+    <value>Сохранено</value>
+  </data>
+  <data name="Dash_OpenCalendar" xml:space="preserve">
+    <value>Календарь</value>
+  </data>
+  <data name="Dash_Settle" xml:space="preserve">
+    <value>Рассчитаться</value>
+  </data>
+  <data name="Dash_TotalPayable" xml:space="preserve">
+    <value>К оплате в этом месяце:</value>
+  </data>
+  <data name="Login_CreateAccount" xml:space="preserve">
+    <value>Создать аккаунт</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>Эл. почта</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Login_SignIn" xml:space="preserve">
+    <value>Войти</value>
+  </data>
+  <data name="Login_TryDemo" xml:space="preserve">
+    <value>Попробовать демо</value>
+  </data>
+  <data name="Notify_AttendanceBody" xml:space="preserve">
+    <value>Отметьте посещаемость {0} за сегодня. По умолчанию: присутствует.</value>
+  </data>
+  <data name="Notify_AttendanceTitle" xml:space="preserve">
+    <value>Напоминание о посещаемости</value>
+  </data>
+  <data name="Notify_SalaryBody" xml:space="preserve">
+    <value>Зарплата {0} не выплачена. Нажмите, чтобы рассчитаться.</value>
+  </data>
+  <data name="Notify_SalaryTitle" xml:space="preserve">
+    <value>Зарплата к выплате</value>
+  </data>
+  <data name="Report_FinalPayable" xml:space="preserve">
+    <value>Итого к оплате</value>
+  </data>
+  <data name="Settings_DeleteAccount" xml:space="preserve">
+    <value>Удалить аккаунт и данные</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Settings_Logout" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="Status_Absent" xml:space="preserve">
+    <value>Отсутствует</value>
+  </data>
+  <data name="Status_HalfDay" xml:space="preserve">
+    <value>Полдня</value>
+  </data>
+  <data name="Status_Present" xml:space="preserve">
+    <value>Присутствует</value>
+  </data>
+  <data name="Tab_Home" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Tab_Reports" xml:space="preserve">
+    <value>Отчёты</value>
+  </data>
+  <data name="Tab_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+</root>

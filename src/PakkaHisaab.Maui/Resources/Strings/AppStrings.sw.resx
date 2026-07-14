@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Tagline" xml:space="preserve">
+    <value>Gusa. Fuatilia. Lipa.</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Ghairi</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Futa</value>
+  </data>
+  <data name="Common_Or" xml:space="preserve">
+    <value>au</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Hifadhi</value>
+  </data>
+  <data name="Common_Saved" xml:space="preserve">
+    <value>Imehifadhiwa</value>
+  </data>
+  <data name="Dash_OpenCalendar" xml:space="preserve">
+    <value>Kalenda</value>
+  </data>
+  <data name="Dash_Settle" xml:space="preserve">
+    <value>Lipa</value>
+  </data>
+  <data name="Dash_TotalPayable" xml:space="preserve">
+    <value>Ya kulipa mwezi huu:</value>
+  </data>
+  <data name="Login_CreateAccount" xml:space="preserve">
+    <value>Fungua akaunti</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>Barua pepe</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Nenosiri</value>
+  </data>
+  <data name="Login_SignIn" xml:space="preserve">
+    <value>Ingia</value>
+  </data>
+  <data name="Login_TryDemo" xml:space="preserve">
+    <value>Jaribu demo</value>
+  </data>
+  <data name="Notify_AttendanceBody" xml:space="preserve">
+    <value>Weka mahudhurio ya leo ya {0}. Chaguo-msingi: yupo.</value>
+  </data>
+  <data name="Notify_AttendanceTitle" xml:space="preserve">
+    <value>Kikumbusho cha mahudhurio</value>
+  </data>
+  <data name="Notify_SalaryBody" xml:space="preserve">
+    <value>Mshahara wa {0} bado. Gusa kulipa.</value>
+  </data>
+  <data name="Notify_SalaryTitle" xml:space="preserve">
+    <value>Mshahara unadaiwa</value>
+  </data>
+  <data name="Report_FinalPayable" xml:space="preserve">
+    <value>Kiasi cha kulipa</value>
+  </data>
+  <data name="Settings_DeleteAccount" xml:space="preserve">
+    <value>Futa akaunti na data yangu</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Lugha</value>
+  </data>
+  <data name="Settings_Logout" xml:space="preserve">
+    <value>Ondoka</value>
+  </data>
+  <data name="Status_Absent" xml:space="preserve">
+    <value>Hayupo</value>
+  </data>
+  <data name="Status_HalfDay" xml:space="preserve">
+    <value>Nusu siku</value>
+  </data>
+  <data name="Status_Present" xml:space="preserve">
+    <value>Yupo</value>
+  </data>
+  <data name="Tab_Home" xml:space="preserve">
+    <value>Mwanzo</value>
+  </data>
+  <data name="Tab_Reports" xml:space="preserve">
+    <value>Ripoti</value>
+  </data>
+  <data name="Tab_Settings" xml:space="preserve">
+    <value>Mipangilio</value>
+  </data>
+</root>

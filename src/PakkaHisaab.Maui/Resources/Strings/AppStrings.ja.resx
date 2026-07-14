@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Tagline" xml:space="preserve">
+    <value>タップ。記録。精算。</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="Common_Or" xml:space="preserve">
+    <value>または</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Common_Saved" xml:space="preserve">
+    <value>保存しました</value>
+  </data>
+  <data name="Dash_OpenCalendar" xml:space="preserve">
+    <value>カレンダー</value>
+  </data>
+  <data name="Dash_Settle" xml:space="preserve">
+    <value>精算</value>
+  </data>
+  <data name="Dash_TotalPayable" xml:space="preserve">
+    <value>今月の支払額：</value>
+  </data>
+  <data name="Login_CreateAccount" xml:space="preserve">
+    <value>アカウント作成</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>メールアドレス</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>パスワード</value>
+  </data>
+  <data name="Login_SignIn" xml:space="preserve">
+    <value>サインイン</value>
+  </data>
+  <data name="Login_TryDemo" xml:space="preserve">
+    <value>デモを試す</value>
+  </data>
+  <data name="Notify_AttendanceBody" xml:space="preserve">
+    <value>{0}の今日の出勤を記録してください。既定：出勤。</value>
+  </data>
+  <data name="Notify_AttendanceTitle" xml:space="preserve">
+    <value>出勤リマインダー</value>
+  </data>
+  <data name="Notify_SalaryBody" xml:space="preserve">
+    <value>{0}の給与が未払いです。タップして精算。</value>
+  </data>
+  <data name="Notify_SalaryTitle" xml:space="preserve">
+    <value>給与支払い</value>
+  </data>
+  <data name="Report_FinalPayable" xml:space="preserve">
+    <value>支払額</value>
+  </data>
+  <data name="Settings_DeleteAccount" xml:space="preserve">
+    <value>アカウントとデータを削除</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="Settings_Logout" xml:space="preserve">
+    <value>ログアウト</value>
+  </data>
+  <data name="Status_Absent" xml:space="preserve">
+    <value>欠勤</value>
+  </data>
+  <data name="Status_HalfDay" xml:space="preserve">
+    <value>半日</value>
+  </data>
+  <data name="Status_Present" xml:space="preserve">
+    <value>出勤</value>
+  </data>
+  <data name="Tab_Home" xml:space="preserve">
+    <value>ホーム</value>
+  </data>
+  <data name="Tab_Reports" xml:space="preserve">
+    <value>レポート</value>
+  </data>
+  <data name="Tab_Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+</root>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_Tagline" xml:space="preserve">
+    <value>Tippen. Verfolgen. Abrechnen.</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Common_Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="Common_Or" xml:space="preserve">
+    <value>oder</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="Common_Saved" xml:space="preserve">
+    <value>Gespeichert</value>
+  </data>
+  <data name="Dash_OpenCalendar" xml:space="preserve">
+    <value>Kalender</value>
+  </data>
+  <data name="Dash_Settle" xml:space="preserve">
+    <value>Abrechnen</value>
+  </data>
+  <data name="Dash_TotalPayable" xml:space="preserve">
+    <value>Diesen Monat fällig:</value>
+  </data>
+  <data name="Login_CreateAccount" xml:space="preserve">
+    <value>Konto erstellen</value>
+  </data>
+  <data name="Login_Email" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="Login_Password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="Login_SignIn" xml:space="preserve">
+    <value>Anmelden</value>
+  </data>
+  <data name="Login_TryDemo" xml:space="preserve">
+    <value>Demo testen</value>
+  </data>
+  <data name="Notify_AttendanceBody" xml:space="preserve">
+    <value>Anwesenheit von {0} für heute erfassen. Standard: anwesend.</value>
+  </data>
+  <data name="Notify_AttendanceTitle" xml:space="preserve">
+    <value>Anwesenheits-Erinnerung</value>
+  </data>
+  <data name="Notify_SalaryBody" xml:space="preserve">
+    <value>Das Gehalt von {0} steht aus. Zum Abrechnen tippen.</value>
+  </data>
+  <data name="Notify_SalaryTitle" xml:space="preserve">
+    <value>Gehalt fällig</value>
+  </data>
+  <data name="Report_FinalPayable" xml:space="preserve">
+    <value>Zu zahlender Betrag</value>
+  </data>
+  <data name="Settings_DeleteAccount" xml:space="preserve">
+    <value>Konto &amp; Daten löschen</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="Settings_Logout" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
+  <data name="Status_Absent" xml:space="preserve">
+    <value>Abwesend</value>
+  </data>
+  <data name="Status_HalfDay" xml:space="preserve">
+    <value>Halber Tag</value>
+  </data>
+  <data name="Status_Present" xml:space="preserve">
+    <value>Anwesend</value>
+  </data>
+  <data name="Tab_Home" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Tab_Reports" xml:space="preserve">
+    <value>Berichte</value>
+  </data>
+  <data name="Tab_Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+</root>

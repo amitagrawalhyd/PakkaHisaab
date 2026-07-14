@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PakkaHisaab.Maui.ViewModels"
+             xmlns:helpers="clr-namespace:PakkaHisaab.Maui.Helpers"
+             x:Class="PakkaHisaab.Maui.Views.CalendarPage"
+             x:DataType="vm:CalendarViewModel"
+             Title="{Binding HelperName}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <!-- Month navigation -->
+            <Grid ColumnDefinitions="Auto,*,Auto">
+                <Button Grid.Column="0" Style="{StaticResource SecondaryButton}"
+                        WidthRequest="48" HeightRequest="44" Padding="0"
+                        FontFamily="MaterialIcons" Text="{x:Static helpers:IconFont.ArrowBack}"
+                        Command="{Binding PreviousMonthCommand}" />
+                <Label Grid.Column="1" Style="{StaticResource SectionLabel}"
+                       HorizontalTextAlignment="Center" VerticalOptions="Center"
+                       Text="{Binding MonthLabel}" />
+                <Button Grid.Column="2" Style="{StaticResource SecondaryButton}"
+                        WidthRequest="48" HeightRequest="44" Padding="0" Rotation="180"
+                        FontFamily="MaterialIcons" Text="{x:Static helpers:IconFont.ArrowBack}"
+                        Command="{Binding NextMonthCommand}" />
+            </Grid>
+
+            <!-- Legend -->
+            <HorizontalStackLayout Spacing="16" HorizontalOptions="Center">
+                <HorizontalStackLayout Spacing="5">
+                    <BoxView WidthRequest="12" HeightRequest="12" CornerRadius="6" Color="{StaticResource PresentGreen}" VerticalOptions="Center" />
+                    <Label Style="{StaticResource MutedLabel}" Text="{helpers:Translate Status_Present}" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="5">
+                    <BoxView WidthRequest="12" HeightRequest="12" CornerRadius="6" Color="{StaticResource AbsentRed}" VerticalOptions="Center" />
+                    <Label Style="{StaticResource MutedLabel}" Text="{helpers:Translate Status_Absent}" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="5">
+                    <BoxView WidthRequest="12" HeightRequest="12" CornerRadius="6" Color="{StaticResource HalfDayYellow}" VerticalOptions="Center" />
+                    <Label Style="{StaticResource MutedLabel}" Text="{helpers:Translate Status_HalfDay}" />
+                </HorizontalStackLayout>
+            </HorizontalStackLayout>
+
+            <!-- The 2-tap calendar: a 7-column CollectionView of day cells -->
+            <Border Style="{StaticResource Card}" Padding="10">
+                <VerticalStackLayout Spacing="8">
+                    <!-- Weekday header (Mon-first) -->
+                    <Grid ColumnDefinitions="*,*,*,*,*,*,*">
+                        <Label Grid.Column="0" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Mo}" />
+                        <Label Grid.Column="1" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Tu}" />
+                        <Label Grid.Column="2" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_We}" />
+                        <Label Grid.Column="3" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Th}" />
+                        <Label Grid.Column="4" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Fr}" />
+                        <Label Grid.Column="5" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Sa}" />
+                        <Label Grid.Column="6" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Su}" />
+                    </Grid>
+
+                    <CollectionView ItemsSource="{Binding Days}" SelectionMode="None">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="7"
+                                             VerticalItemSpacing="6" HorizontalItemSpacing="6" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:DayCellViewModel">
+                                <Border StrokeThickness="0"
+                                        BackgroundColor="{Binding CellColor}"
+                                        StrokeShape="RoundRectangle 12"
+                                        HeightRequest="46">
+                                    <VerticalStackLayout VerticalOptions="Center" Spacing="0">
+                                        <Label HorizontalTextAlignment="Center"
+                                               FontFamily="PoppinsSemiBold" FontSize="14"
+                                               TextColor="{Binding TextColor}"
+                                               Text="{Binding DayNumber}" />
+                                        <Label HorizontalTextAlignment="Center" FontSize="9"
+                                               TextColor="{Binding TextColor}"
+                                               IsVisible="{Binding UnitsLabel, Converter={StaticResource NotEmpty}}"
+                                               Text="{Binding UnitsLabel}" />
+                                    </VerticalStackLayout>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding DayTappedCommand, Source={RelativeSource AncestorType={x:Type vm:CalendarViewModel}}}"
+                                            CommandParameter="{Binding .}" />
+                                    </Border.GestureRecognizers>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Live settlement summary -->
+            <Border Style="{StaticResource Card}" BackgroundColor="#F0FDFA">
+                <Label FontFamily="PoppinsSemiBold" TextColor="{StaticResource Primary}"
+                       Text="{Binding SummaryLabel}" />
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Grid.Column="0" Style="{StaticResource SecondaryButton}"
+                        Text="{helpers:Translate Calendar_Ledger}"
+                        Command="{Binding OpenLedgerCommand}" />
+                <Button Grid.Column="1"
+                        Text="{helpers:Translate Dash_Settle}"
+                        Command="{Binding OpenSettlementCommand}" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

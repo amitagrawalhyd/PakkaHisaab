@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Brand palette -->
+    <Color x:Key="Primary">#0F766E</Color>          <!-- Dark Teal -->
+    <Color x:Key="Secondary">#14B8A6</Color>        <!-- Bright Teal -->
+    <Color x:Key="Success">#10B981</Color>          <!-- Emerald -->
+    <Color x:Key="TextPrimary">#1E293B</Color>      <!-- Slate 800 -->
+    <Color x:Key="TextMuted">#64748B</Color>        <!-- Slate 500 -->
+
+    <!-- Semantic -->
+    <Color x:Key="Danger">#EF4444</Color>
+    <Color x:Key="Warning">#F59E0B</Color>
+    <Color x:Key="Surface">#FFFFFF</Color>
+    <Color x:Key="SurfaceAlt">#F1F5F9</Color>
+    <Color x:Key="Background">#F8FAFC</Color>
+    <Color x:Key="Outline">#E2E8F0</Color>
+
+    <!-- Calendar states -->
+    <Color x:Key="PresentGreen">#10B981</Color>
+    <Color x:Key="AbsentRed">#EF4444</Color>
+    <Color x:Key="HalfDayYellow">#F59E0B</Color>
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource Success}" />
+
+    <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#0F766E" Offset="0.0" />
+        <GradientStop Color="#14B8A6" Offset="1.0" />
+    </LinearGradientBrush>
+</ResourceDictionary>
