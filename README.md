@@ -55,7 +55,7 @@ PakkaHisaab.sln
 bash tools/get_fonts.sh                 # one-time: Poppins + Material Symbols
 dotnet workload install maui
 dotnet build src/PakkaHisaab.Api        # backend
-dotnet build src/PakkaHisaab.Maui -f net8.0-android   # app
+dotnet build src/PakkaHisaab.Maui -f net9.0-android   # app
 ```
 
 Run the API (`dotnet run --project src/PakkaHisaab.Api`), create the DB with

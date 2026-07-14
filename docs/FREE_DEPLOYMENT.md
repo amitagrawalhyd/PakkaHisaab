@@ -104,8 +104,8 @@ Building locally instead of CI works too:
 ```bash
 bash tools/get_fonts.sh
 dotnet workload install maui
-dotnet publish src/PakkaHisaab.Maui -f net8.0-android -c Release -p:AndroidPackageFormats=apk
-adb install src/PakkaHisaab.Maui/bin/Release/net8.0-android/publish/*-Signed.apk
+dotnet publish src/PakkaHisaab.Maui -f net9.0-android -c Release -p:AndroidPackageFormats=apk
+adb install src/PakkaHisaab.Maui/bin/Release/net9.0-android/publish/*-Signed.apk
 ```
 
 Optional upgrade later (not free, listed for honesty):
@@ -117,7 +117,7 @@ Optional upgrade later (not free, listed for honesty):
 
 There is no fully-free public iOS distribution. Free options:
 
-- **Personal sideload**: with a free Apple ID, Xcode (or `dotnet build -f net8.0-ios`
+- **Personal sideload**: with a free Apple ID, Xcode (or `dotnet build -f net9.0-ios`
   with a free provisioning profile) installs on your own device; the profile expires
   every 7 days and supports 3 apps.
 - **Simulator**: unlimited, free, fine for development and demos.

@@ -69,7 +69,8 @@ public static class MauiProgram
     {
         builder.ConfigureLifecycleEvents(events => events.AddAndroid(android => android.OnCreate((activity, _) =>
         {
-            CrossFirebase.Initialize(activity);
+            // MAUI is single-Activity, so the same instance can always answer the locator.
+            CrossFirebase.Initialize(activity, () => activity);
             FirebaseAnalyticsImplementation.Initialize(activity);
             CrossFirebaseCrashlytics.Current.SetCrashlyticsCollectionEnabled(true);
 

@@ -90,4 +90,4 @@ bash "$ROOT/deploy/smoke_test.sh" "$BASE"
 
 echo
 echo "Next: set Constants.ApiBaseUrl (release branch) to $BASE and build the app:"
-echo "  dotnet publish src/PakkaHisaab.Maui -f net8.0-android -c Release"
+echo "  dotnet publish src/PakkaHisaab.Maui -f net9.0-android -c Release"

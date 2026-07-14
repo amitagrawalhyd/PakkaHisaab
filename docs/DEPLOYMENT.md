@@ -109,7 +109,7 @@ ability to update the app (unless you enrolled in Play App Signing — do enroll
 ### 3.2 Build the signed AAB
 
 ```bash
-dotnet publish src/PakkaHisaab.Maui -f net8.0-android -c Release \
+dotnet publish src/PakkaHisaab.Maui -f net9.0-android -c Release \
   -p:AndroidKeyStore=true \
   -p:AndroidSigningKeyStore=$HOME/keys/pakkahisaab-upload.keystore \
   -p:AndroidSigningKeyAlias=pakkahisaab \
@@ -118,7 +118,7 @@ dotnet publish src/PakkaHisaab.Maui -f net8.0-android -c Release \
   -p:AndroidPackageFormats=aab
 ```
 
-Output: `src/PakkaHisaab.Maui/bin/Release/net8.0-android/publish/com.clearkhata.pakkahisaab-Signed.aab`
+Output: `src/PakkaHisaab.Maui/bin/Release/net9.0-android/publish/com.clearkhata.pakkahisaab-Signed.aab`
 
 ### 3.3 Play Console
 
@@ -157,7 +157,7 @@ Output: `src/PakkaHisaab.Maui/bin/Release/net8.0-android/publish/com.clearkhata.
 ### 4.2 Build the IPA (Mac or Pair-to-Mac from Windows)
 
 ```bash
-dotnet publish src/PakkaHisaab.Maui -f net8.0-ios -c Release \
+dotnet publish src/PakkaHisaab.Maui -f net9.0-ios -c Release \
   -p:IncludeIos=true \
   -p:ArchiveOnBuild=true \
   -p:RuntimeIdentifier=ios-arm64 \
@@ -165,7 +165,7 @@ dotnet publish src/PakkaHisaab.Maui -f net8.0-ios -c Release \
   -p:CodesignProvision="PakkaHisaab AppStore"
 ```
 
-Output: `src/PakkaHisaab.Maui/bin/Release/net8.0-ios/ios-arm64/publish/PakkaHisaab.Maui.ipa`
+Output: `src/PakkaHisaab.Maui/bin/Release/net9.0-ios/ios-arm64/publish/PakkaHisaab.Maui.ipa`
 
 ### 4.3 Upload & review
 
@@ -185,7 +185,7 @@ Output: `src/PakkaHisaab.Maui/bin/Release/net8.0-ios/ios-arm64/publish/PakkaHisa
 - **android.yml** — on tag `v*`: restore MAUI workload → decode keystore from
   `secrets.KEYSTORE_B64` → signed AAB → upload artifact / Play Developer API.
 - **ios.yml** — `macos-14` runner: import cert + profile from secrets →
-  `dotnet publish -f net8.0-ios` → `xcrun altool` upload.
+  `dotnet publish -f net9.0-ios` → `xcrun altool` upload.
 
 ---
 

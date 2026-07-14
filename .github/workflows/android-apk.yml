@@ -40,7 +40,7 @@ jobs:
 
       - uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "9.0.x"
 
       - name: Install MAUI Android workload
         run: dotnet workload install maui-android
@@ -69,7 +69,7 @@ jobs:
 
       - name: Build signed APK
         run: |
-          dotnet publish src/PakkaHisaab.Maui -f net8.0-android -c Release \
+          dotnet publish src/PakkaHisaab.Maui -f net9.0-android -c Release \
             -p:AndroidKeyStore=true \
             -p:AndroidSigningKeyStore="$PWD/upload.keystore" \
             -p:AndroidSigningKeyAlias="$KEY_ALIAS" \

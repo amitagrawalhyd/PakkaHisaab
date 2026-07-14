@@ -1,11 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Android is the default (and only CI/free-deploy) target — net8.0-ios workload
+    <!-- Android is the default (and only CI/free-deploy) target — net8.0 mobile workload
          packs are EOL upstream (aka.ms/maui-support-policy) and no longer resolve on
-         current SDKs. Build iOS explicitly on a Mac with -p:IncludeIos=true. -->
-    <TargetFrameworks>net8.0-android</TargetFrameworks>
-    <TargetFrameworks Condition="'$(IncludeIos)' == 'true'">$(TargetFrameworks);net8.0-ios</TargetFrameworks>
+         current SDKs (net9.0 is the oldest still-installable workload band). Build iOS
+         explicitly on a Mac with -p:IncludeIos=true. -->
+    <TargetFrameworks>net9.0-android</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeIos)' == 'true'">$(TargetFrameworks);net9.0-ios</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <RootNamespace>PakkaHisaab.Maui</RootNamespace>
     <UseMaui>true</UseMaui>
@@ -40,10 +41,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.100" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.120" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.120" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.17" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.17" />
 
     <!-- MVVM (source-generated observable properties + relay commands) -->
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
@@ -62,7 +63,7 @@
     <PackageReference Include="Plugin.LocalNotification" Version="11.1.4" />
 
     <!-- Modern bottom-sheet modals -->
-    <PackageReference Include="Plugin.Maui.BottomSheet" Version="8.0.2" />
+    <PackageReference Include="Plugin.Maui.BottomSheet" Version="9.1.9" />
 
     <!-- PDF reports: hand-drawn A4 reports rendered directly via SKDocument.CreatePdf (see PdfReportService) -->
     <PackageReference Include="SkiaSharp" Version="2.88.9" />
@@ -76,12 +77,12 @@
     <PackageReference Include="SkiaSharp.NativeAssets.Android" Version="2.88.9" />
 
     <!-- Firebase: Auth (SDK init only for now), Analytics + Crashlytics (fan out alongside AppCenter),
-         Cloud Messaging (push notifications). Pinned to the last net8.0-compatible line — 4.x requires net9.0. -->
-    <PackageReference Include="Plugin.Firebase.Core" Version="3.1.1" />
-    <PackageReference Include="Plugin.Firebase.Auth" Version="3.1.1" />
-    <PackageReference Include="Plugin.Firebase.Analytics" Version="3.1.2" />
-    <PackageReference Include="Plugin.Firebase.Crashlytics" Version="3.1.1" />
-    <PackageReference Include="Plugin.Firebase.CloudMessaging" Version="3.1.2" />
+         Cloud Messaging (push notifications). 4.x is the net9.0-android-compatible line. -->
+    <PackageReference Include="Plugin.Firebase.Core" Version="4.2.0" />
+    <PackageReference Include="Plugin.Firebase.Auth" Version="4.0.1" />
+    <PackageReference Include="Plugin.Firebase.Analytics" Version="4.0.0" />
+    <PackageReference Include="Plugin.Firebase.Crashlytics" Version="4.0.0" />
+    <PackageReference Include="Plugin.Firebase.CloudMessaging" Version="4.0.1" />
 
     <!-- google-services.json (com.clearkhata.pakkahisaab / pakkahisaab project) -->
     <GoogleServicesJson Include="google-services.json" />
@@ -89,10 +90,10 @@
     <!-- Force-unify transitive AndroidX.Collection bindings: older plugins (e.g. Plugin.LocalNotification)
          pull Xamarin.AndroidX.Collection.Ktx 1.2.0.9, whose jar still defines ArrayMapKt — a class that
          moved into Xamarin.AndroidX.Collection.Jvm 1.4.x. NuGet doesn't unify across separate package IDs,
-         so both jars ship and D8 fails with a duplicate-class error. Pinning Ktx to the same 1.4.x line
-         resolves it to the merged jar (no duplicate). -->
-    <PackageReference Include="Xamarin.AndroidX.Collection.Ktx" Version="1.4.0.5" />
-    <PackageReference Include="Xamarin.AndroidX.Activity.Ktx" Version="1.9.0.3" />
+         so both jars ship and D8 fails with a duplicate-class error. Pinning Ktx resolves it to the merged
+         jar (no duplicate); left unpinned on Activity.Ktx since a too-new pin fights Microsoft.Maui.Core's
+         own tightly-ranged Lifecycle.* pins (NU1107). -->
+    <PackageReference Include="Xamarin.AndroidX.Collection.Ktx" Version="1.6.0.1" />
   </ItemGroup>
 
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
