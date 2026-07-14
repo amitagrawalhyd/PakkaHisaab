@@ -7,7 +7,7 @@ public static class Constants
         "https://10.0.2.2:7215"; // Android emulator loopback; use https://localhost:7215 on iOS simulator
 #else
         // Free-tier default: your Azure F1 web app (set by deploy/azure_free_deploy.sh output).
-        "https://api-pakkahisaab.azurewebsites.net";
+        "https://api-pakkahisaab-amitagrawal.azurewebsites.net";
 #endif
 
     public const string MainDbName = "PakkaHisaab.db";
