@@ -18,7 +18,11 @@ builder.Services.AddDbContext<AppDbContext>(o =>
     if (dbProvider.Equals("Sqlite", StringComparison.OrdinalIgnoreCase))
         o.UseSqlite(cs ?? "Data Source=/data/pakkahisaab.db");
     else
-        o.UseSqlServer(cs, sql => sql.EnableRetryOnFailure());
+        // Bounded explicitly (default maxRetryDelay is 30s/6 retries, which can exceed the
+        // MAUI client's own timeout) so a cold Azure SQL free-tier auto-resume reliably
+        // finishes within the client's HttpClient.Timeout (see ApiClient.Create).
+        o.UseSqlServer(cs, sql => sql.EnableRetryOnFailure(
+            maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null));
 });
 
 builder.Services.AddScoped<ISyncService, SyncService>();
