@@ -2,9 +2,7 @@ using PakkaHisaab.Maui.Helpers;
 using PakkaHisaab.Shared.Domain;
 using PakkaHisaab.Shared.Dtos;
 using PakkaHisaab.Shared.Enums;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
+using SkiaSharp;
 
 namespace PakkaHisaab.Maui.Services;
 
@@ -18,36 +16,39 @@ public interface IPdfReportService
     Task ShareAsync(string filePath);
 }
 
+static class Palette
+{
+    public static readonly SKColor Teal = SKColor.Parse("#0F766E");
+    public static readonly SKColor BrightTeal = SKColor.Parse("#14B8A6");
+    public static readonly SKColor Emerald = SKColor.Parse("#10B981");
+    public static readonly SKColor Slate = SKColor.Parse("#1E293B");
+    public static readonly SKColor Muted = SKColor.Parse("#64748B");
+    public static readonly SKColor Red = SKColor.Parse("#EF4444");
+    public static readonly SKColor Amber = SKColor.Parse("#F59E0B");
+    public static readonly SKColor RowBorder = SKColor.Parse("#E2E8F0");
+    public static readonly SKColor CardBg = SKColor.Parse("#F0FDFA");
+}
+
 /// <summary>
-/// QuestPDF-based localized reports. The brand logo (report_logo.png, packaged as a MauiAsset)
-/// is embedded in every header. Colors mirror the app palette.
+/// Hand-drawn A4 reports rendered directly with SkiaSharp (SKDocument.CreatePdf), which — unlike
+/// QuestPDF's bundled renderer — ships real native binaries for Android and iOS. Each report runs
+/// a cheap no-canvas "measure" pass first to learn the total page count (needed for the "n / N"
+/// footer), then a second pass draws for real now that the total is known.
 /// </summary>
 public sealed class PdfReportService : IPdfReportService
 {
-    const string Teal = "#0F766E";
-    const string BrightTeal = "#14B8A6";
-    const string Emerald = "#10B981";
-    const string Slate = "#1E293B";
-    const string Muted = "#64748B";
-
     readonly IDataService _data;
     readonly LocalizationResourceManager _loc = LocalizationResourceManager.Instance;
-    byte[]? _logo;
+    SKBitmap? _logo;
 
-    public PdfReportService(IDataService data)
-    {
-        _data = data;
-        QuestPDF.Settings.License = LicenseType.Community;
-    }
+    public PdfReportService(IDataService data) => _data = data;
 
-    async Task<byte[]> GetLogoAsync()
+    async Task<SKBitmap?> GetLogoAsync()
     {
         if (_logo is null)
         {
             using var stream = await FileSystem.OpenAppPackageFileAsync("report_logo.png");
-            using var ms = new MemoryStream();
-            await stream.CopyToAsync(ms);
-            _logo = ms.ToArray();
+            _logo = SKBitmap.Decode(stream);
         }
         return _logo;
     }
@@ -56,7 +57,8 @@ public sealed class PdfReportService : IPdfReportService
     {
         var attendance = (await _data.GetAttendanceAsync(helper.Id, year, month))
             .OrderBy(a => a.Date).ToList();
-        var ledger = await _data.GetLedgerAsync(helper.Id, $"{year:D4}-{month:D2}");
+        var ledger = (await _data.GetLedgerAsync(helper.Id, $"{year:D4}-{month:D2}"))
+            .OrderBy(l => l.OccurredAtUtc).ToList();
         var breakdown = await _data.ComputeSettlementAsync(helper.Id, year, month);
         var logo = await GetLogoAsync();
         var monthName = new DateTime(year, month, 1).ToString("MMMM yyyy", _loc.CurrentCulture);
@@ -64,93 +66,9 @@ public sealed class PdfReportService : IPdfReportService
         var path = Path.Combine(FileSystem.CacheDirectory,
             $"Ledger_{Sanitize(helper.Name)}_{year:D4}-{month:D2}.pdf");
 
-        Document.Create(doc => doc.Page(page =>
-        {
-            page.Size(PageSizes.A4);
-            page.Margin(36);
-            page.DefaultTextStyle(t => t.FontSize(10).FontColor(Slate));
+        void Compose(PageFlow flow) => ComposeLedger(flow, helper, attendance, ledger, breakdown);
 
-            page.Header().Element(h => ComposeHeader(h, logo,
-                _loc.Get("Report_LedgerTitle"), $"{helper.Name} — {monthName}"));
-
-            page.Content().PaddingVertical(14).Column(col =>
-            {
-                col.Spacing(14);
-
-                // Daily breakdown table
-                col.Item().Table(table =>
-                {
-                    table.ColumnsDefinition(c =>
-                    {
-                        c.RelativeColumn(2);
-                        c.RelativeColumn(3);
-                        c.RelativeColumn(2);
-                    });
-                    table.Header(h =>
-                    {
-                        h.Cell().Element(HeadCell).Text(_loc.Get("Report_Date"));
-                        h.Cell().Element(HeadCell).Text(_loc.Get("Report_Status"));
-                        h.Cell().Element(HeadCell).AlignRight().Text(_loc.Get("Report_Units"));
-                    });
-
-                    foreach (var a in attendance)
-                    {
-                        var (label, color) = a.Status switch
-                        {
-                            AttendanceStatus.Present => (_loc.Get("Status_Present"), Emerald),
-                            AttendanceStatus.Absent => (_loc.Get("Status_Absent"), "#EF4444"),
-                            _ => (_loc.Get("Status_HalfDay"), "#F59E0B")
-                        };
-                        table.Cell().Element(BodyCell).Text(a.Date);
-                        table.Cell().Element(BodyCell).Text(t => t.Span(label).FontColor(color).SemiBold());
-                        table.Cell().Element(BodyCell).AlignRight()
-                            .Text(a.UnitsDelivered > 0 ? $"{a.UnitsDelivered:0.##} {helper.UnitLabel}" : "—");
-                    }
-                });
-
-                // Money movements
-                if (ledger.Count > 0)
-                {
-                    col.Item().Text(_loc.Get("Report_Movements")).FontSize(13).SemiBold().FontColor(Teal);
-                    col.Item().Table(table =>
-                    {
-                        table.ColumnsDefinition(c =>
-                        {
-                            c.RelativeColumn(3);
-                            c.RelativeColumn(3);
-                            c.RelativeColumn(2);
-                        });
-                        foreach (var l in ledger.OrderBy(l => l.OccurredAtUtc))
-                        {
-                            table.Cell().Element(BodyCell).Text(l.OccurredAtUtc.ToLocalTime().ToString("dd MMM"));
-                            table.Cell().Element(BodyCell).Text(_loc.Get($"LedgerType_{l.Type}"));
-                            table.Cell().Element(BodyCell).AlignRight().Text($"₹ {l.Amount:N2}");
-                        }
-                    });
-                }
-
-                // Settlement summary card
-                col.Item().Background("#F0FDFA").Border(1).BorderColor(BrightTeal)
-                    .Padding(14).Column(sc =>
-                {
-                    sc.Spacing(4);
-                    Row(sc, _loc.Get("Report_GrossWage"), $"₹ {breakdown.GrossWage:N2}");
-                    Row(sc, _loc.Get("Report_UnpaidAbsences"),
-                        $"{breakdown.UnpaidAbsenceDays:0.#} ({_loc.Get("Report_Deduction")} ₹ {breakdown.AbsenceDeduction:N2})");
-                    Row(sc, _loc.Get("Report_Advances"), $"− ₹ {breakdown.Advances:N2}");
-                    if (breakdown.Bonuses > 0) Row(sc, _loc.Get("Report_Bonuses"), $"+ ₹ {breakdown.Bonuses:N2}");
-                    sc.Item().PaddingTop(6).Row(r =>
-                    {
-                        r.RelativeItem().Text(_loc.Get("Report_FinalPayable")).FontSize(13).Bold();
-                        r.ConstantItem(140).AlignRight()
-                            .Text($"₹ {breakdown.FinalPayable:N2}").FontSize(15).Bold().FontColor(Teal);
-                    });
-                });
-            });
-
-            page.Footer().Element(ComposeFooter);
-        })).GeneratePdf(path);
-
+        RenderTwoPass(path, logo, _loc.Get("Report_LedgerTitle"), $"{helper.Name} — {monthName}", Compose);
         return path;
     }
 
@@ -165,54 +83,245 @@ public sealed class PdfReportService : IPdfReportService
 
         var path = Path.Combine(FileSystem.CacheDirectory, $"Household_{year:D4}-{month:D2}.pdf");
 
-        Document.Create(doc => doc.Page(page =>
-        {
-            page.Size(PageSizes.A4);
-            page.Margin(36);
-            page.DefaultTextStyle(t => t.FontSize(10).FontColor(Slate));
+        void Compose(PageFlow flow) => ComposeHousehold(flow, rows);
 
-            page.Header().Element(h => ComposeHeader(h, logo,
-                _loc.Get("Report_HouseholdTitle"), monthName));
-
-            page.Content().PaddingVertical(14).Table(table =>
-            {
-                table.ColumnsDefinition(c =>
-                {
-                    c.RelativeColumn(3);
-                    c.RelativeColumn(2);
-                    c.RelativeColumn(2);
-                    c.RelativeColumn(2);
-                    c.RelativeColumn(2);
-                });
-                table.Header(h =>
-                {
-                    h.Cell().Element(HeadCell).Text(_loc.Get("Report_Helper"));
-                    h.Cell().Element(HeadCell).AlignRight().Text(_loc.Get("Report_GrossWage"));
-                    h.Cell().Element(HeadCell).AlignRight().Text(_loc.Get("Report_Absences"));
-                    h.Cell().Element(HeadCell).AlignRight().Text(_loc.Get("Report_Advances"));
-                    h.Cell().Element(HeadCell).AlignRight().Text(_loc.Get("Report_FinalPayable"));
-                });
-
-                foreach (var (helper, b) in rows)
-                {
-                    table.Cell().Element(BodyCell).Text(helper.Name).SemiBold();
-                    table.Cell().Element(BodyCell).AlignRight().Text($"₹ {b.GrossWage:N2}");
-                    table.Cell().Element(BodyCell).AlignRight().Text($"{b.AbsentDays + b.HalfDays:0.#}");
-                    table.Cell().Element(BodyCell).AlignRight().Text($"₹ {b.Advances:N2}");
-                    table.Cell().Element(BodyCell).AlignRight()
-                        .Text($"₹ {b.FinalPayable:N2}").Bold().FontColor(Teal);
-                }
-
-                table.Cell().ColumnSpan(4).Element(BodyCell).AlignRight()
-                    .Text(_loc.Get("Report_Total")).Bold();
-                table.Cell().Element(BodyCell).AlignRight()
-                    .Text($"₹ {rows.Sum(r => r.B.FinalPayable):N2}").Bold().FontColor(Emerald);
-            });
-
-            page.Footer().Element(ComposeFooter);
-        })).GeneratePdf(path);
-
+        RenderTwoPass(path, logo, _loc.Get("Report_HouseholdTitle"), monthName, Compose);
         return path;
+    }
+
+    void RenderTwoPass(string path, SKBitmap? logo, string title, string subtitle, Action<PageFlow> compose)
+    {
+        var generatedBy = $"{_loc.Get("Report_GeneratedBy")} PakkaHisaab ·";
+
+        var measure = new PageFlow(null, logo, title, subtitle, generatedBy, knownTotalPages: null);
+        compose(measure);
+        var totalPages = measure.PageCount;
+
+        using var stream = new SKFileWStream(path);
+        using var doc = SKDocument.CreatePdf(stream);
+        var flow = new PageFlow(doc, logo, title, subtitle, generatedBy, totalPages);
+        compose(flow);
+        flow.Finish();
+    }
+
+    void ComposeLedger(PageFlow flow, HelperDto helper, List<AttendanceDto> attendance,
+        List<LedgerEntryDto> ledger, SettlementBreakdown breakdown)
+    {
+        var edges = PageFlow.ColumnEdges(2, 3, 2);
+        DrawHeaderRow(flow, edges, new[]
+        {
+            (_loc.Get("Report_Date"), SKTextAlign.Left),
+            (_loc.Get("Report_Status"), SKTextAlign.Left),
+            (_loc.Get("Report_Units"), SKTextAlign.Right),
+        });
+
+        foreach (var a in attendance)
+        {
+            var (label, color) = a.Status switch
+            {
+                AttendanceStatus.Present => (_loc.Get("Status_Present"), Palette.Emerald),
+                AttendanceStatus.Absent => (_loc.Get("Status_Absent"), Palette.Red),
+                _ => (_loc.Get("Status_HalfDay"), Palette.Amber)
+            };
+            var units = a.UnitsDelivered > 0 ? $"{a.UnitsDelivered:0.##} {helper.UnitLabel}" : "—";
+            DrawBodyRow(flow, edges, new[]
+            {
+                new Cell(a.Date, null, false, SKTextAlign.Left),
+                new Cell(label, color, true, SKTextAlign.Left),
+                new Cell(units, null, false, SKTextAlign.Right),
+            });
+        }
+
+        if (ledger.Count > 0)
+        {
+            DrawSectionTitle(flow, _loc.Get("Report_Movements"));
+            var mEdges = PageFlow.ColumnEdges(3, 3, 2);
+            foreach (var l in ledger)
+            {
+                DrawBodyRow(flow, mEdges, new[]
+                {
+                    new Cell(l.OccurredAtUtc.ToLocalTime().ToString("dd MMM"), null, false, SKTextAlign.Left),
+                    new Cell(_loc.Get($"LedgerType_{l.Type}"), null, false, SKTextAlign.Left),
+                    new Cell($"₹ {l.Amount:N2}", null, false, SKTextAlign.Right),
+                });
+            }
+        }
+
+        DrawSettlementCard(flow, breakdown);
+    }
+
+    void ComposeHousehold(PageFlow flow, List<(HelperDto Helper, SettlementBreakdown B)> rows)
+    {
+        var edges = PageFlow.ColumnEdges(3, 2, 2, 2, 2);
+        DrawHeaderRow(flow, edges, new[]
+        {
+            (_loc.Get("Report_Helper"), SKTextAlign.Left),
+            (_loc.Get("Report_GrossWage"), SKTextAlign.Right),
+            (_loc.Get("Report_Absences"), SKTextAlign.Right),
+            (_loc.Get("Report_Advances"), SKTextAlign.Right),
+            (_loc.Get("Report_FinalPayable"), SKTextAlign.Right),
+        });
+
+        foreach (var (helper, b) in rows)
+        {
+            DrawBodyRow(flow, edges, new[]
+            {
+                new Cell(helper.Name, null, true, SKTextAlign.Left),
+                new Cell($"₹ {b.GrossWage:N2}", null, false, SKTextAlign.Right),
+                new Cell($"{b.AbsentDays + b.HalfDays:0.#}", null, false, SKTextAlign.Right),
+                new Cell($"₹ {b.Advances:N2}", null, false, SKTextAlign.Right),
+                new Cell($"₹ {b.FinalPayable:N2}", Palette.Teal, true, SKTextAlign.Right),
+            });
+        }
+
+        DrawBodyRow(flow, edges, new[]
+        {
+            new Cell("", null, false, SKTextAlign.Left),
+            new Cell("", null, false, SKTextAlign.Right),
+            new Cell("", null, false, SKTextAlign.Right),
+            new Cell(_loc.Get("Report_Total"), null, true, SKTextAlign.Right),
+            new Cell($"₹ {rows.Sum(r => r.B.FinalPayable):N2}", Palette.Emerald, true, SKTextAlign.Right),
+        });
+    }
+
+    // ---------- drawing primitives ----------
+
+    readonly record struct Cell(string Text, SKColor? Color, bool Bold, SKTextAlign Align);
+
+    static void DrawHeaderRow(PageFlow flow, float[] edges, (string Text, SKTextAlign Align)[] cells)
+    {
+        const float h = 22f;
+        flow.EnsureSpace(h);
+        var c = flow.Canvas;
+        if (c is not null)
+        {
+            using var bg = new SKPaint { Color = Palette.Teal, Style = SKPaintStyle.Fill };
+            c.DrawRect(SKRect.Create(edges[0], flow.Y, edges[^1] - edges[0], h), bg);
+            using var text = new SKPaint
+            {
+                IsAntialias = true, Color = SKColors.White, TextSize = 9.5f, FakeBoldText = true
+            };
+            for (var i = 0; i < cells.Length; i++)
+                DrawCellText(c, text, cells[i].Text, edges[i], edges[i + 1], flow.Y, h, cells[i].Align);
+        }
+        flow.Advance(h);
+    }
+
+    static void DrawBodyRow(PageFlow flow, float[] edges, Cell[] cells)
+    {
+        const float h = 20f;
+        flow.EnsureSpace(h);
+        var c = flow.Canvas;
+        if (c is not null)
+        {
+            using var border = new SKPaint { Color = Palette.RowBorder, StrokeWidth = 0.6f };
+            c.DrawLine(edges[0], flow.Y + h, edges[^1], flow.Y + h, border);
+            for (var i = 0; i < cells.Length; i++)
+            {
+                using var paint = new SKPaint
+                {
+                    IsAntialias = true,
+                    TextSize = 9.5f,
+                    Color = cells[i].Color ?? Palette.Slate,
+                    FakeBoldText = cells[i].Bold
+                };
+                DrawCellText(c, paint, cells[i].Text, edges[i], edges[i + 1], flow.Y, h, cells[i].Align);
+            }
+        }
+        flow.Advance(h);
+    }
+
+    static void DrawCellText(SKCanvas c, SKPaint paint, string text, float xStart, float xEnd,
+        float yTop, float rowHeight, SKTextAlign align, float padding = 6f)
+    {
+        if (string.IsNullOrEmpty(text)) return;
+        paint.TextAlign = align;
+        var m = paint.FontMetrics;
+        var baseline = yTop + rowHeight / 2f - (m.Ascent + m.Descent) / 2f;
+        var x = align switch
+        {
+            SKTextAlign.Left => xStart + padding,
+            SKTextAlign.Right => xEnd - padding,
+            _ => (xStart + xEnd) / 2f
+        };
+        c.DrawText(text, x, baseline, paint);
+    }
+
+    static void DrawSectionTitle(PageFlow flow, string text)
+    {
+        const float h = 24f;
+        flow.EnsureSpace(h);
+        var c = flow.Canvas;
+        if (c is not null)
+        {
+            using var paint = new SKPaint
+            {
+                IsAntialias = true, TextSize = 12f, Color = Palette.Teal, FakeBoldText = true
+            };
+            var m = paint.FontMetrics;
+            c.DrawText(text, PageFlow.ContentLeft, flow.Y + h - 8 - m.Descent, paint);
+        }
+        flow.Advance(h);
+    }
+
+    void DrawSettlementCard(PageFlow flow, SettlementBreakdown b)
+    {
+        var rows = new List<(string Label, string Value)>
+        {
+            (_loc.Get("Report_GrossWage"), $"₹ {b.GrossWage:N2}"),
+            (_loc.Get("Report_UnpaidAbsences"),
+                $"{b.UnpaidAbsenceDays:0.#} ({_loc.Get("Report_Deduction")} ₹ {b.AbsenceDeduction:N2})"),
+            (_loc.Get("Report_Advances"), $"− ₹ {b.Advances:N2}"),
+        };
+        if (b.Bonuses > 0) rows.Add((_loc.Get("Report_Bonuses"), $"+ ₹ {b.Bonuses:N2}"));
+
+        const float topGap = 12f, pad = 14f, rowH = 18f, finalRowH = 28f;
+        var cardHeight = pad * 2 + rows.Count * rowH + finalRowH;
+
+        flow.Advance(topGap);
+        flow.EnsureSpace(cardHeight);
+        var c = flow.Canvas;
+        var top = flow.Y;
+        if (c is not null)
+        {
+            var rect = SKRect.Create(PageFlow.ContentLeft, top, PageFlow.ContentWidth, cardHeight);
+            using (var bg = new SKPaint { Color = Palette.CardBg, Style = SKPaintStyle.Fill, IsAntialias = true })
+                c.DrawRoundRect(rect, 4, 4, bg);
+            using (var border = new SKPaint
+            {
+                Color = Palette.BrightTeal, Style = SKPaintStyle.Stroke, StrokeWidth = 1, IsAntialias = true
+            })
+                c.DrawRoundRect(rect, 4, 4, border);
+
+            var y = top + pad;
+            using (var label = new SKPaint { IsAntialias = true, TextSize = 9.5f, Color = Palette.Muted })
+            using (var value = new SKPaint
+            {
+                IsAntialias = true, TextSize = 9.5f, Color = Palette.Slate, TextAlign = SKTextAlign.Right
+            })
+            {
+                foreach (var r in rows)
+                {
+                    c.DrawText(r.Label, PageFlow.ContentLeft + pad, y + 10, label);
+                    c.DrawText(r.Value, PageFlow.ContentLeft + PageFlow.ContentWidth - pad, y + 10, value);
+                    y += rowH;
+                }
+            }
+
+            y += 6;
+            using var finalLabel = new SKPaint
+            {
+                IsAntialias = true, TextSize = 12.5f, Color = Palette.Slate, FakeBoldText = true
+            };
+            using var finalValue = new SKPaint
+            {
+                IsAntialias = true, TextSize = 14f, Color = Palette.Teal, FakeBoldText = true,
+                TextAlign = SKTextAlign.Right
+            };
+            c.DrawText(_loc.Get("Report_FinalPayable"), PageFlow.ContentLeft + pad, y + 14, finalLabel);
+            c.DrawText($"₹ {b.FinalPayable:N2}", PageFlow.ContentLeft + PageFlow.ContentWidth - pad, y + 14, finalValue);
+        }
+        flow.Advance(cardHeight);
     }
 
     public Task ShareAsync(string filePath) =>
@@ -222,42 +331,119 @@ public sealed class PdfReportService : IPdfReportService
             File = new ShareFile(filePath) // WhatsApp appears in the OS share sheet
         });
 
-    // ---------- layout helpers ----------
-
-    void ComposeHeader(IContainer container, byte[] logo, string title, string subtitle) =>
-        container.Row(row =>
-        {
-            row.ConstantItem(54).Image(logo);
-            row.RelativeItem().PaddingLeft(12).Column(col =>
-            {
-                col.Item().Text("PakkaHisaab · ClearKhata").FontSize(9).FontColor(Muted);
-                col.Item().Text(title).FontSize(17).Bold().FontColor(Teal);
-                col.Item().Text(subtitle).FontSize(11).FontColor(Slate);
-            });
-        });
-
-    void ComposeFooter(IContainer container) =>
-        container.AlignCenter().Text(t =>
-        {
-            t.Span($"{_loc.Get("Report_GeneratedBy")} PakkaHisaab · ").FontSize(8).FontColor(Muted);
-            t.CurrentPageNumber().FontSize(8).FontColor(Muted);
-            t.Span(" / ").FontSize(8).FontColor(Muted);
-            t.TotalPages().FontSize(8).FontColor(Muted);
-        });
-
-    static IContainer HeadCell(IContainer c) =>
-        c.Background("#0F766E").Padding(6).DefaultTextStyle(t => t.FontColor("#FFFFFF").SemiBold());
-
-    static IContainer BodyCell(IContainer c) =>
-        c.BorderBottom(0.5f).BorderColor("#E2E8F0").Padding(5);
-
-    static void Row(ColumnDescriptor col, string label, string value) =>
-        col.Item().Row(r =>
-        {
-            r.RelativeItem().Text(label).FontColor(Muted);
-            r.ConstantItem(170).AlignRight().Text(value);
-        });
-
     static string Sanitize(string s) =>
         string.Concat(s.Split(Path.GetInvalidFileNameChars()));
+}
+
+/// <summary>
+/// Tracks the current page/canvas/cursor for one report. Runs in "measure" mode (doc is null — no
+/// drawing, just counts pages) or "draw" mode (real SKDocument, real canvas). Both modes execute the
+/// exact same compose logic, so the page count from a measure pass is always accurate for the
+/// matching draw pass.
+/// </summary>
+sealed class PageFlow
+{
+    public const float PageWidth = 595f;
+    public const float PageHeight = 842f;
+    public const float Margin = 36f;
+    const float HeaderHeight = 66f;
+    const float FooterReserve = 26f;
+    public const float ContentLeft = Margin;
+    public const float ContentTop = Margin + HeaderHeight;
+    public const float ContentBottom = PageHeight - Margin - FooterReserve;
+    public const float ContentWidth = PageWidth - 2 * Margin;
+
+    readonly SKDocument? _doc;
+    readonly SKBitmap? _logo;
+    readonly string _title;
+    readonly string _subtitle;
+    readonly string _generatedBy;
+    readonly int? _knownTotalPages;
+
+    public int PageCount { get; private set; }
+    public SKCanvas? Canvas { get; private set; }
+    public float Y { get; private set; }
+
+    public PageFlow(SKDocument? doc, SKBitmap? logo, string title, string subtitle,
+        string generatedBy, int? knownTotalPages)
+    {
+        _doc = doc;
+        _logo = logo;
+        _title = title;
+        _subtitle = subtitle;
+        _generatedBy = generatedBy;
+        _knownTotalPages = knownTotalPages;
+        StartPage();
+    }
+
+    /// <summary>Splits the content width into columns by relative ratio (mirrors QuestPDF's RelativeColumn).</summary>
+    public static float[] ColumnEdges(params float[] ratios)
+    {
+        var edges = new float[ratios.Length + 1];
+        edges[0] = ContentLeft;
+        var total = ratios.Sum();
+        var acc = ContentLeft;
+        for (var i = 0; i < ratios.Length; i++)
+        {
+            acc += ContentWidth * (ratios[i] / total);
+            edges[i + 1] = acc;
+        }
+        return edges;
+    }
+
+    public void EnsureSpace(float height)
+    {
+        if (Y + height > ContentBottom)
+            StartPage();
+    }
+
+    public void Advance(float dy) => Y += dy;
+
+    public void Finish() => _doc?.EndPage();
+
+    void StartPage()
+    {
+        if (_doc is not null)
+        {
+            if (PageCount > 0) _doc.EndPage();
+            Canvas = _doc.BeginPage(PageWidth, PageHeight);
+        }
+        PageCount++;
+        Y = ContentTop;
+        DrawHeader();
+        DrawFooter();
+    }
+
+    void DrawHeader()
+    {
+        var c = Canvas;
+        if (c is null) return;
+
+        const float logoSize = 46f;
+        if (_logo is not null)
+            c.DrawBitmap(_logo, SKRect.Create(Margin, Margin, logoSize, logoSize));
+
+        var textX = Margin + logoSize + 12;
+        using (var brand = new SKPaint { IsAntialias = true, TextSize = 8.5f, Color = Palette.Muted })
+            c.DrawText("PakkaHisaab · ClearKhata", textX, Margin + 11, brand);
+        using (var title = new SKPaint { IsAntialias = true, TextSize = 15.5f, Color = Palette.Teal, FakeBoldText = true })
+            c.DrawText(_title, textX, Margin + 28, title);
+        using (var subtitle = new SKPaint { IsAntialias = true, TextSize = 10.5f, Color = Palette.Slate })
+            c.DrawText(_subtitle, textX, Margin + 43, subtitle);
+        using (var line = new SKPaint { Color = Palette.RowBorder, StrokeWidth = 1 })
+            c.DrawLine(Margin, Margin + logoSize + 8, PageWidth - Margin, Margin + logoSize + 8, line);
+    }
+
+    void DrawFooter()
+    {
+        var c = Canvas;
+        if (c is null) return;
+
+        var total = _knownTotalPages?.ToString() ?? "?";
+        using var paint = new SKPaint
+        {
+            IsAntialias = true, TextSize = 8f, Color = Palette.Muted, TextAlign = SKTextAlign.Center
+        };
+        c.DrawText($"{_generatedBy} {PageCount} / {total}", PageWidth / 2f, PageHeight - Margin + 10, paint);
+    }
 }

@@ -1,7 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+    <!-- Android is the default (and only CI/free-deploy) target — net8.0-ios workload
+         packs are EOL upstream (aka.ms/maui-support-policy) and no longer resolve on
+         current SDKs. Build iOS explicitly on a Mac with -p:IncludeIos=true. -->
+    <TargetFrameworks>net8.0-android</TargetFrameworks>
+    <TargetFrameworks Condition="'$(IncludeIos)' == 'true'">$(TargetFrameworks);net8.0-ios</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <RootNamespace>PakkaHisaab.Maui</RootNamespace>
     <UseMaui>true</UseMaui>
@@ -31,7 +35,7 @@
     <MauiImage Include="Resources\Images\*" />
     <!-- Icon fonts (Material Symbols) + brand type. Run tools/get_fonts.sh once to download the .ttf files. -->
     <MauiFont Include="Resources\Fonts\*" />
-    <!-- report_logo.png ships as an asset so QuestPDF can embed it in PDF headers at runtime. -->
+    <!-- report_logo.png ships as an asset so PdfReportService can embed it in PDF headers at runtime. -->
     <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 
@@ -39,6 +43,7 @@
     <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.100" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
 
     <!-- MVVM (source-generated observable properties + relay commands) -->
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
@@ -59,12 +64,20 @@
     <!-- Modern bottom-sheet modals -->
     <PackageReference Include="Plugin.Maui.BottomSheet" Version="8.0.2" />
 
-    <!-- PDF reports -->
-    <PackageReference Include="QuestPDF" Version="2024.10.2" />
+    <!-- PDF reports: hand-drawn A4 reports rendered directly via SKDocument.CreatePdf (see PdfReportService) -->
+    <PackageReference Include="SkiaSharp" Version="2.88.9" />
 
     <!-- Telemetry & crash reporting -->
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.6" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.6" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+    <PackageReference Include="SkiaSharp.NativeAssets.Android" Version="2.88.9" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+    <PackageReference Include="SkiaSharp.NativeAssets.iOS" Version="2.88.9" />
   </ItemGroup>
 
   <ItemGroup>

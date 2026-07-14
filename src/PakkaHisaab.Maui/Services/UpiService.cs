@@ -18,11 +18,11 @@ public sealed class UpiService : IUpiService
 {
     public IReadOnlyList<UpiApp> KnownApps { get; } = new List<UpiApp>
     {
-        new("Google Pay", "com.google.android.apps.nbu.paisa.user", "gpay"),
-        new("PhonePe", "com.phonepe.app", "phonepe"),
-        new("Paytm", "net.one97.paytm", "paytmmp"),
-        new("BHIM", "in.org.npci.upiapp", "bhim"),
-        new("Amazon Pay", "in.amazon.mShop.android.shopping", "amazonpay")
+        new(Name: "Google Pay", AndroidPackage: "com.google.android.apps.nbu.paisa.user", IosScheme: "gpay://upi/pay"),
+        new(Name: "PhonePe", AndroidPackage: "com.phonepe.app", IosScheme: "phonepe://pay"),
+        new(Name: "Paytm", AndroidPackage: "net.one97.paytm", IosScheme: "paytmmp://pay"),
+        new(Name: "BHIM", AndroidPackage: "in.org.npci.upiapp", IosScheme: "bhim://upi/pay"),
+        new(Name: "Amazon Pay", AndroidPackage: "in.amazon.mShop.android.shopping", IosScheme: "amazonpay://pay")
     };
 
     public string BuildPayLink(HelperDto helper, decimal amount, string note)
@@ -51,9 +51,19 @@ public sealed class UpiService : IUpiService
                 return await Launcher.Default.OpenAsync(appUri);
         }
 #endif
+        // CanOpenAsync is unreliable for the upi:// scheme on Android: PackageManager resolves
+        // multiple installed UPI apps (verified via dumpsys) but CanOpenAsync still reports false,
+        // a known gap in MAUI Essentials' Launcher for custom schemes with several matching
+        // handlers. Firing OpenAsync directly and treating a thrown/false result as "not found"
+        // is the reliable path — it's what actually shows the native chooser.
         var uri = new Uri(link);
-        if (await Launcher.Default.CanOpenAsync(uri))
+        try
+        {
             return await Launcher.Default.OpenAsync(uri); // Android shows the native app chooser
-        return false;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

@@ -2,11 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:PakkaHisaab.Maui.ViewModels"
-             xmlns:services="clr-namespace:PakkaHisaab.Maui.Services"
              xmlns:helpers="clr-namespace:PakkaHisaab.Maui.Helpers"
              x:Class="PakkaHisaab.Maui.Views.SettlementPage"
              x:DataType="vm:SettlementViewModel"
              Title="{helpers:Translate Settle_Title}">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoHomeCommand}" />
+    </Shell.BackButtonBehavior>
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="16">
@@ -44,32 +47,12 @@
                 <Entry Keyboard="Numeric" Text="{Binding AmountToPay}" FontSize="18" />
             </Border>
 
-            <!-- UPI app grid (deep links via upi://pay) -->
-            <Label Style="{StaticResource SectionLabel}" Text="{helpers:Translate Settle_PayVia}"
-                   IsVisible="{Binding HasUpiId}" />
-            <CollectionView ItemsSource="{Binding UpiApps}" SelectionMode="None"
-                            IsVisible="{Binding HasUpiId}" HeightRequest="110">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="services:UpiApp">
-                        <Border Style="{StaticResource Card}" Padding="14" WidthRequest="104">
-                            <VerticalStackLayout Spacing="8">
-                                <Label Style="{StaticResource IconLabel}" FontSize="30"
-                                       TextColor="{StaticResource Secondary}"
-                                       Text="{x:Static helpers:IconFont.Payments}" />
-                                <Label FontSize="12" HorizontalTextAlignment="Center" Text="{Binding Name}" />
-                            </VerticalStackLayout>
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding PayWithUpiCommand, Source={RelativeSource AncestorType={x:Type vm:SettlementViewModel}}}"
-                                    CommandParameter="{Binding .}" />
-                            </Border.GestureRecognizers>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <!-- Pay via UPI: hands off to the OS's native app chooser, which shows the real
+                 installed apps (Google Pay, PhonePe, Paytm, …) with their own icons — this app
+                 never renders provider logos itself. -->
+            <Button Text="{helpers:Translate Settle_PayVia}"
+                    IsVisible="{Binding HasUpiId}"
+                    Command="{Binding PayWithUpiCommand}" />
 
             <Label Style="{StaticResource MutedLabel}" FontSize="12"
                    IsVisible="{Binding HasUpiId, Converter={StaticResource InvertBool}}"

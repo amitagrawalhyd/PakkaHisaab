@@ -3,6 +3,7 @@ using PakkaHisaab.Maui.Models;
 using PakkaHisaab.Shared.Domain;
 using PakkaHisaab.Shared.Dtos;
 using PakkaHisaab.Shared.Enums;
+using SQLite;
 
 namespace PakkaHisaab.Maui.Services;
 
@@ -81,12 +82,34 @@ public sealed class DataService : IDataService
         var conn = await _db.GetConnectionAsync();
         var row = await conn.FindAsync<LocalHelper>(id);
         if (row is null) return;
+
+        var now = DateTime.UtcNow;
         row.IsDeleted = true;
         row.IsDirty = true;
-        row.ModifiedAtUtc = DateTime.UtcNow;
+        row.ModifiedAtUtc = now;
         await conn.UpdateAsync(row);
+
+        // Cascade soft-delete so dependent records don't linger as orphans / keep syncing as live data.
+        await SoftDeleteAllAsync<LocalAttendance>(conn, a => a.HelperId == id, now);
+        await SoftDeleteAllAsync<LocalLedgerEntry>(conn, l => l.HelperId == id, now);
+        await SoftDeleteAllAsync<LocalSettlement>(conn, s => s.HelperId == id, now);
+
         await _notifications.CancelForHelperAsync(id);
         await _sync.RequestSyncAsync();
+    }
+
+    static async Task SoftDeleteAllAsync<T>(SQLiteAsyncConnection conn,
+        System.Linq.Expressions.Expression<Func<T, bool>> predicate, DateTime now)
+        where T : LocalEntityBase, new()
+    {
+        var rows = await conn.Table<T>().Where(predicate).ToListAsync();
+        foreach (var row in rows.Where(r => !r.IsDeleted))
+        {
+            row.IsDeleted = true;
+            row.IsDirty = true;
+            row.ModifiedAtUtc = now;
+            await conn.UpdateAsync(row);
+        }
     }
 
     // ---------- Attendance (2-tap calendar) ----------

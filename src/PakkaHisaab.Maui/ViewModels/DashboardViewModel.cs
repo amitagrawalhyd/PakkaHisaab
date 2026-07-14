@@ -54,6 +54,7 @@ public partial class DashboardViewModel : BaseViewModel
     [RelayCommand]
     public async Task LoadAsync()
     {
+        if (IsBusy) return;
         IsBusy = true;
         try
         {
@@ -103,6 +104,12 @@ public partial class DashboardViewModel : BaseViewModel
     [RelayCommand]
     Task AddHelperAsync() => Shell.Current.GoToAsync("helperform");
 
+    /// <summary>Opens the same form used to add a helper, pre-filled for editing. The form
+    /// already has a Delete action, so this also covers deleting a helper from the Dashboard.</summary>
+    [RelayCommand]
+    Task OpenEditAsync(HelperCardViewModel card) =>
+        Shell.Current.GoToAsync($"helperform?helperId={card.Helper.Id}");
+
     [RelayCommand]
     Task OpenCalendarAsync(HelperCardViewModel card) =>
         Shell.Current.GoToAsync($"calendar?helperId={card.Helper.Id}");
@@ -111,13 +118,19 @@ public partial class DashboardViewModel : BaseViewModel
     Task OpenSettlementAsync(HelperCardViewModel card) =>
         Shell.Current.GoToAsync($"settlement?helperId={card.Helper.Id}");
 
-    /// <summary>Voice-to-Ledger from the dashboard mic button.</summary>
+    /// <summary>Voice-to-Ledger from the dashboard mic button. Attendance/delivery commands are
+    /// the recordings that live on the Calendar screen, so for those we jump straight there to
+    /// show what was just logged; ledger money entries (advance/deduction/bonus/payment) stay on
+    /// the Dashboard, same as before.</summary>
     [RelayCommand]
     async Task VoiceEntryAsync()
     {
-        var confirmation = await _voice.CaptureAndApplyAsync();
-        await Toast(confirmation ?? Loc["Voice_NotUnderstood"]);
-        if (confirmation is not null)
-            await LoadAsync();
+        var result = await _voice.CaptureAndApplyAsync();
+        await Toast(result?.Confirmation ?? Loc["Voice_NotUnderstood"]);
+        if (result is null) return;
+
+        await LoadAsync();
+        if (result.ShowOnCalendar)
+            await Shell.Current.GoToAsync($"calendar?helperId={result.HelperId}");
     }
 }

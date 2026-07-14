@@ -27,6 +27,18 @@
                 </VerticalStackLayout>
             </Border>
 
+            <!-- Help -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="14">
+                    <Label Style="{StaticResource SectionLabel}" Text="{helpers:Translate Settings_Help}" />
+                    <Label TextColor="{StaticResource Primary}" Text="{helpers:Translate Settings_HelpAndVoice}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenHelpCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
+
             <!-- Legal (App Store compliance) -->
             <Border Style="{StaticResource Card}">
                 <VerticalStackLayout Spacing="14">

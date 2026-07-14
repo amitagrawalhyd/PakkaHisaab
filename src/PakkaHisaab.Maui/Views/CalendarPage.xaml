@@ -5,73 +5,115 @@
              xmlns:helpers="clr-namespace:PakkaHisaab.Maui.Helpers"
              x:Class="PakkaHisaab.Maui.Views.CalendarPage"
              x:DataType="vm:CalendarViewModel"
-             Title="{Binding HelperName}">
+             Title="{Binding HelperName}"
+             Shell.NavBarIsVisible="False">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="16">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoHomeCommand}" />
+    </Shell.BackButtonBehavior>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Header: back arrow + helper name/category, matching the dashboard's header style.
+             NavBarIsVisible is off so this gradient sits flush at the top instead of leaving the
+             blank native title-bar strip above it. -->
+        <Border Grid.Row="0" StrokeThickness="0" Background="{StaticResource HeaderGradient}"
+                StrokeShape="RoundRectangle 0,0,24,24" Padding="20,48,20,14">
+            <Grid ColumnDefinitions="Auto,Auto,*" ColumnSpacing="12">
+                <Border Grid.Column="0" StrokeThickness="0" BackgroundColor="#33FFFFFF"
+                        StrokeShape="RoundRectangle 18" WidthRequest="36" HeightRequest="36">
+                    <Label Style="{StaticResource IconLabel}" Text="{x:Static helpers:IconFont.ArrowBack}"
+                           TextColor="White" FontSize="18" />
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoHomeCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
+                <Border Grid.Column="1" StrokeThickness="0" BackgroundColor="#33FFFFFF"
+                        StrokeShape="RoundRectangle 12" WidthRequest="44" HeightRequest="44">
+                    <Label Style="{StaticResource IconLabel}" Text="{Binding CategoryIcon}"
+                           TextColor="White" FontSize="22" />
+                </Border>
+                <VerticalStackLayout Grid.Column="2" Spacing="1" VerticalOptions="Center">
+                    <Label Text="{Binding HelperName}" FontFamily="PoppinsBold" FontSize="18" TextColor="White" />
+                    <Label Text="{Binding CategoryKey, Converter={StaticResource TranslateKey}}"
+                           FontSize="12" TextColor="#CCFBF1" />
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+
+    <!-- Not wrapped in a ScrollView: a "*" row doesn't actually expand inside one (it just
+         collapses to its content's size), which would defeat the point — this Grid instead
+         receives the page's real remaining height directly, so the calendar card (row 2, the
+         only star row) grows/shrinks to fill whatever space is left after the fixed-size rows,
+         and everything down to the buttons fits on screen without scrolling. -->
+    <Grid Grid.Row="1" RowDefinitions="Auto,Auto,*,Auto,Auto" Padding="14,10" RowSpacing="8">
 
             <!-- Month navigation -->
-            <Grid ColumnDefinitions="Auto,*,Auto">
+            <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
                 <Button Grid.Column="0" Style="{StaticResource SecondaryButton}"
-                        WidthRequest="48" HeightRequest="44" Padding="0"
-                        FontFamily="MaterialIcons" Text="{x:Static helpers:IconFont.ArrowBack}"
+                        WidthRequest="40" HeightRequest="36" Padding="0"
+                        FontFamily="MaterialIcons" FontSize="16"
+                        Text="{x:Static helpers:IconFont.ArrowBack}"
                         Command="{Binding PreviousMonthCommand}" />
                 <Label Grid.Column="1" Style="{StaticResource SectionLabel}"
                        HorizontalTextAlignment="Center" VerticalOptions="Center"
                        Text="{Binding MonthLabel}" />
                 <Button Grid.Column="2" Style="{StaticResource SecondaryButton}"
-                        WidthRequest="48" HeightRequest="44" Padding="0" Rotation="180"
-                        FontFamily="MaterialIcons" Text="{x:Static helpers:IconFont.ArrowBack}"
+                        WidthRequest="40" HeightRequest="36" Padding="0" Rotation="180"
+                        FontFamily="MaterialIcons" FontSize="16"
+                        Text="{x:Static helpers:IconFont.ArrowBack}"
                         Command="{Binding NextMonthCommand}" />
             </Grid>
 
             <!-- Legend -->
-            <HorizontalStackLayout Spacing="16" HorizontalOptions="Center">
-                <HorizontalStackLayout Spacing="5">
-                    <BoxView WidthRequest="12" HeightRequest="12" CornerRadius="6" Color="{StaticResource PresentGreen}" VerticalOptions="Center" />
-                    <Label Style="{StaticResource MutedLabel}" Text="{helpers:Translate Status_Present}" />
+            <HorizontalStackLayout Grid.Row="1" Spacing="14" HorizontalOptions="Center">
+                <HorizontalStackLayout Spacing="4">
+                    <BoxView WidthRequest="10" HeightRequest="10" CornerRadius="5" Color="{StaticResource PresentGreen}" VerticalOptions="Center" />
+                    <Label Style="{StaticResource MutedLabel}" FontSize="11" Text="{helpers:Translate Status_Present}" />
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="5">
-                    <BoxView WidthRequest="12" HeightRequest="12" CornerRadius="6" Color="{StaticResource AbsentRed}" VerticalOptions="Center" />
-                    <Label Style="{StaticResource MutedLabel}" Text="{helpers:Translate Status_Absent}" />
+                <HorizontalStackLayout Spacing="4">
+                    <BoxView WidthRequest="10" HeightRequest="10" CornerRadius="5" Color="{StaticResource AbsentRed}" VerticalOptions="Center" />
+                    <Label Style="{StaticResource MutedLabel}" FontSize="11" Text="{helpers:Translate Status_Absent}" />
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="5">
-                    <BoxView WidthRequest="12" HeightRequest="12" CornerRadius="6" Color="{StaticResource HalfDayYellow}" VerticalOptions="Center" />
-                    <Label Style="{StaticResource MutedLabel}" Text="{helpers:Translate Status_HalfDay}" />
+                <HorizontalStackLayout Spacing="4">
+                    <BoxView WidthRequest="10" HeightRequest="10" CornerRadius="5" Color="{StaticResource HalfDayYellow}" VerticalOptions="Center" />
+                    <Label Style="{StaticResource MutedLabel}" FontSize="11" Text="{helpers:Translate Status_HalfDay}" />
                 </HorizontalStackLayout>
             </HorizontalStackLayout>
 
-            <!-- The 2-tap calendar: a 7-column CollectionView of day cells -->
-            <Border Style="{StaticResource Card}" Padding="10">
-                <VerticalStackLayout Spacing="8">
+            <!-- The 2-tap calendar: a 7-column CollectionView of day cells. Row 2 is the only
+                 star-sized row, so the grid of days grows/shrinks to fill whatever vertical space
+                 remains instead of pushing the buttons below off-screen. -->
+            <Border Grid.Row="2" Style="{StaticResource Card}" Padding="8">
+                <Grid RowDefinitions="Auto,*" RowSpacing="4">
                     <!-- Weekday header (Mon-first) -->
-                    <Grid ColumnDefinitions="*,*,*,*,*,*,*">
-                        <Label Grid.Column="0" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Mo}" />
-                        <Label Grid.Column="1" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Tu}" />
-                        <Label Grid.Column="2" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_We}" />
-                        <Label Grid.Column="3" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Th}" />
-                        <Label Grid.Column="4" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Fr}" />
-                        <Label Grid.Column="5" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Sa}" />
-                        <Label Grid.Column="6" Style="{StaticResource MutedLabel}" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Su}" />
+                    <Grid Grid.Row="0" ColumnDefinitions="*,*,*,*,*,*,*">
+                        <Label Grid.Column="0" Style="{StaticResource MutedLabel}" FontSize="11" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Mo}" />
+                        <Label Grid.Column="1" Style="{StaticResource MutedLabel}" FontSize="11" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Tu}" />
+                        <Label Grid.Column="2" Style="{StaticResource MutedLabel}" FontSize="11" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_We}" />
+                        <Label Grid.Column="3" Style="{StaticResource MutedLabel}" FontSize="11" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Th}" />
+                        <Label Grid.Column="4" Style="{StaticResource MutedLabel}" FontSize="11" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Fr}" />
+                        <Label Grid.Column="5" Style="{StaticResource MutedLabel}" FontSize="11" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Sa}" />
+                        <Label Grid.Column="6" Style="{StaticResource MutedLabel}" FontSize="11" HorizontalTextAlignment="Center" Text="{helpers:Translate Day_Su}" />
                     </Grid>
 
-                    <CollectionView ItemsSource="{Binding Days}" SelectionMode="None">
+                    <CollectionView Grid.Row="1" ItemsSource="{Binding Days}" SelectionMode="None">
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout Orientation="Vertical" Span="7"
-                                             VerticalItemSpacing="6" HorizontalItemSpacing="6" />
+                                             VerticalItemSpacing="4" HorizontalItemSpacing="4" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="vm:DayCellViewModel">
                                 <Border StrokeThickness="0"
                                         BackgroundColor="{Binding CellColor}"
-                                        StrokeShape="RoundRectangle 12"
-                                        HeightRequest="46">
+                                        StrokeShape="RoundRectangle 10"
+                                        HeightRequest="36">
                                     <VerticalStackLayout VerticalOptions="Center" Spacing="0">
                                         <Label HorizontalTextAlignment="Center"
-                                               FontFamily="PoppinsSemiBold" FontSize="14"
+                                               FontFamily="PoppinsSemiBold" FontSize="12"
                                                TextColor="{Binding TextColor}"
                                                Text="{Binding DayNumber}" />
-                                        <Label HorizontalTextAlignment="Center" FontSize="9"
+                                        <Label HorizontalTextAlignment="Center" FontSize="8"
                                                TextColor="{Binding TextColor}"
                                                IsVisible="{Binding UnitsLabel, Converter={StaticResource NotEmpty}}"
                                                Text="{Binding UnitsLabel}" />
@@ -85,23 +127,24 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                </VerticalStackLayout>
+                </Grid>
             </Border>
 
             <!-- Live settlement summary -->
-            <Border Style="{StaticResource Card}" BackgroundColor="#F0FDFA">
-                <Label FontFamily="PoppinsSemiBold" TextColor="{StaticResource Primary}"
+            <Border Grid.Row="3" Style="{StaticResource Card}" Padding="10,8" BackgroundColor="#F0FDFA">
+                <Label FontFamily="PoppinsSemiBold" FontSize="13" TextColor="{StaticResource Primary}"
                        Text="{Binding SummaryLabel}" />
             </Border>
 
-            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+            <Grid Grid.Row="4" ColumnDefinitions="1.3*,*" ColumnSpacing="10">
                 <Button Grid.Column="0" Style="{StaticResource SecondaryButton}"
+                        HeightRequest="46" FontSize="13" Padding="4,0"
                         Text="{helpers:Translate Calendar_Ledger}"
                         Command="{Binding OpenLedgerCommand}" />
-                <Button Grid.Column="1"
+                <Button Grid.Column="1" HeightRequest="46" FontSize="14"
                         Text="{helpers:Translate Dash_Settle}"
                         Command="{Binding OpenSettlementCommand}" />
             </Grid>
-        </VerticalStackLayout>
-    </ScrollView>
+    </Grid>
+    </Grid>
 </ContentPage>

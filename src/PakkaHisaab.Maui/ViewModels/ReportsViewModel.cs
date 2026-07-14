@@ -48,6 +48,10 @@ public partial class ReportsViewModel : BaseViewModel
                 _pdf.GenerateHelperLedgerAsync(SelectedHelper, SelectedMonth.Year, SelectedMonth.Month));
             await _pdf.ShareAsync(path);
         }
+        catch (Exception)
+        {
+            await Toast(Loc["Report_GenerationFailed"]);
+        }
         finally
         {
             IsBusy = false;
@@ -65,6 +69,10 @@ public partial class ReportsViewModel : BaseViewModel
             var path = await Task.Run(() =>
                 _pdf.GenerateHouseholdSummaryAsync(SelectedMonth.Year, SelectedMonth.Month));
             await _pdf.ShareAsync(path);
+        }
+        catch (Exception)
+        {
+            await Toast(Loc["Report_GenerationFailed"]);
         }
         finally
         {

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:PakkaHisaab.Maui.Helpers"
+             x:Class="PakkaHisaab.Maui.Views.HelpPage"
+             Title="Help &amp; Voice Commands">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <!-- Features -->
+            <Label Style="{StaticResource SectionLabel}" Text="Features" FontSize="20" />
+
+            <VerticalStackLayout Spacing="10">
+                <Label FontFamily="PoppinsSemiBold" Text="Home" />
+                <Label Text="See every helper, today's attendance status, and the total payable for the month. Tap the mic to log attendance, deliveries, or ledger entries by voice." />
+
+                <Label FontFamily="PoppinsSemiBold" Margin="0,8,0,0" Text="Calendar" />
+                <Label Text="Tap a day to cycle Present → Absent → Half-Day. For per-unit helpers (e.g. a milkman), tap a day to enter the units delivered instead. Shows the month's summary and running payable." />
+
+                <Label FontFamily="PoppinsSemiBold" Margin="0,8,0,0" Text="Advances &amp; Ledger" />
+                <Label Text="Log advances, bonuses, and deductions against a helper's wage, and see the running total for the month." />
+
+                <Label FontFamily="PoppinsSemiBold" Margin="0,8,0,0" Text="Settle" />
+                <Label Text="Review the wage breakdown (gross wage − unpaid absences − advances) and pay via UPI or log a cash payment." />
+
+                <Label FontFamily="PoppinsSemiBold" Margin="0,8,0,0" Text="Reports" />
+                <Label Text="Generate a PDF report for a single helper or the whole household." />
+
+                <Label FontFamily="PoppinsSemiBold" Margin="0,8,0,0" Text="Edit / Delete a helper" />
+                <Label Text="Tap the pencil icon on a helper's card on Home to edit their details, or delete them, from the same form." />
+            </VerticalStackLayout>
+
+            <BoxView HeightRequest="1" Color="{StaticResource Outline}" />
+
+            <!-- Voice commands -->
+            <Label Style="{StaticResource SectionLabel}" Text="Voice Commands" FontSize="20" />
+            <Label TextColor="{StaticResource TextMuted}"
+                   Text="Tap the mic button on Home and say any of these. Say the helper's name clearly — if you only have one helper, you can leave the name out. Works fully offline, in English or romanized Hindi." />
+
+            <VerticalStackLayout Spacing="10">
+                <Label FontFamily="PoppinsSemiBold" TextColor="{StaticResource Primary}"
+                       Text="Attendance (opens that helper's Calendar to show the result)" />
+                <Label Text="• &quot;Geeta was absent today&quot; / &quot;Geeta didn't come&quot; / &quot;Geeta chutti&quot;" />
+                <Label Text="• &quot;Geeta came&quot; / &quot;Geeta is present&quot; / &quot;Geeta aayi&quot;" />
+                <Label Text="• &quot;Half day for Geeta&quot; / &quot;Geeta half-day&quot; / &quot;Geeta aadha din&quot;" />
+
+                <Label FontFamily="PoppinsSemiBold" Margin="0,8,0,0" TextColor="{StaticResource Primary}"
+                       Text="Delivery — per-unit helpers, e.g. milkman (also opens the Calendar)" />
+                <Label Text="• &quot;Raju delivered 1.5 litres&quot;" />
+                <Label Text="• &quot;1.5 liters milk from Raju&quot;" />
+
+                <Label FontFamily="PoppinsSemiBold" Margin="0,8,0,0" TextColor="{StaticResource Primary}"
+                       Text="Advance" />
+                <Label Text="• &quot;Gave Raju an advance of 200&quot;" />
+                <Label Text="• &quot;200 rupees udhaar to Geeta&quot;" />
+
+                <Label FontFamily="PoppinsSemiBold" Margin="0,8,0,0" TextColor="{StaticResource Primary}"
+                       Text="Deduction" />
+                <Label Text="• &quot;Deducted 500 rupees from Geeta&quot;" />
+                <Label Text="• &quot;Kata 100 from Raju&quot;" />
+
+                <Label FontFamily="PoppinsSemiBold" Margin="0,8,0,0" TextColor="{StaticResource Primary}"
+                       Text="Bonus" />
+                <Label Text="• &quot;Diwali bonus 500 for Geeta&quot;" />
+
+                <Label FontFamily="PoppinsSemiBold" Margin="0,8,0,0" TextColor="{StaticResource Primary}"
+                       Text="Payment / Settlement" />
+                <Label Text="• &quot;Paid Geeta 4500 salary&quot;" />
+                <Label Text="• &quot;Settled Raju 1260&quot;" />
+            </VerticalStackLayout>
+
+            <BoxView HeightRequest="1" Color="{StaticResource Outline}" />
+
+            <Label TextColor="{StaticResource TextMuted}" FontSize="12"
+                   Text="Tip: attendance and delivery commands take you straight to the helper's Calendar so you can see the logged day. Advance, deduction, bonus, and payment commands stay on Home and update the totals there." />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

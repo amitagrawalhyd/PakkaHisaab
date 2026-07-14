@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PakkaHisaab.Maui.Views.SplashPage"
+             BackgroundColor="White">
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="16">
+        <Image Source="logo.png" WidthRequest="120" HeightRequest="120" />
+        <Label Text="PakkaHisaab" FontFamily="PoppinsBold" FontSize="28"
+               TextColor="{StaticResource Primary}" HorizontalTextAlignment="Center" />
+        <Label Text="Helper attendance &amp; wages, made simple" FontSize="14"
+               TextColor="{StaticResource TextMuted}" HorizontalTextAlignment="Center" />
+    </VerticalStackLayout>
+</ContentPage>

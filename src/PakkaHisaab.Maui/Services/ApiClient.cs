@@ -1,5 +1,7 @@
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using Microsoft.Extensions.Http;
 using PakkaHisaab.Maui.Helpers;
 using PakkaHisaab.Shared.Dtos;
 using PakkaHisaab.Shared.Sync;

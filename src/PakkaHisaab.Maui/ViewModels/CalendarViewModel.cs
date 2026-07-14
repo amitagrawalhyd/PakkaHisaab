@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using PakkaHisaab.Maui.Helpers;
 using PakkaHisaab.Maui.Services;
 using PakkaHisaab.Shared.Dtos;
 using PakkaHisaab.Shared.Enums;
@@ -55,6 +56,8 @@ public partial class CalendarViewModel : BaseViewModel
     public ObservableCollection<DayCellViewModel> Days { get; } = new();
 
     [ObservableProperty] string helperName = string.Empty;
+    [ObservableProperty] string categoryKey = string.Empty;
+    [ObservableProperty] string categoryIcon = IconFont.Person;
     [ObservableProperty] string monthLabel = string.Empty;
     [ObservableProperty] bool isPerUnitHelper;
     [ObservableProperty] string summaryLabel = string.Empty;
@@ -67,6 +70,13 @@ public partial class CalendarViewModel : BaseViewModel
         if (_helper is null) return;
 
         HelperName = _helper.Name;
+        CategoryKey = $"Category_{_helper.Category}";
+        CategoryIcon = _helper.Category switch
+        {
+            HelperCategory.MilkMan => IconFont.WaterDrop,
+            HelperCategory.Driver => IconFont.Person,
+            _ => IconFont.Person
+        };
         IsPerUnitHelper = _helper.WageType == WageType.PerUnitDelivery;
         await BuildMonthAsync();
     }
@@ -119,6 +129,11 @@ public partial class CalendarViewModel : BaseViewModel
     [RelayCommand]
     Task OpenSettlementAsync() =>
         Shell.Current.GoToAsync($"settlement?helperId={_helperId}");
+
+    /// <summary>Bound to Shell.BackButtonBehavior so both the nav-bar back arrow and the
+    /// Android hardware back button return straight to the Dashboard's helper list.</summary>
+    [RelayCommand]
+    Task GoHomeAsync() => Shell.Current.GoToAsync("//main/dashboard");
 
     async Task BuildMonthAsync()
     {

@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using PakkaHisaab.Maui.Services;
@@ -24,8 +23,6 @@ public partial class SettlementViewModel : BaseViewModel
     }
 
     public string? HelperIdRaw { get; set; }
-
-    public ObservableCollection<UpiApp> UpiApps { get; } = new();
 
     [ObservableProperty] string helperName = string.Empty;
     [ObservableProperty] string periodLabel = string.Empty;
@@ -54,14 +51,12 @@ public partial class SettlementViewModel : BaseViewModel
         PayableLabel = $"₹ {_breakdown.FinalPayable:N2}";
         AmountToPay = Math.Max(0, _breakdown.FinalPayable).ToString("0.##");
         HasUpiId = !string.IsNullOrWhiteSpace(_helper.UpiId);
-
-        UpiApps.Clear();
-        foreach (var app in _upi.KnownApps)
-            UpiApps.Add(app);
     }
 
+    /// <summary>Hands off to the OS's native UPI app chooser — it shows the real installed apps'
+    /// own icons directly from Android, so this app never needs to embed provider logos itself.</summary>
     [RelayCommand]
-    async Task PayWithUpiAsync(UpiApp? app)
+    async Task PayWithUpiAsync()
     {
         if (_helper is null || !decimal.TryParse(AmountToPay, out var amount) || amount <= 0)
         {
@@ -70,7 +65,7 @@ public partial class SettlementViewModel : BaseViewModel
         }
 
         var note = Loc.Get("Settle_UpiNote", PeriodLabel);
-        bool launched = await _upi.LaunchAsync(_helper, amount, note, app);
+        bool launched = await _upi.LaunchAsync(_helper, amount, note);
         if (!launched)
         {
             await Toast(Loc["Settle_NoUpiApp"]);
@@ -104,6 +99,12 @@ public partial class SettlementViewModel : BaseViewModel
         // Updates SQLite, triggers the Shiny sync job and stops the salary notifications.
         await _data.MarkPaidAsync(_helper!.Id, period, amount, method, null);
         await Toast(Loc["Settle_Recorded"]);
-        await Shell.Current.GoToAsync("..");
+        await GoHomeAsync();
     }
+
+    /// <summary>Bound to Shell.BackButtonBehavior so both the nav-bar back arrow and the
+    /// Android hardware back button return straight to the Dashboard's helper list, instead of
+    /// stepping back through intermediate screens (e.g. Calendar) that led here.</summary>
+    [RelayCommand]
+    Task GoHomeAsync() => Shell.Current.GoToAsync("//main/dashboard");
 }

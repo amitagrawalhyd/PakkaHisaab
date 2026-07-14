@@ -42,12 +42,13 @@ public partial class SettingsViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    Task OpenPrivacyAsync() =>
-        Shell.Current.GoToAsync($"legal?url={Uri.EscapeDataString(Constants.PrivacyPolicyUrl)}");
+    Task OpenHelpAsync() => Shell.Current.GoToAsync("help");
 
     [RelayCommand]
-    Task OpenTermsAsync() =>
-        Shell.Current.GoToAsync($"legal?url={Uri.EscapeDataString(Constants.TermsUrl)}");
+    Task OpenPrivacyAsync() => Shell.Current.GoToAsync("legal?doc=privacy");
+
+    [RelayCommand]
+    Task OpenTermsAsync() => Shell.Current.GoToAsync("legal?doc=terms");
 
     [RelayCommand]
     async Task LogoutAsync()

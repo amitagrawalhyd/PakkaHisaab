@@ -158,6 +158,7 @@ Output: `src/PakkaHisaab.Maui/bin/Release/net8.0-android/publish/com.clearkhata.
 
 ```bash
 dotnet publish src/PakkaHisaab.Maui -f net8.0-ios -c Release \
+  -p:IncludeIos=true \
   -p:ArchiveOnBuild=true \
   -p:RuntimeIdentifier=ios-arm64 \
   -p:CodesignKey="Apple Distribution: <Your Team Name> (<TEAMID>)" \

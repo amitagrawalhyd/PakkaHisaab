@@ -271,6 +271,9 @@
   <data name="Report_GeneratedBy" xml:space="preserve">
     <value>निर्मित:</value>
   </data>
+  <data name="Report_GenerationFailed" xml:space="preserve">
+    <value>रिपोर्ट नहीं बन सकी। कृपया फिर से कोशिश करें।</value>
+  </data>
   <data name="Report_GrossWage" xml:space="preserve">
     <value>कुल वेतन</value>
   </data>

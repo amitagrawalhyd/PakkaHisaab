@@ -7,6 +7,10 @@
              x:DataType="vm:LedgerViewModel"
              Title="{Binding HelperName}">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoHomeCommand}" />
+    </Shell.BackButtonBehavior>
+
     <Grid>
         <VerticalStackLayout Padding="20" Spacing="14">
 

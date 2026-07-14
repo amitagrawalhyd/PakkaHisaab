@@ -5,11 +5,16 @@ using PakkaHisaab.Shared.Enums;
 
 namespace PakkaHisaab.Maui.Services;
 
+/// <summary>Outcome of a voice command. <see cref="ShowOnCalendar"/> is true for attendance/delivery
+/// commands — the recordings that live on the Calendar screen — so the caller can jump straight
+/// there and show what was just logged, instead of leaving the user to go find it themselves.</summary>
+public record VoiceLedgerResult(string Confirmation, Guid HelperId, bool ShowOnCalendar);
+
 public interface IVoiceLedgerService
 {
     /// <summary>Listens via the native speech recognizer, parses the utterance and applies it.
-    /// Returns a human-readable confirmation, or null when nothing was understood.</summary>
-    Task<string?> CaptureAndApplyAsync(CancellationToken ct = default);
+    /// Returns null when nothing was understood or no matching helper/intent was found.</summary>
+    Task<VoiceLedgerResult?> CaptureAndApplyAsync(CancellationToken ct = default);
 }
 
 /// <summary>
@@ -30,7 +35,7 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
         _telemetry = telemetry;
     }
 
-    public async Task<string?> CaptureAndApplyAsync(CancellationToken ct = default)
+    public async Task<VoiceLedgerResult?> CaptureAndApplyAsync(CancellationToken ct = default)
     {
         var granted = await _speech.RequestPermissions(ct);
         if (!granted) return null;
@@ -60,11 +65,11 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
         {
             case VoiceIntent.MarkAttendance when command.Attendance.HasValue:
                 await _data.SetAttendanceAsync(helper.Id, today, command.Attendance.Value);
-                return $"{helper.Name}: {command.Attendance}";
+                return new VoiceLedgerResult($"{helper.Name}: {command.Attendance}", helper.Id, ShowOnCalendar: true);
 
             case VoiceIntent.LogDelivery:
                 await _data.SetUnitsAsync(helper.Id, today, command.Units);
-                return $"{helper.Name}: {command.Units:0.##} {helper.UnitLabel}";
+                return new VoiceLedgerResult($"{helper.Name}: {command.Units:0.##} {helper.UnitLabel}", helper.Id, ShowOnCalendar: true);
 
             case VoiceIntent.LogAdvance:
             case VoiceIntent.LogDeduction:
@@ -83,7 +88,7 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
                     Method = PaymentMethod.Cash, Period = period,
                     Note = $"[voice] {command.RawText}"
                 });
-                return $"{helper.Name}: {type} ₹{command.Amount:N0}";
+                return new VoiceLedgerResult($"{helper.Name}: {type} ₹{command.Amount:N0}", helper.Id, ShowOnCalendar: false);
 
             default:
                 return null;

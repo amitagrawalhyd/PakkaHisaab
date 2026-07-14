@@ -23,8 +23,8 @@ public static class MauiProgram
             .UseShiny()                       // Shiny.NET host: background jobs survive app suspension
             .UseLocalNotification(cfg =>
             {
-                cfg.AddCategory(new Plugin.LocalNotification.AndroidOption.NotificationCategory(
-                    Constants.AttendanceCategory));
+                cfg.AddCategory(new Plugin.LocalNotification.NotificationCategory(
+                    Plugin.LocalNotification.NotificationCategoryType.Reminder));
             })
             .ConfigureFonts(fonts =>
             {
@@ -59,7 +59,7 @@ public static class MauiProgram
         s.AddSingleton<ISyncEngine, SyncEngine>();
         s.AddSingleton<IApiClient, ApiClient>();
         s.AddSingleton<IAuthService, AuthService>();
-        s.AddSingleton<INotificationService, NotificationService>();
+        s.AddSingleton<Services.INotificationService, NotificationService>();
         s.AddSingleton<IUpiService, UpiService>();
         s.AddSingleton<IPdfReportService, PdfReportService>();
         s.AddSingleton<IVoiceLedgerService, VoiceLedgerService>();

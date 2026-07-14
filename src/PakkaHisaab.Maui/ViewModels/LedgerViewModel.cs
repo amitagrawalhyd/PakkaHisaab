@@ -66,6 +66,11 @@ public partial class LedgerViewModel : BaseViewModel
     [RelayCommand] void OpenSheet() => IsSheetOpen = true;
     [RelayCommand] void CloseSheet() => IsSheetOpen = false;
 
+    /// <summary>Bound to Shell.BackButtonBehavior so both the nav-bar back arrow and the
+    /// Android hardware back button return straight to the Dashboard's helper list.</summary>
+    [RelayCommand]
+    Task GoHomeAsync() => Shell.Current.GoToAsync("//main/dashboard");
+
     [RelayCommand]
     async Task SaveEntryAsync()
     {
