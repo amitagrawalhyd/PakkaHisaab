@@ -80,7 +80,7 @@ jobs:
       - name: Collect artifact
         run: |
           mkdir -p out
-          find src/PakkaHisaab.Maui/bin/Release/net8.0-android -name "*-Signed.apk" \
+          find src/PakkaHisaab.Maui/bin/Release/net9.0-android -name "*-Signed.apk" \
             -exec cp {} out/PakkaHisaab.apk \;
 
       - uses: actions/upload-artifact@v4
