@@ -95,7 +95,9 @@ jobs:
           files: out/PakkaHisaab.apk
 
       - name: Upload to Firebase App Distribution
-        if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' }}
+        if: ${{ env.FIREBASE_SERVICE_ACCOUNT != '' }}
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         uses: wzieba/Firebase-Distribution-Github-Action@v3
         with:
           appId: "1:202012309851:android:03992fa70f1bf770ccc27e" # pakkahisaab Android app — not secret, from google-services.json
