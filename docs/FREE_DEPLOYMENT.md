@@ -11,7 +11,7 @@ backend costs nothing.
 | API | **Azure App Service — F1 plan** | 60 CPU-min/day, 1 GB storage, 165 MB/day egress | ₹0 forever |
 | Database | **Azure SQL Database — free offer** | 100,000 vCore-seconds/mo, 32 GB, serverless w/ auto-pause | ₹0 forever |
 | CI/CD | **GitHub Actions** | Unlimited minutes on public repos (2,000/mo private) | ₹0 |
-| App distribution (Android) | **GitHub Releases APK** (sideload) | Unlimited | ₹0 |
+| App distribution (Android) | **Firebase App Distribution** (+ GitHub Releases APK as a fallback) | Unlimited testers | ₹0 |
 | Crash reporting | **Sentry free tier** (optional) | 5K errors/mo | ₹0 |
 | Monitoring | **App Service logs + /health checks** | Built in | ₹0 |
 
@@ -76,15 +76,23 @@ the script printed. Debug builds keep using your local machine.
 
 ## Part 3 — Build & distribute the app for free
 
-### Android (recommended free path: GitHub Releases)
+### Android (recommended free path: Firebase App Distribution)
 
 1. Push the repo to GitHub (public repo = unlimited free CI minutes).
 2. Add the two secrets from `.github/workflows/api-deploy.yml`'s header — now every
    push to `main` redeploys the API **and re-runs the smoke test** automatically.
-3. Tag a release: `git tag v1.0.0 && git push --tags`. The `android-apk` workflow
-   builds a **signed APK** and attaches it to the GitHub Release.
-4. Share the release link; users tap it on their phone and install
-   (Settings → allow installs from browser, one-time).
+3. One-time Firebase setup:
+   - Firebase Console → **pakkahisaab** project → Project settings → Service accounts
+     → *Generate new private key* (downloads a JSON file).
+   - GitHub repo → Settings → Secrets → Actions → new secret
+     `FIREBASE_SERVICE_ACCOUNT` = the whole JSON file content.
+   - Firebase Console → **App Distribution** → Testers & groups → create a group named
+     `testers` and add tester email addresses to it (they get an email invite + the
+     Firebase App Tester app to install builds from).
+4. Tag a release: `git tag v1.0.0 && git push --tags`. The `android-apk` workflow
+   builds a **signed APK**, uploads it to Firebase App Distribution (testers are
+   notified automatically), and also attaches it to the GitHub Release as a fallback
+   sideload link.
 
 For a stable signing identity (in-place updates instead of uninstall/reinstall), create
 a keystore once — `keytool -genkeypair -v -keystore pakkahisaab-upload.keystore -alias
@@ -100,11 +108,10 @@ dotnet publish src/PakkaHisaab.Maui -f net8.0-android -c Release -p:AndroidPacka
 adb install src/PakkaHisaab.Maui/bin/Release/net8.0-android/publish/*-Signed.apk
 ```
 
-Optional upgrades later (not free, listed for honesty):
+Optional upgrade later (not free, listed for honesty):
 
-- **Google Play**: US$25 one-time developer fee — needed only for store listing.
-- **Firebase App Distribution**: free tester distribution with install tracking, if
-  sideload links feel too raw.
+- **Google Play**: US$25 one-time developer fee — needed only for a public store listing.
+  Firebase App Distribution and GitHub Releases both stay free indefinitely for testers.
 
 ### iOS (the honest picture)
 

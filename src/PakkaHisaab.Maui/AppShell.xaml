@@ -16,23 +16,23 @@
 
     <!-- Main app -->
     <TabBar Route="main">
-        <Tab Title="{helpers:Translate Tab_Home}">
+        <Tab Route="dashboard" Title="{helpers:Translate Tab_Home}">
             <Tab.Icon>
                 <FontImageSource FontFamily="MaterialIcons" Glyph="{x:Static helpers:IconFont.Home}" Color="{StaticResource Primary}" />
             </Tab.Icon>
-            <ShellContent Route="dashboard" ContentTemplate="{DataTemplate views:DashboardPage}" Shell.NavBarIsVisible="False" />
+            <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}" Shell.NavBarIsVisible="False" />
         </Tab>
-        <Tab Title="{helpers:Translate Tab_Reports}">
+        <Tab Route="reports" Title="{helpers:Translate Tab_Reports}">
             <Tab.Icon>
                 <FontImageSource FontFamily="MaterialIcons" Glyph="{x:Static helpers:IconFont.PictureAsPdf}" Color="{StaticResource Primary}" />
             </Tab.Icon>
-            <ShellContent Route="reports" ContentTemplate="{DataTemplate views:ReportsPage}" Shell.NavBarIsVisible="False" />
+            <ShellContent ContentTemplate="{DataTemplate views:ReportsPage}" Shell.NavBarIsVisible="False" />
         </Tab>
-        <Tab Title="{helpers:Translate Tab_Settings}">
+        <Tab Route="settings" Title="{helpers:Translate Tab_Settings}">
             <Tab.Icon>
                 <FontImageSource FontFamily="MaterialIcons" Glyph="{x:Static helpers:IconFont.Settings}" Color="{StaticResource Primary}" />
             </Tab.Icon>
-            <ShellContent Route="settings" ContentTemplate="{DataTemplate views:SettingsPage}" Shell.NavBarIsVisible="False" />
+            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Shell.NavBarIsVisible="False" />
         </Tab>
     </TabBar>
 </Shell>

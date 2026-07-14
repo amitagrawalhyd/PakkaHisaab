@@ -75,6 +75,17 @@
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
     <PackageReference Include="SkiaSharp.NativeAssets.Android" Version="2.88.9" />
 
+    <!-- Firebase: Auth (SDK init only for now), Analytics + Crashlytics (fan out alongside AppCenter),
+         Cloud Messaging (push notifications). Pinned to the last net8.0-compatible line — 4.x requires net9.0. -->
+    <PackageReference Include="Plugin.Firebase.Core" Version="3.1.1" />
+    <PackageReference Include="Plugin.Firebase.Auth" Version="3.1.1" />
+    <PackageReference Include="Plugin.Firebase.Analytics" Version="3.1.2" />
+    <PackageReference Include="Plugin.Firebase.Crashlytics" Version="3.1.1" />
+    <PackageReference Include="Plugin.Firebase.CloudMessaging" Version="3.1.2" />
+
+    <!-- google-services.json (com.clearkhata.pakkahisaab / pakkahisaab project) -->
+    <GoogleServicesJson Include="google-services.json" />
+
     <!-- Force-unify transitive AndroidX.Collection bindings: older plugins (e.g. Plugin.LocalNotification)
          pull Xamarin.AndroidX.Collection.Ktx 1.2.0.9, whose jar still defines ArrayMapKt — a class that
          moved into Xamarin.AndroidX.Collection.Jvm 1.4.x. NuGet doesn't unify across separate package IDs,

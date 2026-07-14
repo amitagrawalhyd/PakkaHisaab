@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Required by Plugin.Firebase.Crashlytics when no native mapping file upload step is configured. -->
+    <string name="com.google.firebase.crashlytics.mapping_file_id">none</string>
+</resources>

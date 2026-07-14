@@ -1,5 +1,6 @@
-# Free Android build & distribution: signed APK built on GitHub's runners and
-# attached to a GitHub Release — users install it directly (sideload), ₹0.
+# Free Android build & distribution: signed APK built on GitHub's runners,
+# attached to a GitHub Release (sideload) AND pushed to Firebase App Distribution
+# (installable straight to testers' phones, with install tracking) — ₹0 either way.
 #
 # Signing:
 #   - With no secrets configured, a THROWAWAY keystore is generated per run
@@ -9,6 +10,14 @@
 #       ANDROID_KEYSTORE_PASS  = store password
 #       ANDROID_KEY_ALIAS      = key alias (e.g. pakkahisaab)
 #       ANDROID_KEY_PASS       = key password
+#
+# Firebase App Distribution (optional — skipped if the secret isn't set):
+#   1. Firebase Console → pakkahisaab project → Project settings → Service accounts
+#      → Generate new private key (downloads a JSON file).
+#   2. GitHub repo → Settings → Secrets → Actions → new secret:
+#        FIREBASE_SERVICE_ACCOUNT = <paste the whole JSON file content>
+#   3. Firebase Console → App Distribution → Testers & groups → create a group
+#      named "testers" and add tester email addresses to it.
 #
 # Trigger: push a tag like v1.0.0, or run manually from the Actions tab.
 name: android-apk
@@ -84,3 +93,13 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: out/PakkaHisaab.apk
+
+      - name: Upload to Firebase App Distribution
+        if: ${{ secrets.FIREBASE_SERVICE_ACCOUNT != '' }}
+        uses: wzieba/Firebase-Distribution-Github-Action@v3
+        with:
+          appId: "1:202012309851:android:03992fa70f1bf770ccc27e" # pakkahisaab Android app — not secret, from google-services.json
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          groups: testers
+          file: out/PakkaHisaab.apk
+          releaseNotes: "Build from ${{ github.ref_name }} (${{ github.sha }})"

@@ -67,9 +67,12 @@ public partial class LedgerViewModel : BaseViewModel
     [RelayCommand] void CloseSheet() => IsSheetOpen = false;
 
     /// <summary>Bound to Shell.BackButtonBehavior so both the nav-bar back arrow and the
-    /// Android hardware back button return straight to the Dashboard's helper list.</summary>
+    /// Android hardware back button return straight to the Dashboard's helper list.
+    /// PopToRootAsync (not an absolute "//main/dashboard" GoToAsync) because Shell treats the
+    /// target tab as already "current" while this page is pushed on top of it and no-ops instead
+    /// of popping the stack — PopToRootAsync pops back to the tab root unconditionally.</summary>
     [RelayCommand]
-    Task GoHomeAsync() => Shell.Current.GoToAsync("//main/dashboard");
+    Task GoHomeAsync() => Shell.Current.Navigation.PopToRootAsync();
 
     [RelayCommand]
     async Task SaveEntryAsync()

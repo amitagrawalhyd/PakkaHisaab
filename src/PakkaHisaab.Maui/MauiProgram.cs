@@ -9,6 +9,14 @@ using PakkaHisaab.Maui.Views;
 using Plugin.LocalNotification;
 using Shiny;
 using Shiny.Jobs;
+#if ANDROID
+using Microsoft.Maui.LifecycleEvents;
+using Plugin.Firebase.Analytics;
+using Plugin.Firebase.Auth;
+using Plugin.Firebase.CloudMessaging;
+using Plugin.Firebase.Core.Platforms.Android;
+using Plugin.Firebase.Crashlytics;
+#endif
 
 namespace PakkaHisaab.Maui;
 
@@ -42,6 +50,9 @@ public static class MauiProgram
         RegisterServices(builder.Services);
         RegisterViewModels(builder.Services);
         RegisterViews(builder.Services);
+#if ANDROID
+        ConfigureFirebase(builder);
+#endif
 
         // Background sync job — runs even when the UI is not in the foreground.
         builder.Services.AddJob(typeof(SyncJob), requiredNetwork: InternetAccess.Any);
@@ -50,6 +61,31 @@ public static class MauiProgram
         ServiceHelper.Initialize(app.Services);
         return app;
     }
+
+#if ANDROID
+    // Firebase: Android-only for now — google-services.json is configured for the Android package only.
+    // Auth is initialized but not otherwise wired up; login still goes through IAuthService/the backend API.
+    static void ConfigureFirebase(MauiAppBuilder builder)
+    {
+        builder.ConfigureLifecycleEvents(events => events.AddAndroid(android => android.OnCreate((activity, _) =>
+        {
+            CrossFirebase.Initialize(activity);
+            FirebaseAnalyticsImplementation.Initialize(activity);
+            CrossFirebaseCrashlytics.Current.SetCrashlyticsCollectionEnabled(true);
+
+            // Notification channel FCM shows local notifications through when the app is backgrounded.
+            var channelId = $"{activity.PackageName}.general";
+            var notificationManager = (Android.App.NotificationManager)activity
+                .GetSystemService(Android.Content.Context.NotificationService)!;
+            notificationManager.CreateNotificationChannel(
+                new Android.App.NotificationChannel(channelId, "General", Android.App.NotificationImportance.Default));
+            FirebaseCloudMessagingImplementation.ChannelId = channelId;
+        })));
+
+        builder.Services.AddSingleton(_ => CrossFirebaseAuth.Current);
+        builder.Services.AddSingleton(_ => CrossFirebaseCloudMessaging.Current);
+    }
+#endif
 
     static void RegisterServices(IServiceCollection s)
     {

@@ -104,7 +104,10 @@ public partial class SettlementViewModel : BaseViewModel
 
     /// <summary>Bound to Shell.BackButtonBehavior so both the nav-bar back arrow and the
     /// Android hardware back button return straight to the Dashboard's helper list, instead of
-    /// stepping back through intermediate screens (e.g. Calendar) that led here.</summary>
+    /// stepping back through intermediate screens (e.g. Calendar) that led here.
+    /// PopToRootAsync (not an absolute "//main/dashboard" GoToAsync) because Shell treats the
+    /// target tab as already "current" while this page is pushed on top of it and no-ops instead
+    /// of popping the stack — PopToRootAsync pops back to the tab root unconditionally.</summary>
     [RelayCommand]
-    Task GoHomeAsync() => Shell.Current.GoToAsync("//main/dashboard");
+    Task GoHomeAsync() => Shell.Current.Navigation.PopToRootAsync();
 }

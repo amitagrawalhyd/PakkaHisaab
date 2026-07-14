@@ -61,7 +61,18 @@ az webapp config appsettings set -g "$RG" -n "$APP" -o none --settings \
 
 echo "==> Build & publish the API"
 dotnet publish "$ROOT/src/PakkaHisaab.Api" -c Release -o "$ROOT/publish" >/dev/null
-( cd "$ROOT/publish" && zip -qr ../api.zip . )
+rm -f "$ROOT/api.zip"
+if command -v zip >/dev/null 2>&1; then
+  ( cd "$ROOT/publish" && zip -qr ../api.zip . )
+else
+  # Git Bash on Windows ships no zip. Neither Compress-Archive nor
+  # ZipFile.CreateFromDirectory are safe substitutes here — Windows PowerShell's
+  # .NET Framework stores backslash path separators for nested folders, which
+  # Kudu's Linux-side rsync can't stat, silently failing the whole deploy.
+  # zip_publish.ps1 walks files manually and forces forward-slash entry names.
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$(cd "$ROOT/deploy" && pwd -W)\\zip_publish.ps1" \
+    -SourceDir "$(cd "$ROOT/publish" && pwd -W)" -DestZip "$(cd "$ROOT" && pwd -W)\\api.zip"
+fi
 az webapp deploy -g "$RG" -n "$APP" --src-path "$ROOT/api.zip" --type zip -o none
 
 BASE="https://${APP}.azurewebsites.net"

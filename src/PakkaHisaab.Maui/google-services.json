@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "202012309851",
+    "project_id": "pakkahisaab",
+    "storage_bucket": "pakkahisaab.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202012309851:android:03992fa70f1bf770ccc27e",
+        "android_client_info": {
+          "package_name": "com.clearkhata.pakkahisaab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF5Y54wrgo3VT3qan0aTK2dsfYJdtf3Ds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

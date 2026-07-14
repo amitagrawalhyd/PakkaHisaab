@@ -1,6 +1,7 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Plugin.Firebase.CloudMessaging;
 using Plugin.LocalNotification;
 
 namespace PakkaHisaab.Maui;
@@ -17,6 +18,7 @@ public class MainActivity : MauiAppCompatActivity
         base.OnCreate(savedInstanceState);
         // Route notification taps/actions raised while the app was dead.
         LocalNotificationCenter.NotifyNotificationTapped(Intent);
+        FirebaseCloudMessagingImplementation.OnNewIntent(Intent);
         Helpers.ServiceHelper.GetRequiredService<Services.INotificationService>()
             .WireActionHandlers();
     }
@@ -25,5 +27,6 @@ public class MainActivity : MauiAppCompatActivity
     {
         base.OnNewIntent(intent);
         LocalNotificationCenter.NotifyNotificationTapped(intent);
+        FirebaseCloudMessagingImplementation.OnNewIntent(intent);
     }
 }
