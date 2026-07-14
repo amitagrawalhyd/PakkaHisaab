@@ -7,3 +7,8 @@ publish/
 *.keystore
 appsettings.Production.json
 src/PakkaHisaab.Maui/Resources/Fonts/*.ttf
+
+# Downloaded Azure log bundles (debug artifacts, not extension-matchable alone)
+*.log
+logs*.zip
+logs_extract*/
