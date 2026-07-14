@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PakkaHisaab.Api.Auth;
 using PakkaHisaab.Api.Data;
@@ -12,7 +13,7 @@ public static class AccountEndpoints
     {
         // App Store / Play Store compliance: "Delete My Account & Data".
         // Hard-deletes the user row and every replicated record — not a soft delete.
-        app.MapDelete("/account", async (DeleteAccountRequest req, ClaimsPrincipal principal,
+        app.MapDelete("/account", async ([FromBody] DeleteAccountRequest req, ClaimsPrincipal principal,
                 AppDbContext db, ILoggerFactory lf) =>
             {
                 var userId = principal.GetUserId();
