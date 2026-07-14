@@ -74,6 +74,14 @@
 
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
     <PackageReference Include="SkiaSharp.NativeAssets.Android" Version="2.88.9" />
+
+    <!-- Force-unify transitive AndroidX.Collection bindings: older plugins (e.g. Plugin.LocalNotification)
+         pull Xamarin.AndroidX.Collection.Ktx 1.2.0.9, whose jar still defines ArrayMapKt — a class that
+         moved into Xamarin.AndroidX.Collection.Jvm 1.4.x. NuGet doesn't unify across separate package IDs,
+         so both jars ship and D8 fails with a duplicate-class error. Pinning Ktx to the same 1.4.x line
+         resolves it to the merged jar (no duplicate). -->
+    <PackageReference Include="Xamarin.AndroidX.Collection.Ktx" Version="1.4.0.5" />
+    <PackageReference Include="Xamarin.AndroidX.Activity.Ktx" Version="1.9.0.3" />
   </ItemGroup>
 
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
