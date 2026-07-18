@@ -31,13 +31,23 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="vm:LedgerRow">
                         <Border Style="{StaticResource Card}" Padding="14" Margin="0,0,0,10">
-                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                            <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto,Auto">
                                 <Label FontFamily="PoppinsSemiBold" Text="{Binding TypeLabel}" />
                                 <Label Grid.Row="1" Style="{StaticResource MutedLabel}" Text="{Binding DateLabel}" />
                                 <Label Grid.Column="1" Grid.RowSpan="2" VerticalOptions="Center"
                                        FontFamily="PoppinsBold" FontSize="16"
                                        TextColor="{StaticResource TextPrimary}"
                                        Text="{Binding AmountLabel}" />
+                                <Label Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource IconLabel}"
+                                       Margin="10,0,0,0" TextColor="{StaticResource Danger}"
+                                       Text="{x:Static helpers:IconFont.Delete}"
+                                       AutomationProperties.Name="{helpers:Translate Common_Delete}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LedgerViewModel}}, Path=DeleteEntryCommand}"
+                                            CommandParameter="{Binding Id}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </Grid>
                         </Border>
                     </DataTemplate>

@@ -7,7 +7,7 @@ using PakkaHisaab.Shared.Enums;
 
 namespace PakkaHisaab.Maui.ViewModels;
 
-public record LedgerRow(string DateLabel, string TypeLabel, string AmountLabel, string? Note, bool IsCredit);
+public record LedgerRow(Guid Id, string DateLabel, string TypeLabel, string AmountLabel, string? Note, bool IsCredit);
 
 /// <summary>Dedicated cash-advance / ledger screen. Adding an entry opens a bottom sheet.</summary>
 [QueryProperty(nameof(HelperIdRaw), "helperId")]
@@ -53,6 +53,7 @@ public partial class LedgerViewModel : BaseViewModel
         {
             bool credit = e.Type is LedgerEntryType.Bonus;
             Entries.Add(new LedgerRow(
+                e.Id,
                 e.OccurredAtUtc.ToLocalTime().ToString("dd MMM, h:mm tt", Loc.CurrentCulture),
                 Loc[$"LedgerType_{e.Type}"],
                 $"{(credit ? "+" : "−")} ₹ {e.Amount:N0}",
@@ -96,5 +97,19 @@ public partial class LedgerViewModel : BaseViewModel
         IsSheetOpen = false;
         await LoadAsync();
         await Toast(Loc["Common_Saved"]);
+    }
+
+    [RelayCommand]
+    async Task DeleteEntryAsync(Guid id)
+    {
+        if (id == Guid.Empty) return;
+        var page = Shell.Current.CurrentPage;
+        bool confirm = await page.DisplayAlert(Loc["Common_Confirm"],
+            Loc["Ledger_DeleteConfirm"], Loc["Common_Delete"], Loc["Common_Cancel"]);
+        if (!confirm) return;
+
+        await _data.DeleteLedgerEntryAsync(id);
+        await LoadAsync();
+        await Toast(Loc["Common_Deleted"]);
     }
 }

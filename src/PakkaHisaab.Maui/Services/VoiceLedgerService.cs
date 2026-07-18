@@ -90,6 +90,21 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
                 });
                 return new VoiceLedgerResult($"{helper.Name}: {type} ₹{command.Amount:N0}", helper.Id, ShowOnCalendar: false);
 
+            case VoiceIntent.DeleteAdvance:
+            case VoiceIntent.DeleteBonus:
+                var deleteType = command.Intent == VoiceIntent.DeleteAdvance
+                    ? LedgerEntryType.Advance
+                    : LedgerEntryType.Bonus;
+                // Voice has no way to point at a specific row, so "delete the bonus" means
+                // the most recent entry of that type still open in the current period.
+                var entries = await _data.GetLedgerAsync(helper.Id, period);
+                var toDelete = entries.FirstOrDefault(e => e.Type == deleteType);
+                if (toDelete is null)
+                    return new VoiceLedgerResult($"{helper.Name}: no {deleteType} entry to delete", helper.Id, ShowOnCalendar: false);
+
+                await _data.DeleteLedgerEntryAsync(toDelete.Id);
+                return new VoiceLedgerResult($"{helper.Name}: {deleteType} ₹{toDelete.Amount:N0} deleted", helper.Id, ShowOnCalendar: false);
+
             default:
                 return null;
         }

@@ -58,6 +58,9 @@
   <data name="Common_Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Common_Deleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
   <data name="Common_OK" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -168,6 +171,9 @@
   </data>
   <data name="Ledger_Amount" xml:space="preserve">
     <value>Amount (₹)</value>
+  </data>
+  <data name="Ledger_DeleteConfirm" xml:space="preserve">
+    <value>Delete this entry? This can't be undone.</value>
   </data>
   <data name="Ledger_Empty" xml:space="preserve">
     <value>No entries this month. Tap + to log an advance.</value>
@@ -343,17 +349,17 @@
   <data name="Settings_DeleteWarning" xml:space="preserve">
     <value>This permanently erases your account and every helper, attendance and payment record — on this device and our servers. This cannot be undone.</value>
   </data>
-  <data name="Settings_Language" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="Settings_Legal" xml:space="preserve">
-    <value>Legal</value>
-  </data>
   <data name="Settings_Help" xml:space="preserve">
     <value>Help</value>
   </data>
   <data name="Settings_HelpAndVoice" xml:space="preserve">
     <value>Help &amp; Voice Commands</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_Legal" xml:space="preserve">
+    <value>Legal</value>
   </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>Log out</value>

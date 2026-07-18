@@ -22,6 +22,7 @@ public interface IDataService
 
     Task<List<LedgerEntryDto>> GetLedgerAsync(Guid helperId, string period);
     Task AddLedgerEntryAsync(LedgerEntryDto entry);
+    Task DeleteLedgerEntryAsync(Guid id);
 
     Task<SettlementBreakdown> ComputeSettlementAsync(Guid helperId, int year, int month);
     Task<SettlementDto> MarkPaidAsync(Guid helperId, string period, decimal amount,
@@ -207,6 +208,19 @@ public sealed class DataService : IDataService
 
         var conn = await _db.GetConnectionAsync();
         await conn.InsertOrReplaceAsync(entry.ToLocal(dirty: true));
+        await _sync.RequestSyncAsync();
+    }
+
+    public async Task DeleteLedgerEntryAsync(Guid id)
+    {
+        var conn = await _db.GetConnectionAsync();
+        var row = await conn.FindAsync<LocalLedgerEntry>(id);
+        if (row is null) return;
+
+        row.IsDeleted = true;
+        row.IsDirty = true;
+        row.ModifiedAtUtc = DateTime.UtcNow;
+        await conn.UpdateAsync(row);
         await _sync.RequestSyncAsync();
     }
 

@@ -20,7 +20,9 @@ public enum VoiceIntent
     MarkAttendance = 3,
     LogDelivery = 4,
     LogPayment = 5,
-    LogBonus = 6
+    LogBonus = 6,
+    DeleteAdvance = 7,
+    DeleteBonus = 8
 }
 
 /// <summary>
@@ -32,6 +34,8 @@ public enum VoiceIntent
 ///   "Geeta was absent today"                → MarkAttendance(Absent, Geeta)
 ///   "Raju delivered 1.5 litres"             → LogDelivery   (1.5, Raju)
 ///   "Paid Geeta 4500 salary"                → LogPayment    (4500, Geeta)
+///   "Delete Geeta's advance"                → DeleteAdvance (Geeta)
+///   "Remove Raju's bonus"                   → DeleteBonus   (Raju)
 /// </summary>
 public static class VoiceLedgerParser
 {
@@ -48,6 +52,7 @@ public static class VoiceLedgerParser
     static readonly string[] DeliveryWords = { "delivered", "delivery", "liter", "litre", "milk", "doodh" };
     static readonly string[] PaymentWords = { "paid", "salary", "settle", "settled", "tankha", "pagaar", "pagar" };
     static readonly string[] BonusWords = { "bonus", "diwali", "baksheesh", "inaam" };
+    static readonly string[] DeleteWords = { "delete", "remove", "undo", "cancel", "hata", "hatao", "mita", "mitao" };
 
     public static VoiceCommand Parse(string text, IReadOnlyCollection<string> knownHelperNames)
     {
@@ -66,6 +71,14 @@ public static class VoiceLedgerParser
             units = decimal.Parse(um.Groups["units"].Value.Replace(',', '.'), CultureInfo.InvariantCulture);
 
         bool Any(string[] words) => words.Any(t.Contains);
+
+        // Delete checked first: "delete/remove ... bonus/advance" carries no amount, so it would
+        // never satisfy the amount-gated Log* checks below anyway, but keeping it first avoids any
+        // ambiguity with words (e.g. "gave", "diya") shared with the Advance/Bonus word lists.
+        if (Any(DeleteWords) && Any(BonusWords))
+            return new VoiceCommand(VoiceIntent.DeleteBonus, nameHint, 0, 0, null, text!);
+        if (Any(DeleteWords) && Any(AdvanceWords))
+            return new VoiceCommand(VoiceIntent.DeleteAdvance, nameHint, 0, 0, null, text!);
 
         if (Any(HalfDayWords))
             return new VoiceCommand(VoiceIntent.MarkAttendance, nameHint, 0, 0, AttendanceStatus.HalfDay, text!);

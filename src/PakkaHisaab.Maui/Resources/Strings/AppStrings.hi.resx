@@ -58,6 +58,9 @@
   <data name="Common_Delete" xml:space="preserve">
     <value>हटाएँ</value>
   </data>
+  <data name="Common_Deleted" xml:space="preserve">
+    <value>हटा दिया गया</value>
+  </data>
   <data name="Common_OK" xml:space="preserve">
     <value>ठीक है</value>
   </data>
