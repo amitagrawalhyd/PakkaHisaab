@@ -18,7 +18,11 @@
 #        AZURE_CLIENT_ID       = <appId>
 #        AZURE_TENANT_ID       = <tenant id>
 #        AZURE_SUBSCRIPTION_ID = <subscription id>
-#        AZURE_WEBAPP_NAME     = api-pakkahisaab-<suffix>
+#
+# The web app name/resource group aren't secrets (they're the public hostname of the live site,
+# already visible in docs/deploy scripts and the site's own URL) — hardcoded below rather than
+# read from a GitHub secret, after a secret named AZURE_WEBAPP_NAME silently evaluated to empty
+# and caused every deploy to target `--name ""`.
 name: api-deploy
 
 on:
@@ -33,6 +37,10 @@ on:
 permissions:
   id-token: write   # required for azure/login OIDC token exchange
   contents: read
+
+env:
+  AZURE_RESOURCE_GROUP: rg-pakkahisaab
+  AZURE_WEBAPP_NAME: api-pakkahisaab-amitagrawal
 
 jobs:
   build-and-deploy:
@@ -57,10 +65,10 @@ jobs:
       - name: Deploy to Azure Web App (F1 free plan)
         run: |
           cd publish && zip -qr ../api.zip . && cd ..
-          az webapp deploy --name "${{ secrets.AZURE_WEBAPP_NAME }}" \
-            --resource-group rg-pakkahisaab --src-path api.zip --type zip
+          az webapp deploy --name "$AZURE_WEBAPP_NAME" \
+            --resource-group "$AZURE_RESOURCE_GROUP" --src-path api.zip --type zip
 
       - name: End-to-end smoke test against the live deployment
         run: |
           sleep 30   # let the F1 instance warm up
-          bash deploy/smoke_test.sh "https://${{ secrets.AZURE_WEBAPP_NAME }}.azurewebsites.net"
+          bash deploy/smoke_test.sh "https://${AZURE_WEBAPP_NAME}.azurewebsites.net"
