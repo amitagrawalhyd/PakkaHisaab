@@ -1,11 +1,24 @@
 # Free CI/CD: build + deploy the API to the Azure F1 web app on every push to main.
 # GitHub Actions is free for public repos (2,000 min/mo on private).
 #
-# One-time setup:
-#   1. Azure Portal → your web app → Get publish profile (download the .PublishSettings XML)
-#   2. GitHub repo → Settings → Secrets → Actions → new secret:
-#        AZURE_WEBAPP_PUBLISH_PROFILE  = <paste the XML>
-#        AZURE_WEBAPP_NAME             = api-pakkahisaab-<suffix>
+# Auth: OIDC federated credential (no long-lived secret to leak or go stale) — an Azure AD app
+# registration trusts GitHub's OIDC token for `repo:<owner>/<repo>:ref:refs/heads/main` and holds
+# only "Website Contributor" scoped to this one web app resource.
+#
+# One-time setup (already done for this repo; kept here for anyone re-provisioning):
+#   1. az ad app create --display-name gh-pakkahisaab-api-deploy
+#      az ad sp create --id <appId>
+#   2. az role assignment create --assignee-object-id <sp objectId> \
+#        --assignee-principal-type ServicePrincipal --role "Website Contributor" \
+#        --scope /subscriptions/<sub>/resourceGroups/rg-pakkahisaab/providers/Microsoft.Web/sites/<app>
+#   3. az ad app federated-credential create --id <appId> --parameters '{
+#        "name": "gh-pakkahisaab-main", "issuer": "https://token.actions.githubusercontent.com",
+#        "subject": "repo:<owner>/<repo>:ref:refs/heads/main", "audiences": ["api://AzureADTokenExchange"]}'
+#   4. GitHub repo → Settings → Secrets → Actions → new secrets:
+#        AZURE_CLIENT_ID       = <appId>
+#        AZURE_TENANT_ID       = <tenant id>
+#        AZURE_SUBSCRIPTION_ID = <subscription id>
+#        AZURE_WEBAPP_NAME     = api-pakkahisaab-<suffix>
 name: api-deploy
 
 on:
@@ -16,6 +29,10 @@ on:
       - "src/PakkaHisaab.Shared/**"
       - ".github/workflows/api-deploy.yml"
   workflow_dispatch:
+
+permissions:
+  id-token: write   # required for azure/login OIDC token exchange
+  contents: read
 
 jobs:
   build-and-deploy:
@@ -30,12 +47,18 @@ jobs:
       - name: Build & publish
         run: dotnet publish src/PakkaHisaab.Api -c Release -o publish
 
-      - name: Deploy to Azure Web App (F1 free plan)
-        uses: azure/webapps-deploy@v3
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
         with:
-          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: publish
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to Azure Web App (F1 free plan)
+        run: |
+          cd publish && zip -qr ../api.zip . && cd ..
+          az webapp deploy --name "${{ secrets.AZURE_WEBAPP_NAME }}" \
+            --resource-group rg-pakkahisaab --src-path api.zip --type zip
 
       - name: End-to-end smoke test against the live deployment
         run: |
