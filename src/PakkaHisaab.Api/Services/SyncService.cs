@@ -41,33 +41,42 @@ public sealed class SyncService : ISyncService
             return replay;
         }
 
-        var response = new SyncPushResponse { ClientBatchId = request.ClientBatchId };
-
-        await using var tx = await _db.Database.BeginTransactionAsync(ct);
-
-        foreach (var dto in request.Helpers)
-            await UpsertAsync<Helper, HelperDto>(userId, dto, response, MapHelper, ct);
-        foreach (var dto in request.Attendance)
-            await UpsertAsync<AttendanceEntry, AttendanceDto>(userId, dto, response, MapAttendance, ct);
-        foreach (var dto in request.LedgerEntries)
-            await UpsertAsync<LedgerEntry, LedgerEntryDto>(userId, dto, response, MapLedger, ct);
-        foreach (var dto in request.Settlements)
-            await UpsertAsync<Settlement, SettlementDto>(userId, dto, response, MapSettlement, ct);
-
-        response.ServerWatermark = await CurrentWatermarkAsync(userId, ct);
-
-        _db.SyncBatches.Add(new SyncBatch
+        // EnableRetryOnFailure (Program.cs, for Azure SQL free-tier cold-start) installs a
+        // retrying execution strategy, which refuses to run a user-initiated BeginTransactionAsync
+        // unless the whole attempt — including the transaction — is retried as one unit via
+        // CreateExecutionStrategy().ExecuteAsync; otherwise a mid-cold-start retry throws
+        // InvalidOperationException instead of transparently retrying.
+        var strategy = _db.Database.CreateExecutionStrategy();
+        return await strategy.ExecuteAsync(async () =>
         {
-            ClientBatchId = request.ClientBatchId,
-            UserId = userId,
-            DeviceId = request.DeviceId,
-            ProcessedAtUtc = DateTime.UtcNow,
-            ResponseJson = JsonSerializer.Serialize(response)
-        });
+            var response = new SyncPushResponse { ClientBatchId = request.ClientBatchId };
 
-        await _db.SaveChangesAsync(ct);
-        await tx.CommitAsync(ct);
-        return response;
+            await using var tx = await _db.Database.BeginTransactionAsync(ct);
+
+            foreach (var dto in request.Helpers)
+                await UpsertAsync<Helper, HelperDto>(userId, dto, response, MapHelper, ct);
+            foreach (var dto in request.Attendance)
+                await UpsertAsync<AttendanceEntry, AttendanceDto>(userId, dto, response, MapAttendance, ct);
+            foreach (var dto in request.LedgerEntries)
+                await UpsertAsync<LedgerEntry, LedgerEntryDto>(userId, dto, response, MapLedger, ct);
+            foreach (var dto in request.Settlements)
+                await UpsertAsync<Settlement, SettlementDto>(userId, dto, response, MapSettlement, ct);
+
+            response.ServerWatermark = await CurrentWatermarkAsync(userId, ct);
+
+            _db.SyncBatches.Add(new SyncBatch
+            {
+                ClientBatchId = request.ClientBatchId,
+                UserId = userId,
+                DeviceId = request.DeviceId,
+                ProcessedAtUtc = DateTime.UtcNow,
+                ResponseJson = JsonSerializer.Serialize(response)
+            });
+
+            await _db.SaveChangesAsync(ct);
+            await tx.CommitAsync(ct);
+            return response;
+        });
     }
 
     public async Task<SyncPullResponse> PullAsync(Guid userId, SyncPullRequest request, CancellationToken ct)

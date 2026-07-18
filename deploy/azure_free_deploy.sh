@@ -28,9 +28,19 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 echo "==> Resource group"
 az group create -n "$RG" -l "$LOCATION" -o none
 
+# Re-running this script must never clobber a live app's DB password/JWT key with the fresh
+# random ones generated above — that silently breaks ConnectionStrings__Default in production
+# (the SQL server's real admin password doesn't change just because we generated a new guess for
+# it). Only apply those two secrets to app settings on the run that actually creates the server.
 echo "==> SQL logical server (free — the server itself never bills)"
-az sql server create -g "$RG" -n "$SQL_SERVER" -l "$LOCATION" \
-  --admin-user "$SQL_ADMIN" --admin-password "$SQL_PASSWORD" -o none 2>/dev/null || true
+if az sql server show -g "$RG" -n "$SQL_SERVER" -o none 2>/dev/null; then
+  SERVER_IS_NEW=false
+  echo "    already exists — leaving its admin password untouched"
+else
+  SERVER_IS_NEW=true
+  az sql server create -g "$RG" -n "$SQL_SERVER" -l "$LOCATION" \
+    --admin-user "$SQL_ADMIN" --admin-password "$SQL_PASSWORD" -o none
+fi
 
 echo "==> Azure SQL Database — FREE offer (--use-free-limit)"
 # AutoPause = hard ₹0 guarantee: DB pauses if the monthly grant runs out,
@@ -49,15 +59,22 @@ az appservice plan create -g "$RG" -n "$PLAN" --sku F1 --is-linux -o none 2>/dev
 echo "==> Web app"
 az webapp create -g "$RG" -p "$PLAN" -n "$APP" --runtime "DOTNETCORE:8.0" -o none 2>/dev/null || true
 
-echo "==> App settings (connection string, JWT, auto schema creation)"
-CONN="Server=tcp:${SQL_SERVER}.database.windows.net,1433;Database=${SQL_DB};User ID=${SQL_ADMIN};Password=${SQL_PASSWORD};Encrypt=True;Connection Timeout=60"
+echo "==> App settings (auto schema creation — safe to reapply every run)"
 az webapp config appsettings set -g "$RG" -n "$APP" -o none --settings \
-  ConnectionStrings__Default="$CONN" \
   Database__Provider="SqlServer" \
-  Database__AutoCreate="true" \
-  Jwt__Key="$JWT_KEY" \
-  Jwt__Issuer="https://${APP}.azurewebsites.net" \
-  Jwt__Audience="pakkahisaab-mobile"
+  Database__AutoCreate="true"
+
+if [ "$SERVER_IS_NEW" = true ]; then
+  echo "==> App settings (connection string + JWT — first-time only)"
+  CONN="Server=tcp:${SQL_SERVER}.database.windows.net,1433;Database=${SQL_DB};User ID=${SQL_ADMIN};Password=${SQL_PASSWORD};Encrypt=True;Connection Timeout=60"
+  az webapp config appsettings set -g "$RG" -n "$APP" -o none --settings \
+    ConnectionStrings__Default="$CONN" \
+    Jwt__Key="$JWT_KEY" \
+    Jwt__Issuer="https://${APP}.azurewebsites.net" \
+    Jwt__Audience="pakkahisaab-mobile"
+else
+  echo "==> Connection string / JWT key already set on a prior run — not touching them"
+fi
 
 echo "==> Build & publish the API"
 dotnet publish "$ROOT/src/PakkaHisaab.Api" -c Release -o "$ROOT/publish" >/dev/null
@@ -80,7 +97,11 @@ echo
 echo "============================================================"
 echo " Deployed:            $BASE"
 echo " Swagger (dev only):  $BASE/swagger"
-echo " SQL admin password:  $SQL_PASSWORD   <-- SAVE THIS"
+if [ "$SERVER_IS_NEW" = true ]; then
+  echo " SQL admin password:  $SQL_PASSWORD   <-- SAVE THIS"
+else
+  echo " SQL admin password:  unchanged (server already existed, not reset)"
+fi
 echo " JWT signing key:     (stored as app setting Jwt__Key)"
 echo "============================================================"
 echo

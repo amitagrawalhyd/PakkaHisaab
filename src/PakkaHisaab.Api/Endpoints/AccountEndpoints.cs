@@ -27,15 +27,22 @@ public static class AccountEndpoints
                 if (!PasswordHasher.Verify(req.Password, user.PasswordHash))
                     return Results.Unauthorized();
 
-                await using var tx = await db.Database.BeginTransactionAsync();
-                await db.Helpers.Where(x => x.UserId == userId).ExecuteDeleteAsync();
-                await db.Attendance.Where(x => x.UserId == userId).ExecuteDeleteAsync();
-                await db.LedgerEntries.Where(x => x.UserId == userId).ExecuteDeleteAsync();
-                await db.Settlements.Where(x => x.UserId == userId).ExecuteDeleteAsync();
-                await db.SyncBatches.Where(x => x.UserId == userId).ExecuteDeleteAsync();
-                db.Users.Remove(user);
-                await db.SaveChangesAsync();
-                await tx.CommitAsync();
+                // Wrapped via CreateExecutionStrategy so the retrying execution strategy
+                // (EnableRetryOnFailure, Program.cs) can retry the whole transaction as one unit
+                // instead of throwing on a user-initiated BeginTransactionAsync.
+                var strategy = db.Database.CreateExecutionStrategy();
+                await strategy.ExecuteAsync(async () =>
+                {
+                    await using var tx = await db.Database.BeginTransactionAsync();
+                    await db.Helpers.Where(x => x.UserId == userId).ExecuteDeleteAsync();
+                    await db.Attendance.Where(x => x.UserId == userId).ExecuteDeleteAsync();
+                    await db.LedgerEntries.Where(x => x.UserId == userId).ExecuteDeleteAsync();
+                    await db.Settlements.Where(x => x.UserId == userId).ExecuteDeleteAsync();
+                    await db.SyncBatches.Where(x => x.UserId == userId).ExecuteDeleteAsync();
+                    db.Users.Remove(user);
+                    await db.SaveChangesAsync();
+                    await tx.CommitAsync();
+                });
 
                 lf.CreateLogger("Account").LogInformation(
                     "Account {UserId} and all data erased at user request.", userId);
