@@ -1,0 +1,16 @@
+@model PakkaHisaab.Admin.Models.PaginationModel
+@{
+    if (Model.TotalPages <= 1) { return; }
+    string Href(int p) => Model.QueryString.Length > 0 ? $"?{Model.QueryString}&page={p}" : $"?page={p}";
+}
+<nav aria-label="Pagination" class="d-flex justify-content-between align-items-center mt-3">
+    <span class="text-secondary small">Page @Model.Page of @Model.TotalPages</span>
+    <ul class="pagination pagination-sm mb-0">
+        <li class="page-item @(Model.Page <= 1 ? "disabled" : "")">
+            <a class="page-link" href="@Href(Model.Page - 1)">Previous</a>
+        </li>
+        <li class="page-item @(Model.Page >= Model.TotalPages ? "disabled" : "")">
+            <a class="page-link" href="@Href(Model.Page + 1)">Next</a>
+        </li>
+    </ul>
+</nav>

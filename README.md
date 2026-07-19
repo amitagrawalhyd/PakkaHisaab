@@ -10,17 +10,23 @@ seconds over UPI and share PDF statements on WhatsApp.
 
 ```
 PakkaHisaab.sln
-├── src/PakkaHisaab.Shared     DTOs, enums, sync contracts, SalaryCalculator,
-│                              VoiceLedgerParser, LeaveForecaster — one engine,
-│                              referenced by BOTH the MAUI client and the API (DRY).
-├── src/PakkaHisaab.Maui       .NET MAUI (Android + iOS) client. Strict MVVM via
-│                              CommunityToolkit.Mvvm; offline-first SQLite; Shiny
-│                              background sync; QuestPDF reports; 23-language runtime i18n.
-├── src/PakkaHisaab.Api        .NET 8 minimal-API microservice: JWT auth, idempotent
-│                              /sync push-pull, account deletion, AI parse/forecast.
-├── db/                        SQL Server DDL + maintenance procedures.
-├── docs/DEPLOYMENT.md         Azure, keystore/AAB, iOS provisioning/IPA, store checklists.
-└── tools/                     get_fonts.sh (font assets), gen_resx.py + translations.json.
+├── src/PakkaHisaab.Shared         DTOs, enums, sync contracts, SalaryCalculator,
+│                                  VoiceLedgerParser, LeaveForecaster — one engine,
+│                                  referenced by the MAUI client, API and Admin (DRY).
+├── src/PakkaHisaab.Infrastructure AppDbContext, entities and PasswordHasher — shared
+│                                  EF Core data access for BOTH the API and the Admin
+│                                  console (never referenced by the MAUI client).
+├── src/PakkaHisaab.Maui           .NET MAUI (Android + iOS) client. Strict MVVM via
+│                                  CommunityToolkit.Mvvm; offline-first SQLite; Shiny
+│                                  background sync; QuestPDF reports; 23-language i18n.
+├── src/PakkaHisaab.Api            .NET 8 minimal-API microservice: JWT auth, idempotent
+│                                  /sync push-pull, account deletion, AI parse/forecast.
+├── src/PakkaHisaab.Admin          .NET 8 Razor Pages ops console: dashboard with KPI/
+│                                  charts, manage users/helpers/attendance/ledger/
+│                                  settlements. Cookie login gated on Users.IsAdmin.
+├── db/                            SQL Server DDL + maintenance procedures.
+├── docs/DEPLOYMENT.md             Azure, keystore/AAB, iOS provisioning/IPA, store checklists.
+└── tools/                         get_fonts.sh (font assets), gen_resx.py + translations.json.
 ```
 
 ## Architecture at a glance

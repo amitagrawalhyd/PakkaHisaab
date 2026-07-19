@@ -26,7 +26,8 @@ CREATE TABLE dbo.Users
     PasswordHash                NVARCHAR(MAX)    NOT NULL,
     CreatedAtUtc                DATETIME2(3)     NOT NULL CONSTRAINT DF_Users_Created DEFAULT SYSUTCDATETIME(),
     RefreshToken                NVARCHAR(512)    NULL,
-    RefreshTokenExpiresAtUtc    DATETIME2(3)     NULL
+    RefreshTokenExpiresAtUtc    DATETIME2(3)     NULL,
+    IsAdmin                     BIT              NOT NULL CONSTRAINT DF_Users_IsAdmin DEFAULT 0
 );
 GO
 CREATE UNIQUE INDEX IX_Users_Email ON dbo.Users (Email);

@@ -1,0 +1,61 @@
+# Build + deploy the Admin console to its Azure Web App on every push to main.
+#
+# Auth: same OIDC federated credential as api-deploy.yml — the gh-pakkahisaab-api-deploy
+# app registration was additionally granted "Website Contributor" scoped to THIS web app
+# (see: az role assignment create --assignee-object-id <sp objectId> --role "Website Contributor"
+#  --scope .../providers/Microsoft.Web/sites/admin-pakkahisaab-amitagrawal). No new secrets
+# needed — reuses AZURE_CLIENT_ID / AZURE_TENANT_ID / AZURE_SUBSCRIPTION_ID.
+#
+# The Admin app shares the API's Azure SQL database (ConnectionStrings__Default /
+# Database__Provider app settings were copied onto this web app once, out of band —
+# there is no separate database for Admin).
+name: admin-deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/PakkaHisaab.Admin/**"
+      - "src/PakkaHisaab.Infrastructure/**"
+      - "src/PakkaHisaab.Shared/**"
+      - ".github/workflows/admin-deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  id-token: write   # required for azure/login OIDC token exchange
+  contents: read
+
+env:
+  AZURE_RESOURCE_GROUP: rg-pakkahisaab
+  AZURE_WEBAPP_NAME: admin-pakkahisaab-amitagrawal
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Build & publish
+        run: dotnet publish src/PakkaHisaab.Admin -c Release -o publish
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to Azure Web App
+        run: |
+          cd publish && zip -qr ../admin.zip . && cd ..
+          az webapp deploy --name "$AZURE_WEBAPP_NAME" \
+            --resource-group "$AZURE_RESOURCE_GROUP" --src-path admin.zip --type zip
+
+      - name: Smoke test against the live deployment
+        run: |
+          sleep 15
+          bash deploy/admin_smoke_test.sh "https://${AZURE_WEBAPP_NAME}.azurewebsites.net"

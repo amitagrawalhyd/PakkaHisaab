@@ -1,0 +1,30 @@
+@page
+@model PakkaHisaab.Admin.Pages.ErrorModel
+@{
+    Layout = null;
+    ViewData["PageTitle"] = "Error";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Error · PakkaHisaab Admin</title>
+    <link rel="icon" type="image/png" href="~/img/logo.png" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="ph-login-wrap">
+        <div class="ph-login-card text-center">
+            <img src="~/img/logo.png" class="ph-login-logo" alt="PakkaHisaab" />
+            <h1 class="h5 fw-bold">Something went wrong</h1>
+            <p class="text-secondary small">An unexpected error occurred while processing your request.</p>
+            @if (Model.ShowRequestId)
+            {
+                <p class="text-secondary" style="font-size:.72rem">Request ID: <code>@Model.RequestId</code></p>
+            }
+            <a href="/" class="btn btn-ph-primary mt-2">Back to dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

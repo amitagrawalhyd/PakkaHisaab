@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
-using PakkaHisaab.Api.Data;
+using PakkaHisaab.Infrastructure.Data;
 using PakkaHisaab.Shared.Domain;
 
 namespace PakkaHisaab.Api.Endpoints;

@@ -1,0 +1,141 @@
+@page "/"
+@model PakkaHisaab.Admin.Pages.IndexModel
+@using System.Text.Json
+@{
+    ViewData["PageTitle"] = "Dashboard";
+    var jsonOpts = new JsonSerializerOptions { PropertyNamingPolicy = null };
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-xl-3">
+        <partial name="_StatCard" model="@(new PakkaHisaab.Admin.Models.StatCardModel {
+            Label = "Total Users", Value = Model.TotalUsers.ToString("N0"), Icon = "bi-people", Color = "teal",
+            Sub = "Household accounts" })" />
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <partial name="_StatCard" model="@(new PakkaHisaab.Admin.Models.StatCardModel {
+            Label = "Active Helpers", Value = Model.ActiveHelpers.ToString("N0"), Icon = "bi-person-badge", Color = "green",
+            Sub = $"{Model.TotalHelpers:N0} total" })" />
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <partial name="_StatCard" model="@(new PakkaHisaab.Admin.Models.StatCardModel {
+            Label = "Pending Settlements", Value = "₹" + Model.PendingSettlementsAmount.ToString("N0"), Icon = "bi-hourglass-split", Color = "amber",
+            Sub = $"{Model.PendingSettlements:N0} awaiting payment" })" />
+    </div>
+    <div class="col-sm-6 col-xl-3">
+        <partial name="_StatCard" model="@(new PakkaHisaab.Admin.Models.StatCardModel {
+            Label = "Paid This Month", Value = "₹" + Model.PaidThisMonthAmount.ToString("N0"), Icon = "bi-check-circle", Color = "navy",
+            Sub = $"{Model.SyncBatchesLast7Days:N0} syncs in 7 days" })" />
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-lg-5">
+        <div class="ph-card h-100">
+            <div class="ph-card-header"><h2>New Users (6 months)</h2></div>
+            <div class="ph-card-body"><canvas id="userGrowthChart" height="200"></canvas></div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="ph-card h-100">
+            <div class="ph-card-header"><h2>Attendance (30 days)</h2></div>
+            <div class="ph-card-body"><canvas id="attendanceChart" height="200"></canvas></div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ph-card h-100">
+            <div class="ph-card-header"><h2>Settlements</h2></div>
+            <div class="ph-card-body"><canvas id="settlementChart" height="200"></canvas></div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-7">
+        <div class="ph-card">
+            <div class="ph-card-header"><h2>Ledger Movement — This Month</h2></div>
+            <div class="ph-card-body"><canvas id="ledgerChart" height="140"></canvas></div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="ph-card">
+            <div class="ph-card-header">
+                <h2>Recently Joined</h2>
+                <a href="/Users" class="small">View all <i class="bi bi-arrow-right"></i></a>
+            </div>
+            <div class="table-responsive">
+                <table class="table ph-table mb-0">
+                    <thead><tr><th>Name</th><th>Email</th><th>Joined</th></tr></thead>
+                    <tbody>
+                        @foreach (var u in Model.RecentUsers)
+                        {
+                            <tr>
+                                <td class="fw-semibold">@u.Name</td>
+                                <td class="text-secondary">@u.Email</td>
+                                <td class="text-secondary">@u.CreatedAtUtc.ToString("dd MMM yyyy")</td>
+                            </tr>
+                        }
+                        @if (!Model.RecentUsers.Any())
+                        {
+                            <tr><td colspan="3" class="text-center text-secondary py-4">No users yet.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/lib/chartjs/chart.umd.min.js"></script>
+<script>
+    const teal = '#14b8a6', green = '#22c55e', amber = '#d97706', red = '#dc2626', navy = '#1e293b', gray = '#94a3b8';
+    Chart.defaults.font.family = "'Segoe UI', sans-serif";
+    Chart.defaults.color = '#64748b';
+
+    new Chart(document.getElementById('userGrowthChart'), {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(JsonSerializer.Serialize(Model.UserGrowthLabels, jsonOpts)),
+            datasets: [{
+                label: 'New users',
+                data: @Html.Raw(JsonSerializer.Serialize(Model.UserGrowthValues, jsonOpts)),
+                borderColor: teal, backgroundColor: 'rgba(20,184,166,.12)',
+                tension: .35, fill: true, pointRadius: 3
+            }]
+        },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
+    });
+
+    new Chart(document.getElementById('attendanceChart'), {
+        type: 'doughnut',
+        data: {
+            labels: @Html.Raw(JsonSerializer.Serialize(Model.AttendanceLabels, jsonOpts)),
+            datasets: [{ data: @Html.Raw(JsonSerializer.Serialize(Model.AttendanceValues, jsonOpts)), backgroundColor: [green, red, amber] }]
+        },
+        options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12 } } }, cutout: '65%' }
+    });
+
+    new Chart(document.getElementById('settlementChart'), {
+        type: 'doughnut',
+        data: {
+            labels: @Html.Raw(JsonSerializer.Serialize(Model.SettlementLabels, jsonOpts)),
+            datasets: [{ data: @Html.Raw(JsonSerializer.Serialize(Model.SettlementValues, jsonOpts)), backgroundColor: [amber, green] }]
+        },
+        options: { plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12 } } }, cutout: '65%' }
+    });
+
+    new Chart(document.getElementById('ledgerChart'), {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(JsonSerializer.Serialize(Model.LedgerLabels, jsonOpts)),
+            datasets: [{
+                label: 'Amount (₹)',
+                data: @Html.Raw(JsonSerializer.Serialize(Model.LedgerValues, jsonOpts)),
+                backgroundColor: teal, borderRadius: 6, maxBarThickness: 46
+            }]
+        },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    });
+</script>
+}

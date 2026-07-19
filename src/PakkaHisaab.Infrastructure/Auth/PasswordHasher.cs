@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace PakkaHisaab.Api.Auth;
+namespace PakkaHisaab.Infrastructure.Auth;
 
 /// <summary>PBKDF2-SHA256 password hashing (100k iterations, 16-byte salt), constant-time verify.</summary>
 public static class PasswordHasher

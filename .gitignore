@@ -13,3 +13,12 @@ src/PakkaHisaab.Maui/Resources/Fonts/*.ttf
 *.log
 logs*.zip
 logs_extract*/
+
+# Local dev databases (Admin/Api Sqlite provider) and deploy scratch files
+*.db
+*.db-shm
+*.db-wal
+publish/
+publish-admin/
+admin.zip
+api.zip

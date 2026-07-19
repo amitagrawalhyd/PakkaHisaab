@@ -1,0 +1,47 @@
+@page
+@model PakkaHisaab.Admin.Pages.Account.LoginModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign in · PakkaHisaab Admin</title>
+    <link rel="icon" type="image/png" href="~/img/logo.png" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="ph-login-wrap">
+        <div class="ph-login-card">
+            <img src="~/img/logo.png" class="ph-login-logo" alt="PakkaHisaab" />
+            <h1 class="h5 text-center fw-bold mb-1">PakkaHisaab Admin</h1>
+            <p class="text-center text-secondary small mb-4">Sign in with an admin-enabled account</p>
+
+            @if (Model.ErrorMessage is not null)
+            {
+                <div class="alert alert-danger py-2 small">@Model.ErrorMessage</div>
+            }
+
+            <form method="post">
+                <div class="mb-3">
+                    <label asp-for="Input.Email" class="form-label">Email</label>
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" autofocus />
+                    <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.Password" class="form-label">Password</label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" />
+                    <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                </div>
+                <button type="submit" class="btn btn-ph-primary w-100 mt-2">
+                    <i class="bi bi-box-arrow-in-right me-1"></i>Sign in
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

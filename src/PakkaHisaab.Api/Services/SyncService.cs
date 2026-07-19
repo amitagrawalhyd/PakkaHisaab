@@ -1,6 +1,6 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
-using PakkaHisaab.Api.Data;
+using PakkaHisaab.Infrastructure.Data;
 using PakkaHisaab.Shared.Dtos;
 using PakkaHisaab.Shared.Sync;
 

@@ -1,0 +1,50 @@
+@{
+    var pageTitle = ViewData["PageTitle"] as string ?? "Dashboard";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@pageTitle · PakkaHisaab Admin</title>
+
+    <link rel="icon" type="image/png" href="~/img/logo.png" />
+    <link rel="apple-touch-icon" href="~/img/logo.png" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <div class="ph-shell">
+        <div class="ph-sidebar-backdrop" id="phSidebarBackdrop"></div>
+        <partial name="_Sidebar" />
+
+        <div class="ph-main">
+            <partial name="_Topbar" model="@pageTitle" />
+            <main class="ph-content">
+                @if (TempData["Flash"] is string flash)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle me-1"></i>@flash
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+                @if (TempData["FlashError"] is string flashError)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi bi-exclamation-triangle me-1"></i>@flashError
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

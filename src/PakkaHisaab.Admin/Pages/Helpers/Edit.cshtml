@@ -1,0 +1,70 @@
+@page "/Helpers/Edit/{id:guid}"
+@model PakkaHisaab.Admin.Pages.Helpers.EditModel
+@{ ViewData["PageTitle"] = "Edit Helper"; }
+
+<div class="d-flex align-items-center gap-2 mb-3">
+    <a href="/Helpers" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back to helpers</a>
+    <span class="text-secondary small">Owner: @Model.OwnerEmail</span>
+</div>
+
+<div class="ph-card" style="max-width:720px">
+    <div class="ph-card-body">
+        <form method="post">
+            <input type="hidden" asp-for="Input.Id" />
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Name</label>
+                    <input asp-for="Input.Name" class="form-control" />
+                    <span asp-validation-for="Input.Name" class="text-danger small"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">WhatsApp Number</label>
+                    <input asp-for="Input.WhatsAppNumber" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Category</label>
+                    <select asp-for="Input.Category" asp-items="Html.GetEnumSelectList<HelperCategory>()" class="form-select"></select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">UPI ID</label>
+                    <input asp-for="Input.UpiId" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Wage Type</label>
+                    <select asp-for="Input.WageType" asp-items="Html.GetEnumSelectList<WageType>()" class="form-select"></select>
+                </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-4">
+                    <label class="form-label">Monthly Wage (₹)</label>
+                    <input asp-for="Input.MonthlyWage" type="number" step="0.01" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Rate / Unit (₹)</label>
+                    <input asp-for="Input.RatePerUnit" type="number" step="0.01" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Unit Label</label>
+                    <input asp-for="Input.UnitLabel" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Monthly Allowed Absences</label>
+                    <input asp-for="Input.MonthlyAllowedAbsences" type="number" class="form-control" />
+                </div>
+                <div class="col-md-6 d-flex align-items-end gap-4 pb-2">
+                    <div class="form-check">
+                        <input asp-for="Input.CarryOverLeaveAllowed" class="form-check-input" />
+                        <label asp-for="Input.CarryOverLeaveAllowed" class="form-check-label">Carry-over leave</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Input.IsActive" class="form-check-input" />
+                        <label asp-for="Input.IsActive" class="form-check-label">Active</label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button type="submit" class="btn btn-ph-primary"><i class="bi bi-check-lg me-1"></i>Save changes</button>
+                <a href="/Helpers" class="btn btn-light border ms-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

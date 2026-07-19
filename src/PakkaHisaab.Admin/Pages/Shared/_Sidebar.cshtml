@@ -1,0 +1,42 @@
+@{
+    string path = Context.Request.Path.Value ?? "";
+    bool IsActive(string prefix) => path.StartsWith(prefix, StringComparison.OrdinalIgnoreCase);
+    string NavClass(string prefix) => "nav-link" + (IsActive(prefix) ? " active" : "");
+}
+<aside class="ph-sidebar" id="phSidebar">
+    <div class="ph-sidebar-brand">
+        <img src="~/img/logo.png" alt="PakkaHisaab" />
+        <div>
+            <div class="name">PakkaHisaab</div>
+            <div class="tagline">Admin Console</div>
+        </div>
+    </div>
+
+    <nav class="ph-nav nav flex-column">
+        <a class="nav-link@(path == "/" ? " active" : "")" href="/">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+
+        <div class="ph-nav-section">Manage</div>
+        <a class="@NavClass("/Users")" href="/Users">
+            <i class="bi bi-people"></i> Users
+        </a>
+        <a class="@NavClass("/Helpers")" href="/Helpers">
+            <i class="bi bi-person-badge"></i> Helpers
+        </a>
+        <a class="@NavClass("/Attendance")" href="/Attendance">
+            <i class="bi bi-calendar-check"></i> Attendance
+        </a>
+        <a class="@NavClass("/Ledger")" href="/Ledger">
+            <i class="bi bi-cash-stack"></i> Ledger Entries
+        </a>
+        <a class="@NavClass("/Settlements")" href="/Settlements">
+            <i class="bi bi-receipt"></i> Settlements
+        </a>
+
+        <div class="ph-nav-section">System</div>
+        <a class="@NavClass("/SyncBatches")" href="/SyncBatches">
+            <i class="bi bi-arrow-repeat"></i> Sync Batches
+        </a>
+    </nav>
+</aside>
