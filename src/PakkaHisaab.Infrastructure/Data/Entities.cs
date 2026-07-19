@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using PakkaHisaab.Shared.Enums;
 
-namespace PakkaHisaab.Api.Data;
+namespace PakkaHisaab.Infrastructure.Data;
 
 public class User
 {
@@ -14,6 +14,8 @@ public class User
     public DateTime CreatedAtUtc { get; set; }
     [MaxLength(512)] public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenExpiresAtUtc { get; set; }
+    /// <summary>Grants sign-in to the PakkaHisaab.Admin dashboard (Users → Toggle Admin).</summary>
+    public bool IsAdmin { get; set; }
 }
 
 /// <summary>Server-side base for replicated entities. RowVersion is a global monotonic

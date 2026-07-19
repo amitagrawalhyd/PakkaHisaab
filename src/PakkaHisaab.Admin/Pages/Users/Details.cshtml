@@ -1,0 +1,79 @@
+@page "/Users/Details/{id:guid}"
+@model PakkaHisaab.Admin.Pages.Users.DetailsModel
+@{ ViewData["PageTitle"] = "User Details"; }
+
+@if (Model.Profile is null)
+{
+    <p>Not found.</p>
+}
+else
+{
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <a href="/Users" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back to users</a>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-lg-4">
+            <div class="ph-card ph-card-body">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <span class="ph-avatar" style="width:52px;height:52px;font-size:1.1rem">
+                        @string.Concat(Model.Profile.DisplayName.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(w => char.ToUpperInvariant(w[0])))
+                    </span>
+                    <div>
+                        <div class="fw-bold">@Model.Profile.DisplayName</div>
+                        <div class="text-secondary small">@Model.Profile.Email</div>
+                    </div>
+                </div>
+                <dl class="row small mb-0">
+                    <dt class="col-5 text-secondary">Phone</dt><dd class="col-7">@(Model.Profile.PhoneNumber ?? "—")</dd>
+                    <dt class="col-5 text-secondary">Joined</dt><dd class="col-7">@Model.Profile.CreatedAtUtc.ToString("dd MMM yyyy")</dd>
+                    <dt class="col-5 text-secondary">Access</dt>
+                    <dd class="col-7">
+                        @{ var b = Model.Profile.IsAdmin ? ("Admin", "green") : ("Household", "gray"); }
+                        <ph-badge text="@b.Item1" kind="@b.Item2" />
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="row g-3 h-100">
+                <div class="col-sm-4">
+                    <partial name="_StatCard" model="@(new PakkaHisaab.Admin.Models.StatCardModel { Label = "Helpers", Value = Model.Helpers.Count.ToString(), Icon = "bi-person-badge", Color = "teal" })" />
+                </div>
+                <div class="col-sm-4">
+                    <partial name="_StatCard" model="@(new PakkaHisaab.Admin.Models.StatCardModel { Label = "Pending Settlements", Value = Model.PendingSettlementsCount.ToString(), Icon = "bi-hourglass-split", Color = "amber" })" />
+                </div>
+                <div class="col-sm-4">
+                    <partial name="_StatCard" model="@(new PakkaHisaab.Admin.Models.StatCardModel { Label = "Advances Outstanding", Value = "₹" + Model.TotalAdvancesOutstanding.ToString("N0"), Icon = "bi-cash-coin", Color = "navy" })" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ph-card">
+        <div class="ph-card-header"><h2>Helpers</h2></div>
+        <div class="table-responsive">
+            <table class="table ph-table mb-0">
+                <thead><tr><th>Name</th><th>Category</th><th>Wage</th><th>Status</th></tr></thead>
+                <tbody>
+                    @foreach (var h in Model.Helpers)
+                    {
+                        <tr>
+                            <td class="fw-semibold"><a href="/Helpers/Edit/@h.Id">@h.Name</a></td>
+                            <td>@h.Category</td>
+                            <td>@(h.WageType == WageType.MonthlySalary ? $"₹{h.MonthlyWage:N0}/mo" : $"₹{h.RatePerUnit:N2}/{h.UnitLabel}")</td>
+                            <td>
+                                @{ var sb = PakkaHisaab.Admin.Helpers.Badge.Bool(h.IsActive, "Active", "Inactive"); }
+                                <ph-badge text="@sb.Text" kind="@sb.Kind" />
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Helpers.Any())
+                    {
+                        <tr><td colspan="4" class="text-center text-secondary py-4">No helpers added yet.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

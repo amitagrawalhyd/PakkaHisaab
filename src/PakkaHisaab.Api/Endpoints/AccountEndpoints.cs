@@ -1,8 +1,8 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PakkaHisaab.Api.Auth;
-using PakkaHisaab.Api.Data;
+using PakkaHisaab.Infrastructure.Auth;
+using PakkaHisaab.Infrastructure.Data;
 using PakkaHisaab.Shared.Dtos;
 
 namespace PakkaHisaab.Api.Endpoints;

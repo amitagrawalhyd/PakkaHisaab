@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PakkaHisaab.Api.Auth;
-using PakkaHisaab.Api.Data;
 using PakkaHisaab.Api.Endpoints;
 using PakkaHisaab.Api.Services;
+using PakkaHisaab.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

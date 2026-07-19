@@ -1,0 +1,21 @@
+@* Single reusable confirmation modal for the page. Trigger any button with
+   data-confirm-action / data-confirm-title / data-confirm-body / data-confirm-button
+   (see wwwroot/js/site.js) to populate and show it before a destructive POST. *@
+<div class="modal fade" id="phConfirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post" id="phConfirmForm">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h5 class="modal-title" id="phConfirmTitle">Confirm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="phConfirmBody">Are you sure?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" id="phConfirmSubmit">Confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

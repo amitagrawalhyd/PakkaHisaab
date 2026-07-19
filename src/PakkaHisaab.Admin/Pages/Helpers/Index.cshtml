@@ -1,0 +1,75 @@
+@page
+@model PakkaHisaab.Admin.Pages.Helpers.IndexModel
+@{ ViewData["PageTitle"] = "Helpers"; }
+
+<div class="ph-card mb-3">
+    <div class="ph-card-body py-3">
+        <form class="row g-2 align-items-center" method="get">
+            <div class="col-sm-4">
+                <input type="search" name="q" value="@Model.Q" class="form-control form-control-sm" placeholder="Search helper or owner email…" />
+            </div>
+            <div class="col-sm-3">
+                <select name="category" class="form-select form-select-sm">
+                    <option value="">All categories</option>
+                    @foreach (var c in Model.Categories)
+                    {
+                        <option value="@c" selected="@(Model.Category == c)">@c</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-3 form-check ms-2">
+                <input type="checkbox" class="form-check-input" name="activeOnly" value="true" id="activeOnly" checked="@Model.ActiveOnly" />
+                <label class="form-check-label small" for="activeOnly">Active only</label>
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-sm btn-ph-primary w-100">Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="ph-card">
+    <div class="table-responsive">
+        <table class="table ph-table mb-0">
+            <thead>
+                <tr><th>Name</th><th>Owner</th><th>Category</th><th>Wage</th><th>Status</th><th class="text-end">Actions</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var h in Model.Rows)
+                {
+                    <tr>
+                        <td class="fw-semibold">@h.Name</td>
+                        <td class="text-secondary">@h.OwnerEmail</td>
+                        <td>@h.Category</td>
+                        <td>@(h.WageType == WageType.MonthlySalary ? $"₹{h.MonthlyWage:N0}/mo" : $"₹{h.RatePerUnit:N2}/{h.UnitLabel}")</td>
+                        <td>
+                            @{ var b = PakkaHisaab.Admin.Helpers.Badge.Bool(h.IsActive, "Active", "Inactive"); }
+                            <ph-badge text="@b.Text" kind="@b.Kind" />
+                        </td>
+                        <td class="text-end">
+                            <div class="btn-group btn-group-sm">
+                                <a href="/Helpers/Edit/@h.Id" class="btn btn-outline-secondary"><i class="bi bi-pencil"></i></a>
+                                <button type="button" class="btn btn-outline-danger"
+                                        data-confirm-action="?handler=Remove&id=@h.Id&@Model.QueryString&page=@Model.Page"
+                                        data-confirm-title="Remove @h.Name?"
+                                        data-confirm-body="Marks the helper deleted; the change syncs to the owner's app on next sync."
+                                        data-confirm-button="Remove">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Rows.Any())
+                {
+                    <tr><td colspan="6" class="text-center text-secondary py-4">No helpers match this filter.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="ph-card-body pt-0">
+        <partial name="_Pagination" model="@(new PakkaHisaab.Admin.Models.PaginationModel { Page = Model.Page, TotalPages = Model.TotalPages, QueryString = Model.QueryString })" />
+    </div>
+</div>
+
+<partial name="_ConfirmModal" />

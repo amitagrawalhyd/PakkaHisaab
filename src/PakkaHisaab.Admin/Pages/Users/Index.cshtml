@@ -1,0 +1,63 @@
+@page
+@model PakkaHisaab.Admin.Pages.Users.IndexModel
+@{ ViewData["PageTitle"] = "Users"; }
+
+<div class="ph-card">
+    <div class="ph-card-header">
+        <h2>Household Accounts</h2>
+        <form class="d-flex" method="get">
+            <input type="search" name="q" value="@Model.Q" class="form-control form-control-sm" style="width:220px" placeholder="Search name or email…" />
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table ph-table mb-0">
+            <thead>
+                <tr>
+                    <th>Name</th><th>Email</th><th>Phone</th><th>Helpers</th><th>Access</th><th>Joined</th><th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var u in Model.Rows)
+                {
+                    <tr>
+                        <td class="fw-semibold"><a href="/Users/Details/@u.Id">@u.DisplayName</a></td>
+                        <td class="text-secondary">@u.Email</td>
+                        <td class="text-secondary">@(u.Phone ?? "—")</td>
+                        <td>@u.HelperCount</td>
+                        <td>
+                            @{ var b = u.IsAdmin ? ("Admin", "green") : ("Household", "gray"); }
+                            <ph-badge text="@b.Item1" kind="@b.Item2" />
+                        </td>
+                        <td class="text-secondary">@u.CreatedAtUtc.ToString("dd MMM yyyy")</td>
+                        <td class="text-end">
+                            <div class="btn-group btn-group-sm">
+                                <a href="/Users/Details/@u.Id" class="btn btn-outline-secondary"><i class="bi bi-eye"></i></a>
+                                <form method="post" asp-page-handler="ToggleAdmin" asp-route-id="@u.Id" asp-route-q="@Model.Q" asp-route-page="@Model.Page" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-secondary" title="Toggle admin access">
+                                        <i class="bi @(u.IsAdmin ? "bi-shield-slash" : "bi-shield-check")"></i>
+                                    </button>
+                                </form>
+                                <button type="button" class="btn btn-outline-danger"
+                                        data-confirm-action="?handler=Delete&id=@u.Id&q=@Model.Q&page=@Model.Page"
+                                        data-confirm-title="Delete @u.DisplayName?"
+                                        data-confirm-body="This permanently erases the account, all helpers, attendance, ledger entries and settlements. This cannot be undone."
+                                        data-confirm-button="Delete permanently">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Rows.Any())
+                {
+                    <tr><td colspan="7" class="text-center text-secondary py-4">No users found.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="ph-card-body pt-0">
+        <partial name="_Pagination" model="@(new PakkaHisaab.Admin.Models.PaginationModel { Page = Model.Page, TotalPages = Model.TotalPages, QueryString = Model.QueryString })" />
+    </div>
+</div>
+
+<partial name="_ConfirmModal" />

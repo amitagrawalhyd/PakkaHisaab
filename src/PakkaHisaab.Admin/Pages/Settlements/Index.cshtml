@@ -1,0 +1,65 @@
+@page
+@model PakkaHisaab.Admin.Pages.Settlements.IndexModel
+@{ ViewData["PageTitle"] = "Settlements"; }
+
+<div class="ph-card mb-3">
+    <div class="ph-card-body py-3">
+        <form class="row g-2 align-items-center" method="get">
+            <div class="col-sm-4">
+                <select name="status" class="form-select form-select-sm">
+                    <option value="">All statuses</option>
+                    @foreach (var s in Model.Statuses)
+                    {
+                        <option value="@s" selected="@(Model.Status == s)">@s</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <input type="month" name="period" value="@Model.Period" class="form-control form-control-sm" />
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-sm btn-ph-primary w-100">Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="ph-card">
+    <div class="table-responsive">
+        <table class="table ph-table mb-0">
+            <thead><tr><th>Period</th><th>Helper</th><th>Owner</th><th>Status</th><th>Final Payable</th><th>Paid On</th><th class="text-end">Actions</th></tr></thead>
+            <tbody>
+                @foreach (var s in Model.Rows)
+                {
+                    <tr>
+                        <td>@s.Period</td>
+                        <td class="fw-semibold">@s.HelperName</td>
+                        <td class="text-secondary">@s.OwnerEmail</td>
+                        <td>
+                            @{ var b = PakkaHisaab.Admin.Helpers.Badge.Settlement(s.Status); }
+                            <ph-badge text="@b.Text" kind="@b.Kind" />
+                        </td>
+                        <td class="fw-semibold">₹@s.FinalPayable.ToString("N2")</td>
+                        <td class="text-secondary">@(s.PaidAtUtc?.ToString("dd MMM yyyy") ?? "—")</td>
+                        <td class="text-end">
+                            <form method="post" asp-page-handler="ToggleStatus" asp-route-id="@s.Id"
+                                  asp-route-status="@Model.Status" asp-route-period="@Model.Period" asp-route-page="@Model.Page" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                    <i class="bi @(s.Status == SettlementStatus.Paid ? "bi-arrow-counterclockwise" : "bi-check2-circle")"></i>
+                                    Mark @(s.Status == SettlementStatus.Paid ? "Pending" : "Paid")
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Rows.Any())
+                {
+                    <tr><td colspan="7" class="text-center text-secondary py-4">No settlements match this filter.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="ph-card-body pt-0">
+        <partial name="_Pagination" model="@(new PakkaHisaab.Admin.Models.PaginationModel { Page = Model.Page, TotalPages = Model.TotalPages, QueryString = Model.QueryString })" />
+    </div>
+</div>

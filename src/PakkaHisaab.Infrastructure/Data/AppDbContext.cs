@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace PakkaHisaab.Api.Data;
+namespace PakkaHisaab.Infrastructure.Data;
 
 public class AppDbContext : DbContext
 {

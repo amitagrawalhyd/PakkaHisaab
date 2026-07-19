@@ -93,6 +93,52 @@ string, and a staging slot for zero-downtime swaps.
 
 ---
 
+## 2.5 Admin console — Azure App Service
+
+The Admin console (`src/PakkaHisaab.Admin`) is a separate Razor Pages web app that reads
+and writes the **same** Azure SQL database as the API — no separate database, no separate
+plan. It runs as a second Web App on the API's existing App Service plan (a plan can host
+several apps).
+
+```bash
+az webapp create -g rg-pakkahisaab -p plan-pakkahisaab -n admin-pakkahisaab \
+  --runtime "DOTNETCORE:8.0"
+
+# Point it at the SAME database the API uses — copy the value verbatim from the API app.
+CONN=$(az webapp config appsettings list -g rg-pakkahisaab -n api-pakkahisaab \
+  --query "[?name=='ConnectionStrings__Default'].value" -o tsv)
+
+az webapp config appsettings set -g rg-pakkahisaab -n admin-pakkahisaab --settings \
+  ConnectionStrings__Default="$CONN" \
+  Database__Provider="SqlServer" \
+  ASPNETCORE_ENVIRONMENT="Production"
+
+dotnet publish src/PakkaHisaab.Admin -c Release -o publish
+cd publish && zip -qr ../admin.zip . && cd ..
+az webapp deploy -g rg-pakkahisaab -n admin-pakkahisaab --src-path admin.zip --type zip
+```
+
+> **Zip on Windows:** PowerShell's `Compress-Archive` embeds Windows host-OS metadata that
+> Azure's Linux Kudu extraction (`parallel_rsync.sh`) mishandles, producing files with
+> literal backslashes in their names and a `400`/rsync failure. Zip from a Linux/macOS
+> shell (or `zip -qr`, as GitHub Actions does) — not `Compress-Archive`.
+
+**Admin login** is gated on `dbo.Users.IsAdmin = 1` — there is no separate credential
+store. Promote an account (or create a console-only one with no household data) via SQL:
+
+```sql
+-- one-time: adds the column to a database provisioned before this feature existed
+-- (see db/003_admin_flag.sql; 001_schema.sql already includes it on a fresh DB)
+UPDATE dbo.Users SET IsAdmin = 1 WHERE Email = 'you@example.com';
+```
+
+CI: `.github/workflows/admin-deploy.yml` redeploys on every push to `main` touching
+`src/PakkaHisaab.Admin`, `src/PakkaHisaab.Infrastructure` or `src/PakkaHisaab.Shared`,
+reusing the API's OIDC service principal (granted an additional `Website Contributor`
+role scoped to the Admin web app resource — no new GitHub secrets needed).
+
+---
+
 ## 3. Android — keystore, signing, AAB
 
 ### 3.1 Create the upload keystore (once, back it up!)

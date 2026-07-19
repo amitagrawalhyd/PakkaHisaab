@@ -1,0 +1,48 @@
+@page
+@model PakkaHisaab.Admin.Pages.SyncBatches.IndexModel
+@{ ViewData["PageTitle"] = "Sync Batches"; }
+
+<p class="text-secondary small mb-3">
+    Read-only diagnostic log of processed sync pushes — each row is one idempotent batch
+    from a device's outbox drain. Useful for tracing double-submit or conflict reports.
+</p>
+
+<div class="ph-card mb-3">
+    <div class="ph-card-body py-3">
+        <form class="row g-2 align-items-center" method="get">
+            <div class="col-sm-6">
+                <input type="search" name="q" value="@Model.Q" class="form-control form-control-sm" placeholder="Search owner email or device id…" />
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-sm btn-ph-primary w-100">Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="ph-card">
+    <div class="table-responsive">
+        <table class="table ph-table mb-0">
+            <thead><tr><th>Processed</th><th>Owner</th><th>Device</th><th>Batch Id</th><th>Response</th></tr></thead>
+            <tbody>
+                @foreach (var b in Model.Rows)
+                {
+                    <tr>
+                        <td class="text-secondary text-nowrap">@b.ProcessedAtUtc.ToString("dd MMM yyyy HH:mm")</td>
+                        <td class="fw-semibold">@b.OwnerEmail</td>
+                        <td class="text-secondary small">@b.DeviceId</td>
+                        <td class="text-secondary small"><code>@b.ClientBatchId</code></td>
+                        <td class="text-secondary small"><code>@b.ResponsePreview</code></td>
+                    </tr>
+                }
+                @if (!Model.Rows.Any())
+                {
+                    <tr><td colspan="5" class="text-center text-secondary py-4">No sync batches recorded yet.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="ph-card-body pt-0">
+        <partial name="_Pagination" model="@(new PakkaHisaab.Admin.Models.PaginationModel { Page = Model.Page, TotalPages = Model.TotalPages, QueryString = Model.QueryString })" />
+    </div>
+</div>
