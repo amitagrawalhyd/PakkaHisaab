@@ -35,8 +35,11 @@ public static class Constants
     public const string AppCenterAndroidSecret = "android=YOUR-ANDROID-APPCENTER-SECRET";
     public const string AppCenterIosSecret = "ios=YOUR-IOS-APPCENTER-SECRET";
 
-    public const string PrivacyPolicyUrl = "https://pakkahisaab.app/privacy";
-    public const string TermsUrl = "https://pakkahisaab.app/terms";
+    // TEMP: pakkahisaab.app isn't registered yet (confirmed via the .app registry's RDAP —
+    // not just missing DNS). Using the GitHub Pages URL, which is live today, so Play/App
+    // Store submission isn't blocked on it; switch back once the domain is sorted out.
+    public const string PrivacyPolicyUrl = "https://amitagrawalhyd.github.io/PakkaHisaab/privacy/";
+    public const string TermsUrl = "https://amitagrawalhyd.github.io/PakkaHisaab/terms/";
 }
 
 /// <summary>
