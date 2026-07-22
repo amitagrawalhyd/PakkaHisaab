@@ -16,10 +16,18 @@ public static class AuthEndpoints
         {
             var email = req.Email.Trim().ToLowerInvariant();
             if (string.IsNullOrWhiteSpace(email) || req.Password.Length < 8)
-                return Results.BadRequest(new { error = "Email required; password must be at least 8 characters." });
+                return Results.BadRequest(new
+                {
+                    error = "Email required; password must be at least 8 characters.",
+                    code = "INVALID_INPUT"
+                });
 
             if (await db.Users.AnyAsync(u => u.Email == email))
-                return Results.Conflict(new { error = "An account with this email already exists." });
+                return Results.Conflict(new
+                {
+                    error = "An account with this email already exists.",
+                    code = "EMAIL_TAKEN"
+                });
 
             var user = new User
             {

@@ -8,10 +8,15 @@ using PakkaHisaab.Shared.Sync;
 
 namespace PakkaHisaab.Maui.Services;
 
+/// <summary>Outcome of an auth call: on failure, <c>ErrorCode</c> is a stable machine-readable
+/// key (e.g. "EMAIL_TAKEN") the client can localize; <c>ErrorMessage</c> is the server's raw
+/// (English) message, used only as a fallback when the code is unrecognized.</summary>
+public sealed record AuthOutcome(AuthResponse? Auth, string? ErrorCode, string? ErrorMessage);
+
 public interface IApiClient
 {
-    Task<AuthResponse?> RegisterAsync(RegisterRequest request, CancellationToken ct = default);
-    Task<AuthResponse?> LoginAsync(LoginRequest request, CancellationToken ct = default);
+    Task<AuthOutcome> RegisterAsync(RegisterRequest request, CancellationToken ct = default);
+    Task<AuthOutcome> LoginAsync(LoginRequest request, CancellationToken ct = default);
     Task<SyncPushResponse?> PushAsync(SyncPushRequest request, CancellationToken ct = default);
     Task<SyncPullResponse?> PullAsync(SyncPullRequest request, CancellationToken ct = default);
     Task<bool> DeleteAccountAsync(DeleteAccountRequest request, CancellationToken ct = default);
@@ -40,19 +45,37 @@ public sealed class ApiClient : IApiClient
         return client;
     }
 
-    public async Task<AuthResponse?> RegisterAsync(RegisterRequest request, CancellationToken ct = default)
+    public async Task<AuthOutcome> RegisterAsync(RegisterRequest request, CancellationToken ct = default)
     {
         using var http = Create();
         var res = await http.PostAsJsonAsync("/auth/register", request, ct);
-        return res.IsSuccessStatusCode ? await res.Content.ReadFromJsonAsync<AuthResponse>(ct) : null;
+        return await ToOutcomeAsync(res, ct);
     }
 
-    public async Task<AuthResponse?> LoginAsync(LoginRequest request, CancellationToken ct = default)
+    public async Task<AuthOutcome> LoginAsync(LoginRequest request, CancellationToken ct = default)
     {
         using var http = Create();
         var res = await http.PostAsJsonAsync("/auth/login", request, ct);
-        return res.IsSuccessStatusCode ? await res.Content.ReadFromJsonAsync<AuthResponse>(ct) : null;
+        return await ToOutcomeAsync(res, ct);
     }
+
+    static async Task<AuthOutcome> ToOutcomeAsync(HttpResponseMessage res, CancellationToken ct)
+    {
+        if (res.IsSuccessStatusCode)
+            return new AuthOutcome(await res.Content.ReadFromJsonAsync<AuthResponse>(ct), null, null);
+
+        try
+        {
+            var body = await res.Content.ReadFromJsonAsync<ErrorBody>(ct);
+            return new AuthOutcome(null, body?.Code, body?.Error);
+        }
+        catch
+        {
+            return new AuthOutcome(null, null, null); // no/unparseable body (e.g. 401 with no content)
+        }
+    }
+
+    sealed record ErrorBody(string? Error, string? Code);
 
     public Task<SyncPushResponse?> PushAsync(SyncPushRequest request, CancellationToken ct = default) =>
         SendAuthorizedAsync<SyncPushRequest, SyncPushResponse>("/sync/push", request, ct);

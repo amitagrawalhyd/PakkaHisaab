@@ -5,8 +5,8 @@ namespace PakkaHisaab.Maui.Services;
 
 public interface IAuthService
 {
-    Task<bool> LoginAsync(string email, string password);
-    Task<bool> RegisterAsync(string email, string password, string displayName);
+    Task<AuthOutcome> LoginAsync(string email, string password);
+    Task<AuthOutcome> RegisterAsync(string email, string password, string displayName);
     /// <summary>Zero-login reviewer track: isolated demo DB, no backend, sync suspended.</summary>
     Task StartDemoAsync();
     Task LogoutAsync();
@@ -33,29 +33,29 @@ public sealed class AuthService : IAuthService
         _telemetry = telemetry;
     }
 
-    public async Task<bool> LoginAsync(string email, string password)
+    public async Task<AuthOutcome> LoginAsync(string email, string password)
     {
-        var auth = await _api.LoginAsync(new LoginRequest(email, password));
-        if (auth is null) return false;
+        var outcome = await _api.LoginAsync(new LoginRequest(email, password));
+        if (outcome.Auth is null) return outcome;
 
-        await _session.SetTokensAsync(auth.UserId, auth.AccessToken, auth.RefreshToken);
+        await _session.SetTokensAsync(outcome.Auth.UserId, outcome.Auth.AccessToken, outcome.Auth.RefreshToken);
         await _db.SwitchAsync(demo: false);   // initialize the local SQLite store upon login
         _sync.SetSuspended(false);
         await _sync.RequestSyncAsync();       // initial pull of any server-side data
         _telemetry.Track("login_success");
-        return true;
+        return outcome;
     }
 
-    public async Task<bool> RegisterAsync(string email, string password, string displayName)
+    public async Task<AuthOutcome> RegisterAsync(string email, string password, string displayName)
     {
-        var auth = await _api.RegisterAsync(new RegisterRequest(email, password, displayName, null));
-        if (auth is null) return false;
+        var outcome = await _api.RegisterAsync(new RegisterRequest(email, password, displayName, null));
+        if (outcome.Auth is null) return outcome;
 
-        await _session.SetTokensAsync(auth.UserId, auth.AccessToken, auth.RefreshToken);
+        await _session.SetTokensAsync(outcome.Auth.UserId, outcome.Auth.AccessToken, outcome.Auth.RefreshToken);
         await _db.SwitchAsync(demo: false);
         _sync.SetSuspended(false);
         _telemetry.Track("register_success");
-        return true;
+        return outcome;
     }
 
     public async Task StartDemoAsync()

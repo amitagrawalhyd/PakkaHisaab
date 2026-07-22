@@ -4,68 +4,14 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="App_SplashTagline" xml:space="preserve">
-    <value>Presensi &amp; gaji asisten, jadi lebih mudah</value>
-  </data>
   <data name="App_Tagline" xml:space="preserve">
     <value>Ketuk. Catat. Lunasi.</value>
-  </data>
-  <data name="Calendar_Ledger" xml:space="preserve">
-    <value>Kasbon &amp; Buku Kas</value>
-  </data>
-  <data name="Calendar_Summary" xml:space="preserve">
-    <value>Absen {0} hari · Harus dibayar ₹ {1:N0}</value>
-  </data>
-  <data name="Calendar_UnitsPrompt" xml:space="preserve">
-    <value>Unit terkirim ({0})</value>
-  </data>
-  <data name="Calendar_UnitsSummary" xml:space="preserve">
-    <value>{0:0.#} {1} terkirim · Harus dibayar ₹ {2:N0}</value>
-  </data>
-  <data name="Calendar_UnitsTitle" xml:space="preserve">
-    <value>Pengiriman</value>
-  </data>
-  <data name="Category_Cleaner" xml:space="preserve">
-    <value>Petugas Kebersihan</value>
-  </data>
-  <data name="Category_Cook" xml:space="preserve">
-    <value>Juru Masak</value>
-  </data>
-  <data name="Category_Driver" xml:space="preserve">
-    <value>Sopir</value>
-  </data>
-  <data name="Category_Gardener" xml:space="preserve">
-    <value>Tukang Kebun</value>
-  </data>
-  <data name="Category_HouseHelp" xml:space="preserve">
-    <value>Asisten Rumah Tangga</value>
-  </data>
-  <data name="Category_MilkMan" xml:space="preserve">
-    <value>Tukang Susu</value>
-  </data>
-  <data name="Category_Newspaper" xml:space="preserve">
-    <value>Loper Koran</value>
-  </data>
-  <data name="Category_Other" xml:space="preserve">
-    <value>Lainnya</value>
-  </data>
-  <data name="Category_Tutor" xml:space="preserve">
-    <value>Guru Les</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>Batal</value>
   </data>
-  <data name="Common_Confirm" xml:space="preserve">
-    <value>Konfirmasi</value>
-  </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>Hapus</value>
-  </data>
-  <data name="Common_Deleted" xml:space="preserve">
-    <value>Dihapus</value>
-  </data>
-  <data name="Common_OK" xml:space="preserve">
-    <value>OK</value>
   </data>
   <data name="Common_Or" xml:space="preserve">
     <value>atau</value>
@@ -76,12 +22,6 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>Tersimpan</value>
   </data>
-  <data name="Dash_DemoBanner" xml:space="preserve">
-    <value>Mode demo — data contoh, sinkronisasi nonaktif. Data tetap di perangkat ini.</value>
-  </data>
-  <data name="Dash_Empty" xml:space="preserve">
-    <value>Belum ada asisten. Ketuk + untuk menambahkan asisten pertama Anda.</value>
-  </data>
   <data name="Dash_OpenCalendar" xml:space="preserve">
     <value>Kalender</value>
   </data>
@@ -91,270 +31,17 @@
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>Dibayar bulan ini:</value>
   </data>
-  <data name="Day_Fr" xml:space="preserve">
-    <value>Jm</value>
-  </data>
-  <data name="Day_Mo" xml:space="preserve">
-    <value>Sn</value>
-  </data>
-  <data name="Day_Sa" xml:space="preserve">
-    <value>Sb</value>
-  </data>
-  <data name="Day_Su" xml:space="preserve">
-    <value>Mg</value>
-  </data>
-  <data name="Day_Th" xml:space="preserve">
-    <value>Km</value>
-  </data>
-  <data name="Day_Tu" xml:space="preserve">
-    <value>Sl</value>
-  </data>
-  <data name="Day_We" xml:space="preserve">
-    <value>Rb</value>
-  </data>
-  <data name="Forecast_Pattern" xml:space="preserve">
-    <value>Biasanya absen pada {0} · ~{1}/bulan</value>
-  </data>
-  <data name="Help_Advance_Examples" xml:space="preserve">
-    <value>• "Gave Raju an advance of 200"
-• "200 rupees udhaar to Geeta"</value>
-  </data>
-  <data name="Help_Attendance_Examples" xml:space="preserve">
-    <value>• "Geeta was absent today" / "Geeta didn't come" / "Geeta chutti"
-• "Geeta came" / "Geeta is present" / "Geeta aayi"
-• "Half day for Geeta" / "Geeta half-day" / "Geeta aadha din"</value>
-  </data>
-  <data name="Help_Attendance_Title" xml:space="preserve">
-    <value>Presensi (membuka Kalender asisten tersebut untuk menampilkan hasilnya)</value>
-  </data>
-  <data name="Help_Bonus_Examples" xml:space="preserve">
-    <value>• "Diwali bonus 500 for Geeta"</value>
-  </data>
-  <data name="Help_Calendar_Body" xml:space="preserve">
-    <value>Ketuk sebuah tanggal untuk mengganti status Hadir → Absen → Setengah Hari. Untuk asisten per-unit (misalnya tukang susu), ketuk tanggal tersebut untuk memasukkan jumlah unit yang terkirim. Menampilkan ringkasan bulan dan total yang harus dibayar sejauh ini.</value>
-  </data>
-  <data name="Help_Calendar_Title" xml:space="preserve">
-    <value>Kalender</value>
-  </data>
-  <data name="Help_Deduction_Examples" xml:space="preserve">
-    <value>• "Deducted 500 rupees from Geeta"
-• "Kata 100 from Raju"</value>
-  </data>
-  <data name="Help_Delivery_Examples" xml:space="preserve">
-    <value>• "Raju delivered 1.5 litres"
-• "1.5 liters milk from Raju"</value>
-  </data>
-  <data name="Help_Delivery_Title" xml:space="preserve">
-    <value>Pengiriman — asisten per-unit, misalnya tukang susu (juga membuka Kalender)</value>
-  </data>
-  <data name="Help_EditDelete_Body" xml:space="preserve">
-    <value>Ketuk ikon pensil pada kartu asisten di Beranda untuk mengedit detailnya, atau menghapusnya, dari formulir yang sama.</value>
-  </data>
-  <data name="Help_EditDelete_Title" xml:space="preserve">
-    <value>Edit / Hapus asisten</value>
-  </data>
-  <data name="Help_Features" xml:space="preserve">
-    <value>Fitur</value>
-  </data>
-  <data name="Help_Home_Body" xml:space="preserve">
-    <value>Lihat semua asisten, status kehadiran hari ini, dan total yang harus dibayar bulan ini. Ketuk mikrofon untuk mencatat kehadiran, pengiriman, atau entri buku kas dengan suara.</value>
-  </data>
-  <data name="Help_Home_Title" xml:space="preserve">
-    <value>Beranda</value>
-  </data>
-  <data name="Help_Ledger_Body" xml:space="preserve">
-    <value>Catat kasbon, bonus, dan potongan terhadap gaji asisten, dan lihat total berjalan untuk bulan ini.</value>
-  </data>
-  <data name="Help_Payment_Examples" xml:space="preserve">
-    <value>• "Paid Geeta 4500 salary"
-• "Settled Raju 1260"</value>
-  </data>
-  <data name="Help_Payment_Title" xml:space="preserve">
-    <value>Pembayaran / Pelunasan</value>
-  </data>
-  <data name="Help_Reports_Body" xml:space="preserve">
-    <value>Buat laporan PDF untuk satu asisten atau seluruh rumah tangga.</value>
-  </data>
-  <data name="Help_Settle_Body" xml:space="preserve">
-    <value>Tinjau rincian gaji (gaji kotor − absen tidak dibayar − kasbon) dan bayar melalui UPI atau catat pembayaran tunai.</value>
-  </data>
-  <data name="Help_Tip" xml:space="preserve">
-    <value>Tips: perintah kehadiran dan pengiriman akan langsung membawa Anda ke Kalender asisten tersebut sehingga Anda dapat melihat tanggal yang dicatat. Perintah kasbon, potongan, bonus, dan pembayaran tetap berada di Beranda dan memperbarui total di sana.</value>
-  </data>
-  <data name="Help_VoiceCommands" xml:space="preserve">
-    <value>Perintah Suara</value>
-  </data>
-  <data name="Help_VoiceIntro" xml:space="preserve">
-    <value>Ketuk tombol mikrofon di Beranda dan ucapkan salah satu perintah berikut. Ucapkan nama asisten dengan jelas — jika Anda hanya memiliki satu asisten, Anda bisa mengabaikan namanya. Berfungsi sepenuhnya offline, dalam bahasa Inggris atau Hindi yang diromanisasi.</value>
-  </data>
-  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
-    <value>Absen yang diizinkan per bulan</value>
-  </data>
-  <data name="HelperForm_CarryOver" xml:space="preserve">
-    <value>Bawa sisa cuti ke bulan berikutnya</value>
-  </data>
-  <data name="HelperForm_Category" xml:space="preserve">
-    <value>Kategori</value>
-  </data>
-  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
-    <value>Hapus asisten ini beserta seluruh catatannya dari aplikasi?</value>
-  </data>
-  <data name="HelperForm_MonthlyWage" xml:space="preserve">
-    <value>Gaji bulanan (₹)</value>
-  </data>
-  <data name="HelperForm_Name" xml:space="preserve">
-    <value>Nama</value>
-  </data>
-  <data name="HelperForm_NameRequired" xml:space="preserve">
-    <value>Silakan masukkan nama</value>
-  </data>
-  <data name="HelperForm_PerUnit" xml:space="preserve">
-    <value>Dibayar per unit pengiriman (susu, koran…)</value>
-  </data>
-  <data name="HelperForm_RatePerUnit" xml:space="preserve">
-    <value>Tarif per unit (₹)</value>
-  </data>
-  <data name="HelperForm_Title" xml:space="preserve">
-    <value>Asisten</value>
-  </data>
-  <data name="HelperForm_UnitLabel" xml:space="preserve">
-    <value>Unit</value>
-  </data>
-  <data name="HelperForm_UpiId" xml:space="preserve">
-    <value>ID UPI (untuk pembayaran)</value>
-  </data>
-  <data name="HelperForm_WhatsApp" xml:space="preserve">
-    <value>Nomor WhatsApp</value>
-  </data>
-  <data name="LedgerType_Advance" xml:space="preserve">
-    <value>Kasbon</value>
-  </data>
-  <data name="LedgerType_Bonus" xml:space="preserve">
-    <value>Bonus</value>
-  </data>
-  <data name="LedgerType_Deduction" xml:space="preserve">
-    <value>Potongan</value>
-  </data>
-  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
-    <value>Biaya pengiriman</value>
-  </data>
-  <data name="LedgerType_SalaryPayment" xml:space="preserve">
-    <value>Pembayaran gaji</value>
-  </data>
-  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
-    <value>Kasbon bulan ini</value>
-  </data>
-  <data name="Ledger_Amount" xml:space="preserve">
-    <value>Jumlah (₹)</value>
-  </data>
-  <data name="Ledger_DeleteConfirm" xml:space="preserve">
-    <value>Hapus entri ini? Tindakan ini tidak dapat dibatalkan.</value>
-  </data>
-  <data name="Ledger_Empty" xml:space="preserve">
-    <value>Belum ada entri bulan ini. Ketuk + untuk mencatat kasbon.</value>
-  </data>
-  <data name="Ledger_InvalidAmount" xml:space="preserve">
-    <value>Masukkan jumlah yang valid</value>
-  </data>
-  <data name="Ledger_NewEntry" xml:space="preserve">
-    <value>Entri buku kas baru</value>
-  </data>
-  <data name="Ledger_Note" xml:space="preserve">
-    <value>Catatan (opsional)</value>
-  </data>
-  <data name="Legal_PrivacyBody" xml:space="preserve">
-    <value>Effective Date: 14 July 2026
-
-PakkaHisaab ("Aplikasi") dikembangkan dan dioperasikan oleh Amit Kumar Agrawal ("kami", "kita"). Kebijakan Privasi ini menjelaskan bagaimana kami menangani informasi saat Anda menggunakan Aplikasi.
-
-1. Informasi yang Kami Kumpulkan
-- Detail asisten rumah tangga yang Anda masukkan: nama, kategori, nomor WhatsApp, dan ID UPI.
-- Catatan kehadiran, gaji, kasbon, dan pelunasan yang Anda buat untuk asisten Anda.
-- Diagnostik dasar perangkat dan penggunaan (log crash, performa aplikasi) melalui Microsoft App Center, yang digunakan hanya untuk memperbaiki bug dan meningkatkan stabilitas.
-- Audio suara yang direkam hanya saat Anda mengetuk tombol mikrofon, diproses di perangkat untuk mencatat entri kehadiran/buku kas, dan tidak disimpan atau dikirimkan setelah diproses.
-
-2. Bagaimana Kami Menggunakan Informasi
-Data yang Anda masukkan digunakan semata-mata untuk menjalankan fitur inti Aplikasi - melacak kehadiran, menghitung gaji, dan mencatat pembayaran untuk asisten yang Anda kelola. Dalam mode Demo, semua data tetap berada di perangkat Anda dan tidak disinkronkan.
-
-3. Penyimpanan dan Berbagi Data
-Data Anda disimpan secara lokal di perangkat Anda (SQLite). Jika Anda masuk dengan akun (mode non-Demo), data Anda disinkronkan ke server kami semata-mata agar Anda dapat mengaksesnya di seluruh perangkat Anda sendiri. Kami tidak menjual data Anda atau membagikannya kepada pihak ketiga untuk keperluan iklan. Pembayaran dilakukan melalui aplikasi UPI yang telah terpasang di perangkat Anda sendiri (Google Pay, PhonePe, Paytm, dll.) - Aplikasi tidak pernah memproses atau menyimpan kredensial bank Anda.
-
-4. Retensi dan Penghapusan Data
-Anda dapat menghapus catatan asisten mana pun kapan saja dari dalam Aplikasi. Anda dapat menghapus permanen akun Anda dan seluruh data terkait melalui Pengaturan &gt; Hapus Akun &amp; Data Saya.
-
-5. Keamanan
-Kami mengambil langkah teknis yang wajar untuk melindungi data Anda, termasuk penyimpanan lokal dan transmisi aman (HTTPS) untuk akun yang disinkronkan.
-
-6. Privasi Anak
-Aplikasi ini tidak ditujukan untuk anak-anak dan tidak dimaksudkan untuk digunakan oleh siapa pun di bawah usia 18 tahun.
-
-7. Perubahan pada Kebijakan Ini
-Kami dapat memperbarui kebijakan ini dari waktu ke waktu. Penggunaan Aplikasi yang berkelanjutan setelah perubahan berarti Anda menerima kebijakan yang diperbarui.
-
-8. Hubungi Kami
-Untuk pertanyaan atau permintaan terkait privasi, hubungi Amit Kumar Agrawal di amit.agrawal.hyd@outlook.com.</value>
-  </data>
-  <data name="Legal_TermsBody" xml:space="preserve">
-    <value>Effective Date: 14 July 2026
-
-Ketentuan Layanan ini ("Ketentuan") mengatur penggunaan Anda atas PakkaHisaab ("Aplikasi"), yang dikembangkan dan dioperasikan oleh Amit Kumar Agrawal ("kami", "kita"). Dengan menggunakan Aplikasi, Anda menyetujui Ketentuan ini.
-
-1. Penggunaan Aplikasi
-PakkaHisaab membantu Anda melacak kehadiran, gaji, kasbon, dan pembayaran untuk asisten rumah tangga (seperti asisten rumah tangga, tukang susu, sopir, dll.) yang Anda kelola. Anda bertanggung jawab atas keakuratan data yang Anda masukkan.
-
-2. Akun Anda
-Anda bertanggung jawab menjaga kerahasiaan kredensial masuk Anda dan atas semua aktivitas di bawah akun Anda. Mode Demo tidak memerlukan akun dan menyimpan semua data hanya di perangkat Anda.
-
-3. Pembayaran
-Aplikasi tidak memproses pembayaran itu sendiri. "Bayar via UPI" akan mengalihkan Anda ke aplikasi UPI yang sudah terpasang di perangkat Anda; setiap pembayaran yang dilakukan adalah antara Anda dan penyedia pembayaran pilihan Anda serta penerima. Kami tidak bertanggung jawab atas transaksi yang gagal, tertunda, atau disengketakan.
-
-4. Penggunaan yang Diizinkan
-Anda setuju untuk tidak menggunakan Aplikasi untuk tujuan yang melanggar hukum atau dengan cara yang dapat merugikan, melumpuhkan, atau mengganggu Aplikasi atau mengganggu penggunaan pihak lain atasnya.
-
-5. Tanpa Jaminan
-Aplikasi disediakan "sebagaimana adanya" tanpa jaminan dalam bentuk apa pun, baik tersurat maupun tersirat. Kami tidak menjamin Aplikasi akan bebas dari kesalahan, tidak terganggu, atau sesuai untuk tujuan tertentu.
-
-6. Batasan Tanggung Jawab
-Sejauh diizinkan oleh hukum yang berlaku, Amit Kumar Agrawal tidak bertanggung jawab atas kerugian tidak langsung, insidental, atau konsekuensial yang timbul dari penggunaan Aplikasi oleh Anda, termasuk kehilangan data atau kerugian finansial yang timbul dari pembayaran yang dilakukan menggunakan aplikasi UPI pihak ketiga.
-
-7. Penghentian
-Anda dapat berhenti menggunakan Aplikasi dan menghapus akun Anda kapan saja melalui Pengaturan &gt; Hapus Akun &amp; Data Saya. Kami dapat menangguhkan atau menghentikan akses karena penyalahgunaan Aplikasi.
-
-8. Hukum yang Berlaku
-Ketentuan ini diatur oleh hukum India, tanpa memperhatikan prinsip-prinsip pertentangan hukum.
-
-9. Perubahan pada Ketentuan Ini
-Kami dapat memperbarui Ketentuan ini dari waktu ke waktu. Penggunaan Aplikasi yang berkelanjutan setelah perubahan berarti Anda menerima Ketentuan yang diperbarui.
-
-10. Hubungi Kami
-Untuk pertanyaan mengenai Ketentuan ini, hubungi Amit Kumar Agrawal di amit.agrawal.hyd@outlook.com.</value>
-  </data>
   <data name="Login_CreateAccount" xml:space="preserve">
     <value>Buat akun</value>
   </data>
-  <data name="Login_DemoHint" xml:space="preserve">
-    <value>Instan, offline, tanpa perlu mendaftar. Jelajahi dengan data contoh untuk Geeta (asisten rumah tangga) dan Raju (tukang susu).</value>
-  </data>
-  <data name="Login_DisplayName" xml:space="preserve">
-    <value>Nama Anda</value>
-  </data>
   <data name="Login_Email" xml:space="preserve">
     <value>Email</value>
-  </data>
-  <data name="Login_Failed" xml:space="preserve">
-    <value>Gagal masuk. Periksa detail dan koneksi Anda.</value>
-  </data>
-  <data name="Login_MissingFields" xml:space="preserve">
-    <value>Silakan masukkan email dan kata sandi</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
     <value>Kata sandi</value>
   </data>
   <data name="Login_SignIn" xml:space="preserve">
     <value>Masuk</value>
-  </data>
-  <data name="Login_ToggleMode" xml:space="preserve">
-    <value>Baru di sini? Buat akun · Sudah punya akun? Masuk</value>
   </data>
   <data name="Login_TryDemo" xml:space="preserve">
     <value>Coba demo</value>
@@ -371,185 +58,17 @@ Untuk pertanyaan mengenai Ketentuan ini, hubungi Amit Kumar Agrawal di amit.agra
   <data name="Notify_SalaryTitle" xml:space="preserve">
     <value>Gaji jatuh tempo</value>
   </data>
-  <data name="Onboard_GetStarted" xml:space="preserve">
-    <value>Mulai</value>
-  </data>
-  <data name="Onboard_Next" xml:space="preserve">
-    <value>Lanjut</value>
-  </data>
-  <data name="Onboard_Skip" xml:space="preserve">
-    <value>Lewati</value>
-  </data>
-  <data name="Onboard_Slide1_Body" xml:space="preserve">
-    <value>Ketuk tanggal untuk menandai Hadir, Absen, atau Setengah Hari. Susu dan pengiriman lainnya juga — semuanya tercatat rapi dalam satu khata.</value>
-  </data>
-  <data name="Onboard_Slide1_Title" xml:space="preserve">
-    <value>Buku Kas 2 Ketukan</value>
-  </data>
-  <data name="Onboard_Slide2_Body" xml:space="preserve">
-    <value>Pengingat harian pukul 17.00 akan menanyakan kehadiran hari ini. Tandai 'Absen' langsung dari notifikasi — tanpa perlu membuka aplikasi.</value>
-  </data>
-  <data name="Onboard_Slide2_Title" xml:space="preserve">
-    <value>Jangan Sampai Lupa Pukul 5 Sore</value>
-  </data>
-  <data name="Onboard_Slide3_Body" xml:space="preserve">
-    <value>Gaji dikurangi absen dikurangi kasbon — dihitung otomatis untuk Anda. Bayar dengan aplikasi UPI apa pun atau catat pembayaran tunai, dan bagikan laporan PDF melalui WhatsApp.</value>
-  </data>
-  <data name="Onboard_Slide3_Title" xml:space="preserve">
-    <value>Lunasi dalam Hitungan Detik via UPI</value>
-  </data>
-  <data name="Report_Absences" xml:space="preserve">
-    <value>Absen</value>
-  </data>
-  <data name="Report_Advances" xml:space="preserve">
-    <value>Kasbon</value>
-  </data>
-  <data name="Report_Bonuses" xml:space="preserve">
-    <value>Bonus</value>
-  </data>
-  <data name="Report_Date" xml:space="preserve">
-    <value>Tanggal</value>
-  </data>
-  <data name="Report_Deduction" xml:space="preserve">
-    <value>potongan</value>
-  </data>
   <data name="Report_FinalPayable" xml:space="preserve">
     <value>Total dibayar</value>
-  </data>
-  <data name="Report_GeneratedBy" xml:space="preserve">
-    <value>Dibuat oleh</value>
-  </data>
-  <data name="Report_GenerationFailed" xml:space="preserve">
-    <value>Gagal membuat laporan. Silakan coba lagi.</value>
-  </data>
-  <data name="Report_GrossWage" xml:space="preserve">
-    <value>Gaji kotor</value>
-  </data>
-  <data name="Report_Helper" xml:space="preserve">
-    <value>Asisten</value>
-  </data>
-  <data name="Report_HouseholdTitle" xml:space="preserve">
-    <value>Ringkasan Rumah Tangga</value>
-  </data>
-  <data name="Report_LedgerTitle" xml:space="preserve">
-    <value>Buku Kas Bulanan Asisten</value>
-  </data>
-  <data name="Report_Movements" xml:space="preserve">
-    <value>Pergerakan uang</value>
-  </data>
-  <data name="Report_ShareTitle" xml:space="preserve">
-    <value>Bagikan laporan</value>
-  </data>
-  <data name="Report_Status" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="Report_Total" xml:space="preserve">
-    <value>Total</value>
-  </data>
-  <data name="Report_Units" xml:space="preserve">
-    <value>Unit</value>
-  </data>
-  <data name="Report_UnpaidAbsences" xml:space="preserve">
-    <value>Absen tidak dibayar</value>
-  </data>
-  <data name="Reports_GenerateShare" xml:space="preserve">
-    <value>Buat &amp; bagikan PDF</value>
-  </data>
-  <data name="Reports_HouseholdDescription" xml:space="preserve">
-    <value>Ringkasan utama seluruh asisten Anda</value>
-  </data>
-  <data name="Reports_LedgerDescription" xml:space="preserve">
-    <value>Riwayat kehadiran &amp; uang harian untuk satu asisten</value>
-  </data>
-  <data name="Reports_Title" xml:space="preserve">
-    <value>Laporan</value>
-  </data>
-  <data name="Security_RootedMessage" xml:space="preserve">
-    <value>Perangkat ini tampaknya sudah di-root/jailbreak. Data keuangan Anda mungkin kurang aman di sini. Kami menyarankan menggunakan PakkaHisaab pada perangkat standar.</value>
-  </data>
-  <data name="Security_RootedTitle" xml:space="preserve">
-    <value>Peringatan perangkat</value>
-  </data>
-  <data name="Settings_Account" xml:space="preserve">
-    <value>Akun</value>
   </data>
   <data name="Settings_DeleteAccount" xml:space="preserve">
     <value>Hapus akun &amp; data saya</value>
   </data>
-  <data name="Settings_DeleteDemoNote" xml:space="preserve">
-    <value>Data demo akan dihapus dari perangkat ini.</value>
-  </data>
-  <data name="Settings_DeleteFailed" xml:space="preserve">
-    <value>Tidak dapat menghapus akun. Periksa kata sandi dan koneksi Anda.</value>
-  </data>
-  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
-    <value>Masukkan kata sandi Anda untuk konfirmasi</value>
-  </data>
-  <data name="Settings_DeleteTitle" xml:space="preserve">
-    <value>Hapus akun</value>
-  </data>
-  <data name="Settings_DeleteWarning" xml:space="preserve">
-    <value>Tindakan ini akan menghapus permanen akun Anda beserta seluruh catatan asisten, kehadiran, dan pembayaran — di perangkat ini maupun di server kami. Tindakan ini tidak dapat dibatalkan.</value>
-  </data>
-  <data name="Settings_Help" xml:space="preserve">
-    <value>Bantuan</value>
-  </data>
-  <data name="Settings_HelpAndVoice" xml:space="preserve">
-    <value>Bantuan &amp; Perintah Suara</value>
-  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>Bahasa</value>
   </data>
-  <data name="Settings_Legal" xml:space="preserve">
-    <value>Legal</value>
-  </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>Keluar</value>
-  </data>
-  <data name="Settings_Privacy" xml:space="preserve">
-    <value>Kebijakan Privasi</value>
-  </data>
-  <data name="Settings_Terms" xml:space="preserve">
-    <value>Ketentuan Layanan</value>
-  </data>
-  <data name="Settings_Title" xml:space="preserve">
-    <value>Pengaturan</value>
-  </data>
-  <data name="Settle_AmountToPay" xml:space="preserve">
-    <value>Jumlah yang harus dibayar (ubah jika perlu)</value>
-  </data>
-  <data name="Settle_ConfirmBody" xml:space="preserve">
-    <value>Apakah Anda sudah menyelesaikan pembayaran ₹ {1:N0} kepada {0}?</value>
-  </data>
-  <data name="Settle_ConfirmTitle" xml:space="preserve">
-    <value>Pembayaran selesai?</value>
-  </data>
-  <data name="Settle_ConfirmYes" xml:space="preserve">
-    <value>Ya, sudah dibayar</value>
-  </data>
-  <data name="Settle_InvalidAmount" xml:space="preserve">
-    <value>Masukkan jumlah yang valid</value>
-  </data>
-  <data name="Settle_LogCash" xml:space="preserve">
-    <value>Catat pembayaran tunai</value>
-  </data>
-  <data name="Settle_NoUpiApp" xml:space="preserve">
-    <value>Tidak ditemukan aplikasi UPI di perangkat ini</value>
-  </data>
-  <data name="Settle_NoUpiIdHint" xml:space="preserve">
-    <value>Tambahkan ID UPI untuk asisten ini agar dapat melakukan pembayaran UPI dengan satu ketukan.</value>
-  </data>
-  <data name="Settle_PayVia" xml:space="preserve">
-    <value>Bayar via UPI</value>
-  </data>
-  <data name="Settle_Recorded" xml:space="preserve">
-    <value>Pembayaran tercatat</value>
-  </data>
-  <data name="Settle_Title" xml:space="preserve">
-    <value>Pelunasan</value>
-  </data>
-  <data name="Settle_UpiNote" xml:space="preserve">
-    <value>Gaji {0} - PakkaHisaab</value>
   </data>
   <data name="Status_Absent" xml:space="preserve">
     <value>Absen</value>
@@ -568,8 +87,5 @@ Untuk pertanyaan mengenai Ketentuan ini, hubungi Amit Kumar Agrawal di amit.agra
   </data>
   <data name="Tab_Settings" xml:space="preserve">
     <value>Pengaturan</value>
-  </data>
-  <data name="Voice_NotUnderstood" xml:space="preserve">
-    <value>Maaf, saya tidak mengerti. Coba: 'Gave Geeta 500 advance'.</value>
   </data>
 </root>

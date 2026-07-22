@@ -4,68 +4,14 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="App_SplashTagline" xml:space="preserve">
-    <value>Mahudhurio na mishahara ya wasaidizi, kwa urahisi</value>
-  </data>
   <data name="App_Tagline" xml:space="preserve">
     <value>Gusa. Fuatilia. Lipa.</value>
-  </data>
-  <data name="Calendar_Ledger" xml:space="preserve">
-    <value>Malipo ya Awali na Daftari</value>
-  </data>
-  <data name="Calendar_Summary" xml:space="preserve">
-    <value>Hayupo siku {0} · Kulipwa ₹ {1:N0}</value>
-  </data>
-  <data name="Calendar_UnitsPrompt" xml:space="preserve">
-    <value>Vitengo vilivyotolewa ({0})</value>
-  </data>
-  <data name="Calendar_UnitsSummary" xml:space="preserve">
-    <value>{0:0.#} {1} zimetolewa · Kulipwa ₹ {2:N0}</value>
-  </data>
-  <data name="Calendar_UnitsTitle" xml:space="preserve">
-    <value>Utoaji</value>
-  </data>
-  <data name="Category_Cleaner" xml:space="preserve">
-    <value>Msafishaji</value>
-  </data>
-  <data name="Category_Cook" xml:space="preserve">
-    <value>Mpishi</value>
-  </data>
-  <data name="Category_Driver" xml:space="preserve">
-    <value>Dereva</value>
-  </data>
-  <data name="Category_Gardener" xml:space="preserve">
-    <value>Mtunza bustani</value>
-  </data>
-  <data name="Category_HouseHelp" xml:space="preserve">
-    <value>Msaidizi wa Nyumbani</value>
-  </data>
-  <data name="Category_MilkMan" xml:space="preserve">
-    <value>Mletaji wa Maziwa</value>
-  </data>
-  <data name="Category_Newspaper" xml:space="preserve">
-    <value>Gazeti</value>
-  </data>
-  <data name="Category_Other" xml:space="preserve">
-    <value>Nyingine</value>
-  </data>
-  <data name="Category_Tutor" xml:space="preserve">
-    <value>Mwalimu wa Masomo</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>Ghairi</value>
   </data>
-  <data name="Common_Confirm" xml:space="preserve">
-    <value>Thibitisha</value>
-  </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>Futa</value>
-  </data>
-  <data name="Common_Deleted" xml:space="preserve">
-    <value>Imefutwa</value>
-  </data>
-  <data name="Common_OK" xml:space="preserve">
-    <value>Sawa</value>
   </data>
   <data name="Common_Or" xml:space="preserve">
     <value>au</value>
@@ -76,12 +22,6 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>Imehifadhiwa</value>
   </data>
-  <data name="Dash_DemoBanner" xml:space="preserve">
-    <value>Hali ya Demo — data ya mfano, usawazishaji umezimwa. Data inabaki kwenye kifaa hiki.</value>
-  </data>
-  <data name="Dash_Empty" xml:space="preserve">
-    <value>Hakuna wasaidizi bado. Gusa + kuongeza msaidizi wako wa kwanza.</value>
-  </data>
   <data name="Dash_OpenCalendar" xml:space="preserve">
     <value>Kalenda</value>
   </data>
@@ -91,270 +31,17 @@
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>Ya kulipa mwezi huu:</value>
   </data>
-  <data name="Day_Fr" xml:space="preserve">
-    <value>Iju</value>
-  </data>
-  <data name="Day_Mo" xml:space="preserve">
-    <value>Jtt</value>
-  </data>
-  <data name="Day_Sa" xml:space="preserve">
-    <value>Jms</value>
-  </data>
-  <data name="Day_Su" xml:space="preserve">
-    <value>Jpi</value>
-  </data>
-  <data name="Day_Th" xml:space="preserve">
-    <value>Alh</value>
-  </data>
-  <data name="Day_Tu" xml:space="preserve">
-    <value>Jnn</value>
-  </data>
-  <data name="Day_We" xml:space="preserve">
-    <value>Jtn</value>
-  </data>
-  <data name="Forecast_Pattern" xml:space="preserve">
-    <value>Kawaida hayupo siku za {0} · ~{1}/mwezi</value>
-  </data>
-  <data name="Help_Advance_Examples" xml:space="preserve">
-    <value>• "Gave Raju an advance of 200"
-• "200 rupees udhaar to Geeta"</value>
-  </data>
-  <data name="Help_Attendance_Examples" xml:space="preserve">
-    <value>• "Geeta was absent today" / "Geeta didn't come" / "Geeta chutti"
-• "Geeta came" / "Geeta is present" / "Geeta aayi"
-• "Half day for Geeta" / "Geeta half-day" / "Geeta aadha din"</value>
-  </data>
-  <data name="Help_Attendance_Title" xml:space="preserve">
-    <value>Mahudhurio (hufungua Kalenda ya msaidizi huyo kuonyesha matokeo)</value>
-  </data>
-  <data name="Help_Bonus_Examples" xml:space="preserve">
-    <value>• "Diwali bonus 500 for Geeta"</value>
-  </data>
-  <data name="Help_Calendar_Body" xml:space="preserve">
-    <value>Gusa siku ili kubadilisha kati ya Yupo → Hayupo → Nusu Siku. Kwa wasaidizi wanaolipwa kwa kitengo (mfano, mletaji wa maziwa), gusa siku kuingiza idadi ya vitengo vilivyotolewa badala yake. Inaonyesha muhtasari wa mwezi na kiasi kinachoendelea kulipwa.</value>
-  </data>
-  <data name="Help_Calendar_Title" xml:space="preserve">
-    <value>Kalenda</value>
-  </data>
-  <data name="Help_Deduction_Examples" xml:space="preserve">
-    <value>• "Deducted 500 rupees from Geeta"
-• "Kata 100 from Raju"</value>
-  </data>
-  <data name="Help_Delivery_Examples" xml:space="preserve">
-    <value>• "Raju delivered 1.5 litres"
-• "1.5 liters milk from Raju"</value>
-  </data>
-  <data name="Help_Delivery_Title" xml:space="preserve">
-    <value>Utoaji — wasaidizi wanaolipwa kwa kitengo, mfano mletaji wa maziwa (pia hufungua Kalenda)</value>
-  </data>
-  <data name="Help_EditDelete_Body" xml:space="preserve">
-    <value>Gusa ikoni ya kalamu kwenye kadi ya msaidizi ukurasa wa Mwanzo ili kuhariri maelezo yao, au kuwafuta, kutoka fomu hiyo hiyo.</value>
-  </data>
-  <data name="Help_EditDelete_Title" xml:space="preserve">
-    <value>Hariri / Futa msaidizi</value>
-  </data>
-  <data name="Help_Features" xml:space="preserve">
-    <value>Vipengele</value>
-  </data>
-  <data name="Help_Home_Body" xml:space="preserve">
-    <value>Ona kila msaidizi, hali ya mahudhurio ya leo, na jumla ya kiasi cha kulipwa mwezi huu. Gusa maikrofoni kurekodi mahudhurio, utoaji, au maingizo ya daftari kwa sauti.</value>
-  </data>
-  <data name="Help_Home_Title" xml:space="preserve">
-    <value>Mwanzo</value>
-  </data>
-  <data name="Help_Ledger_Body" xml:space="preserve">
-    <value>Rekodi malipo ya awali, bonasi, na makato dhidi ya mshahara wa msaidizi, na uone jumla inayoendelea kwa mwezi huo.</value>
-  </data>
-  <data name="Help_Payment_Examples" xml:space="preserve">
-    <value>• "Paid Geeta 4500 salary"
-• "Settled Raju 1260"</value>
-  </data>
-  <data name="Help_Payment_Title" xml:space="preserve">
-    <value>Malipo / Usuluhishi</value>
-  </data>
-  <data name="Help_Reports_Body" xml:space="preserve">
-    <value>Tengeneza ripoti ya PDF kwa msaidizi mmoja au kaya nzima.</value>
-  </data>
-  <data name="Help_Settle_Body" xml:space="preserve">
-    <value>Kagua uchambuzi wa mshahara (mshahara jumla − kutokuwepo kusikolipwa − malipo ya awali) na lipa kupitia UPI au rekodi malipo ya fedha taslimu.</value>
-  </data>
-  <data name="Help_Tip" xml:space="preserve">
-    <value>Kidokezo: amri za mahudhurio na utoaji zinakupeleka moja kwa moja kwenye Kalenda ya msaidizi ili uone siku iliyorekodiwa. Amri za malipo ya awali, makato, bonasi, na malipo zinabaki kwenye Mwanzo na kusasisha jumla huko.</value>
-  </data>
-  <data name="Help_VoiceCommands" xml:space="preserve">
-    <value>Amri za Sauti</value>
-  </data>
-  <data name="Help_VoiceIntro" xml:space="preserve">
-    <value>Gusa kitufe cha maikrofoni kwenye Mwanzo kisha sema mojawapo ya haya. Sema jina la msaidizi wazi — kama una msaidizi mmoja tu, unaweza kuacha jina. Hufanya kazi bila mtandao kabisa, kwa Kiingereza au Kihindi kilichoandikwa kwa herufi za Kilatini.</value>
-  </data>
-  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
-    <value>Kutokuwepo kunakoruhusiwa kwa mwezi</value>
-  </data>
-  <data name="HelperForm_CarryOver" xml:space="preserve">
-    <value>Hamisha likizo isiyotumika</value>
-  </data>
-  <data name="HelperForm_Category" xml:space="preserve">
-    <value>Aina</value>
-  </data>
-  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
-    <value>Ondoa msaidizi huyu na kumbukumbu zao kutoka kwenye programu?</value>
-  </data>
-  <data name="HelperForm_MonthlyWage" xml:space="preserve">
-    <value>Mshahara wa mwezi (₹)</value>
-  </data>
-  <data name="HelperForm_Name" xml:space="preserve">
-    <value>Jina</value>
-  </data>
-  <data name="HelperForm_NameRequired" xml:space="preserve">
-    <value>Tafadhali weka jina</value>
-  </data>
-  <data name="HelperForm_PerUnit" xml:space="preserve">
-    <value>Analipwa kwa kila kitengo cha utoaji (maziwa, gazeti…)</value>
-  </data>
-  <data name="HelperForm_RatePerUnit" xml:space="preserve">
-    <value>Kiwango kwa kitengo (₹)</value>
-  </data>
-  <data name="HelperForm_Title" xml:space="preserve">
-    <value>Msaidizi</value>
-  </data>
-  <data name="HelperForm_UnitLabel" xml:space="preserve">
-    <value>Kitengo</value>
-  </data>
-  <data name="HelperForm_UpiId" xml:space="preserve">
-    <value>Kitambulisho cha UPI (kwa malipo)</value>
-  </data>
-  <data name="HelperForm_WhatsApp" xml:space="preserve">
-    <value>Namba ya WhatsApp</value>
-  </data>
-  <data name="LedgerType_Advance" xml:space="preserve">
-    <value>Malipo ya Awali</value>
-  </data>
-  <data name="LedgerType_Bonus" xml:space="preserve">
-    <value>Bonasi</value>
-  </data>
-  <data name="LedgerType_Deduction" xml:space="preserve">
-    <value>Kato</value>
-  </data>
-  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
-    <value>Gharama ya Utoaji</value>
-  </data>
-  <data name="LedgerType_SalaryPayment" xml:space="preserve">
-    <value>Malipo ya Mshahara</value>
-  </data>
-  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
-    <value>Malipo ya awali mwezi huu</value>
-  </data>
-  <data name="Ledger_Amount" xml:space="preserve">
-    <value>Kiasi (₹)</value>
-  </data>
-  <data name="Ledger_DeleteConfirm" xml:space="preserve">
-    <value>Futa ingizo hili? Hili haliwezi kutenduliwa.</value>
-  </data>
-  <data name="Ledger_Empty" xml:space="preserve">
-    <value>Hakuna maingizo mwezi huu. Gusa + kurekodi malipo ya awali.</value>
-  </data>
-  <data name="Ledger_InvalidAmount" xml:space="preserve">
-    <value>Weka kiasi sahihi</value>
-  </data>
-  <data name="Ledger_NewEntry" xml:space="preserve">
-    <value>Ingizo jipya la daftari</value>
-  </data>
-  <data name="Ledger_Note" xml:space="preserve">
-    <value>Maelezo (si lazima)</value>
-  </data>
-  <data name="Legal_PrivacyBody" xml:space="preserve">
-    <value>Tarehe ya Kuanza Kutumika: 14 July 2026
-
-PakkaHisaab ("Programu") imetengenezwa na inaendeshwa na Amit Kumar Agrawal ("sisi", "yetu"). Sera hii ya Faragha inaeleza jinsi tunavyoshughulikia taarifa unapotumia Programu.
-
-1. Taarifa Tunazokusanya
-- Maelezo ya msaidizi wa nyumbani unayoweka: jina, aina, namba ya WhatsApp, na Kitambulisho cha UPI.
-- Kumbukumbu za mahudhurio, mshahara, malipo ya awali, na malipo unazozitengeneza kwa ajili ya wasaidizi wako.
-- Uchunguzi wa msingi wa kifaa na matumizi (kumbukumbu za hitilafu, utendaji wa programu) kupitia Microsoft App Center, unaotumika tu kurekebisha hitilafu na kuboresha uthabiti.
-- Sauti inayonaswa tu unapogusa kitufe cha maikrofoni, inayochakatwa kwenye kifaa chako ili kurekodi ingizo la mahudhurio/daftari, na haihifadhiwi wala kutumwa baada ya kuchakatwa.
-
-2. Jinsi Tunavyotumia Taarifa
-Data unayoweka inatumika tu kuendesha vipengele vya msingi vya Programu - kufuatilia mahudhurio, kuhesabu mishahara, na kurekodi malipo kwa wasaidizi unaowasimamia. Katika hali ya Demo, data yote inabaki kwenye kifaa chako na hakuna kinachosawazishwa.
-
-3. Uhifadhi na Ushirikishaji wa Data
-Data yako inahifadhiwa kwenye kifaa chako (SQLite). Ukiingia kwa akaunti (hali isiyo ya Demo), data yako inasawazishwa kwenye seva zetu ili tu uweze kuipata kwenye vifaa vyako mwenyewe. Hatuuzi data yako wala kuishirikisha na wahusika wengine kwa madhumuni ya matangazo. Malipo yanaanzishwa kupitia programu zako mwenyewe za UPI zilizowekwa (Google Pay, PhonePe, Paytm, n.k.) - Programu haichakati wala kuhifadhi taarifa zako za benki kamwe.
-
-4. Uhifadhi na Ufutaji wa Data
-Unaweza kufuta kumbukumbu ya msaidizi yeyote wakati wowote ndani ya Programu. Unaweza kufuta kabisa akaunti yako na data yote inayohusiana kutoka Mipangilio &gt; Futa akaunti na data yangu.
-
-5. Usalama
-Tunachukua hatua za kiufundi zinazofaa kulinda data yako, ikiwa ni pamoja na uhifadhi wa ndani na usambazaji salama (HTTPS) kwa akaunti zilizosawazishwa.
-
-6. Faragha ya Watoto
-Programu haikusudiwi kwa watoto na haikusudiwi kutumiwa na mtu yeyote chini ya miaka 18.
-
-7. Mabadiliko ya Sera Hii
-Tunaweza kusasisha sera hii mara kwa mara. Kuendelea kutumia Programu baada ya mabadiliko kunamaanisha unakubali sera iliyosasishwa.
-
-8. Wasiliana Nasi
-Kwa maswali au maombi yoyote kuhusu faragha, wasiliana na Amit Kumar Agrawal kupitia amit.agrawal.hyd@outlook.com.</value>
-  </data>
-  <data name="Legal_TermsBody" xml:space="preserve">
-    <value>Tarehe ya Kuanza Kutumika: 14 July 2026
-
-Masharti haya ya Huduma ("Masharti") yanasimamia matumizi yako ya PakkaHisaab ("Programu"), iliyotengenezwa na kuendeshwa na Amit Kumar Agrawal ("sisi", "yetu"). Kwa kutumia Programu, unakubali Masharti haya.
-
-1. Matumizi ya Programu
-PakkaHisaab inakusaidia kufuatilia mahudhurio, mishahara, malipo ya awali, na malipo kwa wasaidizi wa nyumbani (kama vile msaidizi wa nyumbani, waletaji wa maziwa, madereva, n.k.) unaowasimamia. Wewe unawajibika kwa usahihi wa data unayoweka.
-
-2. Akaunti Yako
-Unawajibika kudumisha usiri wa taarifa zako za kuingia na kwa shughuli zote chini ya akaunti yako. Hali ya Demo haihitaji akaunti na huweka data yote kwenye kifaa chako pekee.
-
-3. Malipo
-Programu haichakati malipo yenyewe. "Lipa kupitia UPI" inakabidhi kwa programu za UPI ambazo tayari zimewekwa kwenye kifaa chako; malipo yoyote yanayofanyika ni kati yako na mtoa huduma wa malipo uliyemchagua pamoja na mpokeaji. Hatuwajibiki kwa miamala iliyoshindwa, iliyochelewa, au yenye mgogoro.
-
-4. Matumizi Yanayokubalika
-Unakubali kutotumia Programu kwa madhumuni yoyote yasiyo halali au kwa namna ambayo inaweza kudhuru, kuzima, au kudhoofisha Programu au kuingilia matumizi ya mtu mwingine yeyote.
-
-5. Hakuna Udhamini
-Programu inatolewa "kama ilivyo" bila udhamini wa aina yoyote, ulioelezwa au unaodokezwa. Hatuhakikishii kuwa Programu haitakuwa na hitilafu, itakuwa endelevu bila kukatika, au inafaa kwa madhumuni maalum.
-
-6. Kikomo cha Uwajibikaji
-Kwa kiwango cha juu kinachoruhusiwa na sheria, Amit Kumar Agrawal hatawajibika kwa hasara zozote zisizo za moja kwa moja, za bahati mbaya, au zinazotokana na matumizi yako ya Programu, ikiwa ni pamoja na upotevu wowote wa data au hasara ya kifedha inayotokana na malipo yaliyofanywa kwa kutumia programu za UPI za wahusika wengine.
-
-7. Kusitisha
-Unaweza kuacha kutumia Programu na kufuta akaunti yako wakati wowote kupitia Mipangilio &gt; Futa akaunti na data yangu. Tunaweza kusimamisha au kusitisha ufikiaji kwa matumizi mabaya ya Programu.
-
-8. Sheria Inayotumika
-Masharti haya yanasimamiwa na sheria za India, bila kuzingatia kanuni za mgongano wa sheria.
-
-9. Mabadiliko ya Masharti Haya
-Tunaweza kusasisha Masharti haya mara kwa mara. Kuendelea kutumia Programu baada ya mabadiliko kunamaanisha unakubali Masharti yaliyosasishwa.
-
-10. Wasiliana Nasi
-Kwa maswali yoyote kuhusu Masharti haya, wasiliana na Amit Kumar Agrawal kupitia amit.agrawal.hyd@outlook.com.</value>
-  </data>
   <data name="Login_CreateAccount" xml:space="preserve">
     <value>Fungua akaunti</value>
   </data>
-  <data name="Login_DemoHint" xml:space="preserve">
-    <value>Papo hapo, bila mtandao, hakuna usajili. Chunguza kwa data ya mfano ya Geeta (msaidizi wa nyumbani) na Raju (mletaji wa maziwa).</value>
-  </data>
-  <data name="Login_DisplayName" xml:space="preserve">
-    <value>Jina lako</value>
-  </data>
   <data name="Login_Email" xml:space="preserve">
     <value>Barua pepe</value>
-  </data>
-  <data name="Login_Failed" xml:space="preserve">
-    <value>Kuingia kumeshindikana. Angalia maelezo yako na muunganisho.</value>
-  </data>
-  <data name="Login_MissingFields" xml:space="preserve">
-    <value>Tafadhali weka barua pepe na nenosiri</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
     <value>Nenosiri</value>
   </data>
   <data name="Login_SignIn" xml:space="preserve">
     <value>Ingia</value>
-  </data>
-  <data name="Login_ToggleMode" xml:space="preserve">
-    <value>Mgeni hapa? Fungua akaunti · Una akaunti? Ingia</value>
   </data>
   <data name="Login_TryDemo" xml:space="preserve">
     <value>Jaribu demo</value>
@@ -371,185 +58,17 @@ Kwa maswali yoyote kuhusu Masharti haya, wasiliana na Amit Kumar Agrawal kupitia
   <data name="Notify_SalaryTitle" xml:space="preserve">
     <value>Mshahara unadaiwa</value>
   </data>
-  <data name="Onboard_GetStarted" xml:space="preserve">
-    <value>Anza</value>
-  </data>
-  <data name="Onboard_Next" xml:space="preserve">
-    <value>Ifuatayo</value>
-  </data>
-  <data name="Onboard_Skip" xml:space="preserve">
-    <value>Ruka</value>
-  </data>
-  <data name="Onboard_Slide1_Body" xml:space="preserve">
-    <value>Gusa tarehe kuweka Yupo, Hayupo au Nusu Siku. Maziwa na utoaji pia — kila kitu kinaingia kwenye khata moja safi.</value>
-  </data>
-  <data name="Onboard_Slide1_Title" xml:space="preserve">
-    <value>Daftari la Migusa 2</value>
-  </data>
-  <data name="Onboard_Slide2_Body" xml:space="preserve">
-    <value>Kikumbusho cha kila siku saa 11 jioni kinauliza kuhusu mahudhurio ya leo. Weka 'Hayupo' moja kwa moja kutoka kwenye arifa — hakuna haja ya kufungua programu.</value>
-  </data>
-  <data name="Onboard_Slide2_Title" xml:space="preserve">
-    <value>Usisahau Saa 11 Jioni</value>
-  </data>
-  <data name="Onboard_Slide3_Body" xml:space="preserve">
-    <value>Mshahara ukiondoa kutokuwepo ukiondoa malipo ya awali — inahesabiwa kwa ajili yako. Lipa kwa programu yoyote ya UPI au rekodi fedha taslimu, na shiriki ripoti za PDF kwenye WhatsApp.</value>
-  </data>
-  <data name="Onboard_Slide3_Title" xml:space="preserve">
-    <value>Lipa kwa Sekunde kupitia UPI</value>
-  </data>
-  <data name="Report_Absences" xml:space="preserve">
-    <value>Kutokuwepo</value>
-  </data>
-  <data name="Report_Advances" xml:space="preserve">
-    <value>Malipo ya Awali</value>
-  </data>
-  <data name="Report_Bonuses" xml:space="preserve">
-    <value>Bonasi</value>
-  </data>
-  <data name="Report_Date" xml:space="preserve">
-    <value>Tarehe</value>
-  </data>
-  <data name="Report_Deduction" xml:space="preserve">
-    <value>kato</value>
-  </data>
   <data name="Report_FinalPayable" xml:space="preserve">
     <value>Kiasi cha kulipa</value>
-  </data>
-  <data name="Report_GeneratedBy" xml:space="preserve">
-    <value>Imetengenezwa na</value>
-  </data>
-  <data name="Report_GenerationFailed" xml:space="preserve">
-    <value>Imeshindwa kutengeneza ripoti. Tafadhali jaribu tena.</value>
-  </data>
-  <data name="Report_GrossWage" xml:space="preserve">
-    <value>Mshahara jumla</value>
-  </data>
-  <data name="Report_Helper" xml:space="preserve">
-    <value>Msaidizi</value>
-  </data>
-  <data name="Report_HouseholdTitle" xml:space="preserve">
-    <value>Muhtasari wa Kaya</value>
-  </data>
-  <data name="Report_LedgerTitle" xml:space="preserve">
-    <value>Daftari la Mwezi la Msaidizi</value>
-  </data>
-  <data name="Report_Movements" xml:space="preserve">
-    <value>Mienendo ya Fedha</value>
-  </data>
-  <data name="Report_ShareTitle" xml:space="preserve">
-    <value>Shiriki ripoti</value>
-  </data>
-  <data name="Report_Status" xml:space="preserve">
-    <value>Hali</value>
-  </data>
-  <data name="Report_Total" xml:space="preserve">
-    <value>Jumla</value>
-  </data>
-  <data name="Report_Units" xml:space="preserve">
-    <value>Vitengo</value>
-  </data>
-  <data name="Report_UnpaidAbsences" xml:space="preserve">
-    <value>Kutokuwepo kusikolipwa</value>
-  </data>
-  <data name="Reports_GenerateShare" xml:space="preserve">
-    <value>Tengeneza na shiriki PDF</value>
-  </data>
-  <data name="Reports_HouseholdDescription" xml:space="preserve">
-    <value>Muhtasari mkuu wa wasaidizi wako wote</value>
-  </data>
-  <data name="Reports_LedgerDescription" xml:space="preserve">
-    <value>Mahudhurio ya kila siku na mwenendo wa fedha kwa msaidizi mmoja</value>
-  </data>
-  <data name="Reports_Title" xml:space="preserve">
-    <value>Ripoti</value>
-  </data>
-  <data name="Security_RootedMessage" xml:space="preserve">
-    <value>Kifaa hiki kinaonekana kime-root/jailbreak. Data yako ya kifedha inaweza kuwa haina usalama wa kutosha hapa. Tunapendekeza kutumia PakkaHisaab kwenye kifaa cha kawaida.</value>
-  </data>
-  <data name="Security_RootedTitle" xml:space="preserve">
-    <value>Onyo la kifaa</value>
-  </data>
-  <data name="Settings_Account" xml:space="preserve">
-    <value>Akaunti</value>
   </data>
   <data name="Settings_DeleteAccount" xml:space="preserve">
     <value>Futa akaunti na data yangu</value>
   </data>
-  <data name="Settings_DeleteDemoNote" xml:space="preserve">
-    <value>Data ya demo imefutwa kutoka kifaa hiki.</value>
-  </data>
-  <data name="Settings_DeleteFailed" xml:space="preserve">
-    <value>Imeshindwa kufuta akaunti. Angalia nenosiri lako na muunganisho.</value>
-  </data>
-  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
-    <value>Weka nenosiri lako kuthibitisha</value>
-  </data>
-  <data name="Settings_DeleteTitle" xml:space="preserve">
-    <value>Futa akaunti</value>
-  </data>
-  <data name="Settings_DeleteWarning" xml:space="preserve">
-    <value>Hii inafuta kabisa akaunti yako na kumbukumbu zote za wasaidizi, mahudhurio na malipo — kwenye kifaa hiki na seva zetu. Hili haliwezi kutenduliwa.</value>
-  </data>
-  <data name="Settings_Help" xml:space="preserve">
-    <value>Msaada</value>
-  </data>
-  <data name="Settings_HelpAndVoice" xml:space="preserve">
-    <value>Msaada na Amri za Sauti</value>
-  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>Lugha</value>
   </data>
-  <data name="Settings_Legal" xml:space="preserve">
-    <value>Kisheria</value>
-  </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>Ondoka</value>
-  </data>
-  <data name="Settings_Privacy" xml:space="preserve">
-    <value>Sera ya Faragha</value>
-  </data>
-  <data name="Settings_Terms" xml:space="preserve">
-    <value>Masharti ya Huduma</value>
-  </data>
-  <data name="Settings_Title" xml:space="preserve">
-    <value>Mipangilio</value>
-  </data>
-  <data name="Settle_AmountToPay" xml:space="preserve">
-    <value>Kiasi cha kulipa (hariri ikihitajika)</value>
-  </data>
-  <data name="Settle_ConfirmBody" xml:space="preserve">
-    <value>Je, umekamilisha malipo ya ₹ {1:N0} kwa {0}?</value>
-  </data>
-  <data name="Settle_ConfirmTitle" xml:space="preserve">
-    <value>Malipo yamekamilika?</value>
-  </data>
-  <data name="Settle_ConfirmYes" xml:space="preserve">
-    <value>Ndiyo, nimelipa</value>
-  </data>
-  <data name="Settle_InvalidAmount" xml:space="preserve">
-    <value>Weka kiasi sahihi</value>
-  </data>
-  <data name="Settle_LogCash" xml:space="preserve">
-    <value>Rekodi malipo ya fedha taslimu</value>
-  </data>
-  <data name="Settle_NoUpiApp" xml:space="preserve">
-    <value>Hakuna programu ya UPI iliyopatikana kwenye kifaa hiki</value>
-  </data>
-  <data name="Settle_NoUpiIdHint" xml:space="preserve">
-    <value>Ongeza Kitambulisho cha UPI kwa msaidizi huyu ili kuwezesha malipo ya UPI kwa mgusa mmoja.</value>
-  </data>
-  <data name="Settle_PayVia" xml:space="preserve">
-    <value>Lipa kupitia UPI</value>
-  </data>
-  <data name="Settle_Recorded" xml:space="preserve">
-    <value>Malipo yamerekodiwa</value>
-  </data>
-  <data name="Settle_Title" xml:space="preserve">
-    <value>Malipo</value>
-  </data>
-  <data name="Settle_UpiNote" xml:space="preserve">
-    <value>Mshahara {0} - PakkaHisaab</value>
   </data>
   <data name="Status_Absent" xml:space="preserve">
     <value>Hayupo</value>
@@ -568,8 +87,5 @@ Kwa maswali yoyote kuhusu Masharti haya, wasiliana na Amit Kumar Agrawal kupitia
   </data>
   <data name="Tab_Settings" xml:space="preserve">
     <value>Mipangilio</value>
-  </data>
-  <data name="Voice_NotUnderstood" xml:space="preserve">
-    <value>Samahani, sikuelewa hilo. Jaribu: 'Gave Geeta 500 advance'.</value>
   </data>
 </root>
