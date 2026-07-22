@@ -4,14 +4,68 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_SplashTagline" xml:space="preserve">
+    <value>Anwesenheit &amp; Lohn für Haushaltshilfen, ganz einfach</value>
+  </data>
   <data name="App_Tagline" xml:space="preserve">
     <value>Tippen. Verfolgen. Abrechnen.</value>
+  </data>
+  <data name="Calendar_Ledger" xml:space="preserve">
+    <value>Vorschüsse &amp; Kontobuch</value>
+  </data>
+  <data name="Calendar_Summary" xml:space="preserve">
+    <value>{0} Tag(e) abwesend · Fällig ₹ {1:N0}</value>
+  </data>
+  <data name="Calendar_UnitsPrompt" xml:space="preserve">
+    <value>Gelieferte Einheiten ({0})</value>
+  </data>
+  <data name="Calendar_UnitsSummary" xml:space="preserve">
+    <value>{0:0.#} {1} geliefert · Fällig ₹ {2:N0}</value>
+  </data>
+  <data name="Calendar_UnitsTitle" xml:space="preserve">
+    <value>Lieferung</value>
+  </data>
+  <data name="Category_Cleaner" xml:space="preserve">
+    <value>Reinigungskraft</value>
+  </data>
+  <data name="Category_Cook" xml:space="preserve">
+    <value>Koch</value>
+  </data>
+  <data name="Category_Driver" xml:space="preserve">
+    <value>Fahrer</value>
+  </data>
+  <data name="Category_Gardener" xml:space="preserve">
+    <value>Gärtner</value>
+  </data>
+  <data name="Category_HouseHelp" xml:space="preserve">
+    <value>Haushaltshilfe</value>
+  </data>
+  <data name="Category_MilkMan" xml:space="preserve">
+    <value>Milchmann</value>
+  </data>
+  <data name="Category_Newspaper" xml:space="preserve">
+    <value>Zeitung</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Sonstige</value>
+  </data>
+  <data name="Category_Tutor" xml:space="preserve">
+    <value>Nachhilfelehrer</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="Common_Confirm" xml:space="preserve">
+    <value>Bestätigen</value>
+  </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>Löschen</value>
+  </data>
+  <data name="Common_Deleted" xml:space="preserve">
+    <value>Gelöscht</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Common_Or" xml:space="preserve">
     <value>oder</value>
@@ -22,6 +76,12 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>Gespeichert</value>
   </data>
+  <data name="Dash_DemoBanner" xml:space="preserve">
+    <value>Demo-Modus — Beispieldaten, Synchronisierung deaktiviert. Daten bleiben auf diesem Gerät.</value>
+  </data>
+  <data name="Dash_Empty" xml:space="preserve">
+    <value>Noch keine Helfer. Tippen Sie auf +, um Ihren ersten Helfer hinzuzufügen.</value>
+  </data>
   <data name="Dash_OpenCalendar" xml:space="preserve">
     <value>Kalender</value>
   </data>
@@ -31,17 +91,270 @@
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>Diesen Monat fällig:</value>
   </data>
+  <data name="Day_Fr" xml:space="preserve">
+    <value>Fr</value>
+  </data>
+  <data name="Day_Mo" xml:space="preserve">
+    <value>Mo</value>
+  </data>
+  <data name="Day_Sa" xml:space="preserve">
+    <value>Sa</value>
+  </data>
+  <data name="Day_Su" xml:space="preserve">
+    <value>So</value>
+  </data>
+  <data name="Day_Th" xml:space="preserve">
+    <value>Do</value>
+  </data>
+  <data name="Day_Tu" xml:space="preserve">
+    <value>Di</value>
+  </data>
+  <data name="Day_We" xml:space="preserve">
+    <value>Mi</value>
+  </data>
+  <data name="Forecast_Pattern" xml:space="preserve">
+    <value>Meist abwesend an {0} · ~{1}/Monat</value>
+  </data>
+  <data name="Help_Advance_Examples" xml:space="preserve">
+    <value>• "Gave Raju an advance of 200"
+• "200 rupees udhaar to Geeta"</value>
+  </data>
+  <data name="Help_Attendance_Examples" xml:space="preserve">
+    <value>• "Geeta was absent today" / "Geeta didn't come" / "Geeta chutti"
+• "Geeta came" / "Geeta is present" / "Geeta aayi"
+• "Half day for Geeta" / "Geeta half-day" / "Geeta aadha din"</value>
+  </data>
+  <data name="Help_Attendance_Title" xml:space="preserve">
+    <value>Anwesenheit (öffnet den Kalender dieses Helfers, um das Ergebnis anzuzeigen)</value>
+  </data>
+  <data name="Help_Bonus_Examples" xml:space="preserve">
+    <value>• "Diwali bonus 500 for Geeta"</value>
+  </data>
+  <data name="Help_Calendar_Body" xml:space="preserve">
+    <value>Tippen Sie auf einen Tag, um zwischen Anwesend → Abwesend → Halber Tag zu wechseln. Bei Helfern mit Mengenabrechnung (z. B. einem Milchmann) tippen Sie stattdessen auf einen Tag, um die gelieferten Einheiten einzutragen. Zeigt die Monatsübersicht und den laufenden Fälligkeitsbetrag.</value>
+  </data>
+  <data name="Help_Calendar_Title" xml:space="preserve">
+    <value>Kalender</value>
+  </data>
+  <data name="Help_Deduction_Examples" xml:space="preserve">
+    <value>• "Deducted 500 rupees from Geeta"
+• "Kata 100 from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Examples" xml:space="preserve">
+    <value>• "Raju delivered 1.5 litres"
+• "1.5 liters milk from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Title" xml:space="preserve">
+    <value>Lieferung — Helfer mit Mengenabrechnung, z. B. Milchmann (öffnet ebenfalls den Kalender)</value>
+  </data>
+  <data name="Help_EditDelete_Body" xml:space="preserve">
+    <value>Tippen Sie auf das Stiftsymbol auf der Karte eines Helfers auf der Startseite, um dessen Angaben zu bearbeiten oder ihn aus demselben Formular zu löschen.</value>
+  </data>
+  <data name="Help_EditDelete_Title" xml:space="preserve">
+    <value>Helfer bearbeiten / löschen</value>
+  </data>
+  <data name="Help_Features" xml:space="preserve">
+    <value>Funktionen</value>
+  </data>
+  <data name="Help_Home_Body" xml:space="preserve">
+    <value>Sehen Sie alle Helfer, den heutigen Anwesenheitsstatus und den insgesamt fälligen Betrag für den Monat. Tippen Sie auf das Mikrofon, um Anwesenheit, Lieferungen oder Kontobucheinträge per Sprache zu erfassen.</value>
+  </data>
+  <data name="Help_Home_Title" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Help_Ledger_Body" xml:space="preserve">
+    <value>Erfassen Sie Vorschüsse, Boni und Abzüge auf den Lohn eines Helfers und sehen Sie die laufende Summe für den Monat.</value>
+  </data>
+  <data name="Help_Payment_Examples" xml:space="preserve">
+    <value>• "Paid Geeta 4500 salary"
+• "Settled Raju 1260"</value>
+  </data>
+  <data name="Help_Payment_Title" xml:space="preserve">
+    <value>Zahlung / Abrechnung</value>
+  </data>
+  <data name="Help_Reports_Body" xml:space="preserve">
+    <value>Erstellen Sie einen PDF-Bericht für einen einzelnen Helfer oder den gesamten Haushalt.</value>
+  </data>
+  <data name="Help_Settle_Body" xml:space="preserve">
+    <value>Prüfen Sie die Lohnaufstellung (Bruttolohn − unbezahlte Abwesenheiten − Vorschüsse) und bezahlen Sie per UPI oder erfassen Sie eine Barzahlung.</value>
+  </data>
+  <data name="Help_Tip" xml:space="preserve">
+    <value>Tipp: Anwesenheits- und Lieferbefehle führen Sie direkt zum Kalender des Helfers, damit Sie den erfassten Tag sehen können. Vorschuss-, Abzugs-, Bonus- und Zahlungsbefehle bleiben auf der Startseite und aktualisieren dort die Summen.</value>
+  </data>
+  <data name="Help_VoiceCommands" xml:space="preserve">
+    <value>Sprachbefehle</value>
+  </data>
+  <data name="Help_VoiceIntro" xml:space="preserve">
+    <value>Tippen Sie auf der Startseite auf die Mikrofon-Schaltfläche und sagen Sie einen dieser Befehle. Sprechen Sie den Namen des Helfers deutlich aus — wenn Sie nur einen Helfer haben, können Sie den Namen weglassen. Funktioniert vollständig offline, auf Englisch oder in romanisiertem Hindi.</value>
+  </data>
+  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
+    <value>Erlaubte Abwesenheiten pro Monat</value>
+  </data>
+  <data name="HelperForm_CarryOver" xml:space="preserve">
+    <value>Nicht genutzten Urlaub übertragen</value>
+  </data>
+  <data name="HelperForm_Category" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
+    <value>Diesen Helfer und seine Datensätze aus der App entfernen?</value>
+  </data>
+  <data name="HelperForm_MonthlyWage" xml:space="preserve">
+    <value>Monatslohn (₹)</value>
+  </data>
+  <data name="HelperForm_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="HelperForm_NameRequired" xml:space="preserve">
+    <value>Bitte geben Sie einen Namen ein</value>
+  </data>
+  <data name="HelperForm_PerUnit" xml:space="preserve">
+    <value>Bezahlung pro gelieferter Einheit (Milch, Zeitung…)</value>
+  </data>
+  <data name="HelperForm_RatePerUnit" xml:space="preserve">
+    <value>Preis pro Einheit (₹)</value>
+  </data>
+  <data name="HelperForm_Title" xml:space="preserve">
+    <value>Helfer</value>
+  </data>
+  <data name="HelperForm_UnitLabel" xml:space="preserve">
+    <value>Einheit</value>
+  </data>
+  <data name="HelperForm_UpiId" xml:space="preserve">
+    <value>UPI-ID (für Zahlungen)</value>
+  </data>
+  <data name="HelperForm_WhatsApp" xml:space="preserve">
+    <value>WhatsApp-Nummer</value>
+  </data>
+  <data name="LedgerType_Advance" xml:space="preserve">
+    <value>Vorschuss</value>
+  </data>
+  <data name="LedgerType_Bonus" xml:space="preserve">
+    <value>Bonus</value>
+  </data>
+  <data name="LedgerType_Deduction" xml:space="preserve">
+    <value>Abzug</value>
+  </data>
+  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
+    <value>Liefergebühr</value>
+  </data>
+  <data name="LedgerType_SalaryPayment" xml:space="preserve">
+    <value>Lohnzahlung</value>
+  </data>
+  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
+    <value>Vorschüsse diesen Monat</value>
+  </data>
+  <data name="Ledger_Amount" xml:space="preserve">
+    <value>Betrag (₹)</value>
+  </data>
+  <data name="Ledger_DeleteConfirm" xml:space="preserve">
+    <value>Diesen Eintrag löschen? Dies kann nicht rückgängig gemacht werden.</value>
+  </data>
+  <data name="Ledger_Empty" xml:space="preserve">
+    <value>Keine Einträge in diesem Monat. Tippen Sie auf +, um einen Vorschuss zu erfassen.</value>
+  </data>
+  <data name="Ledger_InvalidAmount" xml:space="preserve">
+    <value>Geben Sie einen gültigen Betrag ein</value>
+  </data>
+  <data name="Ledger_NewEntry" xml:space="preserve">
+    <value>Neuer Kontobucheintrag</value>
+  </data>
+  <data name="Ledger_Note" xml:space="preserve">
+    <value>Notiz (optional)</value>
+  </data>
+  <data name="Legal_PrivacyBody" xml:space="preserve">
+    <value>Datum des Inkrafttretens: 14. Juli 2026
+
+PakkaHisaab („die App") wird von Amit Kumar Agrawal („wir", „uns", „unser") entwickelt und betrieben. Diese Datenschutzerklärung erläutert, wie wir mit Informationen umgehen, wenn Sie die App nutzen.
+
+1. Von uns erhobene Informationen
+- Von Ihnen eingegebene Angaben zu Haushaltshilfen: Name, Kategorie, WhatsApp-Nummer und UPI-ID.
+- Anwesenheits-, Lohn-, Vorschuss- und Abrechnungsdatensätze, die Sie für Ihre Helfer erstellen.
+- Grundlegende Geräte- und Nutzungsdiagnosedaten (Absturzprotokolle, App-Leistung) über Microsoft App Center, die ausschließlich zur Fehlerbehebung und Verbesserung der Stabilität verwendet werden.
+- Sprachaufnahmen, die nur erfasst werden, wenn Sie auf die Mikrofon-Schaltfläche tippen, auf dem Gerät verarbeitet werden, um einen Anwesenheits-/Kontobucheintrag zu erfassen, und nach der Verarbeitung nicht gespeichert oder übertragen werden.
+
+2. Wie wir Informationen verwenden
+Die von Ihnen eingegebenen Daten werden ausschließlich verwendet, um die Kernfunktionen der App auszuführen - Anwesenheit zu verfolgen, Löhne zu berechnen und Zahlungen für die von Ihnen verwalteten Helfer zu erfassen. Im Demo-Modus verbleiben alle Daten auf Ihrem Gerät, und nichts wird synchronisiert.
+
+3. Datenspeicherung und -weitergabe
+Ihre Daten werden lokal auf Ihrem Gerät gespeichert (SQLite). Wenn Sie sich mit einem Konto anmelden (Nicht-Demo-Modus), werden Ihre Daten mit unseren Servern synchronisiert, ausschließlich damit Sie von Ihren eigenen Geräten aus darauf zugreifen können. Wir verkaufen Ihre Daten nicht und geben sie nicht zu Werbezwecken an Dritte weiter. Zahlungen werden über Ihre eigenen installierten UPI-Apps (Google Pay, PhonePe, Paytm usw.) veranlasst - die App verarbeitet oder speichert Ihre Bankdaten niemals.
+
+4. Datenaufbewahrung und -löschung
+Sie können den Datensatz eines Helfers jederzeit innerhalb der App löschen. Sie können Ihr Konto und alle zugehörigen Daten dauerhaft über Einstellungen &gt; Konto &amp; Daten löschen entfernen.
+
+5. Sicherheit
+Wir treffen angemessene technische Maßnahmen zum Schutz Ihrer Daten, einschließlich lokaler Speicherung und sicherer Übertragung (HTTPS) für synchronisierte Konten.
+
+6. Datenschutz für Kinder
+Die App richtet sich nicht an Kinder und ist nicht für die Nutzung durch Personen unter 18 Jahren bestimmt.
+
+7. Änderungen dieser Richtlinie
+Wir können diese Richtlinie von Zeit zu Zeit aktualisieren. Die fortgesetzte Nutzung der App nach Änderungen bedeutet, dass Sie die aktualisierte Richtlinie akzeptieren.
+
+8. Kontakt
+Bei Fragen oder Anliegen zum Datenschutz wenden Sie sich an Amit Kumar Agrawal unter amit.agrawal.hyd@outlook.com.</value>
+  </data>
+  <data name="Legal_TermsBody" xml:space="preserve">
+    <value>Datum des Inkrafttretens: 14. Juli 2026
+
+Diese Nutzungsbedingungen („Bedingungen") regeln Ihre Nutzung von PakkaHisaab (die „App"), entwickelt und betrieben von Amit Kumar Agrawal („wir", „uns", „unser"). Durch die Nutzung der App stimmen Sie diesen Bedingungen zu.
+
+1. Nutzung der App
+PakkaHisaab hilft Ihnen, Anwesenheit, Löhne, Vorschüsse und Zahlungen für Haushaltshilfen (wie Haushaltshilfen, Milchmänner, Fahrer usw.), die Sie verwalten, zu verfolgen. Sie sind für die Richtigkeit der von Ihnen eingegebenen Daten verantwortlich.
+
+2. Ihr Konto
+Sie sind für die Wahrung der Vertraulichkeit Ihrer Anmeldedaten und für alle Aktivitäten unter Ihrem Konto verantwortlich. Der Demo-Modus erfordert kein Konto und speichert alle Daten ausschließlich auf Ihrem Gerät.
+
+3. Zahlungen
+Die App verarbeitet Zahlungen nicht selbst. „Per UPI bezahlen" übergibt an die auf Ihrem Gerät bereits installierten UPI-Apps; jede getätigte Zahlung erfolgt zwischen Ihnen und Ihrem gewählten Zahlungsanbieter sowie dem Empfänger. Wir sind nicht verantwortlich für fehlgeschlagene, verzögerte oder strittige Transaktionen.
+
+4. Zulässige Nutzung
+Sie verpflichten sich, die App nicht für rechtswidrige Zwecke oder in einer Weise zu nutzen, die die App schädigen, außer Betrieb setzen oder beeinträchtigen oder die Nutzung durch andere Parteien stören könnte.
+
+5. Keine Gewährleistung
+Die App wird „wie besehen" ohne Gewährleistungen jeglicher Art, weder ausdrücklich noch stillschweigend, bereitgestellt. Wir garantieren nicht, dass die App fehlerfrei, unterbrechungsfrei oder für einen bestimmten Zweck geeignet ist.
+
+6. Haftungsbeschränkung
+Soweit gesetzlich zulässig, haftet Amit Kumar Agrawal nicht für indirekte, zufällige oder Folgeschäden, die aus Ihrer Nutzung der App entstehen, einschließlich Datenverlust oder finanzieller Verluste durch Zahlungen über UPI-Apps von Drittanbietern.
+
+7. Kündigung
+Sie können die Nutzung der App jederzeit beenden und Ihr Konto über Einstellungen &gt; Konto &amp; Daten löschen entfernen. Wir können den Zugang bei Missbrauch der App aussetzen oder beenden.
+
+8. Anwendbares Recht
+Diese Bedingungen unterliegen dem Recht Indiens, ohne Berücksichtigung kollisionsrechtlicher Grundsätze.
+
+9. Änderungen dieser Bedingungen
+Wir können diese Bedingungen von Zeit zu Zeit aktualisieren. Die fortgesetzte Nutzung der App nach Änderungen bedeutet, dass Sie die aktualisierten Bedingungen akzeptieren.
+
+10. Kontakt
+Bei Fragen zu diesen Bedingungen wenden Sie sich an Amit Kumar Agrawal unter amit.agrawal.hyd@outlook.com.</value>
+  </data>
   <data name="Login_CreateAccount" xml:space="preserve">
     <value>Konto erstellen</value>
   </data>
+  <data name="Login_DemoHint" xml:space="preserve">
+    <value>Sofort einsatzbereit, offline, keine Registrierung. Erkunden Sie die App mit Beispieldaten für Geeta (Haushaltshilfe) und Raju (Milchmann).</value>
+  </data>
+  <data name="Login_DisplayName" xml:space="preserve">
+    <value>Ihr Name</value>
+  </data>
   <data name="Login_Email" xml:space="preserve">
     <value>E-Mail</value>
+  </data>
+  <data name="Login_Failed" xml:space="preserve">
+    <value>Anmeldung fehlgeschlagen. Überprüfen Sie Ihre Angaben und die Verbindung.</value>
+  </data>
+  <data name="Login_MissingFields" xml:space="preserve">
+    <value>Bitte geben Sie E-Mail und Passwort ein</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
     <value>Passwort</value>
   </data>
   <data name="Login_SignIn" xml:space="preserve">
     <value>Anmelden</value>
+  </data>
+  <data name="Login_ToggleMode" xml:space="preserve">
+    <value>Neu hier? Konto erstellen · Bereits registriert? Anmelden</value>
   </data>
   <data name="Login_TryDemo" xml:space="preserve">
     <value>Demo testen</value>
@@ -58,17 +371,185 @@
   <data name="Notify_SalaryTitle" xml:space="preserve">
     <value>Gehalt fällig</value>
   </data>
+  <data name="Onboard_GetStarted" xml:space="preserve">
+    <value>Los geht's</value>
+  </data>
+  <data name="Onboard_Next" xml:space="preserve">
+    <value>Weiter</value>
+  </data>
+  <data name="Onboard_Skip" xml:space="preserve">
+    <value>Überspringen</value>
+  </data>
+  <data name="Onboard_Slide1_Body" xml:space="preserve">
+    <value>Tippen Sie auf ein Datum, um Anwesend, Abwesend oder Halber Tag zu markieren. Auch Milch und Lieferungen — alles landet in einem übersichtlichen Khata.</value>
+  </data>
+  <data name="Onboard_Slide1_Title" xml:space="preserve">
+    <value>Das 2-Tipp-Kontobuch</value>
+  </data>
+  <data name="Onboard_Slide2_Body" xml:space="preserve">
+    <value>Eine tägliche Erinnerung um 17 Uhr fragt nach der heutigen Anwesenheit. Markieren Sie 'Abwesend' direkt aus der Benachrichtigung heraus — Sie müssen die App nicht öffnen.</value>
+  </data>
+  <data name="Onboard_Slide2_Title" xml:space="preserve">
+    <value>Nie mehr vergessen, um 17 Uhr</value>
+  </data>
+  <data name="Onboard_Slide3_Body" xml:space="preserve">
+    <value>Lohn minus Abwesenheiten minus Vorschüsse — für Sie berechnet. Zahlen Sie mit einer beliebigen UPI-App oder erfassen Sie eine Barzahlung, und teilen Sie PDF-Berichte über WhatsApp.</value>
+  </data>
+  <data name="Onboard_Slide3_Title" xml:space="preserve">
+    <value>In Sekunden abrechnen per UPI</value>
+  </data>
+  <data name="Report_Absences" xml:space="preserve">
+    <value>Abwesenheiten</value>
+  </data>
+  <data name="Report_Advances" xml:space="preserve">
+    <value>Vorschüsse</value>
+  </data>
+  <data name="Report_Bonuses" xml:space="preserve">
+    <value>Boni</value>
+  </data>
+  <data name="Report_Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="Report_Deduction" xml:space="preserve">
+    <value>Abzug</value>
+  </data>
   <data name="Report_FinalPayable" xml:space="preserve">
     <value>Zu zahlender Betrag</value>
+  </data>
+  <data name="Report_GeneratedBy" xml:space="preserve">
+    <value>Erstellt von</value>
+  </data>
+  <data name="Report_GenerationFailed" xml:space="preserve">
+    <value>Der Bericht konnte nicht erstellt werden. Bitte versuchen Sie es erneut.</value>
+  </data>
+  <data name="Report_GrossWage" xml:space="preserve">
+    <value>Bruttolohn</value>
+  </data>
+  <data name="Report_Helper" xml:space="preserve">
+    <value>Helfer</value>
+  </data>
+  <data name="Report_HouseholdTitle" xml:space="preserve">
+    <value>Haushaltsübersicht</value>
+  </data>
+  <data name="Report_LedgerTitle" xml:space="preserve">
+    <value>Monatliches Kontobuch des Helfers</value>
+  </data>
+  <data name="Report_Movements" xml:space="preserve">
+    <value>Geldbewegungen</value>
+  </data>
+  <data name="Report_ShareTitle" xml:space="preserve">
+    <value>Bericht teilen</value>
+  </data>
+  <data name="Report_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>Gesamt</value>
+  </data>
+  <data name="Report_Units" xml:space="preserve">
+    <value>Einheiten</value>
+  </data>
+  <data name="Report_UnpaidAbsences" xml:space="preserve">
+    <value>Unbezahlte Abwesenheiten</value>
+  </data>
+  <data name="Reports_GenerateShare" xml:space="preserve">
+    <value>PDF erstellen &amp; teilen</value>
+  </data>
+  <data name="Reports_HouseholdDescription" xml:space="preserve">
+    <value>Gesamtübersicht über alle Ihre Helfer</value>
+  </data>
+  <data name="Reports_LedgerDescription" xml:space="preserve">
+    <value>Tägliche Anwesenheit &amp; Geldverlauf für einen Helfer</value>
+  </data>
+  <data name="Reports_Title" xml:space="preserve">
+    <value>Berichte</value>
+  </data>
+  <data name="Security_RootedMessage" xml:space="preserve">
+    <value>Dieses Gerät scheint gerootet/jailbroken zu sein. Ihre Finanzdaten sind hier möglicherweise weniger sicher. Wir empfehlen, PakkaHisaab auf einem Standardgerät zu verwenden.</value>
+  </data>
+  <data name="Security_RootedTitle" xml:space="preserve">
+    <value>Gerätewarnung</value>
+  </data>
+  <data name="Settings_Account" xml:space="preserve">
+    <value>Konto</value>
   </data>
   <data name="Settings_DeleteAccount" xml:space="preserve">
     <value>Konto &amp; Daten löschen</value>
   </data>
+  <data name="Settings_DeleteDemoNote" xml:space="preserve">
+    <value>Demo-Daten werden von diesem Gerät gelöscht.</value>
+  </data>
+  <data name="Settings_DeleteFailed" xml:space="preserve">
+    <value>Das Konto konnte nicht gelöscht werden. Überprüfen Sie Ihr Passwort und die Verbindung.</value>
+  </data>
+  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
+    <value>Geben Sie Ihr Passwort ein, um zu bestätigen</value>
+  </data>
+  <data name="Settings_DeleteTitle" xml:space="preserve">
+    <value>Konto löschen</value>
+  </data>
+  <data name="Settings_DeleteWarning" xml:space="preserve">
+    <value>Dies löscht dauerhaft Ihr Konto sowie alle Helfer-, Anwesenheits- und Zahlungsdatensätze — auf diesem Gerät und unseren Servern. Dies kann nicht rückgängig gemacht werden.</value>
+  </data>
+  <data name="Settings_Help" xml:space="preserve">
+    <value>Hilfe</value>
+  </data>
+  <data name="Settings_HelpAndVoice" xml:space="preserve">
+    <value>Hilfe &amp; Sprachbefehle</value>
+  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>Sprache</value>
   </data>
+  <data name="Settings_Legal" xml:space="preserve">
+    <value>Rechtliches</value>
+  </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>Abmelden</value>
+  </data>
+  <data name="Settings_Privacy" xml:space="preserve">
+    <value>Datenschutzerklärung</value>
+  </data>
+  <data name="Settings_Terms" xml:space="preserve">
+    <value>Nutzungsbedingungen</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="Settle_AmountToPay" xml:space="preserve">
+    <value>Zu zahlender Betrag (bei Bedarf bearbeiten)</value>
+  </data>
+  <data name="Settle_ConfirmBody" xml:space="preserve">
+    <value>Haben Sie die Zahlung von ₹ {1:N0} an {0} abgeschlossen?</value>
+  </data>
+  <data name="Settle_ConfirmTitle" xml:space="preserve">
+    <value>Zahlung erledigt?</value>
+  </data>
+  <data name="Settle_ConfirmYes" xml:space="preserve">
+    <value>Ja, bezahlt</value>
+  </data>
+  <data name="Settle_InvalidAmount" xml:space="preserve">
+    <value>Geben Sie einen gültigen Betrag ein</value>
+  </data>
+  <data name="Settle_LogCash" xml:space="preserve">
+    <value>Barzahlung erfassen</value>
+  </data>
+  <data name="Settle_NoUpiApp" xml:space="preserve">
+    <value>Keine UPI-App auf diesem Gerät gefunden</value>
+  </data>
+  <data name="Settle_NoUpiIdHint" xml:space="preserve">
+    <value>Fügen Sie diesem Helfer eine UPI-ID hinzu, um Zahlungen per UPI mit einem Tipp zu ermöglichen.</value>
+  </data>
+  <data name="Settle_PayVia" xml:space="preserve">
+    <value>Per UPI bezahlen</value>
+  </data>
+  <data name="Settle_Recorded" xml:space="preserve">
+    <value>Zahlung erfasst</value>
+  </data>
+  <data name="Settle_Title" xml:space="preserve">
+    <value>Abrechnung</value>
+  </data>
+  <data name="Settle_UpiNote" xml:space="preserve">
+    <value>Lohn {0} - PakkaHisaab</value>
   </data>
   <data name="Status_Absent" xml:space="preserve">
     <value>Abwesend</value>
@@ -87,5 +568,8 @@
   </data>
   <data name="Tab_Settings" xml:space="preserve">
     <value>Einstellungen</value>
+  </data>
+  <data name="Voice_NotUnderstood" xml:space="preserve">
+    <value>Entschuldigung, das habe ich nicht verstanden. Versuchen Sie es mit: 'Gave Geeta 500 advance'.</value>
   </data>
 </root>

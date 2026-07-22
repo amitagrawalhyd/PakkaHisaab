@@ -4,14 +4,68 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_SplashTagline" xml:space="preserve">
+    <value>Посещаемость и зарплата помощников — просто</value>
+  </data>
   <data name="App_Tagline" xml:space="preserve">
     <value>Нажми. Отслеживай. Рассчитайся.</value>
+  </data>
+  <data name="Calendar_Ledger" xml:space="preserve">
+    <value>Авансы и журнал</value>
+  </data>
+  <data name="Calendar_Summary" xml:space="preserve">
+    <value>Отсутствие {0} дн. · К оплате ₹ {1:N0}</value>
+  </data>
+  <data name="Calendar_UnitsPrompt" xml:space="preserve">
+    <value>Доставлено единиц ({0})</value>
+  </data>
+  <data name="Calendar_UnitsSummary" xml:space="preserve">
+    <value>Доставлено {0:0.#} {1} · К оплате ₹ {2:N0}</value>
+  </data>
+  <data name="Calendar_UnitsTitle" xml:space="preserve">
+    <value>Доставка</value>
+  </data>
+  <data name="Category_Cleaner" xml:space="preserve">
+    <value>Уборщица</value>
+  </data>
+  <data name="Category_Cook" xml:space="preserve">
+    <value>Повар</value>
+  </data>
+  <data name="Category_Driver" xml:space="preserve">
+    <value>Водитель</value>
+  </data>
+  <data name="Category_Gardener" xml:space="preserve">
+    <value>Садовник</value>
+  </data>
+  <data name="Category_HouseHelp" xml:space="preserve">
+    <value>Домработница</value>
+  </data>
+  <data name="Category_MilkMan" xml:space="preserve">
+    <value>Молочник</value>
+  </data>
+  <data name="Category_Newspaper" xml:space="preserve">
+    <value>Разносчик газет</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="Category_Tutor" xml:space="preserve">
+    <value>Репетитор</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="Common_Confirm" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>Удалить</value>
+  </data>
+  <data name="Common_Deleted" xml:space="preserve">
+    <value>Удалено</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>ОК</value>
   </data>
   <data name="Common_Or" xml:space="preserve">
     <value>или</value>
@@ -22,6 +76,12 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>Сохранено</value>
   </data>
+  <data name="Dash_DemoBanner" xml:space="preserve">
+    <value>Демо-режим — тестовые данные, синхронизация отключена. Данные остаются на этом устройстве.</value>
+  </data>
+  <data name="Dash_Empty" xml:space="preserve">
+    <value>Пока нет помощников. Нажмите +, чтобы добавить первого помощника.</value>
+  </data>
   <data name="Dash_OpenCalendar" xml:space="preserve">
     <value>Календарь</value>
   </data>
@@ -31,17 +91,270 @@
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>К оплате в этом месяце:</value>
   </data>
+  <data name="Day_Fr" xml:space="preserve">
+    <value>Пт</value>
+  </data>
+  <data name="Day_Mo" xml:space="preserve">
+    <value>Пн</value>
+  </data>
+  <data name="Day_Sa" xml:space="preserve">
+    <value>Сб</value>
+  </data>
+  <data name="Day_Su" xml:space="preserve">
+    <value>Вс</value>
+  </data>
+  <data name="Day_Th" xml:space="preserve">
+    <value>Чт</value>
+  </data>
+  <data name="Day_Tu" xml:space="preserve">
+    <value>Вт</value>
+  </data>
+  <data name="Day_We" xml:space="preserve">
+    <value>Ср</value>
+  </data>
+  <data name="Forecast_Pattern" xml:space="preserve">
+    <value>Обычно отсутствует по {0} · ~{1}/мес.</value>
+  </data>
+  <data name="Help_Advance_Examples" xml:space="preserve">
+    <value>• "Gave Raju an advance of 200"
+• "200 rupees udhaar to Geeta"</value>
+  </data>
+  <data name="Help_Attendance_Examples" xml:space="preserve">
+    <value>• "Geeta was absent today" / "Geeta didn't come" / "Geeta chutti"
+• "Geeta came" / "Geeta is present" / "Geeta aayi"
+• "Half day for Geeta" / "Geeta half-day" / "Geeta aadha din"</value>
+  </data>
+  <data name="Help_Attendance_Title" xml:space="preserve">
+    <value>Посещаемость (открывает календарь помощника, чтобы показать результат)</value>
+  </data>
+  <data name="Help_Bonus_Examples" xml:space="preserve">
+    <value>• "Diwali bonus 500 for Geeta"</value>
+  </data>
+  <data name="Help_Calendar_Body" xml:space="preserve">
+    <value>Нажимайте на день, чтобы переключать статус: Присутствует → Отсутствует → Полдня. Для помощников с оплатой за единицу (например, молочника) нажатие на день позволяет ввести количество доставленных единиц. Показывает сводку за месяц и текущую сумму к оплате.</value>
+  </data>
+  <data name="Help_Calendar_Title" xml:space="preserve">
+    <value>Календарь</value>
+  </data>
+  <data name="Help_Deduction_Examples" xml:space="preserve">
+    <value>• "Deducted 500 rupees from Geeta"
+• "Kata 100 from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Examples" xml:space="preserve">
+    <value>• "Raju delivered 1.5 litres"
+• "1.5 liters milk from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Title" xml:space="preserve">
+    <value>Доставка — помощники с оплатой за единицу, например молочник (также открывает календарь)</value>
+  </data>
+  <data name="Help_EditDelete_Body" xml:space="preserve">
+    <value>Нажмите на значок карандаша на карточке помощника на главном экране, чтобы изменить его данные или удалить его — прямо из той же формы.</value>
+  </data>
+  <data name="Help_EditDelete_Title" xml:space="preserve">
+    <value>Изменение / удаление помощника</value>
+  </data>
+  <data name="Help_Features" xml:space="preserve">
+    <value>Возможности</value>
+  </data>
+  <data name="Help_Home_Body" xml:space="preserve">
+    <value>Здесь видны все помощники, статус посещаемости на сегодня и общая сумма к оплате за месяц. Нажмите на значок микрофона, чтобы голосом внести посещаемость, доставки или записи в журнал.</value>
+  </data>
+  <data name="Help_Home_Title" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Help_Ledger_Body" xml:space="preserve">
+    <value>Записывайте авансы, бонусы и удержания по зарплате помощника и следите за текущим итогом за месяц.</value>
+  </data>
+  <data name="Help_Payment_Examples" xml:space="preserve">
+    <value>• "Paid Geeta 4500 salary"
+• "Settled Raju 1260"</value>
+  </data>
+  <data name="Help_Payment_Title" xml:space="preserve">
+    <value>Оплата / расчёт</value>
+  </data>
+  <data name="Help_Reports_Body" xml:space="preserve">
+    <value>Создайте PDF-отчёт для одного помощника или всего домохозяйства.</value>
+  </data>
+  <data name="Help_Settle_Body" xml:space="preserve">
+    <value>Проверьте расчёт зарплаты (зарплата − неоплаченные отсутствия − авансы) и оплатите через UPI или запишите наличный платёж.</value>
+  </data>
+  <data name="Help_Tip" xml:space="preserve">
+    <value>Совет: команды о посещаемости и доставке сразу открывают календарь помощника, чтобы вы видели внесённый день. Команды об авансе, удержании, бонусе и оплате остаются на главном экране и обновляют итоги там.</value>
+  </data>
+  <data name="Help_VoiceCommands" xml:space="preserve">
+    <value>Голосовые команды</value>
+  </data>
+  <data name="Help_VoiceIntro" xml:space="preserve">
+    <value>Нажмите на кнопку микрофона на главном экране и произнесите любую из этих команд. Чётко называйте имя помощника — если у вас только один помощник, имя можно не называть. Работает полностью офлайн, на английском или хинди латиницей.</value>
+  </data>
+  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
+    <value>Разрешённые отсутствия в месяц</value>
+  </data>
+  <data name="HelperForm_CarryOver" xml:space="preserve">
+    <value>Переносить неиспользованные отгулы</value>
+  </data>
+  <data name="HelperForm_Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
+    <value>Удалить этого помощника и все его записи из приложения?</value>
+  </data>
+  <data name="HelperForm_MonthlyWage" xml:space="preserve">
+    <value>Месячная зарплата (₹)</value>
+  </data>
+  <data name="HelperForm_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="HelperForm_NameRequired" xml:space="preserve">
+    <value>Пожалуйста, введите имя</value>
+  </data>
+  <data name="HelperForm_PerUnit" xml:space="preserve">
+    <value>Оплата за единицу доставки (молоко, газета…)</value>
+  </data>
+  <data name="HelperForm_RatePerUnit" xml:space="preserve">
+    <value>Тариф за единицу (₹)</value>
+  </data>
+  <data name="HelperForm_Title" xml:space="preserve">
+    <value>Помощник</value>
+  </data>
+  <data name="HelperForm_UnitLabel" xml:space="preserve">
+    <value>Единица</value>
+  </data>
+  <data name="HelperForm_UpiId" xml:space="preserve">
+    <value>UPI ID (для платежей)</value>
+  </data>
+  <data name="HelperForm_WhatsApp" xml:space="preserve">
+    <value>Номер WhatsApp</value>
+  </data>
+  <data name="LedgerType_Advance" xml:space="preserve">
+    <value>Аванс</value>
+  </data>
+  <data name="LedgerType_Bonus" xml:space="preserve">
+    <value>Бонус</value>
+  </data>
+  <data name="LedgerType_Deduction" xml:space="preserve">
+    <value>Удержание</value>
+  </data>
+  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
+    <value>Плата за доставку</value>
+  </data>
+  <data name="LedgerType_SalaryPayment" xml:space="preserve">
+    <value>Выплата зарплаты</value>
+  </data>
+  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
+    <value>Авансы за этот месяц</value>
+  </data>
+  <data name="Ledger_Amount" xml:space="preserve">
+    <value>Сумма (₹)</value>
+  </data>
+  <data name="Ledger_DeleteConfirm" xml:space="preserve">
+    <value>Удалить эту запись? Это действие нельзя отменить.</value>
+  </data>
+  <data name="Ledger_Empty" xml:space="preserve">
+    <value>Записей за этот месяц пока нет. Нажмите +, чтобы добавить аванс.</value>
+  </data>
+  <data name="Ledger_InvalidAmount" xml:space="preserve">
+    <value>Введите корректную сумму</value>
+  </data>
+  <data name="Ledger_NewEntry" xml:space="preserve">
+    <value>Новая запись в журнале</value>
+  </data>
+  <data name="Ledger_Note" xml:space="preserve">
+    <value>Примечание (необязательно)</value>
+  </data>
+  <data name="Legal_PrivacyBody" xml:space="preserve">
+    <value>Дата вступления в силу: 14 July 2026
+
+PakkaHisaab («Приложение») разрабатывается и управляется Амитом Кумаром Агравалом («мы», «нас», «наш»). Настоящая Политика конфиденциальности объясняет, как мы обрабатываем информацию при использовании вами Приложения.
+
+1. Информация, которую мы собираем
+- Данные о домашних помощниках, которые вы вводите: имя, категория, номер WhatsApp и UPI ID.
+- Записи о посещаемости, зарплате, авансах и расчётах, которые вы создаёте для своих помощников.
+- Базовая диагностика устройства и использования (журналы сбоев, производительность приложения) через Microsoft App Center, используемая только для исправления ошибок и повышения стабильности.
+- Голосовое аудио, записываемое только при нажатии кнопки микрофона, обрабатывается на устройстве для внесения записи о посещаемости/в журнал и не сохраняется и не передаётся после обработки.
+
+2. Как мы используем информацию
+Введённые вами данные используются исключительно для работы основных функций Приложения — учёта посещаемости, расчёта зарплаты и записи платежей для помощников, которыми вы управляете. В демо-режиме все данные остаются на вашем устройстве, и синхронизация не выполняется.
+
+3. Хранение и передача данных
+Ваши данные хранятся локально на вашем устройстве (SQLite). Если вы входите в аккаунт (не в демо-режиме), ваши данные синхронизируются с нашими серверами исключительно для того, чтобы вы могли получать к ним доступ с разных своих устройств. Мы не продаём ваши данные и не передаём их третьим лицам в рекламных целях. Платежи инициируются через установленные на вашем устройстве приложения UPI (Google Pay, PhonePe, Paytm и т. д.) — Приложение никогда не обрабатывает и не хранит данные ваших банковских карт.
+
+4. Хранение и удаление данных
+Вы можете удалить запись о любом помощнике в любой момент прямо в Приложении. Вы можете навсегда удалить свой аккаунт и все связанные данные в разделе Настройки &gt; Удалить аккаунт и данные.
+
+5. Безопасность
+Мы принимаем разумные технические меры для защиты ваших данных, включая локальное хранение и безопасную передачу (HTTPS) для синхронизированных аккаунтов.
+
+6. Конфиденциальность детей
+Приложение не предназначено для детей и не рассчитано на использование лицами младше 18 лет.
+
+7. Изменения в настоящей Политике
+Мы можем время от времени обновлять эту политику. Продолжение использования Приложения после внесения изменений означает, что вы принимаете обновлённую политику.
+
+8. Свяжитесь с нами
+По любым вопросам или запросам, связанным с конфиденциальностью, свяжитесь с Амитом Кумаром Агравалом по адресу amit.agrawal.hyd@outlook.com.</value>
+  </data>
+  <data name="Legal_TermsBody" xml:space="preserve">
+    <value>Дата вступления в силу: 14 July 2026
+
+Настоящие Условия использования («Условия») регулируют использование вами PakkaHisaab («Приложение»), которое разрабатывается и управляется Амитом Кумаром Агравалом («мы», «нас», «наш»). Используя Приложение, вы соглашаетесь с настоящими Условиями.
+
+1. Использование Приложения
+PakkaHisaab помогает вести учёт посещаемости, зарплаты, авансов и платежей для домашних помощников (таких как домработницы, молочники, водители и т. д.), которыми вы управляете. Вы несёте ответственность за точность вводимых данных.
+
+2. Ваш аккаунт
+Вы несёте ответственность за сохранение конфиденциальности данных для входа и за любую активность в рамках вашего аккаунта. Демо-режим не требует аккаунта и хранит все данные только на вашем устройстве.
+
+3. Платежи
+Приложение само не обрабатывает платежи. Функция «Оплата через UPI» перенаправляет в приложения UPI, уже установленные на вашем устройстве; любой совершённый платёж происходит между вами и выбранным вами платёжным провайдером и получателем. Мы не несём ответственности за неудачные, задержанные или оспариваемые транзакции.
+
+4. Допустимое использование
+Вы соглашаетесь не использовать Приложение в каких-либо незаконных целях или таким образом, который может нанести вред, вывести из строя или ухудшить работу Приложения либо помешать использованию его другими сторонами.
+
+5. Отсутствие гарантий
+Приложение предоставляется «как есть» без каких-либо гарантий, явных или подразумеваемых. Мы не гарантируем, что Приложение будет безошибочным, бесперебойным или подходящим для конкретной цели.
+
+6. Ограничение ответственности
+В максимальной степени, разрешённой законом, Амит Кумар Агравал не несёт ответственности за какие-либо косвенные, случайные или последующие убытки, возникшие в результате использования вами Приложения, включая любую потерю данных или финансовые потери, возникшие в результате платежей, совершённых с использованием сторонних приложений UPI.
+
+7. Прекращение действия
+Вы можете в любой момент прекратить использование Приложения и удалить свой аккаунт через раздел Настройки &gt; Удалить аккаунт и данные. Мы можем приостановить или прекратить доступ за неправомерное использование Приложения.
+
+8. Применимое право
+Настоящие Условия регулируются законодательством Индии, без учёта норм коллизионного права.
+
+9. Изменения настоящих Условий
+Мы можем время от времени обновлять настоящие Условия. Продолжение использования Приложения после внесения изменений означает, что вы принимаете обновлённые Условия.
+
+10. Свяжитесь с нами
+По любым вопросам, касающимся настоящих Условий, свяжитесь с Амитом Кумаром Агравалом по адресу amit.agrawal.hyd@outlook.com.</value>
+  </data>
   <data name="Login_CreateAccount" xml:space="preserve">
     <value>Создать аккаунт</value>
   </data>
+  <data name="Login_DemoHint" xml:space="preserve">
+    <value>Мгновенно, офлайн, без регистрации. Изучите приложение с примерами данных для Гиты (домработница) и Раджу (молочник).</value>
+  </data>
+  <data name="Login_DisplayName" xml:space="preserve">
+    <value>Ваше имя</value>
+  </data>
   <data name="Login_Email" xml:space="preserve">
     <value>Эл. почта</value>
+  </data>
+  <data name="Login_Failed" xml:space="preserve">
+    <value>Не удалось войти. Проверьте данные и подключение к интернету.</value>
+  </data>
+  <data name="Login_MissingFields" xml:space="preserve">
+    <value>Пожалуйста, введите email и пароль</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
     <value>Пароль</value>
   </data>
   <data name="Login_SignIn" xml:space="preserve">
     <value>Войти</value>
+  </data>
+  <data name="Login_ToggleMode" xml:space="preserve">
+    <value>Впервые здесь? Создайте аккаунт · Уже есть аккаунт? Войдите</value>
   </data>
   <data name="Login_TryDemo" xml:space="preserve">
     <value>Попробовать демо</value>
@@ -58,17 +371,185 @@
   <data name="Notify_SalaryTitle" xml:space="preserve">
     <value>Зарплата к выплате</value>
   </data>
+  <data name="Onboard_GetStarted" xml:space="preserve">
+    <value>Начать</value>
+  </data>
+  <data name="Onboard_Next" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="Onboard_Skip" xml:space="preserve">
+    <value>Пропустить</value>
+  </data>
+  <data name="Onboard_Slide1_Body" xml:space="preserve">
+    <value>Нажмите на дату, чтобы отметить «Присутствует», «Отсутствует» или «Полдня». Молоко и доставки тоже — всё попадает в одну аккуратную кхату.</value>
+  </data>
+  <data name="Onboard_Slide1_Title" xml:space="preserve">
+    <value>Журнал в 2 касания</value>
+  </data>
+  <data name="Onboard_Slide2_Body" xml:space="preserve">
+    <value>Ежедневное напоминание в 17:00 спрашивает о посещаемости за сегодня. Отметьте «Отсутствует» прямо из уведомления — не нужно открывать приложение.</value>
+  </data>
+  <data name="Onboard_Slide2_Title" xml:space="preserve">
+    <value>Не забудьте в 17:00</value>
+  </data>
+  <data name="Onboard_Slide3_Body" xml:space="preserve">
+    <value>Зарплата минус отсутствия минус авансы — всё считается автоматически. Платите через любое приложение UPI или записывайте наличные, делитесь PDF-отчётами в WhatsApp.</value>
+  </data>
+  <data name="Onboard_Slide3_Title" xml:space="preserve">
+    <value>Расчёт за секунды через UPI</value>
+  </data>
+  <data name="Report_Absences" xml:space="preserve">
+    <value>Отсутствия</value>
+  </data>
+  <data name="Report_Advances" xml:space="preserve">
+    <value>Авансы</value>
+  </data>
+  <data name="Report_Bonuses" xml:space="preserve">
+    <value>Бонусы</value>
+  </data>
+  <data name="Report_Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="Report_Deduction" xml:space="preserve">
+    <value>удержание</value>
+  </data>
   <data name="Report_FinalPayable" xml:space="preserve">
     <value>Итого к оплате</value>
+  </data>
+  <data name="Report_GeneratedBy" xml:space="preserve">
+    <value>Сформировано в</value>
+  </data>
+  <data name="Report_GenerationFailed" xml:space="preserve">
+    <value>Не удалось создать отчёт. Попробуйте ещё раз.</value>
+  </data>
+  <data name="Report_GrossWage" xml:space="preserve">
+    <value>Валовая зарплата</value>
+  </data>
+  <data name="Report_Helper" xml:space="preserve">
+    <value>Помощник</value>
+  </data>
+  <data name="Report_HouseholdTitle" xml:space="preserve">
+    <value>Сводка по домохозяйству</value>
+  </data>
+  <data name="Report_LedgerTitle" xml:space="preserve">
+    <value>Месячный журнал помощника</value>
+  </data>
+  <data name="Report_Movements" xml:space="preserve">
+    <value>Движение денежных средств</value>
+  </data>
+  <data name="Report_ShareTitle" xml:space="preserve">
+    <value>Поделиться отчётом</value>
+  </data>
+  <data name="Report_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="Report_Units" xml:space="preserve">
+    <value>Единицы</value>
+  </data>
+  <data name="Report_UnpaidAbsences" xml:space="preserve">
+    <value>Неоплаченные отсутствия</value>
+  </data>
+  <data name="Reports_GenerateShare" xml:space="preserve">
+    <value>Создать и поделиться PDF</value>
+  </data>
+  <data name="Reports_HouseholdDescription" xml:space="preserve">
+    <value>Общая сводка по всем вашим помощникам</value>
+  </data>
+  <data name="Reports_LedgerDescription" xml:space="preserve">
+    <value>Ежедневная посещаемость и история платежей одного помощника</value>
+  </data>
+  <data name="Reports_Title" xml:space="preserve">
+    <value>Отчёты</value>
+  </data>
+  <data name="Security_RootedMessage" xml:space="preserve">
+    <value>Похоже, это устройство рутировано/взломано (jailbreak). Ваши финансовые данные могут быть менее защищены на нём. Рекомендуем использовать PakkaHisaab на стандартном устройстве.</value>
+  </data>
+  <data name="Security_RootedTitle" xml:space="preserve">
+    <value>Предупреждение об устройстве</value>
+  </data>
+  <data name="Settings_Account" xml:space="preserve">
+    <value>Аккаунт</value>
   </data>
   <data name="Settings_DeleteAccount" xml:space="preserve">
     <value>Удалить аккаунт и данные</value>
   </data>
+  <data name="Settings_DeleteDemoNote" xml:space="preserve">
+    <value>Демо-данные будут удалены с этого устройства.</value>
+  </data>
+  <data name="Settings_DeleteFailed" xml:space="preserve">
+    <value>Не удалось удалить аккаунт. Проверьте пароль и подключение к интернету.</value>
+  </data>
+  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
+    <value>Введите пароль для подтверждения</value>
+  </data>
+  <data name="Settings_DeleteTitle" xml:space="preserve">
+    <value>Удаление аккаунта</value>
+  </data>
+  <data name="Settings_DeleteWarning" xml:space="preserve">
+    <value>Это безвозвратно удалит ваш аккаунт и все записи о помощниках, посещаемости и платежах — на этом устройстве и на наших серверах. Это действие нельзя отменить.</value>
+  </data>
+  <data name="Settings_Help" xml:space="preserve">
+    <value>Справка</value>
+  </data>
+  <data name="Settings_HelpAndVoice" xml:space="preserve">
+    <value>Справка и голосовые команды</value>
+  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>Язык</value>
   </data>
+  <data name="Settings_Legal" xml:space="preserve">
+    <value>Правовая информация</value>
+  </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>Выйти</value>
+  </data>
+  <data name="Settings_Privacy" xml:space="preserve">
+    <value>Политика конфиденциальности</value>
+  </data>
+  <data name="Settings_Terms" xml:space="preserve">
+    <value>Условия использования</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Settle_AmountToPay" xml:space="preserve">
+    <value>Сумма к оплате (при необходимости измените)</value>
+  </data>
+  <data name="Settle_ConfirmBody" xml:space="preserve">
+    <value>Вы завершили платёж на сумму ₹ {1:N0} для {0}?</value>
+  </data>
+  <data name="Settle_ConfirmTitle" xml:space="preserve">
+    <value>Платёж выполнен?</value>
+  </data>
+  <data name="Settle_ConfirmYes" xml:space="preserve">
+    <value>Да, оплачено</value>
+  </data>
+  <data name="Settle_InvalidAmount" xml:space="preserve">
+    <value>Введите корректную сумму</value>
+  </data>
+  <data name="Settle_LogCash" xml:space="preserve">
+    <value>Записать наличный платёж</value>
+  </data>
+  <data name="Settle_NoUpiApp" xml:space="preserve">
+    <value>На этом устройстве не найдено приложение UPI</value>
+  </data>
+  <data name="Settle_NoUpiIdHint" xml:space="preserve">
+    <value>Добавьте UPI ID этому помощнику, чтобы включить оплату через UPI в одно касание.</value>
+  </data>
+  <data name="Settle_PayVia" xml:space="preserve">
+    <value>Оплатить через UPI</value>
+  </data>
+  <data name="Settle_Recorded" xml:space="preserve">
+    <value>Платёж записан</value>
+  </data>
+  <data name="Settle_Title" xml:space="preserve">
+    <value>Расчёт</value>
+  </data>
+  <data name="Settle_UpiNote" xml:space="preserve">
+    <value>Зарплата {0} - PakkaHisaab</value>
   </data>
   <data name="Status_Absent" xml:space="preserve">
     <value>Отсутствует</value>
@@ -87,5 +568,8 @@
   </data>
   <data name="Tab_Settings" xml:space="preserve">
     <value>Настройки</value>
+  </data>
+  <data name="Voice_NotUnderstood" xml:space="preserve">
+    <value>Извините, не удалось распознать сказанное. Попробуйте: 'Gave Geeta 500 advance'.</value>
   </data>
 </root>

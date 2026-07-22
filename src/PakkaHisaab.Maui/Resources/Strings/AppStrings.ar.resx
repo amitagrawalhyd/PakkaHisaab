@@ -4,14 +4,68 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_SplashTagline" xml:space="preserve">
+    <value>حضور المساعدين والأجور، بكل بساطة</value>
+  </data>
   <data name="App_Tagline" xml:space="preserve">
     <value>انقر. تتبّع. سدّد.</value>
+  </data>
+  <data name="Calendar_Ledger" xml:space="preserve">
+    <value>السلف والسجل</value>
+  </data>
+  <data name="Calendar_Summary" xml:space="preserve">
+    <value>غياب {0} يوم · المستحق ₹ {1:N0}</value>
+  </data>
+  <data name="Calendar_UnitsPrompt" xml:space="preserve">
+    <value>الوحدات المسلَّمة ({0})</value>
+  </data>
+  <data name="Calendar_UnitsSummary" xml:space="preserve">
+    <value>{0:0.#} {1} تم تسليمها · المستحق ₹ {2:N0}</value>
+  </data>
+  <data name="Calendar_UnitsTitle" xml:space="preserve">
+    <value>التسليم</value>
+  </data>
+  <data name="Category_Cleaner" xml:space="preserve">
+    <value>عامل نظافة</value>
+  </data>
+  <data name="Category_Cook" xml:space="preserve">
+    <value>طاهٍ</value>
+  </data>
+  <data name="Category_Driver" xml:space="preserve">
+    <value>سائق</value>
+  </data>
+  <data name="Category_Gardener" xml:space="preserve">
+    <value>بستاني</value>
+  </data>
+  <data name="Category_HouseHelp" xml:space="preserve">
+    <value>مساعد منزلي</value>
+  </data>
+  <data name="Category_MilkMan" xml:space="preserve">
+    <value>بائع الحليب</value>
+  </data>
+  <data name="Category_Newspaper" xml:space="preserve">
+    <value>الجريدة</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>أخرى</value>
+  </data>
+  <data name="Category_Tutor" xml:space="preserve">
+    <value>مدرّس خصوصي</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
+  <data name="Common_Confirm" xml:space="preserve">
+    <value>تأكيد</value>
+  </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>حذف</value>
+  </data>
+  <data name="Common_Deleted" xml:space="preserve">
+    <value>تم الحذف</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>موافق</value>
   </data>
   <data name="Common_Or" xml:space="preserve">
     <value>أو</value>
@@ -22,6 +76,12 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>تم الحفظ</value>
   </data>
+  <data name="Dash_DemoBanner" xml:space="preserve">
+    <value>وضع العرض التجريبي — بيانات نموذجية، المزامنة متوقفة. تبقى البيانات على هذا الجهاز.</value>
+  </data>
+  <data name="Dash_Empty" xml:space="preserve">
+    <value>لا يوجد مساعدون بعد. انقر على + لإضافة أول مساعد لك.</value>
+  </data>
   <data name="Dash_OpenCalendar" xml:space="preserve">
     <value>التقويم</value>
   </data>
@@ -31,17 +91,270 @@
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>المستحق هذا الشهر:</value>
   </data>
+  <data name="Day_Fr" xml:space="preserve">
+    <value>ج</value>
+  </data>
+  <data name="Day_Mo" xml:space="preserve">
+    <value>ن</value>
+  </data>
+  <data name="Day_Sa" xml:space="preserve">
+    <value>س</value>
+  </data>
+  <data name="Day_Su" xml:space="preserve">
+    <value>ح</value>
+  </data>
+  <data name="Day_Th" xml:space="preserve">
+    <value>خ</value>
+  </data>
+  <data name="Day_Tu" xml:space="preserve">
+    <value>ث</value>
+  </data>
+  <data name="Day_We" xml:space="preserve">
+    <value>ر</value>
+  </data>
+  <data name="Forecast_Pattern" xml:space="preserve">
+    <value>غالبًا ما يتغيب يوم {0} · ~{1}/شهر</value>
+  </data>
+  <data name="Help_Advance_Examples" xml:space="preserve">
+    <value>• "Gave Raju an advance of 200"
+• "200 rupees udhaar to Geeta"</value>
+  </data>
+  <data name="Help_Attendance_Examples" xml:space="preserve">
+    <value>• "Geeta was absent today" / "Geeta didn't come" / "Geeta chutti"
+• "Geeta came" / "Geeta is present" / "Geeta aayi"
+• "Half day for Geeta" / "Geeta half-day" / "Geeta aadha din"</value>
+  </data>
+  <data name="Help_Attendance_Title" xml:space="preserve">
+    <value>الحضور (يفتح تقويم ذلك المساعد لعرض النتيجة)</value>
+  </data>
+  <data name="Help_Bonus_Examples" xml:space="preserve">
+    <value>• "Diwali bonus 500 for Geeta"</value>
+  </data>
+  <data name="Help_Calendar_Body" xml:space="preserve">
+    <value>انقر على يوم للتنقل بين حاضر → غائب → نصف يوم. بالنسبة للمساعدين الذين يُدفع لهم لكل وحدة (مثل بائع الحليب)، انقر على يوم لإدخال عدد الوحدات المسلَّمة بدلاً من ذلك. يعرض ملخص الشهر والمبلغ المستحق التراكمي.</value>
+  </data>
+  <data name="Help_Calendar_Title" xml:space="preserve">
+    <value>التقويم</value>
+  </data>
+  <data name="Help_Deduction_Examples" xml:space="preserve">
+    <value>• "Deducted 500 rupees from Geeta"
+• "Kata 100 from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Examples" xml:space="preserve">
+    <value>• "Raju delivered 1.5 litres"
+• "1.5 liters milk from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Title" xml:space="preserve">
+    <value>التسليم — للمساعدين الذين يُدفع لهم لكل وحدة، مثل بائع الحليب (يفتح التقويم أيضًا)</value>
+  </data>
+  <data name="Help_EditDelete_Body" xml:space="preserve">
+    <value>انقر على أيقونة القلم في بطاقة المساعد على الشاشة الرئيسية لتعديل بياناته، أو حذفه من النموذج نفسه.</value>
+  </data>
+  <data name="Help_EditDelete_Title" xml:space="preserve">
+    <value>تعديل / حذف مساعد</value>
+  </data>
+  <data name="Help_Features" xml:space="preserve">
+    <value>الميزات</value>
+  </data>
+  <data name="Help_Home_Body" xml:space="preserve">
+    <value>اطّلع على جميع المساعدين، وحالة الحضور لليوم، وإجمالي المبلغ المستحق للشهر. انقر على أيقونة الميكروفون لتسجيل الحضور أو التسليمات أو قيود السجل صوتيًا.</value>
+  </data>
+  <data name="Help_Home_Title" xml:space="preserve">
+    <value>الرئيسية</value>
+  </data>
+  <data name="Help_Ledger_Body" xml:space="preserve">
+    <value>سجّل السلف والمكافآت والخصومات مقابل أجر المساعد، واطّلع على الإجمالي التراكمي للشهر.</value>
+  </data>
+  <data name="Help_Payment_Examples" xml:space="preserve">
+    <value>• "Paid Geeta 4500 salary"
+• "Settled Raju 1260"</value>
+  </data>
+  <data name="Help_Payment_Title" xml:space="preserve">
+    <value>الدفع / التسوية</value>
+  </data>
+  <data name="Help_Reports_Body" xml:space="preserve">
+    <value>أنشئ تقرير PDF لمساعد واحد أو للأسرة بأكملها.</value>
+  </data>
+  <data name="Help_Settle_Body" xml:space="preserve">
+    <value>راجع تفاصيل الأجر (الأجر الإجمالي − أيام الغياب غير المدفوعة − السلف) وادفع عبر UPI أو سجّل دفعة نقدية.</value>
+  </data>
+  <data name="Help_Tip" xml:space="preserve">
+    <value>نصيحة: تنقلك أوامر الحضور والتسليم مباشرة إلى تقويم المساعد لعرض اليوم المسجَّل. أما أوامر السلفة والخصم والمكافأة والدفع فتبقى في الشاشة الرئيسية وتُحدِّث الإجماليات هناك.</value>
+  </data>
+  <data name="Help_VoiceCommands" xml:space="preserve">
+    <value>الأوامر الصوتية</value>
+  </data>
+  <data name="Help_VoiceIntro" xml:space="preserve">
+    <value>انقر على زر الميكروفون في الشاشة الرئيسية وقل أيًا مما يلي. انطق اسم المساعد بوضوح — وإذا كان لديك مساعد واحد فقط، يمكنك حذف الاسم. يعمل بالكامل دون اتصال بالإنترنت، بالإنجليزية أو الهندية بالحروف اللاتينية.</value>
+  </data>
+  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
+    <value>أيام الغياب المسموح بها شهريًا</value>
+  </data>
+  <data name="HelperForm_CarryOver" xml:space="preserve">
+    <value>ترحيل الإجازات غير المستخدمة</value>
+  </data>
+  <data name="HelperForm_Category" xml:space="preserve">
+    <value>الفئة</value>
+  </data>
+  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
+    <value>هل تريد إزالة هذا المساعد وسجلاته من التطبيق؟</value>
+  </data>
+  <data name="HelperForm_MonthlyWage" xml:space="preserve">
+    <value>الأجر الشهري (₹)</value>
+  </data>
+  <data name="HelperForm_Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="HelperForm_NameRequired" xml:space="preserve">
+    <value>الرجاء إدخال اسم</value>
+  </data>
+  <data name="HelperForm_PerUnit" xml:space="preserve">
+    <value>يُدفع لكل وحدة تسليم (حليب، جريدة…)</value>
+  </data>
+  <data name="HelperForm_RatePerUnit" xml:space="preserve">
+    <value>السعر لكل وحدة (₹)</value>
+  </data>
+  <data name="HelperForm_Title" xml:space="preserve">
+    <value>المساعد</value>
+  </data>
+  <data name="HelperForm_UnitLabel" xml:space="preserve">
+    <value>الوحدة</value>
+  </data>
+  <data name="HelperForm_UpiId" xml:space="preserve">
+    <value>معرّف UPI (للمدفوعات)</value>
+  </data>
+  <data name="HelperForm_WhatsApp" xml:space="preserve">
+    <value>رقم WhatsApp</value>
+  </data>
+  <data name="LedgerType_Advance" xml:space="preserve">
+    <value>سلفة</value>
+  </data>
+  <data name="LedgerType_Bonus" xml:space="preserve">
+    <value>مكافأة</value>
+  </data>
+  <data name="LedgerType_Deduction" xml:space="preserve">
+    <value>خصم</value>
+  </data>
+  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
+    <value>رسوم التسليم</value>
+  </data>
+  <data name="LedgerType_SalaryPayment" xml:space="preserve">
+    <value>دفعة الراتب</value>
+  </data>
+  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
+    <value>السلف هذا الشهر</value>
+  </data>
+  <data name="Ledger_Amount" xml:space="preserve">
+    <value>المبلغ (₹)</value>
+  </data>
+  <data name="Ledger_DeleteConfirm" xml:space="preserve">
+    <value>هل تريد حذف هذا القيد؟ لا يمكن التراجع عن هذا الإجراء.</value>
+  </data>
+  <data name="Ledger_Empty" xml:space="preserve">
+    <value>لا توجد قيود هذا الشهر. انقر على + لتسجيل سلفة.</value>
+  </data>
+  <data name="Ledger_InvalidAmount" xml:space="preserve">
+    <value>أدخل مبلغًا صحيحًا</value>
+  </data>
+  <data name="Ledger_NewEntry" xml:space="preserve">
+    <value>قيد جديد في السجل</value>
+  </data>
+  <data name="Ledger_Note" xml:space="preserve">
+    <value>ملاحظة (اختياري)</value>
+  </data>
+  <data name="Legal_PrivacyBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+يُطوَّر تطبيق PakkaHisaab ("التطبيق") ويُشغَّل بواسطة Amit Kumar Agrawal ("نحن"، "لنا"، "الخاصة بنا"). توضح سياسة الخصوصية هذه كيفية تعاملنا مع المعلومات عند استخدامك للتطبيق.
+
+1. المعلومات التي نجمعها
+- بيانات المساعد المنزلي التي تُدخلها: الاسم، الفئة، رقم WhatsApp، ومعرّف UPI.
+- سجلات الحضور والأجور والسلف والتسويات التي تنشئها لمساعديك.
+- بيانات تشخيصية أساسية عن الجهاز والاستخدام (سجلات الأعطال، أداء التطبيق) عبر Microsoft App Center، تُستخدم فقط لإصلاح الأخطاء وتحسين الاستقرار.
+- الصوت الذي يُلتقط فقط عند نقرك على زر الميكروفون، ويُعالَج على الجهاز نفسه لتسجيل قيد حضور/سجل، ولا يُخزَّن أو يُنقل بعد المعالجة.
+
+2. كيف نستخدم المعلومات
+تُستخدم البيانات التي تُدخلها حصريًا لتشغيل الميزات الأساسية للتطبيق - تتبع الحضور، وحساب الأجور، وتسجيل المدفوعات للمساعدين الذين تديرهم. في وضع العرض التجريبي، تبقى جميع البيانات على جهازك ولا تتم مزامنة أي شيء.
+
+3. تخزين البيانات ومشاركتها
+تُخزَّن بياناتك محليًا على جهازك (SQLite). إذا سجّلت الدخول بحساب (في غير وضع العرض التجريبي)، تتم مزامنة بياناتك مع خوادمنا فقط لتمكينك من الوصول إليها عبر أجهزتك الخاصة. نحن لا نبيع بياناتك ولا نشاركها مع أطراف ثالثة لأغراض إعلانية. يتم بدء المدفوعات عبر تطبيقات UPI المثبتة على جهازك (Google Pay، PhonePe، Paytm، وغيرها) - لا يقوم التطبيق أبدًا بمعالجة أو تخزين بيانات اعتماد حسابك المصرفي.
+
+4. الاحتفاظ بالبيانات وحذفها
+يمكنك حذف سجل أي مساعد في أي وقت من داخل التطبيق. يمكنك حذف حسابك وجميع البيانات المرتبطة به نهائيًا من الإعدادات &gt; حذف حسابي وبياناتي.
+
+5. الأمان
+نتخذ تدابير تقنية معقولة لحماية بياناتك، بما في ذلك التخزين المحلي والنقل الآمن (HTTPS) للحسابات المزامَنة.
+
+6. خصوصية الأطفال
+لا يستهدف التطبيق الأطفال وليس مخصصًا للاستخدام من قِبل أي شخص دون سن 18 عامًا.
+
+7. التغييرات على هذه السياسة
+قد نقوم بتحديث هذه السياسة من وقت لآخر. يعني استمرار استخدامك للتطبيق بعد إجراء التغييرات أنك تقبل السياسة المحدَّثة.
+
+8. تواصل معنا
+لأي أسئلة أو طلبات متعلقة بالخصوصية، تواصل مع Amit Kumar Agrawal عبر amit.agrawal.hyd@outlook.com.</value>
+  </data>
+  <data name="Legal_TermsBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+تحكم شروط الخدمة هذه ("الشروط") استخدامك لتطبيق PakkaHisaab ("التطبيق")، الذي يتم تطويره وتشغيله بواسطة Amit Kumar Agrawal ("نحن"، "لنا"، "الخاصة بنا"). باستخدامك للتطبيق، فإنك توافق على هذه الشروط.
+
+1. استخدام التطبيق
+يساعدك PakkaHisaab على تتبع الحضور والأجور والسلف والمدفوعات للمساعدين المنزليين (مثل المساعدين المنزليين، وبائعي الحليب، والسائقين، وغيرهم) الذين تديرهم. أنت مسؤول عن دقة البيانات التي تُدخلها.
+
+2. حسابك
+أنت مسؤول عن الحفاظ على سرية بيانات تسجيل الدخول الخاصة بك وعن جميع الأنشطة التي تتم تحت حسابك. لا يتطلب وضع العرض التجريبي إنشاء حساب، وتبقى جميع البيانات على جهازك فقط.
+
+3. المدفوعات
+لا يقوم التطبيق بمعالجة المدفوعات بنفسه. تُحيلك ميزة "الدفع عبر UPI" إلى تطبيقات UPI المثبتة بالفعل على جهازك؛ وتتم أي عملية دفع بينك وبين مزوّد الدفع الذي تختاره والمستلم. نحن لسنا مسؤولين عن المعاملات الفاشلة أو المتأخرة أو المتنازع عليها.
+
+4. الاستخدام المقبول
+توافق على عدم استخدام التطبيق لأي غرض غير قانوني أو بطريقة قد تضر بالتطبيق أو تعطّله أو تعيقه أو تتداخل مع استخدام أي طرف آخر له.
+
+5. عدم وجود ضمان
+يُقدَّم التطبيق "كما هو" دون أي ضمانات من أي نوع، صريحة كانت أو ضمنية. نحن لا نضمن أن يكون التطبيق خاليًا من الأخطاء، أو يعمل دون انقطاع، أو مناسبًا لغرض معيّن.
+
+6. تحديد المسؤولية
+إلى أقصى حد يسمح به القانون، لا يتحمل Amit Kumar Agrawal المسؤولية عن أي أضرار غير مباشرة أو عرضية أو تبعية ناشئة عن استخدامك للتطبيق، بما في ذلك أي فقدان للبيانات أو خسارة مالية ناتجة عن مدفوعات تمت باستخدام تطبيقات UPI تابعة لجهات خارجية.
+
+7. الإنهاء
+يمكنك التوقف عن استخدام التطبيق وحذف حسابك في أي وقت عبر الإعدادات &gt; حذف حسابي وبياناتي. يجوز لنا تعليق أو إنهاء الوصول في حال إساءة استخدام التطبيق.
+
+8. القانون الحاكم
+تخضع هذه الشروط لقوانين الهند، بغض النظر عن مبادئ تنازع القوانين.
+
+9. التغييرات على هذه الشروط
+قد نقوم بتحديث هذه الشروط من وقت لآخر. يعني استمرار استخدامك للتطبيق بعد إجراء التغييرات أنك تقبل الشروط المحدَّثة.
+
+10. تواصل معنا
+لأي أسئلة حول هذه الشروط، تواصل مع Amit Kumar Agrawal عبر amit.agrawal.hyd@outlook.com.</value>
+  </data>
   <data name="Login_CreateAccount" xml:space="preserve">
     <value>إنشاء حساب</value>
   </data>
+  <data name="Login_DemoHint" xml:space="preserve">
+    <value>فوري، دون اتصال، بلا تسجيل. استكشف باستخدام بيانات نموذجية لجيتا (مساعد منزلي) وراجو (بائع حليب).</value>
+  </data>
+  <data name="Login_DisplayName" xml:space="preserve">
+    <value>اسمك</value>
+  </data>
   <data name="Login_Email" xml:space="preserve">
     <value>البريد الإلكتروني</value>
+  </data>
+  <data name="Login_Failed" xml:space="preserve">
+    <value>فشل تسجيل الدخول. تحقق من بياناتك واتصالك بالإنترنت.</value>
+  </data>
+  <data name="Login_MissingFields" xml:space="preserve">
+    <value>الرجاء إدخال البريد الإلكتروني وكلمة المرور</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
     <value>كلمة المرور</value>
   </data>
   <data name="Login_SignIn" xml:space="preserve">
     <value>تسجيل الدخول</value>
+  </data>
+  <data name="Login_ToggleMode" xml:space="preserve">
+    <value>جديد هنا؟ أنشئ حسابًا · لديك حساب؟ سجّل الدخول</value>
   </data>
   <data name="Login_TryDemo" xml:space="preserve">
     <value>جرّب العرض التجريبي</value>
@@ -58,17 +371,185 @@
   <data name="Notify_SalaryTitle" xml:space="preserve">
     <value>راتب مستحق</value>
   </data>
+  <data name="Onboard_GetStarted" xml:space="preserve">
+    <value>ابدأ الآن</value>
+  </data>
+  <data name="Onboard_Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="Onboard_Skip" xml:space="preserve">
+    <value>تخطّي</value>
+  </data>
+  <data name="Onboard_Slide1_Body" xml:space="preserve">
+    <value>انقر على تاريخ لتحديد حاضر أو غائب أو نصف يوم. وكذلك الحليب والتسليمات — كل شيء يُسجَّل في دفتر واحد منظم.</value>
+  </data>
+  <data name="Onboard_Slide1_Title" xml:space="preserve">
+    <value>السجل بنقرتين فقط</value>
+  </data>
+  <data name="Onboard_Slide2_Body" xml:space="preserve">
+    <value>تذكير يومي في الساعة 5 مساءً يسألك عن حضور اليوم. حدّد 'غائب' مباشرة من الإشعار — دون الحاجة لفتح التطبيق.</value>
+  </data>
+  <data name="Onboard_Slide2_Title" xml:space="preserve">
+    <value>لن تنسى أبدًا في الساعة 5 مساءً</value>
+  </data>
+  <data name="Onboard_Slide3_Body" xml:space="preserve">
+    <value>الأجر ناقص أيام الغياب ناقص السلف — يُحسب لك تلقائيًا. ادفع بأي تطبيق UPI أو سجّل دفعة نقدية، وشارك تقارير PDF عبر WhatsApp.</value>
+  </data>
+  <data name="Onboard_Slide3_Title" xml:space="preserve">
+    <value>سوِّ الحساب خلال ثوانٍ عبر UPI</value>
+  </data>
+  <data name="Report_Absences" xml:space="preserve">
+    <value>الغيابات</value>
+  </data>
+  <data name="Report_Advances" xml:space="preserve">
+    <value>السلف</value>
+  </data>
+  <data name="Report_Bonuses" xml:space="preserve">
+    <value>المكافآت</value>
+  </data>
+  <data name="Report_Date" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="Report_Deduction" xml:space="preserve">
+    <value>خصم</value>
+  </data>
   <data name="Report_FinalPayable" xml:space="preserve">
     <value>المبلغ المستحق</value>
+  </data>
+  <data name="Report_GeneratedBy" xml:space="preserve">
+    <value>تم الإنشاء بواسطة</value>
+  </data>
+  <data name="Report_GenerationFailed" xml:space="preserve">
+    <value>تعذّر إنشاء التقرير. الرجاء المحاولة مرة أخرى.</value>
+  </data>
+  <data name="Report_GrossWage" xml:space="preserve">
+    <value>الأجر الإجمالي</value>
+  </data>
+  <data name="Report_Helper" xml:space="preserve">
+    <value>المساعد</value>
+  </data>
+  <data name="Report_HouseholdTitle" xml:space="preserve">
+    <value>ملخص الأسرة</value>
+  </data>
+  <data name="Report_LedgerTitle" xml:space="preserve">
+    <value>السجل الشهري للمساعد</value>
+  </data>
+  <data name="Report_Movements" xml:space="preserve">
+    <value>الحركات المالية</value>
+  </data>
+  <data name="Report_ShareTitle" xml:space="preserve">
+    <value>مشاركة التقرير</value>
+  </data>
+  <data name="Report_Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>الإجمالي</value>
+  </data>
+  <data name="Report_Units" xml:space="preserve">
+    <value>الوحدات</value>
+  </data>
+  <data name="Report_UnpaidAbsences" xml:space="preserve">
+    <value>الغيابات غير المدفوعة</value>
+  </data>
+  <data name="Reports_GenerateShare" xml:space="preserve">
+    <value>إنشاء ومشاركة PDF</value>
+  </data>
+  <data name="Reports_HouseholdDescription" xml:space="preserve">
+    <value>ملخص شامل لجميع مساعديك</value>
+  </data>
+  <data name="Reports_LedgerDescription" xml:space="preserve">
+    <value>الحضور اليومي والمسار المالي لمساعد واحد</value>
+  </data>
+  <data name="Reports_Title" xml:space="preserve">
+    <value>التقارير</value>
+  </data>
+  <data name="Security_RootedMessage" xml:space="preserve">
+    <value>يبدو أن هذا الجهاز تم فك قيوده (Root/Jailbreak). قد تكون بياناتك المالية أقل أمانًا على هذا الجهاز. نوصي باستخدام PakkaHisaab على جهاز قياسي.</value>
+  </data>
+  <data name="Security_RootedTitle" xml:space="preserve">
+    <value>تحذير بشأن الجهاز</value>
+  </data>
+  <data name="Settings_Account" xml:space="preserve">
+    <value>الحساب</value>
   </data>
   <data name="Settings_DeleteAccount" xml:space="preserve">
     <value>حذف حسابي وبياناتي</value>
   </data>
+  <data name="Settings_DeleteDemoNote" xml:space="preserve">
+    <value>سيتم مسح بيانات العرض التجريبي من هذا الجهاز.</value>
+  </data>
+  <data name="Settings_DeleteFailed" xml:space="preserve">
+    <value>تعذّر حذف الحساب. تحقق من كلمة المرور واتصالك بالإنترنت.</value>
+  </data>
+  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
+    <value>أدخل كلمة المرور للتأكيد</value>
+  </data>
+  <data name="Settings_DeleteTitle" xml:space="preserve">
+    <value>حذف الحساب</value>
+  </data>
+  <data name="Settings_DeleteWarning" xml:space="preserve">
+    <value>سيؤدي هذا إلى محو حسابك وجميع سجلات المساعدين والحضور والمدفوعات نهائيًا — على هذا الجهاز وعلى خوادمنا. لا يمكن التراجع عن هذا الإجراء.</value>
+  </data>
+  <data name="Settings_Help" xml:space="preserve">
+    <value>المساعدة</value>
+  </data>
+  <data name="Settings_HelpAndVoice" xml:space="preserve">
+    <value>المساعدة والأوامر الصوتية</value>
+  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>اللغة</value>
   </data>
+  <data name="Settings_Legal" xml:space="preserve">
+    <value>الشؤون القانونية</value>
+  </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>تسجيل الخروج</value>
+  </data>
+  <data name="Settings_Privacy" xml:space="preserve">
+    <value>سياسة الخصوصية</value>
+  </data>
+  <data name="Settings_Terms" xml:space="preserve">
+    <value>شروط الخدمة</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="Settle_AmountToPay" xml:space="preserve">
+    <value>المبلغ المطلوب دفعه (عدّله إذا لزم الأمر)</value>
+  </data>
+  <data name="Settle_ConfirmBody" xml:space="preserve">
+    <value>هل أتممت دفع ₹ {1:N0} إلى {0}؟</value>
+  </data>
+  <data name="Settle_ConfirmTitle" xml:space="preserve">
+    <value>هل تم الدفع؟</value>
+  </data>
+  <data name="Settle_ConfirmYes" xml:space="preserve">
+    <value>نعم، تم الدفع</value>
+  </data>
+  <data name="Settle_InvalidAmount" xml:space="preserve">
+    <value>أدخل مبلغًا صحيحًا</value>
+  </data>
+  <data name="Settle_LogCash" xml:space="preserve">
+    <value>تسجيل دفعة نقدية</value>
+  </data>
+  <data name="Settle_NoUpiApp" xml:space="preserve">
+    <value>لم يتم العثور على تطبيق UPI على هذا الجهاز</value>
+  </data>
+  <data name="Settle_NoUpiIdHint" xml:space="preserve">
+    <value>أضف معرّف UPI لهذا المساعد لتفعيل الدفع بنقرة واحدة عبر UPI.</value>
+  </data>
+  <data name="Settle_PayVia" xml:space="preserve">
+    <value>الدفع عبر UPI</value>
+  </data>
+  <data name="Settle_Recorded" xml:space="preserve">
+    <value>تم تسجيل الدفعة</value>
+  </data>
+  <data name="Settle_Title" xml:space="preserve">
+    <value>التسوية</value>
+  </data>
+  <data name="Settle_UpiNote" xml:space="preserve">
+    <value>راتب {0} - PakkaHisaab</value>
   </data>
   <data name="Status_Absent" xml:space="preserve">
     <value>غائب</value>
@@ -87,5 +568,8 @@
   </data>
   <data name="Tab_Settings" xml:space="preserve">
     <value>الإعدادات</value>
+  </data>
+  <data name="Voice_NotUnderstood" xml:space="preserve">
+    <value>عذرًا، لم أفهم ذلك. جرّب: 'Gave Geeta 500 advance'.</value>
   </data>
 </root>

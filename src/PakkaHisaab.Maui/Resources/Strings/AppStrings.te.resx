@@ -4,14 +4,68 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_SplashTagline" xml:space="preserve">
+    <value>సహాయకుల హాజరు &amp; జీతాలు, ఇప్పుడు సులభం</value>
+  </data>
   <data name="App_Tagline" xml:space="preserve">
     <value>ట్యాప్ చేయండి. ట్రాక్ చేయండి. చెల్లించండి.</value>
+  </data>
+  <data name="Calendar_Ledger" xml:space="preserve">
+    <value>అడ్వాన్సులు &amp; లెడ్జర్</value>
+  </data>
+  <data name="Calendar_Summary" xml:space="preserve">
+    <value>గైర్హాజరు {0} రోజు(లు) · చెల్లించాల్సింది ₹ {1:N0}</value>
+  </data>
+  <data name="Calendar_UnitsPrompt" xml:space="preserve">
+    <value>డెలివరీ చేసిన యూనిట్లు ({0})</value>
+  </data>
+  <data name="Calendar_UnitsSummary" xml:space="preserve">
+    <value>{0:0.#} {1} డెలివరీ చేయబడింది · చెల్లించాల్సింది ₹ {2:N0}</value>
+  </data>
+  <data name="Calendar_UnitsTitle" xml:space="preserve">
+    <value>డెలివరీ</value>
+  </data>
+  <data name="Category_Cleaner" xml:space="preserve">
+    <value>క్లీనర్</value>
+  </data>
+  <data name="Category_Cook" xml:space="preserve">
+    <value>వంట మనిషి</value>
+  </data>
+  <data name="Category_Driver" xml:space="preserve">
+    <value>డ్రైవర్</value>
+  </data>
+  <data name="Category_Gardener" xml:space="preserve">
+    <value>తోటమాలి</value>
+  </data>
+  <data name="Category_HouseHelp" xml:space="preserve">
+    <value>పని మనిషి</value>
+  </data>
+  <data name="Category_MilkMan" xml:space="preserve">
+    <value>పాలవాడు</value>
+  </data>
+  <data name="Category_Newspaper" xml:space="preserve">
+    <value>వార్తాపత్రిక</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>ఇతర</value>
+  </data>
+  <data name="Category_Tutor" xml:space="preserve">
+    <value>ట్యూటర్</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>రద్దు</value>
   </data>
+  <data name="Common_Confirm" xml:space="preserve">
+    <value>నిర్ధారించండి</value>
+  </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>తొలగించు</value>
+  </data>
+  <data name="Common_Deleted" xml:space="preserve">
+    <value>తొలగించబడింది</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>సరే</value>
   </data>
   <data name="Common_Or" xml:space="preserve">
     <value>లేదా</value>
@@ -22,6 +76,12 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>సేవ్ అయింది</value>
   </data>
+  <data name="Dash_DemoBanner" xml:space="preserve">
+    <value>డెమో మోడ్ — నమూనా డేటా, సింక్ ఆఫ్‌లో ఉంది. డేటా ఈ పరికరంలోనే ఉంటుంది.</value>
+  </data>
+  <data name="Dash_Empty" xml:space="preserve">
+    <value>ఇంకా సహాయకులు లేరు. మీ మొదటి సహాయకుడిని జోడించడానికి + నొక్కండి.</value>
+  </data>
   <data name="Dash_OpenCalendar" xml:space="preserve">
     <value>క్యాలెండర్</value>
   </data>
@@ -31,17 +91,270 @@
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>ఈ నెల చెల్లించాల్సింది:</value>
   </data>
+  <data name="Day_Fr" xml:space="preserve">
+    <value>శుక్ర</value>
+  </data>
+  <data name="Day_Mo" xml:space="preserve">
+    <value>సోమ</value>
+  </data>
+  <data name="Day_Sa" xml:space="preserve">
+    <value>శని</value>
+  </data>
+  <data name="Day_Su" xml:space="preserve">
+    <value>ఆది</value>
+  </data>
+  <data name="Day_Th" xml:space="preserve">
+    <value>గురు</value>
+  </data>
+  <data name="Day_Tu" xml:space="preserve">
+    <value>మంగళ</value>
+  </data>
+  <data name="Day_We" xml:space="preserve">
+    <value>బుధ</value>
+  </data>
+  <data name="Forecast_Pattern" xml:space="preserve">
+    <value>సాధారణంగా {0}లలో గైర్హాజరు అవుతారు · ~{1}/నెల</value>
+  </data>
+  <data name="Help_Advance_Examples" xml:space="preserve">
+    <value>• "Gave Raju an advance of 200"
+• "200 rupees udhaar to Geeta"</value>
+  </data>
+  <data name="Help_Attendance_Examples" xml:space="preserve">
+    <value>• "Geeta was absent today" / "Geeta didn't come" / "Geeta chutti"
+• "Geeta came" / "Geeta is present" / "Geeta aayi"
+• "Half day for Geeta" / "Geeta half-day" / "Geeta aadha din"</value>
+  </data>
+  <data name="Help_Attendance_Title" xml:space="preserve">
+    <value>హాజరు (ఫలితాన్ని చూపడానికి ఆ సహాయకుడి క్యాలెండర్‌ను తెరుస్తుంది)</value>
+  </data>
+  <data name="Help_Bonus_Examples" xml:space="preserve">
+    <value>• "Diwali bonus 500 for Geeta"</value>
+  </data>
+  <data name="Help_Calendar_Body" xml:space="preserve">
+    <value>హాజరు → గైర్హాజరు → సగం రోజు మధ్య మార్చడానికి ఒక రోజును నొక్కండి. యూనిట్ల ప్రకారం చెల్లించే సహాయకుల కోసం (ఉదా. పాలవాడు), బదులుగా డెలివరీ చేసిన యూనిట్లను నమోదు చేయడానికి ఒక రోజును నొక్కండి. నెల సారాంశం మరియు నడుస్తున్న చెల్లించాల్సిన మొత్తాన్ని చూపిస్తుంది.</value>
+  </data>
+  <data name="Help_Calendar_Title" xml:space="preserve">
+    <value>క్యాలెండర్</value>
+  </data>
+  <data name="Help_Deduction_Examples" xml:space="preserve">
+    <value>• "Deducted 500 rupees from Geeta"
+• "Kata 100 from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Examples" xml:space="preserve">
+    <value>• "Raju delivered 1.5 litres"
+• "1.5 liters milk from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Title" xml:space="preserve">
+    <value>డెలివరీ — యూనిట్ల ప్రకారం చెల్లించే సహాయకులు, ఉదా. పాలవాడు (క్యాలెండర్‌ను కూడా తెరుస్తుంది)</value>
+  </data>
+  <data name="Help_EditDelete_Body" xml:space="preserve">
+    <value>హోమ్‌లో సహాయకుడి కార్డుపై పెన్సిల్ ఐకాన్‌ను నొక్కి వారి వివరాలను సవరించండి, లేదా అదే ఫారమ్ నుండి వారిని తొలగించండి.</value>
+  </data>
+  <data name="Help_EditDelete_Title" xml:space="preserve">
+    <value>సహాయకుడిని సవరించు / తొలగించు</value>
+  </data>
+  <data name="Help_Features" xml:space="preserve">
+    <value>ఫీచర్లు</value>
+  </data>
+  <data name="Help_Home_Body" xml:space="preserve">
+    <value>ప్రతి సహాయకుడిని, నేటి హాజరు స్థితిని మరియు ఆ నెలకు చెల్లించాల్సిన మొత్తాన్ని చూడండి. వాయిస్ ద్వారా హాజరు, డెలివరీలు లేదా లెడ్జర్ ఎంట్రీలను నమోదు చేయడానికి మైక్‌ను నొక్కండి.</value>
+  </data>
+  <data name="Help_Home_Title" xml:space="preserve">
+    <value>హోమ్</value>
+  </data>
+  <data name="Help_Ledger_Body" xml:space="preserve">
+    <value>సహాయకుడి జీతానికి వ్యతిరేకంగా అడ్వాన్సులు, బోనస్‌లు మరియు కోతలను నమోదు చేయండి, మరియు ఆ నెలకు నడుస్తున్న మొత్తాన్ని చూడండి.</value>
+  </data>
+  <data name="Help_Payment_Examples" xml:space="preserve">
+    <value>• "Paid Geeta 4500 salary"
+• "Settled Raju 1260"</value>
+  </data>
+  <data name="Help_Payment_Title" xml:space="preserve">
+    <value>చెల్లింపు / సెటిల్‌మెంట్</value>
+  </data>
+  <data name="Help_Reports_Body" xml:space="preserve">
+    <value>ఒక సహాయకుడి కోసం లేదా మొత్తం ఇంటి కోసం PDF నివేదికను రూపొందించండి.</value>
+  </data>
+  <data name="Help_Settle_Body" xml:space="preserve">
+    <value>జీతం విభజనను సమీక్షించండి (స్థూల జీతం − చెల్లించని గైర్హాజర్లు − అడ్వాన్సులు) మరియు UPI ద్వారా చెల్లించండి లేదా నగదు చెల్లింపును నమోదు చేయండి.</value>
+  </data>
+  <data name="Help_Tip" xml:space="preserve">
+    <value>చిట్కా: హాజరు మరియు డెలివరీ కమాండ్‌లు నమోదు చేసిన రోజును చూపించడానికి మిమ్మల్ని నేరుగా సహాయకుడి క్యాలెండర్‌కు తీసుకెళ్తాయి. అడ్వాన్స్, కోత, బోనస్ మరియు చెల్లింపు కమాండ్‌లు హోమ్‌లోనే ఉండి అక్కడి మొత్తాలను అప్‌డేట్ చేస్తాయి.</value>
+  </data>
+  <data name="Help_VoiceCommands" xml:space="preserve">
+    <value>వాయిస్ కమాండ్‌లు</value>
+  </data>
+  <data name="Help_VoiceIntro" xml:space="preserve">
+    <value>హోమ్‌లోని మైక్ బటన్‌ను నొక్కి వీటిలో దేనినైనా చెప్పండి. సహాయకుడి పేరును స్పష్టంగా చెప్పండి — మీకు ఒకే సహాయకుడు ఉంటే, పేరును వదిలేయవచ్చు. ఇది పూర్తిగా ఆఫ్‌లైన్‌లో, ఇంగ్లీష్ లేదా రోమనైజ్డ్ హిందీలో పనిచేస్తుంది.</value>
+  </data>
+  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
+    <value>నెలకు అనుమతించబడిన గైర్హాజర్లు</value>
+  </data>
+  <data name="HelperForm_CarryOver" xml:space="preserve">
+    <value>వాడని సెలవును తదుపరి నెలకు బదిలీ చేయండి</value>
+  </data>
+  <data name="HelperForm_Category" xml:space="preserve">
+    <value>వర్గం</value>
+  </data>
+  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
+    <value>ఈ సహాయకుడిని మరియు వారి రికార్డులను యాప్ నుండి తొలగించాలా?</value>
+  </data>
+  <data name="HelperForm_MonthlyWage" xml:space="preserve">
+    <value>నెలవారీ జీతం (₹)</value>
+  </data>
+  <data name="HelperForm_Name" xml:space="preserve">
+    <value>పేరు</value>
+  </data>
+  <data name="HelperForm_NameRequired" xml:space="preserve">
+    <value>దయచేసి ఒక పేరును నమోదు చేయండి</value>
+  </data>
+  <data name="HelperForm_PerUnit" xml:space="preserve">
+    <value>డెలివరీ యూనిట్‌కు చెల్లించబడుతుంది (పాలు, పేపర్…)</value>
+  </data>
+  <data name="HelperForm_RatePerUnit" xml:space="preserve">
+    <value>యూనిట్‌కు రేటు (₹)</value>
+  </data>
+  <data name="HelperForm_Title" xml:space="preserve">
+    <value>సహాయకుడు</value>
+  </data>
+  <data name="HelperForm_UnitLabel" xml:space="preserve">
+    <value>యూనిట్</value>
+  </data>
+  <data name="HelperForm_UpiId" xml:space="preserve">
+    <value>UPI ID (చెల్లింపుల కోసం)</value>
+  </data>
+  <data name="HelperForm_WhatsApp" xml:space="preserve">
+    <value>WhatsApp నంబర్</value>
+  </data>
+  <data name="LedgerType_Advance" xml:space="preserve">
+    <value>అడ్వాన్స్</value>
+  </data>
+  <data name="LedgerType_Bonus" xml:space="preserve">
+    <value>బోనస్</value>
+  </data>
+  <data name="LedgerType_Deduction" xml:space="preserve">
+    <value>కోత</value>
+  </data>
+  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
+    <value>డెలివరీ ఛార్జి</value>
+  </data>
+  <data name="LedgerType_SalaryPayment" xml:space="preserve">
+    <value>జీతం చెల్లింపు</value>
+  </data>
+  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
+    <value>ఈ నెల అడ్వాన్సులు</value>
+  </data>
+  <data name="Ledger_Amount" xml:space="preserve">
+    <value>మొత్తం (₹)</value>
+  </data>
+  <data name="Ledger_DeleteConfirm" xml:space="preserve">
+    <value>ఈ ఎంట్రీని తొలగించాలా? దీన్ని వెనక్కి తీసుకోలేరు.</value>
+  </data>
+  <data name="Ledger_Empty" xml:space="preserve">
+    <value>ఈ నెల ఎంట్రీలు లేవు. అడ్వాన్స్ నమోదు చేయడానికి + నొక్కండి.</value>
+  </data>
+  <data name="Ledger_InvalidAmount" xml:space="preserve">
+    <value>సరైన మొత్తాన్ని నమోదు చేయండి</value>
+  </data>
+  <data name="Ledger_NewEntry" xml:space="preserve">
+    <value>కొత్త లెడ్జర్ ఎంట్రీ</value>
+  </data>
+  <data name="Ledger_Note" xml:space="preserve">
+    <value>గమనిక (ఐచ్ఛికం)</value>
+  </data>
+  <data name="Legal_PrivacyBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+PakkaHisaab ("యాప్") ను Amit Kumar Agrawal ("మేము", "మాకు", "మా") అభివృద్ధి చేసి నిర్వహిస్తున్నారు. మీరు యాప్‌ను ఉపయోగించినప్పుడు మేము సమాచారాన్ని ఎలా నిర్వహిస్తామో ఈ గోప్యతా విధానం వివరిస్తుంది.
+
+1. మేము సేకరించే సమాచారం
+- మీరు నమోదు చేసే గృహ సహాయకుల వివరాలు: పేరు, వర్గం, WhatsApp నంబర్ మరియు UPI ID.
+- మీ సహాయకుల కోసం మీరు సృష్టించే హాజరు, జీతం, అడ్వాన్స్ మరియు సెటిల్‌మెంట్ రికార్డులు.
+- Microsoft App Center ద్వారా ప్రాథమిక పరికర మరియు వినియోగ డయాగ్నస్టిక్స్ (క్రాష్ లాగ్‌లు, యాప్ పనితీరు), ఇవి బగ్‌లను సరిచేయడానికి మరియు స్థిరత్వాన్ని మెరుగుపరచడానికి మాత్రమే ఉపయోగించబడతాయి.
+- మీరు మైక్రోఫోన్ బటన్‌ను నొక్కినప్పుడు మాత్రమే క్యాప్చర్ చేయబడే వాయిస్ ఆడియో, హాజరు/లెడ్జర్ ఎంట్రీని నమోదు చేయడానికి పరికరంలోనే ప్రాసెస్ చేయబడుతుంది మరియు ప్రాసెస్ చేసిన తర్వాత నిల్వ చేయబడదు లేదా ప్రసారం చేయబడదు.
+
+2. మేము సమాచారాన్ని ఎలా ఉపయోగిస్తాము
+మీరు నమోదు చేసే డేటా యాప్ యొక్క ప్రధాన ఫీచర్లను నడపడానికి మాత్రమే ఉపయోగించబడుతుంది - హాజరును ట్రాక్ చేయడం, జీతాలను లెక్కించడం మరియు మీరు నిర్వహించే సహాయకుల కోసం చెల్లింపులను నమోదు చేయడం. డెమో మోడ్‌లో, మొత్తం డేటా మీ పరికరంలోనే ఉంటుంది మరియు ఏదీ సింక్ చేయబడదు.
+
+3. డేటా నిల్వ మరియు షేరింగ్
+మీ డేటా మీ పరికరంలో స్థానికంగా (SQLite) నిల్వ చేయబడుతుంది. మీరు ఖాతాతో సైన్ ఇన్ చేస్తే (డెమో-యేతర మోడ్), మీ డేటా మీ స్వంత పరికరాలలో మీరు యాక్సెస్ చేయగలిగేలా మాత్రమే మా సర్వర్లకు సింక్ అవుతుంది. మేము మీ డేటాను విక్రయించము లేదా ప్రకటనల కోసం మూడవ పక్షాలతో పంచుకోము. చెల్లింపులు మీ స్వంత ఇన్‌స్టాల్ చేసిన UPI యాప్‌ల ద్వారా (Google Pay, PhonePe, Paytm మొదలైనవి) ప్రారంభించబడతాయి - యాప్ ఎప్పుడూ మీ బ్యాంక్ క్రెడెన్షియల్స్‌ను ప్రాసెస్ చేయదు లేదా నిల్వ చేయదు.
+
+4. డేటా నిలుపుదల మరియు తొలగింపు
+మీరు యాప్‌లో ఎప్పుడైనా ఏ సహాయకుడి రికార్డునైనా తొలగించవచ్చు. మీరు సెట్టింగ్స్ &gt; నా ఖాతా &amp; డేటాను తొలగించండి నుండి మీ ఖాతాను మరియు అనుబంధిత మొత్తం డేటాను శాశ్వతంగా తొలగించవచ్చు.
+
+5. భద్రత
+స్థానిక నిల్వ మరియు సింక్ చేయబడిన ఖాతాల కోసం సురక్షిత ప్రసారం (HTTPS)తో సహా మీ డేటాను రక్షించడానికి మేము సహేతుకమైన సాంకేతిక చర్యలు తీసుకుంటాము.
+
+6. పిల్లల గోప్యత
+యాప్ పిల్లల కోసం ఉద్దేశించబడలేదు మరియు 18 సంవత్సరాల కంటే తక్కువ వయస్సు గల ఎవరైనా ఉపయోగించడానికి ఉద్దేశించబడలేదు.
+
+7. ఈ విధానానికి మార్పులు
+మేము ఈ విధానాన్ని ఎప్పటికప్పుడు నవీకరించవచ్చు. మార్పుల తర్వాత యాప్‌ను కొనసాగించి ఉపయోగించడం అంటే మీరు నవీకరించబడిన విధానాన్ని అంగీకరిస్తున్నారని అర్థం.
+
+8. మమ్మల్ని సంప్రదించండి
+ఏవైనా గోప్యతా ప్రశ్నలు లేదా అభ్యర్థనల కోసం, amit.agrawal.hyd@outlook.com వద్ద Amit Kumar Agrawalను సంప్రదించండి.</value>
+  </data>
+  <data name="Legal_TermsBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+ఈ సేవా నిబంధనలు ("నిబంధనలు") Amit Kumar Agrawal ("మేము", "మాకు", "మా") అభివృద్ధి చేసి నిర్వహిస్తున్న PakkaHisaab ("యాప్")ని మీరు ఉపయోగించడాన్ని నియంత్రిస్తాయి. యాప్‌ను ఉపయోగించడం ద్వారా, మీరు ఈ నిబంధనలను అంగీకరిస్తున్నారు.
+
+1. యాప్ వినియోగం
+PakkaHisaab మీరు నిర్వహించే గృహ సహాయకుల (ఇంటి పని మనిషి, పాలవాళ్లు, డ్రైవర్లు మొదలైనవారి) హాజరు, జీతాలు, అడ్వాన్సులు మరియు చెల్లింపులను ట్రాక్ చేయడంలో మీకు సహాయపడుతుంది. మీరు నమోదు చేసే డేటా యొక్క ఖచ్చితత్వానికి మీరే బాధ్యులు.
+
+2. మీ ఖాతా
+మీ లాగిన్ క్రెడెన్షియల్స్ యొక్క గోప్యతను కాపాడుకోవడానికి మరియు మీ ఖాతా కింద జరిగే అన్ని కార్యకలాపాలకు మీరే బాధ్యులు. డెమో మోడ్‌కు ఖాతా అవసరం లేదు మరియు మొత్తం డేటాను మీ పరికరంలో మాత్రమే ఉంచుతుంది.
+
+3. చెల్లింపులు
+యాప్ స్వయంగా చెల్లింపులను ప్రాసెస్ చేయదు. "Pay via UPI" మీ పరికరంలో ఇప్పటికే ఇన్‌స్టాల్ చేయబడిన UPI యాప్‌లకు అప్పగిస్తుంది; చేసిన ఏదైనా చెల్లింపు మీకు మరియు మీరు ఎంచుకున్న చెల్లింపు ప్రొవైడర్ మరియు గ్రహీత మధ్య మాత్రమే ఉంటుంది. విఫలమైన, ఆలస్యమైన లేదా వివాదాస్పదమైన లావాదేవీలకు మేము బాధ్యులం కాము.
+
+4. ఆమోదయోగ్యమైన వినియోగం
+యాప్‌ను ఏదైనా చట్టవిరుద్ధమైన ప్రయోజనం కోసం లేదా యాప్‌కు హాని కలిగించే, దాన్ని పనిచేయకుండా చేసే లేదా బలహీనపరిచే విధంగా లేదా ఇతర పక్షాల వినియోగానికి ఆటంకం కలిగించే విధంగా ఉపయోగించనని మీరు అంగీకరిస్తున్నారు.
+
+5. వారంటీ లేదు
+యాప్ ఎలాంటి హామీలు లేకుండా, స్పష్టమైనవి లేదా సూచించబడినవి అయినా, "ఉన్నది ఉన్నట్లుగా" అందించబడుతుంది. యాప్ దోషరహితంగా, నిరంతరాయంగా లేదా ఒక నిర్దిష్ట ప్రయోజనానికి సరిపోయేలా ఉంటుందని మేము హామీ ఇవ్వము.
+
+6. బాధ్యతా పరిమితి
+చట్టం అనుమతించే గరిష్ట పరిధి వరకు, మీరు యాప్‌ను ఉపయోగించడం వల్ల తలెత్తే ఏదైనా పరోక్ష, ప్రమాదవశాత్తు లేదా పర్యవసాన నష్టాలకు, మూడవ పక్ష UPI యాప్‌లను ఉపయోగించి చేసిన చెల్లింపుల వల్ల తలెత్తే డేటా నష్టం లేదా ఆర్థిక నష్టంతో సహా, Amit Kumar Agrawal బాధ్యుడు కాడు.
+
+7. రద్దు
+మీరు ఎప్పుడైనా సెట్టింగ్స్ &gt; నా ఖాతా &amp; డేటాను తొలగించండి ద్వారా యాప్‌ను ఉపయోగించడం ఆపి మీ ఖాతాను తొలగించవచ్చు. యాప్‌ను దుర్వినియోగం చేసినందుకు మేము యాక్సెస్‌ను నిలిపివేయవచ్చు లేదా రద్దు చేయవచ్చు.
+
+8. వర్తించే చట్టం
+ఈ నిబంధనలు భారతదేశ చట్టాల ద్వారా నియంత్రించబడతాయి, చట్ట వైరుధ్య సూత్రాలతో సంబంధం లేకుండా.
+
+9. ఈ నిబంధనలకు మార్పులు
+మేము ఈ నిబంధనలను ఎప్పటికప్పుడు నవీకరించవచ్చు. మార్పుల తర్వాత యాప్‌ను కొనసాగించి ఉపయోగించడం అంటే మీరు నవీకరించబడిన నిబంధనలను అంగీకరిస్తున్నారని అర్థం.
+
+10. మమ్మల్ని సంప్రదించండి
+ఈ నిబంధనల గురించి ఏవైనా ప్రశ్నల కోసం, amit.agrawal.hyd@outlook.com వద్ద Amit Kumar Agrawalను సంప్రదించండి.</value>
+  </data>
   <data name="Login_CreateAccount" xml:space="preserve">
     <value>ఖాతా సృష్టించండి</value>
   </data>
+  <data name="Login_DemoHint" xml:space="preserve">
+    <value>తక్షణం, ఆఫ్‌లైన్, సైన్-అప్ అవసరం లేదు. గీత (పని మనిషి) మరియు రాజు (పాలవాడు) కోసం నమూనా డేటాతో అన్వేషించండి.</value>
+  </data>
+  <data name="Login_DisplayName" xml:space="preserve">
+    <value>మీ పేరు</value>
+  </data>
   <data name="Login_Email" xml:space="preserve">
     <value>ఇమెయిల్</value>
+  </data>
+  <data name="Login_Failed" xml:space="preserve">
+    <value>సైన్-ఇన్ విఫలమైంది. మీ వివరాలు మరియు కనెక్షన్‌ని తనిఖీ చేయండి.</value>
+  </data>
+  <data name="Login_MissingFields" xml:space="preserve">
+    <value>దయచేసి ఇమెయిల్ మరియు పాస్‌వర్డ్‌ను నమోదు చేయండి</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
     <value>పాస్‌వర్డ్</value>
   </data>
   <data name="Login_SignIn" xml:space="preserve">
     <value>సైన్ ఇన్</value>
+  </data>
+  <data name="Login_ToggleMode" xml:space="preserve">
+    <value>కొత్తగా వచ్చారా? ఖాతా సృష్టించండి · ఇప్పటికే ఖాతా ఉందా? సైన్ ఇన్ చేయండి</value>
   </data>
   <data name="Login_TryDemo" xml:space="preserve">
     <value>డెమో ప్రయత్నించండి</value>
@@ -58,17 +371,185 @@
   <data name="Notify_SalaryTitle" xml:space="preserve">
     <value>జీతం బాకీ</value>
   </data>
+  <data name="Onboard_GetStarted" xml:space="preserve">
+    <value>ప్రారంభించండి</value>
+  </data>
+  <data name="Onboard_Next" xml:space="preserve">
+    <value>తదుపరి</value>
+  </data>
+  <data name="Onboard_Skip" xml:space="preserve">
+    <value>దాటవేయి</value>
+  </data>
+  <data name="Onboard_Slide1_Body" xml:space="preserve">
+    <value>హాజరు, గైర్హాజరు లేదా సగం రోజు గుర్తించడానికి ఒక తేదీని నొక్కండి. పాలు మరియు డెలివరీలు కూడా — ప్రతిదీ ఒకే శుభ్రమైన ఖాతాలో నమోదవుతుంది.</value>
+  </data>
+  <data name="Onboard_Slide1_Title" xml:space="preserve">
+    <value>2-ట్యాప్ లెడ్జర్</value>
+  </data>
+  <data name="Onboard_Slide2_Body" xml:space="preserve">
+    <value>ప్రతిరోజు సాయంత్రం 5 గంటలకు వచ్చే రిమైండర్ నేటి హాజరు గురించి అడుగుతుంది. నోటిఫికేషన్ నుండే నేరుగా 'గైర్హాజరు' గుర్తించండి — యాప్‌ను తెరవాల్సిన అవసరం లేదు.</value>
+  </data>
+  <data name="Onboard_Slide2_Title" xml:space="preserve">
+    <value>సాయంత్రం 5 గంటలకు మర్చిపోకండి</value>
+  </data>
+  <data name="Onboard_Slide3_Body" xml:space="preserve">
+    <value>జీతం మైనస్ గైర్హాజర్లు మైనస్ అడ్వాన్సులు — మీ కోసం లెక్కించబడుతుంది. ఏదైనా UPI యాప్‌తో చెల్లించండి లేదా నగదును నమోదు చేయండి, మరియు WhatsAppలో PDF నివేదికలను షేర్ చేయండి.</value>
+  </data>
+  <data name="Onboard_Slide3_Title" xml:space="preserve">
+    <value>UPI ద్వారా క్షణాల్లో సెటిల్ చేయండి</value>
+  </data>
+  <data name="Report_Absences" xml:space="preserve">
+    <value>గైర్హాజర్లు</value>
+  </data>
+  <data name="Report_Advances" xml:space="preserve">
+    <value>అడ్వాన్సులు</value>
+  </data>
+  <data name="Report_Bonuses" xml:space="preserve">
+    <value>బోనస్‌లు</value>
+  </data>
+  <data name="Report_Date" xml:space="preserve">
+    <value>తేదీ</value>
+  </data>
+  <data name="Report_Deduction" xml:space="preserve">
+    <value>కోత</value>
+  </data>
   <data name="Report_FinalPayable" xml:space="preserve">
     <value>చెల్లించాల్సిన మొత్తం</value>
+  </data>
+  <data name="Report_GeneratedBy" xml:space="preserve">
+    <value>దీని ద్వారా రూపొందించబడింది</value>
+  </data>
+  <data name="Report_GenerationFailed" xml:space="preserve">
+    <value>నివేదికను రూపొందించలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.</value>
+  </data>
+  <data name="Report_GrossWage" xml:space="preserve">
+    <value>స్థూల జీతం</value>
+  </data>
+  <data name="Report_Helper" xml:space="preserve">
+    <value>సహాయకుడు</value>
+  </data>
+  <data name="Report_HouseholdTitle" xml:space="preserve">
+    <value>గృహ సారాంశం</value>
+  </data>
+  <data name="Report_LedgerTitle" xml:space="preserve">
+    <value>సహాయకుడి నెలవారీ లెడ్జర్</value>
+  </data>
+  <data name="Report_Movements" xml:space="preserve">
+    <value>డబ్బు లావాదేవీలు</value>
+  </data>
+  <data name="Report_ShareTitle" xml:space="preserve">
+    <value>నివేదికను షేర్ చేయండి</value>
+  </data>
+  <data name="Report_Status" xml:space="preserve">
+    <value>స్థితి</value>
+  </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>మొత్తం</value>
+  </data>
+  <data name="Report_Units" xml:space="preserve">
+    <value>యూనిట్లు</value>
+  </data>
+  <data name="Report_UnpaidAbsences" xml:space="preserve">
+    <value>చెల్లించని గైర్హాజర్లు</value>
+  </data>
+  <data name="Reports_GenerateShare" xml:space="preserve">
+    <value>PDF రూపొందించి &amp; షేర్ చేయండి</value>
+  </data>
+  <data name="Reports_HouseholdDescription" xml:space="preserve">
+    <value>మీ సహాయకులందరి సమగ్ర సారాంశం</value>
+  </data>
+  <data name="Reports_LedgerDescription" xml:space="preserve">
+    <value>ఒక సహాయకుడి రోజువారీ హాజరు &amp; డబ్బు లావాదేవీల వివరాలు</value>
+  </data>
+  <data name="Reports_Title" xml:space="preserve">
+    <value>నివేదికలు</value>
+  </data>
+  <data name="Security_RootedMessage" xml:space="preserve">
+    <value>ఈ పరికరం రూట్ చేయబడినట్లు/జైల్‌బ్రేక్ చేయబడినట్లు కనిపిస్తోంది. మీ ఆర్థిక డేటా ఇక్కడ తక్కువ సురక్షితంగా ఉండవచ్చు. PakkaHisaabను ఒక ప్రామాణిక పరికరంలో ఉపయోగించమని మేము సిఫారసు చేస్తున్నాము.</value>
+  </data>
+  <data name="Security_RootedTitle" xml:space="preserve">
+    <value>పరికర హెచ్చరిక</value>
+  </data>
+  <data name="Settings_Account" xml:space="preserve">
+    <value>ఖాతా</value>
   </data>
   <data name="Settings_DeleteAccount" xml:space="preserve">
     <value>నా ఖాతా &amp; డేటాను తొలగించండి</value>
   </data>
+  <data name="Settings_DeleteDemoNote" xml:space="preserve">
+    <value>డెమో డేటా ఈ పరికరం నుండి తొలగించబడుతుంది.</value>
+  </data>
+  <data name="Settings_DeleteFailed" xml:space="preserve">
+    <value>ఖాతాను తొలగించలేకపోయాము. మీ పాస్‌వర్డ్ మరియు కనెక్షన్‌ని తనిఖీ చేయండి.</value>
+  </data>
+  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
+    <value>నిర్ధారించడానికి మీ పాస్‌వర్డ్‌ను నమోదు చేయండి</value>
+  </data>
+  <data name="Settings_DeleteTitle" xml:space="preserve">
+    <value>ఖాతాను తొలగించండి</value>
+  </data>
+  <data name="Settings_DeleteWarning" xml:space="preserve">
+    <value>ఇది మీ ఖాతాను మరియు ప్రతి సహాయకుడు, హాజరు మరియు చెల్లింపు రికార్డును — ఈ పరికరంలో మరియు మా సర్వర్లలో శాశ్వతంగా తొలగిస్తుంది. దీన్ని వెనక్కి తీసుకోలేరు.</value>
+  </data>
+  <data name="Settings_Help" xml:space="preserve">
+    <value>సహాయం</value>
+  </data>
+  <data name="Settings_HelpAndVoice" xml:space="preserve">
+    <value>సహాయం &amp; వాయిస్ కమాండ్‌లు</value>
+  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>భాష</value>
   </data>
+  <data name="Settings_Legal" xml:space="preserve">
+    <value>చట్టపరమైనవి</value>
+  </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>లాగ్ అవుట్</value>
+  </data>
+  <data name="Settings_Privacy" xml:space="preserve">
+    <value>గోప్యతా విధానం</value>
+  </data>
+  <data name="Settings_Terms" xml:space="preserve">
+    <value>సేవా నిబంధనలు</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>సెట్టింగ్స్</value>
+  </data>
+  <data name="Settle_AmountToPay" xml:space="preserve">
+    <value>చెల్లించాల్సిన మొత్తం (అవసరమైతే మార్చండి)</value>
+  </data>
+  <data name="Settle_ConfirmBody" xml:space="preserve">
+    <value>మీరు {0}కి ₹ {1:N0} చెల్లింపును పూర్తి చేశారా?</value>
+  </data>
+  <data name="Settle_ConfirmTitle" xml:space="preserve">
+    <value>చెల్లింపు పూర్తయిందా?</value>
+  </data>
+  <data name="Settle_ConfirmYes" xml:space="preserve">
+    <value>అవును, చెల్లించాను</value>
+  </data>
+  <data name="Settle_InvalidAmount" xml:space="preserve">
+    <value>సరైన మొత్తాన్ని నమోదు చేయండి</value>
+  </data>
+  <data name="Settle_LogCash" xml:space="preserve">
+    <value>నగదు చెల్లింపును నమోదు చేయండి</value>
+  </data>
+  <data name="Settle_NoUpiApp" xml:space="preserve">
+    <value>ఈ పరికరంలో ఏ UPI యాప్ కనుగొనబడలేదు</value>
+  </data>
+  <data name="Settle_NoUpiIdHint" xml:space="preserve">
+    <value>వన్-ట్యాప్ UPI చెల్లింపును ప్రారంభించడానికి ఈ సహాయకుడికి UPI IDని జోడించండి.</value>
+  </data>
+  <data name="Settle_PayVia" xml:space="preserve">
+    <value>UPI ద్వారా చెల్లించండి</value>
+  </data>
+  <data name="Settle_Recorded" xml:space="preserve">
+    <value>చెల్లింపు నమోదు చేయబడింది</value>
+  </data>
+  <data name="Settle_Title" xml:space="preserve">
+    <value>సెటిల్‌మెంట్</value>
+  </data>
+  <data name="Settle_UpiNote" xml:space="preserve">
+    <value>జీతం {0} - PakkaHisaab</value>
   </data>
   <data name="Status_Absent" xml:space="preserve">
     <value>గైర్హాజరు</value>
@@ -87,5 +568,8 @@
   </data>
   <data name="Tab_Settings" xml:space="preserve">
     <value>సెట్టింగ్స్</value>
+  </data>
+  <data name="Voice_NotUnderstood" xml:space="preserve">
+    <value>క్షమించండి, అది నాకు అర్థం కాలేదు. ప్రయత్నించండి: 'Gave Geeta 500 advance'.</value>
   </data>
 </root>
