@@ -139,6 +139,40 @@ role scoped to the Admin web app resource — no new GitHub secrets needed).
 
 ---
 
+## 2.6 Public website — pakkahisaab.app (privacy policy, terms, App Links)
+
+`web/` is a small static site (privacy policy, terms, `.well-known/assetlinks.json`) deployed
+free via GitHub Pages by `.github/workflows/pages-deploy.yml` on every push to `main` that
+touches `web/**`. `Constants.PrivacyPolicyUrl`/`TermsUrl` point at it, and Play/App Store both
+require a live, publicly-reachable privacy policy URL to approve a submission — this is not
+optional.
+
+One-time setup:
+
+1. Pages is already enabled on the repo (`gh api -X POST repos/<owner>/<repo>/pages -f
+   build_type=workflow`) and the workflow deploys on push. This alone does **not** make
+   `pakkahisaab.app` resolve — that needs DNS.
+2. At your domain registrar, add these records for the apex domain (`pakkahisaab.app`, no
+   `www`) pointing at GitHub Pages:
+
+   | Type | Name | Value |
+   |---|---|---|
+   | A | @ | 185.199.108.153 |
+   | A | @ | 185.199.109.153 |
+   | A | @ | 185.199.110.153 |
+   | A | @ | 185.199.111.153 |
+   | AAAA (optional) | @ | 2606:50c0:8000::153, 2606:50c0:8001::153, 2606:50c0:8002::153, 2606:50c0:8003::153 |
+
+3. DNS propagation can take anywhere from minutes to ~24h. Once it resolves, GitHub
+   auto-provisions an HTTPS certificate for the domain (Settings → Pages on the repo shows
+   the status) — "Enforce HTTPS" is already on by default for new custom domains.
+4. Verify: `https://pakkahisaab.app/privacy` and `/terms` load, and
+   `https://pakkahisaab.app/.well-known/assetlinks.json` returns the Digital Asset Links JSON
+   (from Play Console → App integrity → App signing) used to verify Android App Links —
+   `MainActivity.cs` declares the matching `[IntentFilter(..., AutoVerify = true)]`.
+
+---
+
 ## 3. Android — keystore, signing, AAB
 
 ### 3.1 Create the upload keystore (once, back it up!)

@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.clearkhata.pakkahisaab",
+      "sha256_cert_fingerprints": [
+        "15:BA:01:4C:5D:D5:ED:D6:07:0D:70:2B:32:A6:EB:1A:CC:97:3D:D7:30:AF:41:68:17:B2:B3:3E:84:48:D8:3B"
+      ]
+    }
+  }
+]

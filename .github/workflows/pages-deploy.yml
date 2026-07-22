@@ -1,0 +1,41 @@
+# Publishes web/ (privacy policy, terms, Digital Asset Links for Android App Links) to
+# GitHub Pages at the pakkahisaab.app custom domain (see web/CNAME). Free hosting — no
+# separate web host needed, matching the rest of this repo's ₹0-deploy approach.
+#
+# One-time setup after this workflow first runs: point pakkahisaab.app's DNS at GitHub
+# Pages (see docs/DEPLOYMENT.md for the exact records) — the workflow deploys the site,
+# but only DNS makes the domain resolve to it.
+name: pages-deploy
+
+on:
+  push:
+    branches: [main]
+    paths: ["web/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
