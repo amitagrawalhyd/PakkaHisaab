@@ -65,8 +65,13 @@
     <!-- Modern bottom-sheet modals -->
     <PackageReference Include="Plugin.Maui.BottomSheet" Version="9.1.9" />
 
-    <!-- PDF reports: hand-drawn A4 reports rendered directly via SKDocument.CreatePdf (see PdfReportService) -->
-    <PackageReference Include="SkiaSharp" Version="2.88.9" />
+    <!-- PDF reports: hand-drawn A4 reports rendered directly via SKDocument.CreatePdf (see PdfReportService).
+         3.x (not 2.88.x) is required: Android 15+ (targetSdk 35, which this app uses) requires native
+         libraries to support 16 KB memory pages for Play Store production releases, and 2.88.x's
+         libSkiaSharp.so predates that. PdfReportService's SKPaint text APIs (TextSize/TextAlign/
+         FakeBoldText/FontMetrics) are obsolete-but-functional through 3.x — no rewrite needed; only
+         v4 removes them outright, which is why this pins 3.x rather than jumping to the latest major. -->
+    <PackageReference Include="SkiaSharp" Version="3.119.4" />
 
     <!-- Telemetry & crash reporting -->
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.6" />
@@ -74,7 +79,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
-    <PackageReference Include="SkiaSharp.NativeAssets.Android" Version="2.88.9" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Android" Version="3.119.4" />
 
     <!-- Firebase: Auth (SDK init only for now), Analytics + Crashlytics (fan out alongside AppCenter),
          Cloud Messaging (push notifications). 4.x is the net9.0-android-compatible line. -->
@@ -97,7 +102,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
-    <PackageReference Include="SkiaSharp.NativeAssets.iOS" Version="2.88.9" />
+    <PackageReference Include="SkiaSharp.NativeAssets.iOS" Version="3.119.4" />
   </ItemGroup>
 
   <ItemGroup>
