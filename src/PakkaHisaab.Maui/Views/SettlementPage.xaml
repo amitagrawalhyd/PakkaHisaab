@@ -34,8 +34,8 @@
                     </Grid>
                     <BoxView HeightRequest="1" Color="{StaticResource Outline}" />
                     <Grid ColumnDefinitions="*,Auto">
-                        <Label FontFamily="PoppinsBold" FontSize="16" Text="{helpers:Translate Report_FinalPayable}" />
-                        <Label Grid.Column="1" FontFamily="PoppinsBold" FontSize="20"
+                        <Label FontFamily="{DynamicResource FontBold}" FontSize="16" Text="{helpers:Translate Report_FinalPayable}" />
+                        <Label Grid.Column="1" FontFamily="{DynamicResource FontBold}" FontSize="20"
                                TextColor="{StaticResource Primary}" Text="{Binding PayableLabel}" />
                     </Grid>
                 </VerticalStackLayout>

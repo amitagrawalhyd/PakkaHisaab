@@ -4,14 +4,68 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_SplashTagline" xml:space="preserve">
+    <value>帮工考勤与工资，化繁为简</value>
+  </data>
   <data name="App_Tagline" xml:space="preserve">
     <value>轻点。记录。结算。</value>
+  </data>
+  <data name="Calendar_Ledger" xml:space="preserve">
+    <value>预支与账本</value>
+  </data>
+  <data name="Calendar_Summary" xml:space="preserve">
+    <value>缺勤 {0} 天 · 应付 ₹ {1:N0}</value>
+  </data>
+  <data name="Calendar_UnitsPrompt" xml:space="preserve">
+    <value>已配送数量（{0}）</value>
+  </data>
+  <data name="Calendar_UnitsSummary" xml:space="preserve">
+    <value>已配送 {0:0.#} {1} · 应付 ₹ {2:N0}</value>
+  </data>
+  <data name="Calendar_UnitsTitle" xml:space="preserve">
+    <value>配送</value>
+  </data>
+  <data name="Category_Cleaner" xml:space="preserve">
+    <value>保洁员</value>
+  </data>
+  <data name="Category_Cook" xml:space="preserve">
+    <value>厨师</value>
+  </data>
+  <data name="Category_Driver" xml:space="preserve">
+    <value>司机</value>
+  </data>
+  <data name="Category_Gardener" xml:space="preserve">
+    <value>园丁</value>
+  </data>
+  <data name="Category_HouseHelp" xml:space="preserve">
+    <value>家政工</value>
+  </data>
+  <data name="Category_MilkMan" xml:space="preserve">
+    <value>送奶工</value>
+  </data>
+  <data name="Category_Newspaper" xml:space="preserve">
+    <value>送报员</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="Category_Tutor" xml:space="preserve">
+    <value>家教</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="Common_Confirm" xml:space="preserve">
+    <value>确认</value>
+  </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>删除</value>
+  </data>
+  <data name="Common_Deleted" xml:space="preserve">
+    <value>已删除</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>确定</value>
   </data>
   <data name="Common_Or" xml:space="preserve">
     <value>或</value>
@@ -22,6 +76,12 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>已保存</value>
   </data>
+  <data name="Dash_DemoBanner" xml:space="preserve">
+    <value>演示模式——示例数据，同步已关闭。数据仅保留在本设备上。</value>
+  </data>
+  <data name="Dash_Empty" xml:space="preserve">
+    <value>暂无帮工。点击 + 添加您的第一位帮工。</value>
+  </data>
   <data name="Dash_OpenCalendar" xml:space="preserve">
     <value>日历</value>
   </data>
@@ -31,17 +91,270 @@
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>本月应付：</value>
   </data>
+  <data name="Day_Fr" xml:space="preserve">
+    <value>五</value>
+  </data>
+  <data name="Day_Mo" xml:space="preserve">
+    <value>一</value>
+  </data>
+  <data name="Day_Sa" xml:space="preserve">
+    <value>六</value>
+  </data>
+  <data name="Day_Su" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="Day_Th" xml:space="preserve">
+    <value>四</value>
+  </data>
+  <data name="Day_Tu" xml:space="preserve">
+    <value>二</value>
+  </data>
+  <data name="Day_We" xml:space="preserve">
+    <value>三</value>
+  </data>
+  <data name="Forecast_Pattern" xml:space="preserve">
+    <value>通常在{0}缺勤 · ~{1}次/月</value>
+  </data>
+  <data name="Help_Advance_Examples" xml:space="preserve">
+    <value>• "Gave Raju an advance of 200"
+• "200 rupees udhaar to Geeta"</value>
+  </data>
+  <data name="Help_Attendance_Examples" xml:space="preserve">
+    <value>• "Geeta was absent today" / "Geeta didn't come" / "Geeta chutti"
+• "Geeta came" / "Geeta is present" / "Geeta aayi"
+• "Half day for Geeta" / "Geeta half-day" / "Geeta aadha din"</value>
+  </data>
+  <data name="Help_Attendance_Title" xml:space="preserve">
+    <value>考勤（会打开该帮工的日历以显示结果）</value>
+  </data>
+  <data name="Help_Bonus_Examples" xml:space="preserve">
+    <value>• "Diwali bonus 500 for Geeta"</value>
+  </data>
+  <data name="Help_Calendar_Body" xml:space="preserve">
+    <value>点击某一天可循环切换 出勤 → 缺勤 → 半天。对于按件计酬的帮工（如送奶工），点击某一天可改为输入配送数量。显示本月汇总及累计应付金额。</value>
+  </data>
+  <data name="Help_Calendar_Title" xml:space="preserve">
+    <value>日历</value>
+  </data>
+  <data name="Help_Deduction_Examples" xml:space="preserve">
+    <value>• "Deducted 500 rupees from Geeta"
+• "Kata 100 from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Examples" xml:space="preserve">
+    <value>• "Raju delivered 1.5 litres"
+• "1.5 liters milk from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Title" xml:space="preserve">
+    <value>配送——按件计酬的帮工，例如送奶工（同样会打开日历）</value>
+  </data>
+  <data name="Help_EditDelete_Body" xml:space="preserve">
+    <value>点击首页帮工卡片上的铅笔图标，即可在同一表单中编辑其信息或将其删除。</value>
+  </data>
+  <data name="Help_EditDelete_Title" xml:space="preserve">
+    <value>编辑/删除帮工</value>
+  </data>
+  <data name="Help_Features" xml:space="preserve">
+    <value>功能</value>
+  </data>
+  <data name="Help_Home_Body" xml:space="preserve">
+    <value>查看每位帮工、今日考勤状态以及本月应付总额。点击麦克风即可通过语音记录考勤、配送或账本条目。</value>
+  </data>
+  <data name="Help_Home_Title" xml:space="preserve">
+    <value>首页</value>
+  </data>
+  <data name="Help_Ledger_Body" xml:space="preserve">
+    <value>记录帮工工资中的预支、奖金和扣款，并查看本月累计金额。</value>
+  </data>
+  <data name="Help_Payment_Examples" xml:space="preserve">
+    <value>• "Paid Geeta 4500 salary"
+• "Settled Raju 1260"</value>
+  </data>
+  <data name="Help_Payment_Title" xml:space="preserve">
+    <value>付款/结算</value>
+  </data>
+  <data name="Help_Reports_Body" xml:space="preserve">
+    <value>为单个帮工或整个家庭生成 PDF 报告。</value>
+  </data>
+  <data name="Help_Settle_Body" xml:space="preserve">
+    <value>查看工资明细（应发工资 − 未付缺勤扣款 − 预支），然后通过 UPI 付款或记录现金付款。</value>
+  </data>
+  <data name="Help_Tip" xml:space="preserve">
+    <value>提示：考勤和配送指令会直接跳转到该帮工的日历，方便您查看已记录的日期。预支、扣款、奖金和付款指令则停留在首页，并更新那里的合计金额。</value>
+  </data>
+  <data name="Help_VoiceCommands" xml:space="preserve">
+    <value>语音命令</value>
+  </data>
+  <data name="Help_VoiceIntro" xml:space="preserve">
+    <value>点击首页的麦克风按钮，说出以下任意一句。请清楚说出帮工的姓名——如果您只有一位帮工，可以省略姓名。完全离线可用，支持英语或罗马化印地语。</value>
+  </data>
+  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
+    <value>每月允许缺勤天数</value>
+  </data>
+  <data name="HelperForm_CarryOver" xml:space="preserve">
+    <value>结转未使用的假期</value>
+  </data>
+  <data name="HelperForm_Category" xml:space="preserve">
+    <value>类别</value>
+  </data>
+  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
+    <value>要从应用中移除该帮工及其所有记录吗？</value>
+  </data>
+  <data name="HelperForm_MonthlyWage" xml:space="preserve">
+    <value>月工资（₹）</value>
+  </data>
+  <data name="HelperForm_Name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="HelperForm_NameRequired" xml:space="preserve">
+    <value>请输入姓名</value>
+  </data>
+  <data name="HelperForm_PerUnit" xml:space="preserve">
+    <value>按配送单位计酬（牛奶、报纸等…）</value>
+  </data>
+  <data name="HelperForm_RatePerUnit" xml:space="preserve">
+    <value>单位单价（₹）</value>
+  </data>
+  <data name="HelperForm_Title" xml:space="preserve">
+    <value>帮工</value>
+  </data>
+  <data name="HelperForm_UnitLabel" xml:space="preserve">
+    <value>单位</value>
+  </data>
+  <data name="HelperForm_UpiId" xml:space="preserve">
+    <value>UPI ID（用于付款）</value>
+  </data>
+  <data name="HelperForm_WhatsApp" xml:space="preserve">
+    <value>WhatsApp 号码</value>
+  </data>
+  <data name="LedgerType_Advance" xml:space="preserve">
+    <value>预支</value>
+  </data>
+  <data name="LedgerType_Bonus" xml:space="preserve">
+    <value>奖金</value>
+  </data>
+  <data name="LedgerType_Deduction" xml:space="preserve">
+    <value>扣款</value>
+  </data>
+  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
+    <value>配送费</value>
+  </data>
+  <data name="LedgerType_SalaryPayment" xml:space="preserve">
+    <value>工资支付</value>
+  </data>
+  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
+    <value>本月预支</value>
+  </data>
+  <data name="Ledger_Amount" xml:space="preserve">
+    <value>金额（₹）</value>
+  </data>
+  <data name="Ledger_DeleteConfirm" xml:space="preserve">
+    <value>删除此条目？此操作无法撤销。</value>
+  </data>
+  <data name="Ledger_Empty" xml:space="preserve">
+    <value>本月暂无记录。点击 + 记录一笔预支。</value>
+  </data>
+  <data name="Ledger_InvalidAmount" xml:space="preserve">
+    <value>请输入有效金额</value>
+  </data>
+  <data name="Ledger_NewEntry" xml:space="preserve">
+    <value>新建账本条目</value>
+  </data>
+  <data name="Ledger_Note" xml:space="preserve">
+    <value>备注（可选）</value>
+  </data>
+  <data name="Legal_PrivacyBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+PakkaHisaab（"本应用"）由 Amit Kumar Agrawal（"我们"）开发和运营。本隐私政策说明了我们在您使用本应用时如何处理相关信息。
+
+1. 我们收集的信息
+- 您输入的家政帮工信息：姓名、类别、WhatsApp 号码和 UPI ID。
+- 您为帮工创建的考勤、工资、预支和结算记录。
+- 通过 Microsoft App Center 收集的基本设备和使用诊断信息（崩溃日志、应用性能），仅用于修复错误和提升稳定性。
+- 仅在您点击麦克风按钮时采集的语音音频，该音频在设备本地处理以记录考勤/账本条目，处理完成后不会被存储或传输。
+
+2. 我们如何使用信息
+您输入的数据仅用于运行本应用的核心功能——跟踪考勤、计算工资，以及为您管理的帮工记录付款。在演示模式下，所有数据仅保留在您的设备上，不会进行任何同步。
+
+3. 数据存储与共享
+您的数据存储在设备本地（SQLite）。如果您使用账户登录（非演示模式），您的数据会同步到我们的服务器，仅用于让您在自己的多台设备之间访问这些数据。我们不会出售您的数据，也不会将其用于广告目的与第三方共享。付款通过您自行安装的 UPI 应用（如 Google Pay、PhonePe、Paytm 等）发起——本应用绝不会处理或存储您的银行凭证。
+
+4. 数据保留与删除
+您可以随时在应用内删除任何帮工的记录。您也可以通过"设置 &gt; 删除我的账户和数据"永久删除您的账户及所有相关数据。
+
+5. 安全
+我们采取合理的技术措施保护您的数据，包括本地存储以及为已同步账户提供的安全传输（HTTPS）。
+
+6. 儿童隐私
+本应用不面向儿童，不适合 18 周岁以下人士使用。
+
+7. 本政策的变更
+我们可能会不时更新本政策。在政策变更后继续使用本应用即表示您接受更新后的政策。
+
+8. 联系我们
+如有任何隐私相关问题或请求，请通过 amit.agrawal.hyd@outlook.com 联系 Amit Kumar Agrawal。</value>
+  </data>
+  <data name="Legal_TermsBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+本服务条款（"条款"）规范您对 PakkaHisaab（"本应用"）的使用，本应用由 Amit Kumar Agrawal（"我们"）开发和运营。使用本应用即表示您同意本条款。
+
+1. 应用的使用
+PakkaHisaab 帮助您跟踪您所管理的家政帮工（如家政工、送奶工、司机等）的考勤、工资、预支和付款。您需对自己输入数据的准确性负责。
+
+2. 您的账户
+您需自行对登录凭证的保密负责，并对账户下的所有活动负责。演示模式无需账户，且所有数据仅保留在您的设备上。
+
+3. 付款
+本应用本身不处理付款。"通过 UPI 付款"会转至您设备上已安装的 UPI 应用；任何付款行为均发生在您与您所选择的支付服务商及收款人之间。对于失败、延迟或存在争议的交易，我们概不负责。
+
+4. 可接受使用
+您同意不将本应用用于任何非法目的，或以可能损害、致使无法使用或损坏本应用、或干扰他人使用本应用的方式使用本应用。
+
+5. 不提供任何担保
+本应用按"现状"提供，不附带任何明示或暗示的担保。我们不保证本应用不会出错、不会中断，或适合特定用途。
+
+6. 责任限制
+在法律允许的最大范围内，Amit Kumar Agrawal 不对因您使用本应用而产生的任何间接、附带或后果性损害承担责任，包括因使用第三方 UPI 应用付款而造成的任何数据丢失或经济损失。
+
+7. 终止
+您可以随时停止使用本应用，并通过"设置 &gt; 删除我的账户和数据"删除您的账户。对于滥用本应用的行为，我们可能会暂停或终止其访问权限。
+
+8. 适用法律
+本条款受印度法律管辖，不适用法律冲突原则。
+
+9. 本条款的变更
+我们可能会不时更新本条款。在条款变更后继续使用本应用即表示您接受更新后的条款。
+
+10. 联系我们
+如对本条款有任何疑问，请通过 amit.agrawal.hyd@outlook.com 联系 Amit Kumar Agrawal。</value>
+  </data>
   <data name="Login_CreateAccount" xml:space="preserve">
     <value>创建账户</value>
   </data>
+  <data name="Login_DemoHint" xml:space="preserve">
+    <value>即时使用，离线，无需注册。通过 Geeta（家政工）和 Raju（送奶工）的示例数据体验应用。</value>
+  </data>
+  <data name="Login_DisplayName" xml:space="preserve">
+    <value>您的姓名</value>
+  </data>
   <data name="Login_Email" xml:space="preserve">
     <value>邮箱</value>
+  </data>
+  <data name="Login_Failed" xml:space="preserve">
+    <value>登录失败。请检查您的信息和网络连接。</value>
+  </data>
+  <data name="Login_MissingFields" xml:space="preserve">
+    <value>请输入邮箱和密码</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
     <value>密码</value>
   </data>
   <data name="Login_SignIn" xml:space="preserve">
     <value>登录</value>
+  </data>
+  <data name="Login_ToggleMode" xml:space="preserve">
+    <value>初次使用？创建账户 · 已有账户？登录</value>
   </data>
   <data name="Login_TryDemo" xml:space="preserve">
     <value>试用演示</value>
@@ -58,17 +371,185 @@
   <data name="Notify_SalaryTitle" xml:space="preserve">
     <value>工资待付</value>
   </data>
+  <data name="Onboard_GetStarted" xml:space="preserve">
+    <value>开始使用</value>
+  </data>
+  <data name="Onboard_Next" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="Onboard_Skip" xml:space="preserve">
+    <value>跳过</value>
+  </data>
+  <data name="Onboard_Slide1_Body" xml:space="preserve">
+    <value>点击日期即可标记出勤、缺勤或半天。牛奶和其他配送也是如此——所有记录都汇总在一本清晰的账本中。</value>
+  </data>
+  <data name="Onboard_Slide1_Title" xml:space="preserve">
+    <value>两次点击记账本</value>
+  </data>
+  <data name="Onboard_Slide2_Body" xml:space="preserve">
+    <value>每天下午 5 点会提醒您记录今日考勤。可直接在通知中标记"缺勤"——无需打开应用。</value>
+  </data>
+  <data name="Onboard_Slide2_Title" xml:space="preserve">
+    <value>下午 5 点，绝不遗忘</value>
+  </data>
+  <data name="Onboard_Slide3_Body" xml:space="preserve">
+    <value>工资减去缺勤扣款，再减去预支——自动为您算好。可使用任意 UPI 应用付款或记录现金支付，并通过 WhatsApp 分享 PDF 报告。</value>
+  </data>
+  <data name="Onboard_Slide3_Title" xml:space="preserve">
+    <value>通过 UPI 秒速结算</value>
+  </data>
+  <data name="Report_Absences" xml:space="preserve">
+    <value>缺勤</value>
+  </data>
+  <data name="Report_Advances" xml:space="preserve">
+    <value>预支</value>
+  </data>
+  <data name="Report_Bonuses" xml:space="preserve">
+    <value>奖金</value>
+  </data>
+  <data name="Report_Date" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="Report_Deduction" xml:space="preserve">
+    <value>扣款</value>
+  </data>
   <data name="Report_FinalPayable" xml:space="preserve">
     <value>应付总额</value>
+  </data>
+  <data name="Report_GeneratedBy" xml:space="preserve">
+    <value>生成者</value>
+  </data>
+  <data name="Report_GenerationFailed" xml:space="preserve">
+    <value>无法生成报告，请重试。</value>
+  </data>
+  <data name="Report_GrossWage" xml:space="preserve">
+    <value>应发工资</value>
+  </data>
+  <data name="Report_Helper" xml:space="preserve">
+    <value>帮工</value>
+  </data>
+  <data name="Report_HouseholdTitle" xml:space="preserve">
+    <value>家庭汇总</value>
+  </data>
+  <data name="Report_LedgerTitle" xml:space="preserve">
+    <value>帮工月度账本</value>
+  </data>
+  <data name="Report_Movements" xml:space="preserve">
+    <value>资金流水</value>
+  </data>
+  <data name="Report_ShareTitle" xml:space="preserve">
+    <value>分享报告</value>
+  </data>
+  <data name="Report_Status" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>合计</value>
+  </data>
+  <data name="Report_Units" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="Report_UnpaidAbsences" xml:space="preserve">
+    <value>未付缺勤扣款</value>
+  </data>
+  <data name="Reports_GenerateShare" xml:space="preserve">
+    <value>生成并分享 PDF</value>
+  </data>
+  <data name="Reports_HouseholdDescription" xml:space="preserve">
+    <value>所有帮工的总体汇总</value>
+  </data>
+  <data name="Reports_LedgerDescription" xml:space="preserve">
+    <value>单个帮工的每日考勤与资金记录</value>
+  </data>
+  <data name="Reports_Title" xml:space="preserve">
+    <value>报告</value>
+  </data>
+  <data name="Security_RootedMessage" xml:space="preserve">
+    <value>此设备似乎已获取 Root 权限/越狱。您的财务数据在此设备上可能安全性较低。我们建议在标准设备上使用 PakkaHisaab。</value>
+  </data>
+  <data name="Security_RootedTitle" xml:space="preserve">
+    <value>设备警告</value>
+  </data>
+  <data name="Settings_Account" xml:space="preserve">
+    <value>账户</value>
   </data>
   <data name="Settings_DeleteAccount" xml:space="preserve">
     <value>删除我的账户和数据</value>
   </data>
+  <data name="Settings_DeleteDemoNote" xml:space="preserve">
+    <value>演示数据将从本设备清除。</value>
+  </data>
+  <data name="Settings_DeleteFailed" xml:space="preserve">
+    <value>无法删除账户。请检查您的密码和网络连接。</value>
+  </data>
+  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
+    <value>请输入密码以确认</value>
+  </data>
+  <data name="Settings_DeleteTitle" xml:space="preserve">
+    <value>删除账户</value>
+  </data>
+  <data name="Settings_DeleteWarning" xml:space="preserve">
+    <value>此操作将永久删除您的账户以及所有帮工、考勤和付款记录——包括本设备及我们服务器上的数据。此操作无法撤销。</value>
+  </data>
+  <data name="Settings_Help" xml:space="preserve">
+    <value>帮助</value>
+  </data>
+  <data name="Settings_HelpAndVoice" xml:space="preserve">
+    <value>帮助与语音命令</value>
+  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>语言</value>
   </data>
+  <data name="Settings_Legal" xml:space="preserve">
+    <value>法律信息</value>
+  </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>退出登录</value>
+  </data>
+  <data name="Settings_Privacy" xml:space="preserve">
+    <value>隐私政策</value>
+  </data>
+  <data name="Settings_Terms" xml:space="preserve">
+    <value>服务条款</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Settle_AmountToPay" xml:space="preserve">
+    <value>应付金额（如需可编辑）</value>
+  </data>
+  <data name="Settle_ConfirmBody" xml:space="preserve">
+    <value>您是否已完成向 {0} 支付 ₹ {1:N0} 的款项？</value>
+  </data>
+  <data name="Settle_ConfirmTitle" xml:space="preserve">
+    <value>已完成付款？</value>
+  </data>
+  <data name="Settle_ConfirmYes" xml:space="preserve">
+    <value>是，已付款</value>
+  </data>
+  <data name="Settle_InvalidAmount" xml:space="preserve">
+    <value>请输入有效金额</value>
+  </data>
+  <data name="Settle_LogCash" xml:space="preserve">
+    <value>记录现金付款</value>
+  </data>
+  <data name="Settle_NoUpiApp" xml:space="preserve">
+    <value>此设备上未找到 UPI 应用</value>
+  </data>
+  <data name="Settle_NoUpiIdHint" xml:space="preserve">
+    <value>为该帮工添加 UPI ID，即可启用一键 UPI 付款。</value>
+  </data>
+  <data name="Settle_PayVia" xml:space="preserve">
+    <value>通过 UPI 付款</value>
+  </data>
+  <data name="Settle_Recorded" xml:space="preserve">
+    <value>付款已记录</value>
+  </data>
+  <data name="Settle_Title" xml:space="preserve">
+    <value>结算</value>
+  </data>
+  <data name="Settle_UpiNote" xml:space="preserve">
+    <value>工资 {0} - PakkaHisaab</value>
   </data>
   <data name="Status_Absent" xml:space="preserve">
     <value>缺勤</value>
@@ -87,5 +568,8 @@
   </data>
   <data name="Tab_Settings" xml:space="preserve">
     <value>设置</value>
+  </data>
+  <data name="Voice_NotUnderstood" xml:space="preserve">
+    <value>抱歉，我没听懂。请尝试："Gave Geeta 500 advance"。</value>
   </data>
 </root>

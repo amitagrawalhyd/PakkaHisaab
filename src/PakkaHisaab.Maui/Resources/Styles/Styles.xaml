@@ -2,21 +2,29 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <!-- Compile-time defaults for the Latin-only Poppins family. LocalizationResourceManager
+         overrides these three keys at runtime (via DynamicResource) to null — the platform default
+         font — for any language outside Poppins' Latin coverage, since iOS (unlike Android) does not
+         automatically substitute a fallback font for glyphs missing from an embedded custom font. -->
+    <x:String x:Key="FontRegular">PoppinsRegular</x:String>
+    <x:String x:Key="FontSemiBold">PoppinsSemiBold</x:String>
+    <x:String x:Key="FontBold">PoppinsBold</x:String>
+
     <!-- Typography -->
     <Style TargetType="Label">
-        <Setter Property="FontFamily" Value="PoppinsRegular" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontRegular}" />
         <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
         <Setter Property="FontSize" Value="15" />
     </Style>
 
     <Style x:Key="TitleLabel" TargetType="Label">
-        <Setter Property="FontFamily" Value="PoppinsBold" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontBold}" />
         <Setter Property="FontSize" Value="24" />
         <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
     </Style>
 
     <Style x:Key="SectionLabel" TargetType="Label">
-        <Setter Property="FontFamily" Value="PoppinsSemiBold" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontSemiBold}" />
         <Setter Property="FontSize" Value="17" />
         <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
     </Style>
@@ -36,7 +44,7 @@
 
     <!-- Buttons -->
     <Style TargetType="Button">
-        <Setter Property="FontFamily" Value="PoppinsSemiBold" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontSemiBold}" />
         <Setter Property="TextColor" Value="White" />
         <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
         <Setter Property="CornerRadius" Value="14" />
@@ -45,7 +53,7 @@
     </Style>
 
     <Style x:Key="SecondaryButton" TargetType="Button">
-        <Setter Property="FontFamily" Value="PoppinsSemiBold" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontSemiBold}" />
         <Setter Property="TextColor" Value="{StaticResource Primary}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="BorderColor" Value="{StaticResource Primary}" />
@@ -75,7 +83,7 @@
 
     <!-- Inputs -->
     <Style TargetType="Entry">
-        <Setter Property="FontFamily" Value="PoppinsRegular" />
+        <Setter Property="FontFamily" Value="{DynamicResource FontRegular}" />
         <Setter Property="TextColor" Value="{StaticResource TextPrimary}" />
         <Setter Property="PlaceholderColor" Value="{StaticResource TextMuted}" />
         <Setter Property="BackgroundColor" Value="Transparent" />

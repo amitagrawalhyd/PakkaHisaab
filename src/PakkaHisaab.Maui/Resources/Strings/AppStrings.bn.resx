@@ -4,14 +4,68 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_SplashTagline" xml:space="preserve">
+    <value>সহায়কের হাজিরা ও মজুরি, সহজভাবে</value>
+  </data>
   <data name="App_Tagline" xml:space="preserve">
     <value>ট্যাপ করুন। হিসাব রাখুন। মিটিয়ে দিন।</value>
+  </data>
+  <data name="Calendar_Ledger" xml:space="preserve">
+    <value>অগ্রিম ও খতিয়ান</value>
+  </data>
+  <data name="Calendar_Summary" xml:space="preserve">
+    <value>{0} দিন অনুপস্থিত · প্রদেয় ₹ {1:N0}</value>
+  </data>
+  <data name="Calendar_UnitsPrompt" xml:space="preserve">
+    <value>সরবরাহকৃত ইউনিট ({0})</value>
+  </data>
+  <data name="Calendar_UnitsSummary" xml:space="preserve">
+    <value>{0:0.#} {1} সরবরাহ করা হয়েছে · প্রদেয় ₹ {2:N0}</value>
+  </data>
+  <data name="Calendar_UnitsTitle" xml:space="preserve">
+    <value>সরবরাহ</value>
+  </data>
+  <data name="Category_Cleaner" xml:space="preserve">
+    <value>পরিচ্ছন্নতাকর্মী</value>
+  </data>
+  <data name="Category_Cook" xml:space="preserve">
+    <value>রাঁধুনি</value>
+  </data>
+  <data name="Category_Driver" xml:space="preserve">
+    <value>গাড়িচালক</value>
+  </data>
+  <data name="Category_Gardener" xml:space="preserve">
+    <value>মালী</value>
+  </data>
+  <data name="Category_HouseHelp" xml:space="preserve">
+    <value>গৃহকর্মী</value>
+  </data>
+  <data name="Category_MilkMan" xml:space="preserve">
+    <value>দুধওয়ালা</value>
+  </data>
+  <data name="Category_Newspaper" xml:space="preserve">
+    <value>সংবাদপত্র</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>অন্যান্য</value>
+  </data>
+  <data name="Category_Tutor" xml:space="preserve">
+    <value>গৃহশিক্ষক</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>বাতিল</value>
   </data>
+  <data name="Common_Confirm" xml:space="preserve">
+    <value>নিশ্চিত করুন</value>
+  </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>মুছুন</value>
+  </data>
+  <data name="Common_Deleted" xml:space="preserve">
+    <value>মুছে ফেলা হয়েছে</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>ঠিক আছে</value>
   </data>
   <data name="Common_Or" xml:space="preserve">
     <value>অথবা</value>
@@ -22,6 +76,12 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>সংরক্ষিত</value>
   </data>
+  <data name="Dash_DemoBanner" xml:space="preserve">
+    <value>ডেমো মোড — নমুনা ডেটা, সিঙ্ক বন্ধ। ডেটা এই ডিভাইসেই থাকে।</value>
+  </data>
+  <data name="Dash_Empty" xml:space="preserve">
+    <value>এখনও কোনো সহায়ক নেই। প্রথম সহায়ক যোগ করতে + ট্যাপ করুন।</value>
+  </data>
   <data name="Dash_OpenCalendar" xml:space="preserve">
     <value>ক্যালেন্ডার</value>
   </data>
@@ -31,17 +91,270 @@
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>এ মাসে প্রদেয়:</value>
   </data>
+  <data name="Day_Fr" xml:space="preserve">
+    <value>শুক্র</value>
+  </data>
+  <data name="Day_Mo" xml:space="preserve">
+    <value>সোম</value>
+  </data>
+  <data name="Day_Sa" xml:space="preserve">
+    <value>শনি</value>
+  </data>
+  <data name="Day_Su" xml:space="preserve">
+    <value>রবি</value>
+  </data>
+  <data name="Day_Th" xml:space="preserve">
+    <value>বৃহঃ</value>
+  </data>
+  <data name="Day_Tu" xml:space="preserve">
+    <value>মঙ্গল</value>
+  </data>
+  <data name="Day_We" xml:space="preserve">
+    <value>বুধ</value>
+  </data>
+  <data name="Forecast_Pattern" xml:space="preserve">
+    <value>সাধারণত {0}-এ অনুপস্থিত থাকেন · মাসে ~{1} বার</value>
+  </data>
+  <data name="Help_Advance_Examples" xml:space="preserve">
+    <value>• "Gave Raju an advance of 200"
+• "200 rupees udhaar to Geeta"</value>
+  </data>
+  <data name="Help_Attendance_Examples" xml:space="preserve">
+    <value>• "Geeta was absent today" / "Geeta didn't come" / "Geeta chutti"
+• "Geeta came" / "Geeta is present" / "Geeta aayi"
+• "Half day for Geeta" / "Geeta half-day" / "Geeta aadha din"</value>
+  </data>
+  <data name="Help_Attendance_Title" xml:space="preserve">
+    <value>হাজিরা (ফলাফল দেখাতে সেই সহায়কের ক্যালেন্ডার খোলে)</value>
+  </data>
+  <data name="Help_Bonus_Examples" xml:space="preserve">
+    <value>• "Diwali bonus 500 for Geeta"</value>
+  </data>
+  <data name="Help_Calendar_Body" xml:space="preserve">
+    <value>উপস্থিত → অনুপস্থিত → অর্ধদিবস ক্রমানুসারে পরিবর্তন করতে একটি দিনে ট্যাপ করুন। ইউনিট-ভিত্তিক সহায়কদের জন্য (যেমন দুধওয়ালা), দিনে ট্যাপ করে সরবরাহকৃত ইউনিট লিখুন। মাসের সারাংশ এবং চলমান প্রদেয় দেখায়।</value>
+  </data>
+  <data name="Help_Calendar_Title" xml:space="preserve">
+    <value>ক্যালেন্ডার</value>
+  </data>
+  <data name="Help_Deduction_Examples" xml:space="preserve">
+    <value>• "Deducted 500 rupees from Geeta"
+• "Kata 100 from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Examples" xml:space="preserve">
+    <value>• "Raju delivered 1.5 litres"
+• "1.5 liters milk from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Title" xml:space="preserve">
+    <value>সরবরাহ — ইউনিট-ভিত্তিক সহায়ক, যেমন দুধওয়ালা (ক্যালেন্ডারও খোলে)</value>
+  </data>
+  <data name="Help_EditDelete_Body" xml:space="preserve">
+    <value>হোম স্ক্রিনে সহায়কের কার্ডে পেন্সিল আইকনে ট্যাপ করে তার বিবরণ সম্পাদনা করুন, অথবা একই ফর্ম থেকে তাকে মুছে ফেলুন।</value>
+  </data>
+  <data name="Help_EditDelete_Title" xml:space="preserve">
+    <value>সহায়ক সম্পাদনা / মুছুন</value>
+  </data>
+  <data name="Help_Features" xml:space="preserve">
+    <value>বৈশিষ্ট্য</value>
+  </data>
+  <data name="Help_Home_Body" xml:space="preserve">
+    <value>প্রতিটি সহায়ক, আজকের হাজিরার অবস্থা এবং মাসের মোট প্রদেয় দেখুন। কণ্ঠস্বর দিয়ে হাজিরা, সরবরাহ বা খতিয়ান এন্ট্রি লিপিবদ্ধ করতে মাইকে ট্যাপ করুন।</value>
+  </data>
+  <data name="Help_Home_Title" xml:space="preserve">
+    <value>হোম</value>
+  </data>
+  <data name="Help_Ledger_Body" xml:space="preserve">
+    <value>একজন সহায়কের মজুরির বিপরীতে অগ্রিম, বোনাস এবং কর্তন লিপিবদ্ধ করুন, এবং মাসের চলমান মোট দেখুন।</value>
+  </data>
+  <data name="Help_Payment_Examples" xml:space="preserve">
+    <value>• "Paid Geeta 4500 salary"
+• "Settled Raju 1260"</value>
+  </data>
+  <data name="Help_Payment_Title" xml:space="preserve">
+    <value>পেমেন্ট / নিষ্পত্তি</value>
+  </data>
+  <data name="Help_Reports_Body" xml:space="preserve">
+    <value>একজন সহায়কের জন্য অথবা পুরো পরিবারের জন্য একটি PDF রিপোর্ট তৈরি করুন।</value>
+  </data>
+  <data name="Help_Settle_Body" xml:space="preserve">
+    <value>মজুরির বিভাজন (মোট মজুরি − অবেতনিক অনুপস্থিতি − অগ্রিম) পর্যালোচনা করুন এবং UPI-এর মাধ্যমে পেমেন্ট করুন অথবা নগদ পেমেন্ট লিপিবদ্ধ করুন।</value>
+  </data>
+  <data name="Help_Tip" xml:space="preserve">
+    <value>টিপ: হাজিরা এবং সরবরাহ সংক্রান্ত কমান্ড সরাসরি সহায়কের ক্যালেন্ডারে নিয়ে যায় যাতে আপনি লিপিবদ্ধ দিনটি দেখতে পারেন। অগ্রিম, কর্তন, বোনাস এবং পেমেন্ট সংক্রান্ত কমান্ড হোম স্ক্রিনেই থাকে এবং সেখানকার মোট হালনাগাদ করে।</value>
+  </data>
+  <data name="Help_VoiceCommands" xml:space="preserve">
+    <value>কণ্ঠস্বর কমান্ড</value>
+  </data>
+  <data name="Help_VoiceIntro" xml:space="preserve">
+    <value>হোম স্ক্রিনে মাইক বোতামে ট্যাপ করে এর যেকোনো একটি বলুন। সহায়কের নাম স্পষ্টভাবে বলুন — যদি আপনার একজনই সহায়ক থাকে, তাহলে নাম বাদ দিতে পারেন। এটি সম্পূর্ণ অফলাইনে কাজ করে, ইংরেজি বা রোমান হরফে লেখা হিন্দিতে।</value>
+  </data>
+  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
+    <value>মাসে অনুমোদিত অনুপস্থিতি</value>
+  </data>
+  <data name="HelperForm_CarryOver" xml:space="preserve">
+    <value>অব্যবহৃত ছুটি স্থানান্তর করুন</value>
+  </data>
+  <data name="HelperForm_Category" xml:space="preserve">
+    <value>ক্যাটাগরি</value>
+  </data>
+  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
+    <value>এই সহায়ক এবং তাদের রেকর্ড অ্যাপ থেকে মুছে ফেলবেন?</value>
+  </data>
+  <data name="HelperForm_MonthlyWage" xml:space="preserve">
+    <value>মাসিক মজুরি (₹)</value>
+  </data>
+  <data name="HelperForm_Name" xml:space="preserve">
+    <value>নাম</value>
+  </data>
+  <data name="HelperForm_NameRequired" xml:space="preserve">
+    <value>অনুগ্রহ করে একটি নাম লিখুন</value>
+  </data>
+  <data name="HelperForm_PerUnit" xml:space="preserve">
+    <value>সরবরাহ ইউনিট অনুযায়ী পেমেন্ট (দুধ, খবরের কাগজ…)</value>
+  </data>
+  <data name="HelperForm_RatePerUnit" xml:space="preserve">
+    <value>প্রতি ইউনিট দর (₹)</value>
+  </data>
+  <data name="HelperForm_Title" xml:space="preserve">
+    <value>সহায়ক</value>
+  </data>
+  <data name="HelperForm_UnitLabel" xml:space="preserve">
+    <value>ইউনিট</value>
+  </data>
+  <data name="HelperForm_UpiId" xml:space="preserve">
+    <value>UPI আইডি (পেমেন্টের জন্য)</value>
+  </data>
+  <data name="HelperForm_WhatsApp" xml:space="preserve">
+    <value>হোয়াটসঅ্যাপ নম্বর</value>
+  </data>
+  <data name="LedgerType_Advance" xml:space="preserve">
+    <value>অগ্রিম</value>
+  </data>
+  <data name="LedgerType_Bonus" xml:space="preserve">
+    <value>বোনাস</value>
+  </data>
+  <data name="LedgerType_Deduction" xml:space="preserve">
+    <value>কর্তন</value>
+  </data>
+  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
+    <value>সরবরাহ চার্জ</value>
+  </data>
+  <data name="LedgerType_SalaryPayment" xml:space="preserve">
+    <value>বেতন পরিশোধ</value>
+  </data>
+  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
+    <value>এ মাসের অগ্রিম</value>
+  </data>
+  <data name="Ledger_Amount" xml:space="preserve">
+    <value>পরিমাণ (₹)</value>
+  </data>
+  <data name="Ledger_DeleteConfirm" xml:space="preserve">
+    <value>এই এন্ট্রি মুছে ফেলবেন? এটি পূর্বাবস্থায় ফেরানো যাবে না।</value>
+  </data>
+  <data name="Ledger_Empty" xml:space="preserve">
+    <value>এ মাসে কোনো এন্ট্রি নেই। অগ্রিম লিপিবদ্ধ করতে + ট্যাপ করুন।</value>
+  </data>
+  <data name="Ledger_InvalidAmount" xml:space="preserve">
+    <value>একটি সঠিক পরিমাণ লিখুন</value>
+  </data>
+  <data name="Ledger_NewEntry" xml:space="preserve">
+    <value>নতুন খতিয়ান এন্ট্রি</value>
+  </data>
+  <data name="Ledger_Note" xml:space="preserve">
+    <value>নোট (ঐচ্ছিক)</value>
+  </data>
+  <data name="Legal_PrivacyBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+PakkaHisaab ("অ্যাপ") তৈরি ও পরিচালনা করেন অমিত কুমার আগরওয়াল ("আমরা", "আমাদের")। আপনি অ্যাপ ব্যবহার করার সময় আমরা কীভাবে তথ্য পরিচালনা করি, তা এই গোপনীয়তা নীতিতে ব্যাখ্যা করা হয়েছে।
+
+1. আমরা যে তথ্য সংগ্রহ করি
+- আপনি যে গৃহসহায়কের বিবরণ প্রবেশ করান: নাম, ক্যাটাগরি, হোয়াটসঅ্যাপ নম্বর এবং UPI আইডি।
+- আপনার সহায়কদের জন্য আপনি যে হাজিরা, মজুরি, অগ্রিম এবং নিষ্পত্তির রেকর্ড তৈরি করেন।
+- Microsoft App Center-এর মাধ্যমে মৌলিক ডিভাইস ও ব্যবহারের ডায়াগনস্টিকস (ক্র্যাশ লগ, অ্যাপের পারফরম্যান্স), যা শুধুমাত্র বাগ সমাধান এবং স্থিতিশীলতা উন্নত করতে ব্যবহৃত হয়।
+- শুধুমাত্র আপনি মাইক্রোফোন বোতামে ট্যাপ করলে ভয়েস অডিও ক্যাপচার করা হয়, যা হাজিরা/খতিয়ান এন্ট্রি লিপিবদ্ধ করতে ডিভাইসেই প্রক্রিয়া করা হয়, এবং প্রক্রিয়াকরণের পর সংরক্ষণ বা প্রেরণ করা হয় না।
+
+2. আমরা কীভাবে তথ্য ব্যবহার করি
+আপনার প্রবেশ করানো ডেটা শুধুমাত্র অ্যাপের মূল বৈশিষ্ট্যগুলি চালাতে ব্যবহৃত হয় - হাজিরা ট্র্যাক করা, মজুরি গণনা করা এবং আপনার পরিচালিত সহায়কদের জন্য পেমেন্ট রেকর্ড করা। ডেমো মোডে, সমস্ত ডেটা আপনার ডিভাইসেই থাকে এবং কিছুই সিঙ্ক হয় না।
+
+3. ডেটা সংরক্ষণ এবং শেয়ারিং
+আপনার ডেটা স্থানীয়ভাবে আপনার ডিভাইসে সংরক্ষিত হয় (SQLite)। আপনি যদি একটি অ্যাকাউন্ট দিয়ে সাইন ইন করেন (নন-ডেমো মোড), তাহলে আপনার ডেটা আমাদের সার্ভারে সিঙ্ক হয়, শুধুমাত্র যাতে আপনি নিজের সমস্ত ডিভাইস জুড়ে এটি অ্যাক্সেস করতে পারেন। আমরা আপনার ডেটা বিক্রি করি না বা বিজ্ঞাপনের জন্য তৃতীয় পক্ষের সাথে শেয়ার করি না। পেমেন্ট আপনার নিজের ইনস্টল করা UPI অ্যাপের (Google Pay, PhonePe, Paytm ইত্যাদি) মাধ্যমে শুরু হয় - অ্যাপ কখনও আপনার ব্যাংক তথ্য প্রক্রিয়া বা সংরক্ষণ করে না।
+
+4. ডেটা সংরক্ষণকাল এবং মুছে ফেলা
+আপনি অ্যাপের মধ্যে থেকে যেকোনো সময় যেকোনো সহায়কের রেকর্ড মুছে ফেলতে পারেন। আপনি সেটিংস > আমার অ্যাকাউন্ট ও ডেটা মুছুন থেকে আপনার অ্যাকাউন্ট এবং সংশ্লিষ্ট সমস্ত ডেটা স্থায়ীভাবে মুছে ফেলতে পারেন।
+
+5. নিরাপত্তা
+আমরা আপনার ডেটা রক্ষা করতে যুক্তিসঙ্গত প্রযুক্তিগত ব্যবস্থা গ্রহণ করি, যার মধ্যে রয়েছে স্থানীয় সংরক্ষণ এবং সিঙ্ক করা অ্যাকাউন্টগুলির জন্য নিরাপদ ট্রান্সমিশন (HTTPS)।
+
+6. শিশুদের গোপনীয়তা
+এই অ্যাপ শিশুদের লক্ষ্য করে তৈরি নয় এবং ১৮ বছরের কম বয়সী কারো ব্যবহারের জন্য উদ্দিষ্ট নয়।
+
+7. এই নীতিতে পরিবর্তন
+আমরা সময়ে সময়ে এই নীতি আপডেট করতে পারি। পরিবর্তনের পরেও অ্যাপের ক্রমাগত ব্যবহার মানে আপনি আপডেট করা নীতি গ্রহণ করেছেন।
+
+8. যোগাযোগ করুন
+যেকোনো গোপনীয়তা সংক্রান্ত প্রশ্ন বা অনুরোধের জন্য, amit.agrawal.hyd@outlook.com-এ অমিত কুমার আগরওয়ালের সাথে যোগাযোগ করুন।</value>
+  </data>
+  <data name="Legal_TermsBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+এই পরিষেবার শর্তাবলী ("শর্তাবলী") PakkaHisaab ("অ্যাপ") ব্যবহারের নিয়ন্ত্রণ করে, যা তৈরি ও পরিচালনা করেন অমিত কুমার আগরওয়াল ("আমরা", "আমাদের")। অ্যাপ ব্যবহার করার মাধ্যমে, আপনি এই শর্তাবলীতে সম্মত হচ্ছেন।
+
+1. অ্যাপের ব্যবহার
+PakkaHisaab আপনাকে আপনার পরিচালিত গৃহসহায়কদের (যেমন গৃহকর্মী, দুধওয়ালা, গাড়িচালক ইত্যাদি) হাজিরা, মজুরি, অগ্রিম এবং পেমেন্ট ট্র্যাক করতে সাহায্য করে। আপনি যে ডেটা প্রবেশ করান তার সঠিকতার জন্য আপনি দায়ী।
+
+2. আপনার অ্যাকাউন্ট
+আপনার লগইন তথ্যের গোপনীয়তা বজায় রাখা এবং আপনার অ্যাকাউন্টের অধীনে সমস্ত কার্যকলাপের জন্য আপনি দায়ী। ডেমো মোডে অ্যাকাউন্টের প্রয়োজন হয় না এবং সমস্ত ডেটা শুধুমাত্র আপনার ডিভাইসে থাকে।
+
+3. পেমেন্ট
+অ্যাপ নিজে পেমেন্ট প্রক্রিয়া করে না। "UPI-এর মাধ্যমে পেমেন্ট করুন" আপনার ডিভাইসে ইতিমধ্যে ইনস্টল করা UPI অ্যাপে হস্তান্তর করে; যেকোনো সম্পন্ন পেমেন্ট আপনার এবং আপনার নির্বাচিত পেমেন্ট প্রদানকারী ও প্রাপকের মধ্যে হয়। ব্যর্থ, বিলম্বিত বা বিতর্কিত লেনদেনের জন্য আমরা দায়ী নই।
+
+4. গ্রহণযোগ্য ব্যবহার
+আপনি সম্মত হচ্ছেন যে অ্যাপকে কোনো বেআইনি উদ্দেশ্যে বা এমনভাবে ব্যবহার করবেন না যা অ্যাপের ক্ষতি করতে পারে, নিষ্ক্রিয় করতে পারে বা ক্ষতিগ্রস্ত করতে পারে, অথবা অন্য কোনো পক্ষের ব্যবহারে হস্তক্ষেপ করতে পারে।
+
+5. কোনো ওয়ারেন্টি নেই
+অ্যাপটি কোনো প্রকার ওয়ারেন্টি ছাড়াই, প্রকাশ্য বা অন্তর্নিহিত, "যেমন আছে" ভিত্তিতে প্রদান করা হয়। আমরা নিশ্চয়তা দিই না যে অ্যাপটি ত্রুটিমুক্ত, বাধাহীন, বা কোনো নির্দিষ্ট উদ্দেশ্যের জন্য উপযুক্ত হবে।
+
+6. দায়বদ্ধতার সীমাবদ্ধতা
+আইন দ্বারা অনুমোদিত সর্বোচ্চ পরিমাণে, অমিত কুমার আগরওয়াল আপনার অ্যাপ ব্যবহারের ফলে উদ্ভূত কোনো পরোক্ষ, আনুষঙ্গিক বা পরিণামমূলক ক্ষতির জন্য দায়ী থাকবেন না, যার মধ্যে তৃতীয় পক্ষের UPI অ্যাপ ব্যবহার করে করা পেমেন্ট থেকে উদ্ভূত কোনো ডেটা হ্রাস বা আর্থিক ক্ষতিও অন্তর্ভুক্ত।
+
+7. সমাপ্তি
+আপনি যেকোনো সময় সেটিংস > আমার অ্যাকাউন্ট ও ডেটা মুছুন-এর মাধ্যমে অ্যাপ ব্যবহার বন্ধ করতে এবং আপনার অ্যাকাউন্ট মুছে ফেলতে পারেন। অ্যাপের অপব্যবহারের জন্য আমরা অ্যাক্সেস স্থগিত বা বন্ধ করতে পারি।
+
+8. প্রযোজ্য আইন
+এই শর্তাবলী ভারতের আইন দ্বারা নিয়ন্ত্রিত, আইনের দ্বন্দ্বের নীতি বিবেচনা না করে।
+
+9. এই শর্তাবলীতে পরিবর্তন
+আমরা সময়ে সময়ে এই শর্তাবলী আপডেট করতে পারি। পরিবর্তনের পরেও অ্যাপের ক্রমাগত ব্যবহার মানে আপনি আপডেট করা শর্তাবলী গ্রহণ করেছেন।
+
+10. যোগাযোগ করুন
+এই শর্তাবলী সম্পর্কে যেকোনো প্রশ্নের জন্য, amit.agrawal.hyd@outlook.com-এ অমিত কুমার আগরওয়ালের সাথে যোগাযোগ করুন।</value>
+  </data>
   <data name="Login_CreateAccount" xml:space="preserve">
     <value>অ্যাকাউন্ট তৈরি করুন</value>
   </data>
+  <data name="Login_DemoHint" xml:space="preserve">
+    <value>তাৎক্ষণিক, অফলাইন, কোনো সাইন-আপ ছাড়াই। গীতা (গৃহকর্মী) এবং রাজু (দুধওয়ালা)-এর নমুনা ডেটা দিয়ে দেখুন।</value>
+  </data>
+  <data name="Login_DisplayName" xml:space="preserve">
+    <value>আপনার নাম</value>
+  </data>
   <data name="Login_Email" xml:space="preserve">
     <value>ইমেইল</value>
+  </data>
+  <data name="Login_Failed" xml:space="preserve">
+    <value>সাইন ইন ব্যর্থ হয়েছে। আপনার তথ্য এবং সংযোগ পরীক্ষা করুন।</value>
+  </data>
+  <data name="Login_MissingFields" xml:space="preserve">
+    <value>অনুগ্রহ করে ইমেইল এবং পাসওয়ার্ড লিখুন</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
     <value>পাসওয়ার্ড</value>
   </data>
   <data name="Login_SignIn" xml:space="preserve">
     <value>সাইন ইন</value>
+  </data>
+  <data name="Login_ToggleMode" xml:space="preserve">
+    <value>নতুন? অ্যাকাউন্ট তৈরি করুন · আগে থেকেই আছে? সাইন ইন করুন</value>
   </data>
   <data name="Login_TryDemo" xml:space="preserve">
     <value>ডেমো দেখুন</value>
@@ -58,17 +371,185 @@
   <data name="Notify_SalaryTitle" xml:space="preserve">
     <value>বেতন বাকি</value>
   </data>
+  <data name="Onboard_GetStarted" xml:space="preserve">
+    <value>শুরু করুন</value>
+  </data>
+  <data name="Onboard_Next" xml:space="preserve">
+    <value>পরবর্তী</value>
+  </data>
+  <data name="Onboard_Skip" xml:space="preserve">
+    <value>এড়িয়ে যান</value>
+  </data>
+  <data name="Onboard_Slide1_Body" xml:space="preserve">
+    <value>উপস্থিত, অনুপস্থিত বা অর্ধদিবস চিহ্নিত করতে একটি তারিখে ট্যাপ করুন। দুধ ও সরবরাহও — সবকিছু একটি পরিষ্কার খাতায় থাকে।</value>
+  </data>
+  <data name="Onboard_Slide1_Title" xml:space="preserve">
+    <value>২-ট্যাপ খতিয়ান</value>
+  </data>
+  <data name="Onboard_Slide2_Body" xml:space="preserve">
+    <value>প্রতিদিন বিকেল ৫টায় একটি অনুস্মারক আজকের হাজিরা সম্পর্কে জিজ্ঞাসা করে। নোটিফিকেশন থেকেই 'অনুপস্থিত' চিহ্নিত করুন — অ্যাপ খোলার দরকার নেই।</value>
+  </data>
+  <data name="Onboard_Slide2_Title" xml:space="preserve">
+    <value>বিকেল ৫টায় কখনও ভুলবেন না</value>
+  </data>
+  <data name="Onboard_Slide3_Body" xml:space="preserve">
+    <value>মজুরি বিয়োগ অনুপস্থিতি বিয়োগ অগ্রিম — আপনার জন্য গণনা করা হয়। যেকোনো UPI অ্যাপ দিয়ে পেমেন্ট করুন অথবা নগদ লিপিবদ্ধ করুন, এবং হোয়াটসঅ্যাপে PDF রিপোর্ট শেয়ার করুন।</value>
+  </data>
+  <data name="Onboard_Slide3_Title" xml:space="preserve">
+    <value>UPI-এর মাধ্যমে সেকেন্ডে নিষ্পত্তি</value>
+  </data>
+  <data name="Report_Absences" xml:space="preserve">
+    <value>অনুপস্থিতি</value>
+  </data>
+  <data name="Report_Advances" xml:space="preserve">
+    <value>অগ্রিম</value>
+  </data>
+  <data name="Report_Bonuses" xml:space="preserve">
+    <value>বোনাস</value>
+  </data>
+  <data name="Report_Date" xml:space="preserve">
+    <value>তারিখ</value>
+  </data>
+  <data name="Report_Deduction" xml:space="preserve">
+    <value>কর্তন</value>
+  </data>
   <data name="Report_FinalPayable" xml:space="preserve">
     <value>প্রদেয় অর্থ</value>
+  </data>
+  <data name="Report_GeneratedBy" xml:space="preserve">
+    <value>তৈরি করেছে</value>
+  </data>
+  <data name="Report_GenerationFailed" xml:space="preserve">
+    <value>রিপোর্ট তৈরি করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</value>
+  </data>
+  <data name="Report_GrossWage" xml:space="preserve">
+    <value>মোট মজুরি</value>
+  </data>
+  <data name="Report_Helper" xml:space="preserve">
+    <value>সহায়ক</value>
+  </data>
+  <data name="Report_HouseholdTitle" xml:space="preserve">
+    <value>পরিবারের সারাংশ</value>
+  </data>
+  <data name="Report_LedgerTitle" xml:space="preserve">
+    <value>সহায়কের মাসিক খতিয়ান</value>
+  </data>
+  <data name="Report_Movements" xml:space="preserve">
+    <value>অর্থের লেনদেন</value>
+  </data>
+  <data name="Report_ShareTitle" xml:space="preserve">
+    <value>রিপোর্ট শেয়ার করুন</value>
+  </data>
+  <data name="Report_Status" xml:space="preserve">
+    <value>অবস্থা</value>
+  </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>মোট</value>
+  </data>
+  <data name="Report_Units" xml:space="preserve">
+    <value>ইউনিট</value>
+  </data>
+  <data name="Report_UnpaidAbsences" xml:space="preserve">
+    <value>অবেতনিক অনুপস্থিতি</value>
+  </data>
+  <data name="Reports_GenerateShare" xml:space="preserve">
+    <value>PDF তৈরি ও শেয়ার করুন</value>
+  </data>
+  <data name="Reports_HouseholdDescription" xml:space="preserve">
+    <value>আপনার সকল সহায়ক জুড়ে সামগ্রিক সারাংশ</value>
+  </data>
+  <data name="Reports_LedgerDescription" xml:space="preserve">
+    <value>একজন সহায়কের দৈনিক হাজিরা ও অর্থের হিসাব</value>
+  </data>
+  <data name="Reports_Title" xml:space="preserve">
+    <value>রিপোর্ট</value>
+  </data>
+  <data name="Security_RootedMessage" xml:space="preserve">
+    <value>এই ডিভাইসটি রুটেড/জেলব্রেক করা বলে মনে হচ্ছে। আপনার আর্থিক তথ্য এখানে কম সুরক্ষিত হতে পারে। আমরা একটি সাধারণ ডিভাইসে PakkaHisaab ব্যবহার করার পরামর্শ দিই।</value>
+  </data>
+  <data name="Security_RootedTitle" xml:space="preserve">
+    <value>ডিভাইস সতর্কতা</value>
+  </data>
+  <data name="Settings_Account" xml:space="preserve">
+    <value>অ্যাকাউন্ট</value>
   </data>
   <data name="Settings_DeleteAccount" xml:space="preserve">
     <value>আমার অ্যাকাউন্ট ও ডেটা মুছুন</value>
   </data>
+  <data name="Settings_DeleteDemoNote" xml:space="preserve">
+    <value>ডেমো ডেটা এই ডিভাইস থেকে মুছে ফেলা হয়েছে।</value>
+  </data>
+  <data name="Settings_DeleteFailed" xml:space="preserve">
+    <value>অ্যাকাউন্ট মুছে ফেলা যায়নি। আপনার পাসওয়ার্ড এবং সংযোগ পরীক্ষা করুন।</value>
+  </data>
+  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
+    <value>নিশ্চিত করতে আপনার পাসওয়ার্ড লিখুন</value>
+  </data>
+  <data name="Settings_DeleteTitle" xml:space="preserve">
+    <value>অ্যাকাউন্ট মুছুন</value>
+  </data>
+  <data name="Settings_DeleteWarning" xml:space="preserve">
+    <value>এটি আপনার অ্যাকাউন্ট এবং প্রতিটি সহায়ক, হাজিরা ও পেমেন্ট রেকর্ড স্থায়ীভাবে মুছে ফেলে — এই ডিভাইসে এবং আমাদের সার্ভারে। এটি পূর্বাবস্থায় ফেরানো যাবে না।</value>
+  </data>
+  <data name="Settings_Help" xml:space="preserve">
+    <value>সহায়তা</value>
+  </data>
+  <data name="Settings_HelpAndVoice" xml:space="preserve">
+    <value>সহায়তা ও কণ্ঠস্বর কমান্ড</value>
+  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>ভাষা</value>
   </data>
+  <data name="Settings_Legal" xml:space="preserve">
+    <value>আইনি তথ্য</value>
+  </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>লগ আউট</value>
+  </data>
+  <data name="Settings_Privacy" xml:space="preserve">
+    <value>গোপনীয়তা নীতি</value>
+  </data>
+  <data name="Settings_Terms" xml:space="preserve">
+    <value>পরিষেবার শর্তাবলী</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>সেটিংস</value>
+  </data>
+  <data name="Settle_AmountToPay" xml:space="preserve">
+    <value>প্রদানের পরিমাণ (প্রয়োজনে সম্পাদনা করুন)</value>
+  </data>
+  <data name="Settle_ConfirmBody" xml:space="preserve">
+    <value>আপনি কি {0}-কে ₹ {1:N0} পেমেন্ট সম্পন্ন করেছেন?</value>
+  </data>
+  <data name="Settle_ConfirmTitle" xml:space="preserve">
+    <value>পেমেন্ট সম্পন্ন হয়েছে?</value>
+  </data>
+  <data name="Settle_ConfirmYes" xml:space="preserve">
+    <value>হ্যাঁ, পরিশোধ করা হয়েছে</value>
+  </data>
+  <data name="Settle_InvalidAmount" xml:space="preserve">
+    <value>একটি সঠিক পরিমাণ লিখুন</value>
+  </data>
+  <data name="Settle_LogCash" xml:space="preserve">
+    <value>নগদ পেমেন্ট লিপিবদ্ধ করুন</value>
+  </data>
+  <data name="Settle_NoUpiApp" xml:space="preserve">
+    <value>এই ডিভাইসে কোনো UPI অ্যাপ পাওয়া যায়নি</value>
+  </data>
+  <data name="Settle_NoUpiIdHint" xml:space="preserve">
+    <value>এক-ট্যাপ UPI পেমেন্ট চালু করতে এই সহায়কের জন্য একটি UPI আইডি যোগ করুন।</value>
+  </data>
+  <data name="Settle_PayVia" xml:space="preserve">
+    <value>UPI-এর মাধ্যমে পেমেন্ট করুন</value>
+  </data>
+  <data name="Settle_Recorded" xml:space="preserve">
+    <value>পেমেন্ট লিপিবদ্ধ হয়েছে</value>
+  </data>
+  <data name="Settle_Title" xml:space="preserve">
+    <value>নিষ্পত্তি</value>
+  </data>
+  <data name="Settle_UpiNote" xml:space="preserve">
+    <value>বেতন {0} - PakkaHisaab</value>
   </data>
   <data name="Status_Absent" xml:space="preserve">
     <value>অনুপস্থিত</value>
@@ -87,5 +568,8 @@
   </data>
   <data name="Tab_Settings" xml:space="preserve">
     <value>সেটিংস</value>
+  </data>
+  <data name="Voice_NotUnderstood" xml:space="preserve">
+    <value>দুঃখিত, বুঝতে পারিনি। চেষ্টা করুন: 'Gave Geeta 500 advance'।</value>
   </data>
 </root>

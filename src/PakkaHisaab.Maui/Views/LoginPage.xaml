@@ -44,7 +44,7 @@
                     IsEnabled="{Binding IsNotBusy}" />
 
             <Label HorizontalTextAlignment="Center" TextColor="{StaticResource Primary}"
-                   FontFamily="PoppinsSemiBold"
+                   FontFamily="{DynamicResource FontSemiBold}"
                    Text="{helpers:Translate Login_ToggleMode}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToggleModeCommand}" />

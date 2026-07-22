@@ -16,7 +16,7 @@
 
             <Border Style="{StaticResource Card}" BackgroundColor="#F0FDFA">
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label VerticalOptions="Center" FontFamily="PoppinsSemiBold"
+                    <Label VerticalOptions="Center" FontFamily="{DynamicResource FontSemiBold}"
                            Text="{helpers:Translate Ledger_AdvancesThisMonth}" />
                     <Label Grid.Column="1" Style="{StaticResource TitleLabel}" FontSize="20"
                            TextColor="{StaticResource Primary}" Text="{Binding AdvanceTotal}" />
@@ -32,10 +32,10 @@
                     <DataTemplate x:DataType="vm:LedgerRow">
                         <Border Style="{StaticResource Card}" Padding="14" Margin="0,0,0,10">
                             <Grid ColumnDefinitions="*,Auto,Auto" RowDefinitions="Auto,Auto">
-                                <Label FontFamily="PoppinsSemiBold" Text="{Binding TypeLabel}" />
+                                <Label FontFamily="{DynamicResource FontSemiBold}" Text="{Binding TypeLabel}" />
                                 <Label Grid.Row="1" Style="{StaticResource MutedLabel}" Text="{Binding DateLabel}" />
                                 <Label Grid.Column="1" Grid.RowSpan="2" VerticalOptions="Center"
-                                       FontFamily="PoppinsBold" FontSize="16"
+                                       FontFamily="{DynamicResource FontBold}" FontSize="16"
                                        TextColor="{StaticResource TextPrimary}"
                                        Text="{Binding AmountLabel}" />
                                 <Label Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource IconLabel}"

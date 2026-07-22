@@ -4,14 +4,68 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_SplashTagline" xml:space="preserve">
+    <value>ಸಹಾಯಕರ ಹಾಜರಾತಿ ಮತ್ತು ಸಂಬಳ, ಸರಳಗೊಳಿಸಲಾಗಿದೆ</value>
+  </data>
   <data name="App_Tagline" xml:space="preserve">
     <value>ಟ್ಯಾಪ್ ಮಾಡಿ. ಟ್ರ್ಯಾಕ್ ಮಾಡಿ. ಸೆಟಲ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Calendar_Ledger" xml:space="preserve">
+    <value>ಮುಂಗಡಗಳು ಮತ್ತು ಖಾತೆ ಪುಸ್ತಕ</value>
+  </data>
+  <data name="Calendar_Summary" xml:space="preserve">
+    <value>{0} ದಿನ(ಗಳು) ಗೈರುಹಾಜರು · ಪಾವತಿಸಬೇಕಾದದ್ದು ₹ {1:N0}</value>
+  </data>
+  <data name="Calendar_UnitsPrompt" xml:space="preserve">
+    <value>ವಿತರಿಸಿದ ಘಟಕಗಳು ({0})</value>
+  </data>
+  <data name="Calendar_UnitsSummary" xml:space="preserve">
+    <value>{0:0.#} {1} ವಿತರಿಸಲಾಗಿದೆ · ಪಾವತಿಸಬೇಕಾದದ್ದು ₹ {2:N0}</value>
+  </data>
+  <data name="Calendar_UnitsTitle" xml:space="preserve">
+    <value>ವಿತರಣೆ</value>
+  </data>
+  <data name="Category_Cleaner" xml:space="preserve">
+    <value>ಕ್ಲೀನರ್</value>
+  </data>
+  <data name="Category_Cook" xml:space="preserve">
+    <value>ಅಡುಗೆಯವರು</value>
+  </data>
+  <data name="Category_Driver" xml:space="preserve">
+    <value>ಚಾಲಕ</value>
+  </data>
+  <data name="Category_Gardener" xml:space="preserve">
+    <value>ತೋಟಗಾರ</value>
+  </data>
+  <data name="Category_HouseHelp" xml:space="preserve">
+    <value>ಮನೆ ಸಹಾಯಕ</value>
+  </data>
+  <data name="Category_MilkMan" xml:space="preserve">
+    <value>ಹಾಲಿನವರು</value>
+  </data>
+  <data name="Category_Newspaper" xml:space="preserve">
+    <value>ಪತ್ರಿಕೆ ವಿತರಕ</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>ಇತರೆ</value>
+  </data>
+  <data name="Category_Tutor" xml:space="preserve">
+    <value>ಟ್ಯೂಟರ್</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>ರದ್ದುಮಾಡಿ</value>
   </data>
+  <data name="Common_Confirm" xml:space="preserve">
+    <value>ಖಚಿತಪಡಿಸಿ</value>
+  </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>ಅಳಿಸಿ</value>
+  </data>
+  <data name="Common_Deleted" xml:space="preserve">
+    <value>ಅಳಿಸಲಾಗಿದೆ</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>ಸರಿ</value>
   </data>
   <data name="Common_Or" xml:space="preserve">
     <value>ಅಥವಾ</value>
@@ -22,6 +76,12 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>ಉಳಿಸಲಾಗಿದೆ</value>
   </data>
+  <data name="Dash_DemoBanner" xml:space="preserve">
+    <value>ಡೆಮೊ ಮೋಡ್ — ಮಾದರಿ ಡೇಟಾ, ಸಿಂಕ್ ಆಫ್. ಡೇಟಾ ಈ ಸಾಧನದಲ್ಲಿಯೇ ಉಳಿಯುತ್ತದೆ.</value>
+  </data>
+  <data name="Dash_Empty" xml:space="preserve">
+    <value>ಇನ್ನೂ ಯಾವುದೇ ಸಹಾಯಕರಿಲ್ಲ. ನಿಮ್ಮ ಮೊದಲ ಸಹಾಯಕರನ್ನು ಸೇರಿಸಲು + ಟ್ಯಾಪ್ ಮಾಡಿ.</value>
+  </data>
   <data name="Dash_OpenCalendar" xml:space="preserve">
     <value>ಕ್ಯಾಲೆಂಡರ್</value>
   </data>
@@ -31,17 +91,270 @@
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>ಈ ತಿಂಗಳು ಪಾವತಿಸಬೇಕಾದದ್ದು:</value>
   </data>
+  <data name="Day_Fr" xml:space="preserve">
+    <value>ಶು</value>
+  </data>
+  <data name="Day_Mo" xml:space="preserve">
+    <value>ಸೋ</value>
+  </data>
+  <data name="Day_Sa" xml:space="preserve">
+    <value>ಶನಿ</value>
+  </data>
+  <data name="Day_Su" xml:space="preserve">
+    <value>ಭಾ</value>
+  </data>
+  <data name="Day_Th" xml:space="preserve">
+    <value>ಗು</value>
+  </data>
+  <data name="Day_Tu" xml:space="preserve">
+    <value>ಮಂ</value>
+  </data>
+  <data name="Day_We" xml:space="preserve">
+    <value>ಬು</value>
+  </data>
+  <data name="Forecast_Pattern" xml:space="preserve">
+    <value>ಸಾಮಾನ್ಯವಾಗಿ {0}ಗಳಂದು ಗೈರುಹಾಜರು · ~{1}/ತಿಂಗಳಿಗೆ</value>
+  </data>
+  <data name="Help_Advance_Examples" xml:space="preserve">
+    <value>• "Gave Raju an advance of 200"
+• "200 rupees udhaar to Geeta"</value>
+  </data>
+  <data name="Help_Attendance_Examples" xml:space="preserve">
+    <value>• "Geeta was absent today" / "Geeta didn't come" / "Geeta chutti"
+• "Geeta came" / "Geeta is present" / "Geeta aayi"
+• "Half day for Geeta" / "Geeta half-day" / "Geeta aadha din"</value>
+  </data>
+  <data name="Help_Attendance_Title" xml:space="preserve">
+    <value>ಹಾಜರಾತಿ (ಫಲಿತಾಂಶ ತೋರಿಸಲು ಆ ಸಹಾಯಕರ ಕ್ಯಾಲೆಂಡರ್ ತೆರೆಯುತ್ತದೆ)</value>
+  </data>
+  <data name="Help_Bonus_Examples" xml:space="preserve">
+    <value>• "Diwali bonus 500 for Geeta"</value>
+  </data>
+  <data name="Help_Calendar_Body" xml:space="preserve">
+    <value>ಹಾಜರು → ಗೈರುಹಾಜರು → ಅರ್ಧ ದಿನ ಎಂದು ಬದಲಾಯಿಸಲು ಒಂದು ದಿನವನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ. ಪ್ರತಿ-ಘಟಕ ಸಹಾಯಕರಿಗೆ (ಉದಾ. ಹಾಲಿನವರು), ಬದಲಿಗೆ ವಿತರಿಸಿದ ಘಟಕಗಳನ್ನು ನಮೂದಿಸಲು ಒಂದು ದಿನವನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ. ತಿಂಗಳ ಸಾರಾಂಶ ಮತ್ತು ಚಾಲ್ತಿಯಲ್ಲಿರುವ ಪಾವತಿಸಬೇಕಾದ ಮೊತ್ತವನ್ನು ತೋರಿಸುತ್ತದೆ.</value>
+  </data>
+  <data name="Help_Calendar_Title" xml:space="preserve">
+    <value>ಕ್ಯಾಲೆಂಡರ್</value>
+  </data>
+  <data name="Help_Deduction_Examples" xml:space="preserve">
+    <value>• "Deducted 500 rupees from Geeta"
+• "Kata 100 from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Examples" xml:space="preserve">
+    <value>• "Raju delivered 1.5 litres"
+• "1.5 liters milk from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Title" xml:space="preserve">
+    <value>ವಿತರಣೆ — ಪ್ರತಿ-ಘಟಕ ಸಹಾಯಕರು, ಉದಾ. ಹಾಲಿನವರು (ಕ್ಯಾಲೆಂಡರ್ ಅನ್ನೂ ತೆರೆಯುತ್ತದೆ)</value>
+  </data>
+  <data name="Help_EditDelete_Body" xml:space="preserve">
+    <value>ಮುಖಪುಟದಲ್ಲಿ ಸಹಾಯಕರ ಕಾರ್ಡ್‌ನಲ್ಲಿರುವ ಪೆನ್ಸಿಲ್ ಐಕಾನ್ ಟ್ಯಾಪ್ ಮಾಡಿ ಅವರ ವಿವರಗಳನ್ನು ಎಡಿಟ್ ಮಾಡಿ, ಅಥವಾ ಅದೇ ಫಾರ್ಮ್‌ನಿಂದ ಅವರನ್ನು ಅಳಿಸಿ.</value>
+  </data>
+  <data name="Help_EditDelete_Title" xml:space="preserve">
+    <value>ಸಹಾಯಕರನ್ನು ಎಡಿಟ್ / ಅಳಿಸಿ</value>
+  </data>
+  <data name="Help_Features" xml:space="preserve">
+    <value>ವೈಶಿಷ್ಟ್ಯಗಳು</value>
+  </data>
+  <data name="Help_Home_Body" xml:space="preserve">
+    <value>ಪ್ರತಿಯೊಬ್ಬ ಸಹಾಯಕ, ಇಂದಿನ ಹಾಜರಾತಿ ಸ್ಥಿತಿ ಮತ್ತು ತಿಂಗಳ ಒಟ್ಟು ಪಾವತಿಸಬೇಕಾದ ಮೊತ್ತವನ್ನು ನೋಡಿ. ಧ್ವನಿಯ ಮೂಲಕ ಹಾಜರಾತಿ, ವಿತರಣೆಗಳು ಅಥವಾ ಖಾತೆ ನಮೂದುಗಳನ್ನು ದಾಖಲಿಸಲು ಮೈಕ್ ಟ್ಯಾಪ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Help_Home_Title" xml:space="preserve">
+    <value>ಮುಖಪುಟ</value>
+  </data>
+  <data name="Help_Ledger_Body" xml:space="preserve">
+    <value>ಸಹಾಯಕರ ಸಂಬಳಕ್ಕೆ ಎದುರಾಗಿ ಮುಂಗಡಗಳು, ಬೋನಸ್‌ಗಳು ಮತ್ತು ಕಡಿತಗಳನ್ನು ದಾಖಲಿಸಿ ಮತ್ತು ತಿಂಗಳ ಚಾಲ್ತಿಯಲ್ಲಿರುವ ಒಟ್ಟು ಮೊತ್ತ ನೋಡಿ.</value>
+  </data>
+  <data name="Help_Payment_Examples" xml:space="preserve">
+    <value>• "Paid Geeta 4500 salary"
+• "Settled Raju 1260"</value>
+  </data>
+  <data name="Help_Payment_Title" xml:space="preserve">
+    <value>ಪಾವತಿ / ಸೆಟಲ್‌ಮೆಂಟ್</value>
+  </data>
+  <data name="Help_Reports_Body" xml:space="preserve">
+    <value>ಒಬ್ಬ ಸಹಾಯಕರಿಗೆ ಅಥವಾ ಇಡೀ ಮನೆಗೆ PDF ವರದಿ ರಚಿಸಿ.</value>
+  </data>
+  <data name="Help_Settle_Body" xml:space="preserve">
+    <value>ಸಂಬಳದ ವಿವರ (ಒಟ್ಟು ಸಂಬಳ − ಪಾವತಿಸದ ಗೈರುಹಾಜರಿಗಳು − ಮುಂಗಡಗಳು) ಪರಿಶೀಲಿಸಿ ಮತ್ತು UPI ಮೂಲಕ ಪಾವತಿಸಿ ಅಥವಾ ನಗದು ಪಾವತಿ ದಾಖಲಿಸಿ.</value>
+  </data>
+  <data name="Help_Tip" xml:space="preserve">
+    <value>ಸಲಹೆ: ಹಾಜರಾತಿ ಮತ್ತು ವಿತರಣೆ ಆದೇಶಗಳು ನಿಮ್ಮನ್ನು ನೇರವಾಗಿ ಸಹಾಯಕರ ಕ್ಯಾಲೆಂಡರ್‌ಗೆ ಕರೆದೊಯ್ಯುತ್ತವೆ, ಇದರಿಂದ ನೀವು ದಾಖಲಾದ ದಿನವನ್ನು ನೋಡಬಹುದು. ಮುಂಗಡ, ಕಡಿತ, ಬೋನಸ್ ಮತ್ತು ಪಾವತಿ ಆದೇಶಗಳು ಮುಖಪುಟದಲ್ಲಿಯೇ ಇದ್ದು ಅಲ್ಲಿನ ಒಟ್ಟು ಮೊತ್ತಗಳನ್ನು ನವೀಕರಿಸುತ್ತವೆ.</value>
+  </data>
+  <data name="Help_VoiceCommands" xml:space="preserve">
+    <value>ಧ್ವನಿ ಆದೇಶಗಳು</value>
+  </data>
+  <data name="Help_VoiceIntro" xml:space="preserve">
+    <value>ಮುಖಪುಟದಲ್ಲಿ ಮೈಕ್ ಬಟನ್ ಟ್ಯಾಪ್ ಮಾಡಿ ಮತ್ತು ಇವುಗಳಲ್ಲಿ ಯಾವುದನ್ನಾದರೂ ಹೇಳಿ. ಸಹಾಯಕರ ಹೆಸರನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ಹೇಳಿ — ನಿಮಗೆ ಒಬ್ಬರೇ ಸಹಾಯಕರಿದ್ದರೆ, ಹೆಸರನ್ನು ಬಿಟ್ಟುಬಿಡಬಹುದು. ಇದು ಸಂಪೂರ್ಣವಾಗಿ ಆಫ್‌ಲೈನ್‌ನಲ್ಲಿ, ಇಂಗ್ಲಿಷ್ ಅಥವಾ ರೋಮನ್ ಲಿಪಿಯ ಹಿಂದಿಯಲ್ಲಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ.</value>
+  </data>
+  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
+    <value>ತಿಂಗಳಿಗೆ ಅನುಮತಿಸಲಾದ ಗೈರುಹಾಜರಿಗಳು</value>
+  </data>
+  <data name="HelperForm_CarryOver" xml:space="preserve">
+    <value>ಬಳಸದ ರಜೆಯನ್ನು ಮುಂದಿನ ತಿಂಗಳಿಗೆ ಸಾಗಿಸಿ</value>
+  </data>
+  <data name="HelperForm_Category" xml:space="preserve">
+    <value>ವರ್ಗ</value>
+  </data>
+  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
+    <value>ಈ ಸಹಾಯಕರನ್ನು ಮತ್ತು ಅವರ ದಾಖಲೆಗಳನ್ನು ಆ್ಯಪ್‌ನಿಂದ ತೆಗೆದುಹಾಕಬೇಕೆ?</value>
+  </data>
+  <data name="HelperForm_MonthlyWage" xml:space="preserve">
+    <value>ಮಾಸಿಕ ಸಂಬಳ (₹)</value>
+  </data>
+  <data name="HelperForm_Name" xml:space="preserve">
+    <value>ಹೆಸರು</value>
+  </data>
+  <data name="HelperForm_NameRequired" xml:space="preserve">
+    <value>ದಯವಿಟ್ಟು ಹೆಸರನ್ನು ನಮೂದಿಸಿ</value>
+  </data>
+  <data name="HelperForm_PerUnit" xml:space="preserve">
+    <value>ಪ್ರತಿ ವಿತರಣಾ ಘಟಕಕ್ಕೆ ಪಾವತಿ (ಹಾಲು, ಪತ್ರಿಕೆ…)</value>
+  </data>
+  <data name="HelperForm_RatePerUnit" xml:space="preserve">
+    <value>ಪ್ರತಿ ಘಟಕದ ದರ (₹)</value>
+  </data>
+  <data name="HelperForm_Title" xml:space="preserve">
+    <value>ಸಹಾಯಕ</value>
+  </data>
+  <data name="HelperForm_UnitLabel" xml:space="preserve">
+    <value>ಘಟಕ</value>
+  </data>
+  <data name="HelperForm_UpiId" xml:space="preserve">
+    <value>UPI ID (ಪಾವತಿಗಳಿಗಾಗಿ)</value>
+  </data>
+  <data name="HelperForm_WhatsApp" xml:space="preserve">
+    <value>WhatsApp ಸಂಖ್ಯೆ</value>
+  </data>
+  <data name="LedgerType_Advance" xml:space="preserve">
+    <value>ಮುಂಗಡ</value>
+  </data>
+  <data name="LedgerType_Bonus" xml:space="preserve">
+    <value>ಬೋನಸ್</value>
+  </data>
+  <data name="LedgerType_Deduction" xml:space="preserve">
+    <value>ಕಡಿತ</value>
+  </data>
+  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
+    <value>ವಿತರಣಾ ಶುಲ್ಕ</value>
+  </data>
+  <data name="LedgerType_SalaryPayment" xml:space="preserve">
+    <value>ಸಂಬಳ ಪಾವತಿ</value>
+  </data>
+  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
+    <value>ಈ ತಿಂಗಳ ಮುಂಗಡಗಳು</value>
+  </data>
+  <data name="Ledger_Amount" xml:space="preserve">
+    <value>ಮೊತ್ತ (₹)</value>
+  </data>
+  <data name="Ledger_DeleteConfirm" xml:space="preserve">
+    <value>ಈ ನಮೂದನ್ನು ಅಳಿಸಬೇಕೆ? ಇದನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ.</value>
+  </data>
+  <data name="Ledger_Empty" xml:space="preserve">
+    <value>ಈ ತಿಂಗಳು ಯಾವುದೇ ನಮೂದುಗಳಿಲ್ಲ. ಮುಂಗಡ ದಾಖಲಿಸಲು + ಟ್ಯಾಪ್ ಮಾಡಿ.</value>
+  </data>
+  <data name="Ledger_InvalidAmount" xml:space="preserve">
+    <value>ಮಾನ್ಯವಾದ ಮೊತ್ತವನ್ನು ನಮೂದಿಸಿ</value>
+  </data>
+  <data name="Ledger_NewEntry" xml:space="preserve">
+    <value>ಹೊಸ ಖಾತೆ ನಮೂದು</value>
+  </data>
+  <data name="Ledger_Note" xml:space="preserve">
+    <value>ಟಿಪ್ಪಣಿ (ಐಚ್ಛಿಕ)</value>
+  </data>
+  <data name="Legal_PrivacyBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+PakkaHisaab ("ಆ್ಯಪ್") ಅನ್ನು Amit Kumar Agrawal ("ನಾವು", "ನಮ್ಮ") ಅಭಿವೃದ್ಧಿಪಡಿಸಿ ನಿರ್ವಹಿಸುತ್ತಾರೆ. ಈ ಗೌಪ್ಯತಾ ನೀತಿಯು ನೀವು ಆ್ಯಪ್ ಬಳಸುವಾಗ ನಾವು ಮಾಹಿತಿಯನ್ನು ಹೇಗೆ ನಿರ್ವಹಿಸುತ್ತೇವೆ ಎಂಬುದನ್ನು ವಿವರಿಸುತ್ತದೆ.
+
+1. ನಾವು ಸಂಗ್ರಹಿಸುವ ಮಾಹಿತಿ
+- ನೀವು ನಮೂದಿಸುವ ಮನೆ ಸಹಾಯಕರ ವಿವರಗಳು: ಹೆಸರು, ವರ್ಗ, WhatsApp ಸಂಖ್ಯೆ ಮತ್ತು UPI ID.
+- ನಿಮ್ಮ ಸಹಾಯಕರಿಗಾಗಿ ನೀವು ರಚಿಸುವ ಹಾಜರಾತಿ, ಸಂಬಳ, ಮುಂಗಡ ಮತ್ತು ಸೆಟಲ್‌ಮೆಂಟ್ ದಾಖಲೆಗಳು.
+- Microsoft App Center ಮೂಲಕ ಮೂಲಭೂತ ಸಾಧನ ಮತ್ತು ಬಳಕೆಯ ಡಯಾಗ್ನೋಸ್ಟಿಕ್ಸ್ (ಕ್ರ್ಯಾಷ್ ಲಾಗ್‌ಗಳು, ಆ್ಯಪ್ ಕಾರ್ಯಕ್ಷಮತೆ), ದೋಷಗಳನ್ನು ಸರಿಪಡಿಸಲು ಮತ್ತು ಸ್ಥಿರತೆಯನ್ನು ಸುಧಾರಿಸಲು ಮಾತ್ರ ಬಳಸಲಾಗುತ್ತದೆ.
+- ನೀವು ಮೈಕ್ರೊಫೋನ್ ಬಟನ್ ಟ್ಯಾಪ್ ಮಾಡಿದಾಗ ಮಾತ್ರ ಸೆರೆಹಿಡಿಯಲಾದ ಧ್ವನಿ ಆಡಿಯೋ, ಇದನ್ನು ಹಾಜರಾತಿ/ಖಾತೆ ನಮೂದನ್ನು ದಾಖಲಿಸಲು ಸಾಧನದಲ್ಲೇ ಸಂಸ್ಕರಿಸಲಾಗುತ್ತದೆ ಮತ್ತು ಸಂಸ್ಕರಣೆಯ ನಂತರ ಸಂಗ್ರಹಿಸಲಾಗುವುದಿಲ್ಲ ಅಥವಾ ರವಾನಿಸಲಾಗುವುದಿಲ್ಲ.
+
+2. ನಾವು ಮಾಹಿತಿಯನ್ನು ಹೇಗೆ ಬಳಸುತ್ತೇವೆ
+ನೀವು ನಮೂದಿಸುವ ಡೇಟಾವನ್ನು ಆ್ಯಪ್‌ನ ಮುಖ್ಯ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ನಡೆಸಲು ಮಾತ್ರ ಬಳಸಲಾಗುತ್ತದೆ - ಹಾಜರಾತಿ ಟ್ರ್ಯಾಕ್ ಮಾಡುವುದು, ಸಂಬಳ ಲೆಕ್ಕಹಾಕುವುದು ಮತ್ತು ನೀವು ನಿರ್ವಹಿಸುವ ಸಹಾಯಕರ ಪಾವತಿಗಳನ್ನು ದಾಖಲಿಸುವುದು. ಡೆಮೊ ಮೋಡ್‌ನಲ್ಲಿ, ಎಲ್ಲಾ ಡೇಟಾ ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿಯೇ ಉಳಿಯುತ್ತದೆ ಮತ್ತು ಏನನ್ನೂ ಸಿಂಕ್ ಮಾಡಲಾಗುವುದಿಲ್ಲ.
+
+3. ಡೇಟಾ ಸಂಗ್ರಹಣೆ ಮತ್ತು ಹಂಚಿಕೆ
+ನಿಮ್ಮ ಡೇಟಾವನ್ನು ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಸ್ಥಳೀಯವಾಗಿ (SQLite) ಸಂಗ್ರಹಿಸಲಾಗುತ್ತದೆ. ನೀವು ಖಾತೆಯೊಂದಿಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿದರೆ (ಡೆಮೊ ಅಲ್ಲದ ಮೋಡ್), ನಿಮ್ಮ ಡೇಟಾ ನಿಮ್ಮ ಸ್ವಂತ ಸಾಧನಗಳಾದ್ಯಂತ ನೀವು ಪ್ರವೇಶಿಸಲು ಸಾಧ್ಯವಾಗುವಂತೆ ಮಾತ್ರ ನಮ್ಮ ಸರ್ವರ್‌ಗಳಿಗೆ ಸಿಂಕ್ ಆಗುತ್ತದೆ. ನಾವು ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ ಅಥವಾ ಜಾಹೀರಾತಿಗಾಗಿ ಮೂರನೇ ವ್ಯಕ್ತಿಗಳೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳುವುದಿಲ್ಲ. ಪಾವತಿಗಳನ್ನು ನಿಮ್ಮ ಸ್ವಂತ ಸ್ಥಾಪಿತ UPI ಆ್ಯಪ್‌ಗಳ ಮೂಲಕ ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತದೆ (Google Pay, PhonePe, Paytm, ಇತ್ಯಾದಿ) - ಆ್ಯಪ್ ಎಂದಿಗೂ ನಿಮ್ಮ ಬ್ಯಾಂಕ್ ರುಜುವಾತುಗಳನ್ನು ಸಂಸ್ಕರಿಸುವುದಿಲ್ಲ ಅಥವಾ ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ.
+
+4. ಡೇಟಾ ಧಾರಣೆ ಮತ್ತು ಅಳಿಸುವಿಕೆ
+ನೀವು ಆ್ಯಪ್‌ನೊಳಗಿಂದ ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ಯಾವುದೇ ಸಹಾಯಕರ ದಾಖಲೆಯನ್ನು ಅಳಿಸಬಹುದು. ನೀವು Settings &gt; Delete My Account &amp; Data ಮೂಲಕ ನಿಮ್ಮ ಖಾತೆ ಮತ್ತು ಎಲ್ಲಾ ಸಂಬಂಧಿತ ಡೇಟಾವನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಬಹುದು.
+
+5. ಭದ್ರತೆ
+ಸಿಂಕ್ ಮಾಡಿದ ಖಾತೆಗಳಿಗಾಗಿ ಸ್ಥಳೀಯ ಸಂಗ್ರಹಣೆ ಮತ್ತು ಸುರಕ್ಷಿತ ಪ್ರಸರಣ (HTTPS) ಸೇರಿದಂತೆ ನಿಮ್ಮ ಡೇಟಾವನ್ನು ರಕ್ಷಿಸಲು ನಾವು ಸಮಂಜಸವಾದ ತಾಂತ್ರಿಕ ಕ್ರಮಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತೇವೆ.
+
+6. ಮಕ್ಕಳ ಗೌಪ್ಯತೆ
+ಆ್ಯಪ್ ಮಕ್ಕಳ ಗುರಿಯನ್ನು ಹೊಂದಿಲ್ಲ ಮತ್ತು 18 ವರ್ಷಕ್ಕಿಂತ ಕಡಿಮೆ ವಯಸ್ಸಿನ ಯಾರಾದರೂ ಬಳಸಲು ಉದ್ದೇಶಿಸಿಲ್ಲ.
+
+7. ಈ ನೀತಿಗೆ ಬದಲಾವಣೆಗಳು
+ನಾವು ಕಾಲಕಾಲಕ್ಕೆ ಈ ನೀತಿಯನ್ನು ನವೀಕರಿಸಬಹುದು. ಬದಲಾವಣೆಗಳ ನಂತರ ಆ್ಯಪ್‌ನ ಮುಂದುವರಿದ ಬಳಕೆ ಎಂದರೆ ನೀವು ನವೀಕರಿಸಿದ ನೀತಿಯನ್ನು ಒಪ್ಪಿಕೊಳ್ಳುತ್ತೀರಿ ಎಂದರ್ಥ.
+
+8. ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ
+ಯಾವುದೇ ಗೌಪ್ಯತಾ ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ವಿನಂತಿಗಳಿಗಾಗಿ, Amit Kumar Agrawal ಅವರನ್ನು amit.agrawal.hyd@outlook.com ನಲ್ಲಿ ಸಂಪರ್ಕಿಸಿ.</value>
+  </data>
+  <data name="Legal_TermsBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+ಈ ಸೇವಾ ನಿಯಮಗಳು ("ನಿಯಮಗಳು") Amit Kumar Agrawal ("ನಾವು", "ನಮ್ಮ") ಅಭಿವೃದ್ಧಿಪಡಿಸಿ ನಿರ್ವಹಿಸುವ PakkaHisaab ("ಆ್ಯಪ್") ಬಳಕೆಯನ್ನು ನಿಯಂತ್ರಿಸುತ್ತವೆ. ಆ್ಯಪ್ ಬಳಸುವ ಮೂಲಕ, ನೀವು ಈ ನಿಯಮಗಳಿಗೆ ಒಪ್ಪುತ್ತೀರಿ.
+
+1. ಆ್ಯಪ್‌ನ ಬಳಕೆ
+PakkaHisaab ನೀವು ನಿರ್ವಹಿಸುವ ಮನೆ ಸಹಾಯಕರಿಗೆ (ಮನೆ ಸಹಾಯಕಿ, ಹಾಲಿನವರು, ಚಾಲಕರು, ಇತ್ಯಾದಿ) ಹಾಜರಾತಿ, ಸಂಬಳ, ಮುಂಗಡಗಳು ಮತ್ತು ಪಾವತಿಗಳನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ನೀವು ನಮೂದಿಸುವ ಡೇಟಾದ ನಿಖರತೆಗೆ ನೀವು ಜವಾಬ್ದಾರರಾಗಿರುತ್ತೀರಿ.
+
+2. ನಿಮ್ಮ ಖಾತೆ
+ನಿಮ್ಮ ಲಾಗಿನ್ ರುಜುವಾತುಗಳ ಗೌಪ್ಯತೆಯನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಲು ಮತ್ತು ನಿಮ್ಮ ಖಾತೆಯಡಿಯಲ್ಲಿ ನಡೆಯುವ ಎಲ್ಲಾ ಚಟುವಟಿಕೆಗಳಿಗೆ ನೀವು ಜವಾಬ್ದಾರರಾಗಿರುತ್ತೀರಿ. ಡೆಮೊ ಮೋಡ್‌ಗೆ ಖಾತೆ ಅಗತ್ಯವಿಲ್ಲ ಮತ್ತು ಎಲ್ಲಾ ಡೇಟಾವನ್ನು ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಮಾತ್ರ ಇರಿಸುತ್ತದೆ.
+
+3. ಪಾವತಿಗಳು
+ಆ್ಯಪ್ ಸ್ವತಃ ಪಾವತಿಗಳನ್ನು ಸಂಸ್ಕರಿಸುವುದಿಲ್ಲ. "Pay via UPI" ನಿಮ್ಮ ಸಾಧನದಲ್ಲಿ ಈಗಾಗಲೇ ಸ್ಥಾಪಿಸಲಾದ UPI ಆ್ಯಪ್‌ಗಳಿಗೆ ಹಸ್ತಾಂತರಿಸುತ್ತದೆ; ಮಾಡಿದ ಯಾವುದೇ ಪಾವತಿಯು ನಿಮ್ಮ ಮತ್ತು ನಿಮ್ಮ ಆಯ್ಕೆಯ ಪಾವತಿ ಪೂರೈಕೆದಾರ ಮತ್ತು ಸ್ವೀಕರಿಸುವವರ ನಡುವೆ ಇರುತ್ತದೆ. ವಿಫಲ, ವಿಳಂಬಿತ ಅಥವಾ ವಿವಾದಿತ ವಹಿವಾಟುಗಳಿಗೆ ನಾವು ಜವಾಬ್ದಾರರಾಗಿರುವುದಿಲ್ಲ.
+
+4. ಸ್ವೀಕಾರಾರ್ಹ ಬಳಕೆ
+ಆ್ಯಪ್ ಅನ್ನು ಯಾವುದೇ ಕಾನೂನುಬಾಹಿರ ಉದ್ದೇಶಕ್ಕಾಗಿ ಅಥವಾ ಆ್ಯಪ್‌ಗೆ ಹಾನಿ ಮಾಡುವ, ನಿಷ್ಕ್ರಿಯಗೊಳಿಸುವ, ದುರ್ಬಲಗೊಳಿಸುವ ಅಥವಾ ಇತರ ಪಕ್ಷದ ಬಳಕೆಗೆ ಅಡ್ಡಿಪಡಿಸುವ ರೀತಿಯಲ್ಲಿ ಬಳಸದಿರಲು ನೀವು ಒಪ್ಪುತ್ತೀರಿ.
+
+5. ಯಾವುದೇ ವಾರಂಟಿ ಇಲ್ಲ
+ಆ್ಯಪ್ ಅನ್ನು ಯಾವುದೇ ರೀತಿಯ, ಸ್ಪಷ್ಟ ಅಥವಾ ಸೂಚಿತ, ವಾರಂಟಿಗಳಿಲ್ಲದೆ "ಇರುವ ಸ್ಥಿತಿಯಲ್ಲಿ" ಒದಗಿಸಲಾಗಿದೆ. ಆ್ಯಪ್ ದೋಷ-ಮುಕ್ತ, ಅಡೆತಡೆಯಿಲ್ಲದ ಅಥವಾ ನಿರ್ದಿಷ್ಟ ಉದ್ದೇಶಕ್ಕೆ ಸೂಕ್ತವಾಗಿರುತ್ತದೆ ಎಂದು ನಾವು ಖಾತ್ರಿಪಡಿಸುವುದಿಲ್ಲ.
+
+6. ಹೊಣೆಗಾರಿಕೆಯ ಮಿತಿ
+ಕಾನೂನಿನಿಂದ ಅನುಮತಿಸಲಾದ ಗರಿಷ್ಠ ಮಟ್ಟಿಗೆ, ಮೂರನೇ ವ್ಯಕ್ತಿಯ UPI ಆ್ಯಪ್‌ಗಳನ್ನು ಬಳಸಿ ಮಾಡಿದ ಪಾವತಿಗಳಿಂದ ಉಂಟಾಗುವ ಯಾವುದೇ ಡೇಟಾ ನಷ್ಟ ಅಥವಾ ಆರ್ಥಿಕ ನಷ್ಟ ಸೇರಿದಂತೆ, ನಿಮ್ಮ ಆ್ಯಪ್ ಬಳಕೆಯಿಂದ ಉಂಟಾಗುವ ಯಾವುದೇ ಪರೋಕ್ಷ, ಆಕಸ್ಮಿಕ ಅಥವಾ ಪರಿಣಾಮಕಾರಿ ಹಾನಿಗಳಿಗೆ Amit Kumar Agrawal ಜವಾಬ್ದಾರರಾಗಿರುವುದಿಲ್ಲ.
+
+7. ಮುಕ್ತಾಯ
+ನೀವು ಯಾವುದೇ ಸಮಯದಲ್ಲಿ Settings &gt; Delete My Account &amp; Data ಮೂಲಕ ಆ್ಯಪ್ ಬಳಸುವುದನ್ನು ನಿಲ್ಲಿಸಿ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಅಳಿಸಬಹುದು. ಆ್ಯಪ್‌ನ ದುರುಪಯೋಗಕ್ಕಾಗಿ ನಾವು ಪ್ರವೇಶವನ್ನು ಅಮಾನತುಗೊಳಿಸಬಹುದು ಅಥವಾ ಕೊನೆಗೊಳಿಸಬಹುದು.
+
+8. ಆಡಳಿತ ಕಾನೂನು
+ಈ ನಿಯಮಗಳು ಭಾರತದ ಕಾನೂನುಗಳಿಂದ ನಿಯಂತ್ರಿಸಲ್ಪಡುತ್ತವೆ, ಕಾನೂನು ಸಂಘರ್ಷದ ತತ್ವಗಳನ್ನು ಪರಿಗಣಿಸದೆ.
+
+9. ಈ ನಿಯಮಗಳಿಗೆ ಬದಲಾವಣೆಗಳು
+ನಾವು ಕಾಲಕಾಲಕ್ಕೆ ಈ ನಿಯಮಗಳನ್ನು ನವೀಕರಿಸಬಹುದು. ಬದಲಾವಣೆಗಳ ನಂತರ ಆ್ಯಪ್‌ನ ಮುಂದುವರಿದ ಬಳಕೆ ಎಂದರೆ ನೀವು ನವೀಕರಿಸಿದ ನಿಯಮಗಳನ್ನು ಒಪ್ಪಿಕೊಳ್ಳುತ್ತೀರಿ ಎಂದರ್ಥ.
+
+10. ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ
+ಈ ನಿಯಮಗಳ ಬಗ್ಗೆ ಯಾವುದೇ ಪ್ರಶ್ನೆಗಳಿಗಾಗಿ, Amit Kumar Agrawal ಅವರನ್ನು amit.agrawal.hyd@outlook.com ನಲ್ಲಿ ಸಂಪರ್ಕಿಸಿ.</value>
+  </data>
   <data name="Login_CreateAccount" xml:space="preserve">
     <value>ಖಾತೆ ರಚಿಸಿ</value>
   </data>
+  <data name="Login_DemoHint" xml:space="preserve">
+    <value>ತಕ್ಷಣ, ಆಫ್‌ಲೈನ್, ಸೈನ್-ಅಪ್ ಇಲ್ಲ. ಗೀತಾ (ಮನೆ ಸಹಾಯಕಿ) ಮತ್ತು ರಾಜು (ಹಾಲಿನವರು) ಇವರ ಮಾದರಿ ಡೇಟಾದೊಂದಿಗೆ ಅನ್ವೇಷಿಸಿ.</value>
+  </data>
+  <data name="Login_DisplayName" xml:space="preserve">
+    <value>ನಿಮ್ಮ ಹೆಸರು</value>
+  </data>
   <data name="Login_Email" xml:space="preserve">
     <value>ಇಮೇಲ್</value>
+  </data>
+  <data name="Login_Failed" xml:space="preserve">
+    <value>ಸೈನ್-ಇನ್ ವಿಫಲವಾಗಿದೆ. ನಿಮ್ಮ ವಿವರಗಳು ಮತ್ತು ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ.</value>
+  </data>
+  <data name="Login_MissingFields" xml:space="preserve">
+    <value>ದಯವಿಟ್ಟು ಇಮೇಲ್ ಮತ್ತು ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
     <value>ಪಾಸ್‌ವರ್ಡ್</value>
   </data>
   <data name="Login_SignIn" xml:space="preserve">
     <value>ಸೈನ್ ಇನ್</value>
+  </data>
+  <data name="Login_ToggleMode" xml:space="preserve">
+    <value>ಹೊಸಬರೇ? ಖಾತೆ ರಚಿಸಿ · ಈಗಾಗಲೇ ಖಾತೆ ಇದೆಯೇ? ಸೈನ್ ಇನ್ ಮಾಡಿ</value>
   </data>
   <data name="Login_TryDemo" xml:space="preserve">
     <value>ಡೆಮೊ ಪ್ರಯತ್ನಿಸಿ</value>
@@ -58,17 +371,185 @@
   <data name="Notify_SalaryTitle" xml:space="preserve">
     <value>ಸಂಬಳ ಬಾಕಿ</value>
   </data>
+  <data name="Onboard_GetStarted" xml:space="preserve">
+    <value>ಪ್ರಾರಂಭಿಸಿ</value>
+  </data>
+  <data name="Onboard_Next" xml:space="preserve">
+    <value>ಮುಂದೆ</value>
+  </data>
+  <data name="Onboard_Skip" xml:space="preserve">
+    <value>ಸ್ಕಿಪ್</value>
+  </data>
+  <data name="Onboard_Slide1_Body" xml:space="preserve">
+    <value>ಹಾಜರು, ಗೈರುಹಾಜರು ಅಥವಾ ಅರ್ಧ ದಿನ ಗುರುತಿಸಲು ದಿನಾಂಕವನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ. ಹಾಲು ಮತ್ತು ವಿತರಣೆಗಳೂ ಸಹ — ಎಲ್ಲವೂ ಒಂದೇ ಶುಚಿಯಾದ ಖಾತಾದಲ್ಲಿ ದಾಖಲಾಗುತ್ತದೆ.</value>
+  </data>
+  <data name="Onboard_Slide1_Title" xml:space="preserve">
+    <value>2-ಟ್ಯಾಪ್ ಖಾತೆ ಪುಸ್ತಕ</value>
+  </data>
+  <data name="Onboard_Slide2_Body" xml:space="preserve">
+    <value>ದೈನಂದಿನ ಸಂಜೆ 5 ಗಂಟೆಯ ಜ್ಞಾಪನೆಯು ಇಂದಿನ ಹಾಜರಾತಿ ಬಗ್ಗೆ ಕೇಳುತ್ತದೆ. ಅಧಿಸೂಚನೆಯಿಂದಲೇ 'ಗೈರುಹಾಜರು' ಎಂದು ಗುರುತಿಸಿ — ಆ್ಯಪ್ ತೆರೆಯುವ ಅಗತ್ಯವಿಲ್ಲ.</value>
+  </data>
+  <data name="Onboard_Slide2_Title" xml:space="preserve">
+    <value>ಸಂಜೆ 5 ಗಂಟೆಗೆ ಎಂದಿಗೂ ಮರೆಯಬೇಡಿ</value>
+  </data>
+  <data name="Onboard_Slide3_Body" xml:space="preserve">
+    <value>ಸಂಬಳ ಕಳೆಯಿರಿ ಗೈರುಹಾಜರಿಗಳು ಕಳೆಯಿರಿ ಮುಂಗಡಗಳು — ನಿಮಗಾಗಿ ಲೆಕ್ಕಹಾಕಲಾಗುತ್ತದೆ. ಯಾವುದೇ UPI ಆ್ಯಪ್‌ನೊಂದಿಗೆ ಪಾವತಿಸಿ ಅಥವಾ ನಗದು ದಾಖಲಿಸಿ, ಮತ್ತು WhatsApp ನಲ್ಲಿ PDF ವರದಿಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳಿ.</value>
+  </data>
+  <data name="Onboard_Slide3_Title" xml:space="preserve">
+    <value>UPI ಮೂಲಕ ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಸೆಟಲ್ ಮಾಡಿ</value>
+  </data>
+  <data name="Report_Absences" xml:space="preserve">
+    <value>ಗೈರುಹಾಜರಿಗಳು</value>
+  </data>
+  <data name="Report_Advances" xml:space="preserve">
+    <value>ಮುಂಗಡಗಳು</value>
+  </data>
+  <data name="Report_Bonuses" xml:space="preserve">
+    <value>ಬೋನಸ್‌ಗಳು</value>
+  </data>
+  <data name="Report_Date" xml:space="preserve">
+    <value>ದಿನಾಂಕ</value>
+  </data>
+  <data name="Report_Deduction" xml:space="preserve">
+    <value>ಕಡಿತ</value>
+  </data>
   <data name="Report_FinalPayable" xml:space="preserve">
     <value>ಪಾವತಿಸಬೇಕಾದ ಮೊತ್ತ</value>
+  </data>
+  <data name="Report_GeneratedBy" xml:space="preserve">
+    <value>ಇವರಿಂದ ರಚಿಸಲಾಗಿದೆ</value>
+  </data>
+  <data name="Report_GenerationFailed" xml:space="preserve">
+    <value>ವರದಿಯನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</value>
+  </data>
+  <data name="Report_GrossWage" xml:space="preserve">
+    <value>ಒಟ್ಟು ಸಂಬಳ</value>
+  </data>
+  <data name="Report_Helper" xml:space="preserve">
+    <value>ಸಹಾಯಕ</value>
+  </data>
+  <data name="Report_HouseholdTitle" xml:space="preserve">
+    <value>ಮನೆಯ ಸಾರಾಂಶ</value>
+  </data>
+  <data name="Report_LedgerTitle" xml:space="preserve">
+    <value>ಸಹಾಯಕರ ಮಾಸಿಕ ಖಾತೆ</value>
+  </data>
+  <data name="Report_Movements" xml:space="preserve">
+    <value>ಹಣ ವಹಿವಾಟುಗಳು</value>
+  </data>
+  <data name="Report_ShareTitle" xml:space="preserve">
+    <value>ವರದಿ ಹಂಚಿಕೊಳ್ಳಿ</value>
+  </data>
+  <data name="Report_Status" xml:space="preserve">
+    <value>ಸ್ಥಿತಿ</value>
+  </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>ಒಟ್ಟು</value>
+  </data>
+  <data name="Report_Units" xml:space="preserve">
+    <value>ಘಟಕಗಳು</value>
+  </data>
+  <data name="Report_UnpaidAbsences" xml:space="preserve">
+    <value>ಪಾವತಿಸದ ಗೈರುಹಾಜರಿಗಳು</value>
+  </data>
+  <data name="Reports_GenerateShare" xml:space="preserve">
+    <value>PDF ರಚಿಸಿ ಮತ್ತು ಹಂಚಿಕೊಳ್ಳಿ</value>
+  </data>
+  <data name="Reports_HouseholdDescription" xml:space="preserve">
+    <value>ನಿಮ್ಮ ಎಲ್ಲಾ ಸಹಾಯಕರ ಮಾಸ್ಟರ್ ಸಾರಾಂಶ</value>
+  </data>
+  <data name="Reports_LedgerDescription" xml:space="preserve">
+    <value>ಒಬ್ಬ ಸಹಾಯಕರ ದೈನಂದಿನ ಹಾಜರಾತಿ ಮತ್ತು ಹಣದ ವಿವರ</value>
+  </data>
+  <data name="Reports_Title" xml:space="preserve">
+    <value>ವರದಿಗಳು</value>
+  </data>
+  <data name="Security_RootedMessage" xml:space="preserve">
+    <value>ಈ ಸಾಧನವು ರೂಟ್ ಮಾಡಲಾಗಿದೆ/ಜೈಲ್‌ಬ್ರೇಕ್ ಆಗಿರುವಂತೆ ಕಂಡುಬರುತ್ತದೆ. ನಿಮ್ಮ ಆರ್ಥಿಕ ಡೇಟಾ ಇಲ್ಲಿ ಕಡಿಮೆ ಸುರಕ್ಷಿತವಾಗಿರಬಹುದು. PakkaHisaab ಅನ್ನು ಪ್ರಮಾಣಿತ ಸಾಧನದಲ್ಲಿ ಬಳಸಲು ನಾವು ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ.</value>
+  </data>
+  <data name="Security_RootedTitle" xml:space="preserve">
+    <value>ಸಾಧನ ಎಚ್ಚರಿಕೆ</value>
+  </data>
+  <data name="Settings_Account" xml:space="preserve">
+    <value>ಖಾತೆ</value>
   </data>
   <data name="Settings_DeleteAccount" xml:space="preserve">
     <value>ನನ್ನ ಖಾತೆ ಮತ್ತು ಡೇಟಾ ಅಳಿಸಿ</value>
   </data>
+  <data name="Settings_DeleteDemoNote" xml:space="preserve">
+    <value>ಡೆಮೊ ಡೇಟಾವನ್ನು ಈ ಸಾಧನದಿಂದ ಅಳಿಸಲಾಗುತ್ತದೆ.</value>
+  </data>
+  <data name="Settings_DeleteFailed" xml:space="preserve">
+    <value>ಖಾತೆಯನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ಮತ್ತು ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ.</value>
+  </data>
+  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
+    <value>ಖಚಿತಪಡಿಸಲು ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ</value>
+  </data>
+  <data name="Settings_DeleteTitle" xml:space="preserve">
+    <value>ಖಾತೆ ಅಳಿಸಿ</value>
+  </data>
+  <data name="Settings_DeleteWarning" xml:space="preserve">
+    <value>ಇದು ನಿಮ್ಮ ಖಾತೆ ಮತ್ತು ಪ್ರತಿಯೊಬ್ಬ ಸಹಾಯಕ, ಹಾಜರಾತಿ ಮತ್ತು ಪಾವತಿ ದಾಖಲೆಯನ್ನು — ಈ ಸಾಧನ ಮತ್ತು ನಮ್ಮ ಸರ್ವರ್‌ಗಳಲ್ಲಿ ಶಾಶ್ವತವಾಗಿ ಅಳಿಸುತ್ತದೆ. ಇದನ್ನು ರದ್ದುಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ.</value>
+  </data>
+  <data name="Settings_Help" xml:space="preserve">
+    <value>ಸಹಾಯ</value>
+  </data>
+  <data name="Settings_HelpAndVoice" xml:space="preserve">
+    <value>ಸಹಾಯ ಮತ್ತು ಧ್ವನಿ ಆದೇಶಗಳು</value>
+  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>ಭಾಷೆ</value>
   </data>
+  <data name="Settings_Legal" xml:space="preserve">
+    <value>ಕಾನೂನು</value>
+  </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>ಲಾಗ್ ಔಟ್</value>
+  </data>
+  <data name="Settings_Privacy" xml:space="preserve">
+    <value>ಗೌಪ್ಯತಾ ನೀತಿ</value>
+  </data>
+  <data name="Settings_Terms" xml:space="preserve">
+    <value>ಸೇವಾ ನಿಯಮಗಳು</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>ಸೆಟ್ಟಿಂಗ್‌ಗಳು</value>
+  </data>
+  <data name="Settle_AmountToPay" xml:space="preserve">
+    <value>ಪಾವತಿಸಬೇಕಾದ ಮೊತ್ತ (ಅಗತ್ಯವಿದ್ದರೆ ಎಡಿಟ್ ಮಾಡಿ)</value>
+  </data>
+  <data name="Settle_ConfirmBody" xml:space="preserve">
+    <value>{0} ಗೆ ₹ {1:N0} ಪಾವತಿಯನ್ನು ನೀವು ಪೂರ್ಣಗೊಳಿಸಿದ್ದೀರಾ?</value>
+  </data>
+  <data name="Settle_ConfirmTitle" xml:space="preserve">
+    <value>ಪಾವತಿ ಮುಗಿದಿದೆಯೇ?</value>
+  </data>
+  <data name="Settle_ConfirmYes" xml:space="preserve">
+    <value>ಹೌದು, ಪಾವತಿಸಲಾಗಿದೆ</value>
+  </data>
+  <data name="Settle_InvalidAmount" xml:space="preserve">
+    <value>ಮಾನ್ಯವಾದ ಮೊತ್ತವನ್ನು ನಮೂದಿಸಿ</value>
+  </data>
+  <data name="Settle_LogCash" xml:space="preserve">
+    <value>ನಗದು ಪಾವತಿ ದಾಖಲಿಸಿ</value>
+  </data>
+  <data name="Settle_NoUpiApp" xml:space="preserve">
+    <value>ಈ ಸಾಧನದಲ್ಲಿ ಯಾವುದೇ UPI ಆ್ಯಪ್ ಕಂಡುಬಂದಿಲ್ಲ</value>
+  </data>
+  <data name="Settle_NoUpiIdHint" xml:space="preserve">
+    <value>ಒಂದು-ಟ್ಯಾಪ್ UPI ಪಾವತಿಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ಈ ಸಹಾಯಕರಿಗೆ UPI ID ಸೇರಿಸಿ.</value>
+  </data>
+  <data name="Settle_PayVia" xml:space="preserve">
+    <value>UPI ಮೂಲಕ ಪಾವತಿಸಿ</value>
+  </data>
+  <data name="Settle_Recorded" xml:space="preserve">
+    <value>ಪಾವತಿ ದಾಖಲಿಸಲಾಗಿದೆ</value>
+  </data>
+  <data name="Settle_Title" xml:space="preserve">
+    <value>ಸೆಟಲ್‌ಮೆಂಟ್</value>
+  </data>
+  <data name="Settle_UpiNote" xml:space="preserve">
+    <value>ಸಂಬಳ {0} - PakkaHisaab</value>
   </data>
   <data name="Status_Absent" xml:space="preserve">
     <value>ಗೈರುಹಾಜರು</value>
@@ -87,5 +568,8 @@
   </data>
   <data name="Tab_Settings" xml:space="preserve">
     <value>ಸೆಟ್ಟಿಂಗ್‌ಗಳು</value>
+  </data>
+  <data name="Voice_NotUnderstood" xml:space="preserve">
+    <value>ಕ್ಷಮಿಸಿ, ನನಗೆ ಅರ್ಥವಾಗಲಿಲ್ಲ. ಪ್ರಯತ್ನಿಸಿ: 'Gave Geeta 500 advance'.</value>
   </data>
 </root>

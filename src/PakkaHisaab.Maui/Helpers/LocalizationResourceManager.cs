@@ -17,11 +17,19 @@ public sealed class LocalizationResourceManager : INotifyPropertyChanged
 
     readonly ResourceManager _resources = AppStrings.ResourceManager;
 
+    /// <summary>Locale codes whose text is fully covered by the bundled Poppins font (Latin script
+    /// plus its usual diacritics). Every other supported language falls back to the platform default
+    /// font at runtime — see <see cref="ApplyFontResources"/>.</summary>
+    static readonly HashSet<string> LatinScriptLanguages = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "en", "es", "fr", "pt", "de", "id", "sw"
+    };
+
     LocalizationResourceManager()
     {
         var saved = Preferences.Default.Get(Constants.KeyLanguage, string.Empty);
-        if (!string.IsNullOrEmpty(saved))
-            SetCulture(new CultureInfo(saved), persist: false);
+        var culture = string.IsNullOrEmpty(saved) ? CultureInfo.CurrentUICulture : new CultureInfo(saved);
+        SetCulture(culture, persist: false);
     }
 
     public CultureInfo CurrentCulture { get; private set; } = CultureInfo.CurrentUICulture;
@@ -49,14 +57,43 @@ public sealed class LocalizationResourceManager : INotifyPropertyChanged
         // "Item" is the WPF/MAUI convention for "every indexer value changed".
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item"));
 
-        // Flip layout direction for RTL languages (Arabic, Urdu).
         if (Application.Current is not null)
+        {
+            // Resource-dictionary swap only needs the Application to exist (no live Page/Window
+            // required), so it applies correctly even on a cold start before the first page renders.
+            ApplyFontResources(culture);
+
+            // Flip layout direction for RTL languages (Arabic, Urdu).
             Application.Current.Windows.FirstOrDefault()?.Page?.Dispatcher.Dispatch(() =>
             {
                 var rtl = culture.TextInfo.IsRightToLeft;
                 if (Application.Current.Windows.FirstOrDefault()?.Page is Page p)
                     p.FlowDirection = rtl ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
             });
+        }
+    }
+
+    /// <summary>
+    /// The bundled Poppins font only ships Latin-script glyphs. Android's text renderer silently
+    /// substitutes a system fallback font per-glyph when one is missing from the requested typeface,
+    /// but iOS does not do this for a custom AddFont-registered font in MAUI — missing glyphs render
+    /// as blank/tofu boxes instead. To keep both platforms looking correct, every Label/Button/Entry
+    /// in Styles.xaml (plus a handful of inline uses) binds FontFamily via DynamicResource to
+    /// "FontRegular"/"FontSemiBold"/"FontBold"; here we point those at Poppins for Latin-script
+    /// languages and clear them (platform default font, which has full script coverage + its own
+    /// fallback chain on both OSes) for everything else.
+    /// </summary>
+    static void ApplyFontResources(CultureInfo culture)
+    {
+        var resources = Application.Current?.Resources;
+        if (resources is null) return;
+
+        bool useCustomFont = LatinScriptLanguages.Contains(culture.Name)
+            || LatinScriptLanguages.Contains(culture.TwoLetterISOLanguageName);
+
+        resources["FontRegular"] = useCustomFont ? "PoppinsRegular" : null;
+        resources["FontSemiBold"] = useCustomFont ? "PoppinsSemiBold" : null;
+        resources["FontBold"] = useCustomFont ? "PoppinsBold" : null;
     }
 
     /// <summary>All languages shipped with the app (Tier 1 + Tier 2/3 regional).</summary>

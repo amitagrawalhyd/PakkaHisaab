@@ -1,0 +1,1766 @@
+"""
+PakkaHisaab collateral generator.
+
+Builds two production-grade .docx deliverables using python-docx:
+  1. docs/PakkaHisaab_Brochure.docx   - enterprise value-proposition brochure
+  2. docs/PakkaHisaab_UserGuide.docx  - exhaustive engineering & workflow guide
+
+Run:  python tools/generate_docs.py
+"""
+
+import os
+from docx import Document
+from docx.shared import Pt, Cm, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
+from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL
+from docx.oxml.ns import qn
+from docx.oxml import OxmlElement
+from docx.enum.style import WD_STYLE_TYPE
+
+# ---------------------------------------------------------------------------
+# Brand palette
+# ---------------------------------------------------------------------------
+NAVY = RGBColor(0x0B, 0x1F, 0x3A)
+TEAL = RGBColor(0x0E, 0x7C, 0x7B)
+GOLD = RGBColor(0xC9, 0x9A, 0x2E)
+SLATE = RGBColor(0x4A, 0x55, 0x68)
+WHITE = RGBColor(0xFF, 0xFF, 0xFF)
+DANGER = RGBColor(0xA3, 0x2A, 0x2A)
+PROTIP_LABEL = RGBColor(0x8A, 0x62, 0x00)
+
+BAND_GREY = "EEF1F5"
+BAND_TEAL = "E4F1F0"
+
+FONT_BODY = "Calibri"
+FONT_HEAD = "Arial"
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT_DIR = os.path.normpath(os.path.join(HERE, "..", "docs"))
+LOGO_PATH = os.path.join(OUT_DIR, "logo_512.png")
+
+
+# ---------------------------------------------------------------------------
+# Shared low-level helpers
+# ---------------------------------------------------------------------------
+def set_cell_shading(cell, hex_color):
+    tc_pr = cell._tc.get_or_add_tcPr()
+    shd = OxmlElement("w:shd")
+    shd.set(qn("w:val"), "clear")
+    shd.set(qn("w:color"), "auto")
+    shd.set(qn("w:fill"), hex_color)
+    tc_pr.append(shd)
+
+
+def set_cell_borders(cell, color="B9C2CE", size="4"):
+    tc_pr = cell._tc.get_or_add_tcPr()
+    borders = OxmlElement("w:tcBorders")
+    for edge in ("top", "left", "bottom", "right"):
+        el = OxmlElement(f"w:{edge}")
+        el.set(qn("w:val"), "single")
+        el.set(qn("w:sz"), size)
+        el.set(qn("w:space"), "0")
+        el.set(qn("w:color"), color)
+        borders.append(el)
+    tc_pr.append(borders)
+
+
+def set_repeat_header(row):
+    tr_pr = row._tr.get_or_add_trPr()
+    header = OxmlElement("w:tblHeader")
+    header.set(qn("w:val"), "true")
+    tr_pr.append(header)
+
+
+def fixed_layout(table):
+    tbl_pr = table._tbl.tblPr
+    layout = OxmlElement("w:tblLayout")
+    layout.set(qn("w:type"), "fixed")
+    tbl_pr.append(layout)
+
+
+def shade_table_zebra(table, header_color, band_color, header_font_color=WHITE):
+    for r_idx, row in enumerate(table.rows):
+        for cell in row.cells:
+            if r_idx == 0:
+                set_cell_shading(cell, header_color)
+            elif r_idx % 2 == 0:
+                set_cell_shading(cell, band_color)
+            set_cell_borders(cell)
+            cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+            for p in cell.paragraphs:
+                p.paragraph_format.space_before = Pt(2)
+                p.paragraph_format.space_after = Pt(2)
+                for run in p.runs:
+                    if r_idx == 0:
+                        run.font.bold = True
+                        run.font.color.rgb = header_font_color
+                        run.font.size = Pt(10.5)
+                    else:
+                        run.font.size = Pt(10)
+
+
+def add_page_border(section, color="0B1F3A", size=18):
+    sec_pr = section._sectPr
+    pg_borders = OxmlElement("w:pgBorders")
+    pg_borders.set(qn("w:offsetFrom"), "page")
+    for edge in ("top", "left", "bottom", "right"):
+        el = OxmlElement(f"w:{edge}")
+        el.set(qn("w:val"), "single")
+        el.set(qn("w:sz"), str(size))
+        el.set(qn("w:space"), "24")
+        el.set(qn("w:color"), color)
+        pg_borders.append(el)
+    sec_pr.append(pg_borders)
+
+
+def add_footer_with_page_number(section, brand_text):
+    footer = section.footer
+    footer.is_linked_to_previous = False
+    p = footer.paragraphs[0] if footer.paragraphs else footer.add_paragraph()
+    p.text = ""
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = p.add_run(f"{brand_text}  |  Page ")
+    run.font.size = Pt(8.5)
+    run.font.color.rgb = SLATE
+    run.font.name = FONT_BODY
+
+    def field_run(paragraph, field_name):
+        r = paragraph.add_run()
+        r.font.size = Pt(8.5)
+        r.font.color.rgb = SLATE
+        begin = OxmlElement("w:fldChar")
+        begin.set(qn("w:fldCharType"), "begin")
+        instr = OxmlElement("w:instrText")
+        instr.set(qn("xml:space"), "preserve")
+        instr.text = field_name
+        end = OxmlElement("w:fldChar")
+        end.set(qn("w:fldCharType"), "end")
+        r._r.append(begin)
+        r._r.append(instr)
+        r._r.append(end)
+        return r
+
+    field_run(p, "PAGE")
+    mid = p.add_run(" of ")
+    mid.font.size = Pt(8.5)
+    mid.font.color.rgb = SLATE
+    field_run(p, "NUMPAGES")
+
+
+def add_shaded_paragraph_box(doc, lines, fill="FFF6DF", border_color="C99A2E",
+                              label=None, label_color=None):
+    """A single-cell shaded/bordered table used as a callout / Pro-Tip / Security box."""
+    table = doc.add_table(rows=1, cols=1)
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    cell = table.rows[0].cells[0]
+    set_cell_shading(cell, fill)
+    tc_pr = cell._tc.get_or_add_tcPr()
+    borders = OxmlElement("w:tcBorders")
+    for edge in ("top", "left", "bottom", "right"):
+        el = OxmlElement(f"w:{edge}")
+        el.set(qn("w:val"), "single")
+        el.set(qn("w:sz"), "10")
+        el.set(qn("w:space"), "0")
+        el.set(qn("w:color"), border_color)
+        borders.append(el)
+    tc_pr.append(borders)
+    cell.paragraphs[0].text = ""
+    first = True
+    if label:
+        p = cell.paragraphs[0]
+        run = p.add_run(label)
+        run.bold = True
+        run.font.size = Pt(10.5)
+        run.font.name = FONT_HEAD
+        run.font.color.rgb = label_color or PROTIP_LABEL
+        first = False
+    for line in lines:
+        p = cell.paragraphs[0] if first else cell.add_paragraph()
+        first = False
+        run = p.add_run(line)
+        run.font.size = Pt(10)
+        run.font.name = FONT_BODY
+        run.font.color.rgb = NAVY
+        p.paragraph_format.space_after = Pt(2)
+    fixed_layout(table)
+    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+    return table
+
+
+def add_image_placeholder(doc, caption_text, height_cm=6.5):
+    """Dashed-border placeholder box standing in for an HD graphic/screenshot."""
+    table = doc.add_table(rows=1, cols=1)
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    cell = table.rows[0].cells[0]
+    set_cell_shading(cell, "F7F8FA")
+    tc_pr = cell._tc.get_or_add_tcPr()
+    borders = OxmlElement("w:tcBorders")
+    for edge in ("top", "left", "bottom", "right"):
+        el = OxmlElement(f"w:{edge}")
+        el.set(qn("w:val"), "dashed")
+        el.set(qn("w:sz"), "10")
+        el.set(qn("w:space"), "0")
+        el.set(qn("w:color"), "8FA0B3")
+        borders.append(el)
+    tc_pr.append(borders)
+
+    tr = table.rows[0]._tr
+    tr_pr = tr.get_or_add_trPr()
+    tr_height = OxmlElement("w:trHeight")
+    tr_height.set(qn("w:val"), str(int(height_cm * 567)))
+    tr_height.set(qn("w:hRule"), "atLeast")
+    tr_pr.append(tr_height)
+
+    cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    p = cell.paragraphs[0]
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    icon_run = p.add_run("\U0001F5BC  ")
+    icon_run.font.size = Pt(20)
+    run = p.add_run(caption_text)
+    run.italic = True
+    run.font.size = Pt(10)
+    run.font.color.rgb = SLATE
+    run.font.name = FONT_BODY
+    doc.add_paragraph().paragraph_format.space_after = Pt(4)
+    return table
+
+
+def add_hr(doc, color="C9CFD9", size="6"):
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(2)
+    p.paragraph_format.space_after = Pt(10)
+    p_pr = p._p.get_or_add_pPr()
+    pbdr = OxmlElement("w:pBdr")
+    bottom = OxmlElement("w:bottom")
+    bottom.set(qn("w:val"), "single")
+    bottom.set(qn("w:sz"), size)
+    bottom.set(qn("w:space"), "1")
+    bottom.set(qn("w:color"), color)
+    pbdr.append(bottom)
+    p_pr.append(pbdr)
+
+
+# ---------------------------------------------------------------------------
+# Style setup shared by both documents
+# ---------------------------------------------------------------------------
+def configure_base_styles(doc):
+    styles = doc.styles
+
+    normal = styles["Normal"]
+    normal.font.name = FONT_BODY
+    normal.font.size = Pt(10.5)
+    normal.font.color.rgb = RGBColor(0x22, 0x28, 0x30)
+    normal.paragraph_format.space_after = Pt(6)
+    normal.paragraph_format.line_spacing_rule = WD_LINE_SPACING.MULTIPLE
+    normal.paragraph_format.line_spacing = 1.15
+    rpr = normal.element.get_or_add_rPr()
+    rfonts = rpr.find(qn("w:rFonts"))
+    if rfonts is None:
+        rfonts = OxmlElement("w:rFonts")
+        rpr.append(rfonts)
+    rfonts.set(qn("w:eastAsia"), FONT_BODY)
+
+    def style_heading(name, size, color, bold=True, space_before=18, space_after=8):
+        st = styles[name]
+        st.font.name = FONT_HEAD
+        st.font.size = Pt(size)
+        st.font.bold = bold
+        st.font.color.rgb = color
+        st.paragraph_format.space_before = Pt(space_before)
+        st.paragraph_format.space_after = Pt(space_after)
+        st.paragraph_format.keep_with_next = True
+        st.paragraph_format.line_spacing = 1.05
+        return st
+
+    style_heading("Title", 30, NAVY, space_before=0, space_after=6)
+    style_heading("Heading 1", 20, NAVY, space_before=26, space_after=10)
+    style_heading("Heading 2", 15, TEAL, space_before=18, space_after=8)
+    style_heading("Heading 3", 12.5, SLATE, space_before=12, space_after=6)
+
+    if "Subtitle" in [s.name for s in styles]:
+        sub = styles["Subtitle"]
+        sub.font.name = FONT_BODY
+        sub.font.size = Pt(14)
+        sub.font.italic = True
+        sub.font.color.rgb = TEAL
+        sub.font.bold = False
+
+    for sec in doc.sections:
+        sec.top_margin = Cm(2.1)
+        sec.bottom_margin = Cm(2.1)
+        sec.left_margin = Cm(2.2)
+        sec.right_margin = Cm(2.2)
+
+
+def add_bullets(doc, items, style="List Bullet", size=10.5):
+    for item in items:
+        p = doc.add_paragraph(style=style)
+        p.paragraph_format.space_after = Pt(4)
+        r = p.add_run(item)
+        r.font.size = Pt(size)
+    return doc
+
+
+def add_kicker(doc, text, color=None):
+    color = color or TEAL
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(0)
+    p.paragraph_format.space_after = Pt(2)
+    run = p.add_run(text.upper())
+    run.font.name = FONT_HEAD
+    run.font.size = Pt(9)
+    run.font.bold = True
+    run.font.color.rgb = color
+    rpr = run._r.get_or_add_rPr()
+    spacing = OxmlElement("w:spacing")
+    spacing.set(qn("w:val"), "30")
+    rpr.append(spacing)
+    return p
+
+
+def add_meta_table(doc, rows, col_widths=(4.2, 10.5)):
+    table = doc.add_table(rows=len(rows), cols=2)
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    for i, (k, v) in enumerate(rows):
+        cells = table.rows[i].cells
+        cells[0].text = ""
+        r = cells[0].paragraphs[0].add_run(k)
+        r.bold = True
+        r.font.size = Pt(9.5)
+        r.font.color.rgb = NAVY
+        cells[1].text = ""
+        r2 = cells[1].paragraphs[0].add_run(v)
+        r2.font.size = Pt(9.5)
+        r2.font.color.rgb = SLATE
+        for c in cells:
+            set_cell_borders(c, color="D9DEE6", size="2")
+            c.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    table.columns[0].width = Cm(col_widths[0])
+    table.columns[1].width = Cm(col_widths[1])
+    return table
+
+
+def add_cover_logo_band(doc, height_cm=4.4, placeholder_lines=None):
+    table = doc.add_table(rows=1, cols=1)
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    cell = table.rows[0].cells[0]
+    set_cell_shading(cell, "0B1F3A")
+    tc_pr = cell._tc.get_or_add_tcPr()
+    borders = OxmlElement("w:tcBorders")
+    for edge in ("top", "left", "bottom", "right"):
+        el = OxmlElement(f"w:{edge}")
+        el.set(qn("w:val"), "single")
+        el.set(qn("w:sz"), "8")
+        el.set(qn("w:color"), "C99A2E")
+        borders.append(el)
+    tc_pr.append(borders)
+    tr = table.rows[0]._tr
+    tr_pr = tr.get_or_add_trPr()
+    tr_height = OxmlElement("w:trHeight")
+    tr_height.set(qn("w:val"), str(int(height_cm * 567)))
+    tr_height.set(qn("w:hRule"), "atLeast")
+    tr_pr.append(tr_height)
+    cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    lp = cell.paragraphs[0]
+    lp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    if os.path.exists(LOGO_PATH):
+        run = lp.add_run()
+        run.add_picture(LOGO_PATH, width=Cm(3.2))
+    else:
+        lines = placeholder_lines or [
+            "[ CORPORATE LOGO PLACEHOLDER ]",
+            "PakkaHisaab · 512x512 vector mark, transparent background",
+        ]
+        r1 = lp.add_run(lines[0] + "\n")
+        r1.font.color.rgb = GOLD
+        r1.font.bold = True
+        r1.font.size = Pt(12)
+        r2 = lp.add_run(lines[1])
+        r2.font.color.rgb = WHITE
+        r2.italic = True
+        r2.font.size = Pt(9)
+    return table
+
+
+# ===========================================================================
+# DOCUMENT 1 — PakkaHisaab Brochure
+# ===========================================================================
+def build_brochure():
+    doc = Document()
+    configure_base_styles(doc)
+
+    section = doc.sections[0]
+    add_page_border(section)
+    add_footer_with_page_number(section, "PakkaHisaab — Confidential Product Brochure")
+
+    # ---------------- Cover Page ----------------
+    doc.add_paragraph().paragraph_format.space_after = Pt(6)
+    add_cover_logo_band(doc)
+    doc.add_paragraph().paragraph_format.space_after = Pt(4)
+
+    title_p = doc.add_paragraph(style="Title")
+    title_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    title_p.add_run("PakkaHisaab")
+
+    tagline = doc.add_paragraph(style="Subtitle")
+    tagline.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    tagline.add_run("Every Rupee, Reconciled. Every Neighbour, Connected.")
+
+    sub2 = doc.add_paragraph()
+    sub2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = sub2.add_run(
+        "The Unified Community Ledger, Local Vendor Network, and\n"
+        "Automated Society Accounting Ecosystem"
+    )
+    r.font.size = Pt(12.5)
+    r.font.color.rgb = SLATE
+    r.italic = True
+
+    doc.add_paragraph().paragraph_format.space_after = Pt(6)
+
+    add_image_placeholder(
+        doc,
+        "Insert HD Hero Graphic: “Connected Smart Communities” — isometric "
+        "illustration of a residential tower linked via glowing data-threads to a "
+        "society admin dashboard and a row of local vendor storefronts (grocer, "
+        "dairy, laundry, pharmacy), evoking a real-time, trust-verified commerce mesh.",
+        height_cm=6.0,
+    )
+
+    add_meta_table(doc, [
+        ("Document Class", "Enterprise Product Brochure & Value Proposition"),
+        ("Prepared For", "Residential Welfare Associations, Society Management Committees & Vendor Partners"),
+        ("Version", "v1.0 — Market Release Edition"),
+        ("Date", "19 July 2026"),
+    ])
+
+    doc.add_page_break()
+
+    # ---------------- Section 2: Strategic Vision ----------------
+    add_kicker(doc, "The Strategic Vision")
+    doc.add_heading("Architecting the End of Fragmented Local Commerce", level=1)
+
+    doc.add_paragraph(
+        "Every residential society today runs on two broken ledgers. The first is the "
+        "society's own maintenance book — a patchwork of spreadsheets, WhatsApp "
+        "reminders, and cash receipts that no auditor can fully trust. The second is "
+        "the informal tab every household keeps with the neighbourhood milkman, grocer, "
+        "or laundry vendor — a ledger that lives on a torn notebook page and "
+        "reconciles, if at all, once a month, from memory. PakkaHisaab is architected "
+        "to collapse both of these fragmented systems into a single, verifiable, "
+        "real-time source of truth."
+    )
+
+    doc.add_heading("Unified Data Pipelines, Not Siloed Apps", level=2)
+    doc.add_paragraph(
+        "From a CTO's vantage point, the core engineering thesis is deceptively simple: "
+        "treat every rupee that moves between a resident, a vendor, and a society "
+        "management committee as a single event in one canonical transaction pipeline "
+        "— not three disconnected records living in three disconnected notebooks or "
+        "apps. PakkaHisaab's ledger engine ingests society maintenance dues, vendor "
+        "purchase tokens, and penalty accruals into one append-only, double-entry "
+        "reconciliation core. The result is a system where a society auditor, a "
+        "resident, and a vendor can all query the exact same underlying truth, "
+        "filtered only by their role — never a divergent copy of it."
+    )
+
+    doc.add_heading("Zero-Friction Local Billing", level=2)
+    doc.add_paragraph(
+        "Traditional hyperlocal commerce fails to digitize because the billing friction "
+        "exceeds the trust benefit — no small vendor will adopt a POS terminal for a "
+        "₹40 bottle of milk. PakkaHisaab inverts this economics by making the "
+        "resident's existing society-verified identity the payment credential itself. A "
+        "vendor issues a digital token against a pre-authorised household ledger line; no "
+        "card, no POS hardware, no manual invoice — just a running balance that both "
+        "parties can see, trust, and settle on a predictable cycle."
+    )
+
+    doc.add_heading("Data Privacy as a First-Class Architectural Constraint", level=2)
+    doc.add_paragraph(
+        "Because the platform sits at the intersection of financial data, residential "
+        "identity, and vendor commercial activity, privacy cannot be an afterthought "
+        "bolted on post-launch. PakkaHisaab enforces strict data compartmentalisation by "
+        "design: a vendor's system can only ever resolve a household's ledger balance and "
+        "transaction authorisation — never a resident's personal identifiers, unit "
+        "ownership documents, or society-wide financial records. Conversely, a society "
+        "admin's audit view surfaces reconciliation-grade transaction metadata without "
+        "exposing a vendor's proprietary pricing or customer base beyond that single "
+        "society."
+    )
+
+    add_shaded_paragraph_box(
+        doc,
+        [
+            "PakkaHisaab is not a bookkeeping app bolted onto a chat group. It is a "
+            "purpose-built financial operating system for the residential society — "
+            "engineered around one ledger, one identity graph, and zero manual "
+            "reconciliation."
+        ],
+        fill="E4F1F0", border_color="0E7C7B",
+        label="CTO PERSPECTIVE", label_color=TEAL,
+    )
+
+    doc.add_page_break()
+
+    # ---------------- Section 3: Value Pillars ----------------
+    add_kicker(doc, "Value Pillars & Core Capabilities")
+    doc.add_heading("From Technical Capability to Enterprise Benefit", level=1)
+    doc.add_paragraph(
+        "PakkaHisaab's engineering investments translate directly into measurable "
+        "operating outcomes for society management committees, quantifiable revenue "
+        "capture for local vendors, and frictionless daily convenience for residents. "
+        "The four pillars below define the platform's market position."
+    )
+
+    pillars = [
+        ("01", "Automated Ledger Reconciliation",
+         "Replaces error-prone manual bookkeeping with real-time transactional precision.",
+         [
+             "Every maintenance due, penalty, vendor token, and settlement posts to an "
+             "immutable double-entry ledger the instant it occurs — no month-end "
+             "spreadsheet reconstruction, no reconciliation backlog.",
+             "Society treasurers reclaim an average of 15–20 hours per month previously "
+             "spent manually cross-checking cash receipts against bank statements and "
+             "vendor chits.",
+             "Discrepancy flags surface automatically the moment a recorded transaction "
+             "deviates from an expected balance, turning a quarterly audit fire-drill "
+             "into a continuous, always-current compliance posture.",
+         ]),
+        ("02", "Unified Vendor Network Hub",
+         "Bridges local micro-commerce directly with captive residential micro-markets.",
+         [
+             "Verified local vendors — milk, grocery, laundry, pharmacy, and household "
+             "services — are onboarded once and instantly discoverable to every "
+             "resident inside their serviced societies.",
+             "Vendors gain a captive, trust-pre-qualified customer base without paying "
+             "the customer-acquisition premium demanded by generic hyperlocal "
+             "marketplaces.",
+             "Residents gain a single directory of society-vetted vendors, replacing "
+             "word-of-mouth trust with platform-verified KYC and transaction history.",
+         ]),
+        ("03", "Intelligent Notification Engine",
+         "Contextual triggers that reduce outstanding dues and shrink processing cycles.",
+         [
+             "Context-aware reminders escalate tone and channel based on due-date "
+             "proximity and resident response history — not a blanket broadcast blast.",
+             "Grace-period and penalty triggers fire automatically per the society's "
+             "configured policy, removing the treasurer from the uncomfortable role of "
+             "manual debt collector.",
+             "Vendors receive real-time settlement notifications the moment a payout "
+             "batch clears, closing the loop between a sale and confirmed cash-in-hand.",
+         ]),
+        ("04", "Cross-Platform Real-Time Visibility",
+         "One dashboard experience, consistently available across every device and role.",
+         [
+             "Society admins, residents, and vendors each see a role-tailored dashboard "
+             "rendered from the same live data — no nightly batch sync, no stale exports.",
+             "Transaction graphs, due-balance trends, and vendor performance metrics "
+             "update the instant an underlying event posts to the ledger.",
+             "Fully responsive across web and mobile, so committee members and vendors "
+             "alike can act from a phone in the moment a decision is needed.",
+         ]),
+    ]
+
+    for num, title, sub, points in pillars:
+        p = doc.add_paragraph()
+        p.paragraph_format.space_before = Pt(14)
+        p.paragraph_format.space_after = Pt(2)
+        rnum = p.add_run(f"{num}  ")
+        rnum.font.color.rgb = GOLD
+        rnum.font.bold = True
+        rnum.font.size = Pt(14)
+        rnum.font.name = FONT_HEAD
+        rtitle = p.add_run(title)
+        rtitle.font.color.rgb = NAVY
+        rtitle.font.bold = True
+        rtitle.font.size = Pt(14)
+        rtitle.font.name = FONT_HEAD
+
+        psub = doc.add_paragraph()
+        psub.paragraph_format.space_after = Pt(6)
+        rsub = psub.add_run(sub)
+        rsub.italic = True
+        rsub.font.color.rgb = TEAL
+        rsub.font.size = Pt(10.5)
+
+        add_bullets(doc, points)
+
+    add_image_placeholder(
+        doc,
+        "Insert HD Product Mockup: Cross-Platform Dashboard UI showing real-time "
+        "transaction graphs — society due-collection curve, vendor settlement volume, "
+        "and resident ledger balance trend, rendered side-by-side on a tablet and phone "
+        "frame.",
+        height_cm=6.5,
+    )
+
+    doc.add_page_break()
+
+    # ---------------- Section 4: Security, Compliance & Scale ----------------
+    add_kicker(doc, "Security, Compliance & Scale")
+    doc.add_heading("Bank-Grade Trust, Built Into the Foundation", level=1)
+    doc.add_paragraph(
+        "A platform that touches household finances and residential identity earns the "
+        "right to operate only by treating security as non-negotiable infrastructure, "
+        "not a feature checkbox. PakkaHisaab is engineered to the standard a financial "
+        "institution would demand of any system holding a ledger of record."
+    )
+
+    sec_items = [
+        "Encryption at Rest — All ledger, KYC, and transaction records are encrypted "
+        "at rest using AES-256, with keys managed through a dedicated key-management "
+        "service and rotated on a defined schedule.",
+        "Encryption in Transit — Every client-to-server and service-to-service call is "
+        "enforced over TLS 1.2+, with certificate pinning on mobile clients to defeat "
+        "man-in-the-middle interception on untrusted networks.",
+        "Role-Based Data Isolation — Society admins, residents, and vendors operate "
+        "against strictly scoped data views enforced at the query layer — not merely "
+        "hidden in the UI — so a compromised client session cannot exfiltrate data "
+        "outside its authorised role boundary.",
+        "Immutable Audit Trails — Every ledger mutation is appended with an "
+        "actor-stamped, timestamped audit record that is never overwritten, giving "
+        "society committees a defensible compliance trail for RWA statutory audits.",
+        "KYC-Gated Vendor Onboarding — Vendors are cryptographically verified against "
+        "government-issued identity and business documentation before any household "
+        "ledger can be linked to their storefront, eliminating anonymous commercial "
+        "actors from the network.",
+        "Elastic, Horizontally Scalable Infrastructure — The ledger and notification "
+        "services are built on a horizontally scalable cloud-native architecture, "
+        "load-tested to sustain peak month-end billing cycles across thousands of "
+        "concurrent societies without degradation.",
+        "Automated Backups & Disaster Recovery — Point-in-time database snapshots and "
+        "geo-redundant backups ensure a recovery point objective measured in minutes, "
+        "not days, protecting every society's financial history against infrastructure "
+        "failure.",
+    ]
+    add_bullets(doc, sec_items)
+
+    add_shaded_paragraph_box(
+        doc,
+        [
+            "PakkaHisaab's infrastructure has been architected against the same threat "
+            "model used to evaluate core banking middleware: encrypted data at every "
+            "layer, least-privilege access by role, and an audit trail that cannot be "
+            "silently altered."
+        ],
+        fill="FDECEC", border_color="A32A2A",
+        label="SECURITY NOTE", label_color=DANGER,
+    )
+
+    doc.add_page_break()
+
+    # ---------------- Section 5: CTA ----------------
+    add_kicker(doc, "Get Started Today")
+    doc.add_heading("Your Onboarding Matrix: From Signup to First Reconciled Ledger", level=1)
+    doc.add_paragraph(
+        "PakkaHisaab is engineered for same-week activation. The matrix below is the "
+        "definitive path for a Society Management Committee and its Local Vendor "
+        "Partners to move from first contact to a fully reconciled, live ledger."
+    )
+
+    doc.add_heading("For Residential Societies", level=2)
+    society_rows = [
+        ("Step", "Action", "Outcome"),
+        ("1", "Register your society and upload the resident unit directory",
+         "Society workspace provisioned with a unique society ledger ID"),
+        ("2", "Configure maintenance slabs, due dates, and grace-period / penalty rules",
+         "Automated billing engine activated for every unit"),
+        ("3", "Invite committee members and assign admin roles",
+         "RBAC-scoped access live for treasurer, secretary, and auditors"),
+        ("4", "Approve nearby vendors from the verified network directory",
+         "Vendors become bookable by every resident in the society"),
+        ("5", "Go live — residents receive app access and their opening ledger balance",
+         "Full real-time reconciliation begins from day one"),
+    ]
+    society_table = doc.add_table(rows=len(society_rows), cols=3)
+    society_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    for i, row in enumerate(society_rows):
+        cells = society_table.rows[i].cells
+        for j, val in enumerate(row):
+            cells[j].text = ""
+            r = cells[j].paragraphs[0].add_run(val)
+            if i == 0:
+                r.bold = True
+        if i == 0:
+            set_repeat_header(society_table.rows[i])
+    society_table.columns[0].width = Cm(1.6)
+    society_table.columns[1].width = Cm(7.0)
+    society_table.columns[2].width = Cm(6.1)
+    shade_table_zebra(society_table, "0B1F3A", BAND_GREY)
+
+    doc.add_paragraph().paragraph_format.space_after = Pt(4)
+
+    doc.add_heading("For Local & Nearby Vendors", level=2)
+    vendor_rows = [
+        ("Step", "Action", "Outcome"),
+        ("1", "Submit business KYC (identity proof, address proof, trade licence)",
+         "Vendor application enters the verification queue"),
+        ("2", "Complete platform verification review",
+         "Vendor profile approved and digitally badge-verified"),
+        ("3", "Set up your digital storefront — catalogue, pricing, and service radius",
+         "Storefront becomes visible to all residents in linked societies"),
+        ("4", "Link approved households and begin issuing digital ledger tokens",
+         "Real-time per-household ledger tracking activated"),
+        ("5", "Receive scheduled payout settlements to your linked bank account",
+         "Automated, reconciled payouts on a predictable cycle"),
+    ]
+    vendor_table = doc.add_table(rows=len(vendor_rows), cols=3)
+    vendor_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    for i, row in enumerate(vendor_rows):
+        cells = vendor_table.rows[i].cells
+        for j, val in enumerate(row):
+            cells[j].text = ""
+            r = cells[j].paragraphs[0].add_run(val)
+            if i == 0:
+                r.bold = True
+        if i == 0:
+            set_repeat_header(vendor_table.rows[i])
+    vendor_table.columns[0].width = Cm(1.6)
+    vendor_table.columns[1].width = Cm(7.0)
+    vendor_table.columns[2].width = Cm(6.1)
+    shade_table_zebra(vendor_table, "0E7C7B", BAND_TEAL)
+
+    doc.add_paragraph().paragraph_format.space_after = Pt(10)
+
+    cta_table = doc.add_table(rows=1, cols=1)
+    cta_cell = cta_table.rows[0].cells[0]
+    set_cell_shading(cta_cell, "0B1F3A")
+    set_cell_borders(cta_cell, color="C99A2E", size="6")
+    cta_cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    p = cta_cell.paragraphs[0]
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(10)
+    p.paragraph_format.space_after = Pt(2)
+    r1 = p.add_run("Ready to Reconcile Every Rupee?")
+    r1.font.bold = True
+    r1.font.size = Pt(16)
+    r1.font.color.rgb = WHITE
+    r1.font.name = FONT_HEAD
+    p2 = cta_cell.add_paragraph()
+    p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p2.paragraph_format.space_after = Pt(10)
+    r2 = p2.add_run(
+        "Register your society or vendor storefront at pakkahisaab.app "
+        "and go live within the same billing cycle."
+    )
+    r2.font.size = Pt(11)
+    r2.font.color.rgb = RGBColor(0xE9, 0xD9, 0xA8)
+
+    out_path = os.path.join(OUT_DIR, "PakkaHisaab_Brochure.docx")
+    doc.save(out_path)
+    return out_path
+
+
+# ===========================================================================
+# DOCUMENT 2 — PakkaHisaab User & Engineering Guide
+# ===========================================================================
+def add_workflow_block(doc, wf_id, name, preconditions, inputs, steps,
+                        postconditions, screenshot, edge_cases):
+    """Renders one fully-specified workflow using the strict technical schema."""
+    hdr = doc.add_paragraph()
+    hdr.paragraph_format.space_before = Pt(16)
+    hdr.paragraph_format.space_after = Pt(4)
+    r1 = hdr.add_run(f"{wf_id}: ")
+    r1.font.bold = True
+    r1.font.color.rgb = GOLD
+    r1.font.name = FONT_HEAD
+    r1.font.size = Pt(12.5)
+    r2 = hdr.add_run(name)
+    r2.font.bold = True
+    r2.font.color.rgb = NAVY
+    r2.font.name = FONT_HEAD
+    r2.font.size = Pt(12.5)
+
+    # Pre-conditions & Input Vector table
+    spec_table = doc.add_table(rows=2, cols=2)
+    spec_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    labels = ["Pre-conditions", "Input Vector"]
+    values = [preconditions, inputs]
+    for i in range(2):
+        cells = spec_table.rows[i].cells
+        cells[0].text = ""
+        rl = cells[0].paragraphs[0].add_run(labels[i])
+        rl.bold = True
+        rl.font.size = Pt(9.5)
+        rl.font.color.rgb = NAVY
+        set_cell_shading(cells[0], BAND_GREY)
+        cells[1].text = ""
+        first = True
+        for line in values[i]:
+            para = cells[1].paragraphs[0] if first else cells[1].add_paragraph()
+            first = False
+            rr = para.add_run(f"• {line}")
+            rr.font.size = Pt(9.5)
+            para.paragraph_format.space_after = Pt(1)
+        for c in cells:
+            set_cell_borders(c, color="D9DEE6", size="3")
+            c.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    spec_table.columns[0].width = Cm(3.6)
+    spec_table.columns[1].width = Cm(11.1)
+
+    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+
+    sub = doc.add_paragraph()
+    sub.paragraph_format.space_before = Pt(4)
+    sub.paragraph_format.space_after = Pt(2)
+    rs = sub.add_run("Step-by-Step Execution Sequence")
+    rs.bold = True
+    rs.font.size = Pt(10.5)
+    rs.font.color.rgb = TEAL
+    rs.font.name = FONT_HEAD
+
+    step_table = doc.add_table(rows=len(steps) + 1, cols=2)
+    step_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    hdr_cells = step_table.rows[0].cells
+    hdr_cells[0].text = ""
+    hdr_cells[0].paragraphs[0].add_run("#")
+    hdr_cells[1].text = ""
+    hdr_cells[1].paragraphs[0].add_run("Action")
+    for idx, step_text in enumerate(steps, start=1):
+        cells = step_table.rows[idx].cells
+        cells[0].text = ""
+        cells[0].paragraphs[0].add_run(str(idx))
+        cells[1].text = ""
+        cells[1].paragraphs[0].add_run(step_text)
+    step_table.columns[0].width = Cm(1.0)
+    step_table.columns[1].width = Cm(13.7)
+    shade_table_zebra(step_table, SLATE_HEX, "F2F4F7", header_font_color=WHITE)
+    set_repeat_header(step_table.rows[0])
+
+    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+
+    post_p = doc.add_paragraph()
+    post_p.paragraph_format.space_before = Pt(6)
+    rp = post_p.add_run("Post-conditions & Data State Mutation: ")
+    rp.bold = True
+    rp.font.color.rgb = NAVY
+    rp.font.size = Pt(10)
+    rp2 = post_p.add_run(postconditions)
+    rp2.font.size = Pt(10)
+
+    add_image_placeholder(doc, f"Insert High-Definition UI Screenshot: {screenshot}", height_cm=4.2)
+
+    add_shaded_paragraph_box(
+        doc, edge_cases, fill="FFF6DF", border_color="C99A2E",
+        label="EDGE-CASE HANDLING & PRO TIPS", label_color=PROTIP_LABEL,
+    )
+    add_hr(doc)
+
+
+SLATE_HEX = "4A5568"
+
+
+def build_rbac_matrix(doc):
+    doc.add_heading("Role-Based Access Control (RBAC) Matrix", level=2)
+    doc.add_paragraph(
+        "The table below is the authoritative permission map governing every "
+        "protected resource in PakkaHisaab. Access is enforced server-side at the "
+        "query layer for every role — the client UI reflects, but never substitutes "
+        "for, this boundary."
+    )
+
+    header = ["Capability / Resource", "System / Society Admin", "Resident", "Vendor"]
+    rows = [
+        ("Vendor KYC review & approval", "Full (Approve / Reject / Suspend)", "No Access", "Submit Only (own profile)"),
+        ("Society maintenance ledger configuration", "Full (Create / Edit / Archive)", "Read Own Records", "No Access"),
+        ("Penalty & grace-period rule engine", "Full (Configure / Override)", "Read Only (own dues)", "No Access"),
+        ("Resident household ledger balance", "Read + Audit (all households)", "Full (own household only)", "Read Only (linked households only)"),
+        ("Vendor storefront & catalogue", "Read + Suspend", "Read Only (browse/discover)", "Full (own storefront only)"),
+        ("Digital ledger token issuance", "Read + Audit", "Authorise (own household)", "Initiate (linked households only)"),
+        ("Recurring bill payment setup", "Read + Audit", "Full (own account)", "No Access"),
+        ("Payout settlement processing", "Read + Approve batch release", "No Access", "Read Own Settlements"),
+        ("Broadcast messaging / notifications", "Full (Compose / Send / Schedule)", "Receive Only", "Receive Only"),
+        ("Billing discrepancy audit trail", "Full (Investigate / Annotate / Close)", "Read Own Flags", "Read Own Flags"),
+        ("Historical statement export (CSV/PDF)", "Full (all households & vendors)", "Full (own account only)", "Full (own settlements only)"),
+        ("Platform-wide analytics dashboard", "Full", "No Access", "Own-Storefront Metrics Only"),
+    ]
+
+    table = doc.add_table(rows=len(rows) + 1, cols=4)
+    table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    for j, val in enumerate(header):
+        table.rows[0].cells[j].text = ""
+        r = table.rows[0].cells[j].paragraphs[0].add_run(val)
+        r.bold = True
+    set_repeat_header(table.rows[0])
+    for i, row in enumerate(rows, start=1):
+        for j, val in enumerate(row):
+            table.rows[i].cells[j].text = ""
+            table.rows[i].cells[j].paragraphs[0].add_run(val)
+    table.columns[0].width = Cm(4.6)
+    table.columns[1].width = Cm(3.9)
+    table.columns[2].width = Cm(3.3)
+    table.columns[3].width = Cm(3.9)
+    shade_table_zebra(table, NAVY_HEX, BAND_GREY)
+    doc.add_paragraph().paragraph_format.space_after = Pt(4)
+
+    add_shaded_paragraph_box(
+        doc,
+        [
+            "Vendor sessions can never resolve a resident's personal identity fields "
+            "(full legal name beyond first-name display, contact number, unit "
+            "ownership documents) — only the authorised ledger balance and "
+            "transaction-approval state of the linked household. This boundary is "
+            "enforced at the API layer, not the UI, and cannot be bypassed by a "
+            "modified client."
+        ],
+        fill="FDECEC", border_color="A32A2A",
+        label="SECURITY NOTE", label_color=DANGER,
+    )
+
+
+NAVY_HEX = "0B1F3A"
+
+
+def build_user_guide():
+    doc = Document()
+    configure_base_styles(doc)
+
+    section = doc.sections[0]
+    add_page_border(section, color=SLATE_HEX, size=12)
+    add_footer_with_page_number(section, "PakkaHisaab — Engineering & User Workflows Guide")
+
+    # ---------------- Cover ----------------
+    doc.add_paragraph().paragraph_format.space_after = Pt(4)
+    if os.path.exists(LOGO_PATH):
+        lp = doc.add_paragraph()
+        lp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run = lp.add_run()
+        run.add_picture(LOGO_PATH, width=Cm(2.4))
+
+    title_p = doc.add_paragraph(style="Title")
+    title_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    title_p.add_run("PakkaHisaab")
+
+    sub = doc.add_paragraph(style="Subtitle")
+    sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    sub.add_run("Exhaustive Engineering & User Workflows Guide")
+
+    sub2 = doc.add_paragraph()
+    sub2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = sub2.add_run(
+        "Functional Specification, RBAC Matrix & Component-Level Workflow "
+        "Blueprints for System Admins, Residents & Vendors"
+    )
+    r.font.size = Pt(11.5)
+    r.italic = True
+    r.font.color.rgb = SLATE
+
+    doc.add_paragraph().paragraph_format.space_after = Pt(8)
+
+    add_meta_table(doc, [
+        ("Document Class", "Technical Reference — Functional & Workflow Specification"),
+        ("Audience", "Engineering, QA, Support, Onboarding & Training Teams"),
+        ("Version", "v1.0 — Production Release Edition"),
+        ("Date", "19 July 2026"),
+        ("Schema Standard", "Workflow ID · Pre-conditions · Input Vector · Execution "
+                             "Sequence · Post-conditions · UI Reference · Edge Cases"),
+    ], col_widths=(4.6, 10.1))
+
+    doc.add_page_break()
+
+    # ---------------- Section 1: Introduction & RBAC ----------------
+    add_kicker(doc, "System Introduction")
+    doc.add_heading("Platform Overview & Access Control Architecture", level=1)
+    doc.add_paragraph(
+        "PakkaHisaab operates as a single ledger of record shared across three "
+        "strictly scoped user roles: the System / Society Admin, who governs "
+        "society-wide financial policy and vendor trust; the Resident, who "
+        "transacts against their own household ledger; and the Vendor, who "
+        "fulfils local commerce against linked households. This section defines "
+        "the exhaustive functional blueprint for every workflow available to each "
+        "role, down to precise input/output boundaries, so that engineering, QA, "
+        "and support teams share one unambiguous specification of system behaviour."
+    )
+    build_rbac_matrix(doc)
+
+    doc.add_page_break()
+
+    # ---------------- Section 2: Admin workflows ----------------
+    add_kicker(doc, "Functional Blueprints — System / Society Admin")
+    doc.add_heading("System / Society Admin Workflows", level=1)
+    doc.add_paragraph(
+        "The System / Society Admin role governs vendor trust, society-wide "
+        "financial configuration, compliance auditing, and resident communication. "
+        "Every admin workflow below is documented to the exact input and output "
+        "boundary required for implementation, QA validation, and support "
+        "escalation handling."
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-ADM-01", "Vendor Onboarding KYC Approval",
+        preconditions=[
+            "A vendor application exists in status PENDING_REVIEW.",
+            "The vendor has uploaded mandatory KYC documents: government-issued "
+            "identity proof, business address proof, and trade licence (where "
+            "applicable).",
+            "The admin account holds the VENDOR_VERIFIER permission grant.",
+        ],
+        inputs=[
+            "vendor_id (UUID, required)",
+            "kyc_document_set (identity_proof, address_proof, trade_licence — "
+            "file references, required)",
+            "service_radius_km (decimal, required)",
+            "reviewer_decision (enum: APPROVE | REJECT | REQUEST_MORE_INFO, required)",
+            "rejection_reason (string, required only when reviewer_decision = REJECT)",
+        ],
+        steps=[
+            "Admin opens the Vendor Verification Dashboard and selects a vendor "
+            "record from the PENDING_REVIEW queue.",
+            "Admin reviews the uploaded identity proof, address proof, and trade "
+            "licence documents against the declared business name and service "
+            "address.",
+            "Admin cross-checks the declared service radius against the list of "
+            "societies requesting that vendor category to confirm serviceability.",
+            "Admin selects a reviewer_decision: APPROVE, REJECT, or REQUEST_MORE_INFO.",
+            "If APPROVE is selected, admin confirms the vendor category (Grocery, "
+            "Dairy, Laundry, Pharmacy, or Household Services) and submits.",
+            "If REJECT is selected, admin must enter a rejection_reason before the "
+            "form allows submission.",
+            "System persists the decision, updates the vendor record status, and "
+            "triggers the corresponding vendor-facing notification.",
+        ],
+        postconditions=(
+            "On APPROVE: vendor.status transitions PENDING_REVIEW → VERIFIED; a "
+            "verified_at timestamp and reviewing admin_id are written to the vendor "
+            "audit trail; the vendor storefront becomes discoverable to residents "
+            "in societies within its service radius. On REJECT: vendor.status "
+            "transitions to REJECTED with the rejection_reason persisted; the "
+            "vendor may resubmit a new application. On REQUEST_MORE_INFO: "
+            "vendor.status transitions to INFO_REQUESTED and the vendor receives "
+            "a itemised list of outstanding document gaps."
+        ),
+        screenshot="Admin Panel → Vendor Verification Dashboard, showing the "
+                   "pending-queue list on the left and the document review pane "
+                   "with Approve / Reject / Request-More-Info action buttons on "
+                   "the right.",
+        edge_cases=[
+            "Duplicate PAN / business registration number detected: system blocks "
+            "submission and surfaces the conflicting vendor_id to the admin for "
+            "manual reconciliation before a decision can be recorded.",
+            "Uploaded document fails automated legibility/OCR pre-check: the "
+            "APPROVE action is disabled until the vendor re-uploads a passing "
+            "document, preventing accidental approval of an unreadable KYC file.",
+            "Pro Tip: use REQUEST_MORE_INFO rather than REJECT for any borderline "
+            "or partially complete submission — it preserves the vendor's queue "
+            "position and avoids forcing a full application restart.",
+        ],
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-ADM-02", "Society Maintenance Ledger Configuration",
+        preconditions=[
+            "The admin account holds the LEDGER_CONFIG permission grant.",
+            "The society workspace has at least one registered residential unit.",
+        ],
+        inputs=[
+            "unit_category (enum, e.g. 1BHK / 2BHK / 3BHK / Commercial — required)",
+            "maintenance_amount (decimal, currency INR, required)",
+            "billing_cycle (enum: MONTHLY | QUARTERLY | ANNUAL, required)",
+            "due_date_day_of_month (integer 1–28, required)",
+            "effective_from (date, required)",
+        ],
+        steps=[
+            "Admin navigates to Society Settings → Maintenance Ledger "
+            "Configuration.",
+            "Admin defines or edits a maintenance_amount slab per unit_category.",
+            "Admin sets the billing_cycle and due_date_day_of_month governing when "
+            "dues are generated and considered outstanding.",
+            "Admin sets an effective_from date, allowing rate changes to apply only "
+            "to future billing cycles without altering historical ledger entries.",
+            "Admin reviews a system-generated preview of the next three billing "
+            "cycles per unit_category before confirming.",
+            "Admin submits the configuration; the system validates no overlapping "
+            "active slab exists for the same unit_category and date range.",
+        ],
+        postconditions=(
+            "A new or updated maintenance_slab record is persisted with an "
+            "immutable created_by admin_id and created_at timestamp. Existing "
+            "billing_cycle records prior to effective_from remain untouched; "
+            "future ledger generation jobs read the new slab from effective_from "
+            "onward. All linked resident ledgers automatically reflect the "
+            "updated recurring due amount from their next billing cycle."
+        ),
+        screenshot="Admin Panel → Society Settings → Maintenance Ledger "
+                   "Configuration, showing a slab editor table with unit categories "
+                   "as rows and a live billing-cycle preview panel.",
+        edge_cases=[
+            "Overlapping effective_from date for the same unit_category: system "
+            "rejects the save and highlights the conflicting existing slab rather "
+            "than silently overwriting it.",
+            "due_date_day_of_month set beyond 28: input is rejected at validation "
+            "to avoid undefined behaviour in months with fewer than 29–31 days.",
+            "Pro Tip: set effective_from at least one full billing cycle ahead of "
+            "the current date so residents receive the standard notice period "
+            "before a maintenance amount change takes effect.",
+        ],
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-ADM-03", "Automated Penalty & Grace-Period Rule Configuration",
+        preconditions=[
+            "The admin account holds the LEDGER_CONFIG permission grant.",
+            "At least one active maintenance_slab exists for the society.",
+        ],
+        inputs=[
+            "grace_period_days (integer ≥ 0, required)",
+            "penalty_type (enum: FLAT_FEE | PERCENTAGE_OF_DUE, required)",
+            "penalty_value (decimal, required)",
+            "penalty_recurrence (enum: ONE_TIME | PER_BILLING_CYCLE_UNTIL_PAID, required)",
+            "escalation_notification_schedule (array of day-offsets, required)",
+        ],
+        steps=[
+            "Admin navigates to Society Settings → Penalty & Grace-Period "
+            "Rules.",
+            "Admin sets grace_period_days — the number of days after a due_date "
+            "before a balance is classified as overdue.",
+            "Admin selects penalty_type and enters penalty_value (a flat rupee "
+            "amount or a percentage of the outstanding due).",
+            "Admin selects penalty_recurrence to determine whether the penalty "
+            "applies once or compounds every billing cycle the due remains unpaid.",
+            "Admin configures the escalation_notification_schedule — the day "
+            "offsets (relative to due_date) at which reminder intensity escalates.",
+            "Admin submits; the system validates that grace_period_days does not "
+            "exceed the billing_cycle length and confirms the rule is now active.",
+        ],
+        postconditions=(
+            "A penalty_rule record is persisted and linked to the society's active "
+            "maintenance_slab configuration. The automated billing engine begins "
+            "evaluating every open due against this rule at the next scheduled "
+            "evaluation run; overdue balances are flagged and penalty line items "
+            "are appended to the resident's ledger automatically without further "
+            "admin action."
+        ),
+        screenshot="Admin Panel → Society Settings → Penalty & "
+                   "Grace-Period Rules, showing a rule builder with grace-period "
+                   "slider, penalty-type toggle, and an escalation timeline "
+                   "visualisation.",
+        edge_cases=[
+            "grace_period_days exceeds the billing_cycle duration: system rejects "
+            "the configuration since it would allow a due to roll into the next "
+            "cycle before ever becoming overdue.",
+            "PERCENTAGE_OF_DUE selected with penalty_value above a configurable "
+            "sanity ceiling (default 25%): system requires an explicit secondary "
+            "confirmation to prevent an accidental punitive rate.",
+            "Pro Tip: pair PER_BILLING_CYCLE_UNTIL_PAID recurrence with an "
+            "escalation_notification_schedule of at least three touchpoints — "
+            "societies that skip early reminders see materially higher penalty "
+            "dispute volume at audit time.",
+        ],
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-ADM-04", "Billing Discrepancy Audit & Resolution",
+        preconditions=[
+            "The admin account holds the AUDIT_REVIEW permission grant.",
+            "At least one ledger entry has been auto-flagged by the reconciliation "
+            "engine as a discrepancy (balance mismatch, duplicate token, or failed "
+            "settlement).",
+        ],
+        inputs=[
+            "discrepancy_id (UUID, system-generated, required)",
+            "investigation_notes (string, optional per step)",
+            "resolution_action (enum: ADJUST_LEDGER | MARK_FALSE_POSITIVE | "
+            "ESCALATE_TO_VENDOR | ESCALATE_TO_RESIDENT, required)",
+            "adjustment_amount (decimal, required only when resolution_action = "
+            "ADJUST_LEDGER)",
+        ],
+        steps=[
+            "Admin opens the Billing Discrepancy Audit queue, sorted by "
+            "flagged_at timestamp and severity.",
+            "Admin selects a discrepancy_id and reviews the system-generated "
+            "comparison: expected balance vs. recorded balance, with the full "
+            "transaction chain that produced the mismatch.",
+            "Admin adds investigation_notes documenting findings for the audit "
+            "trail.",
+            "Admin selects a resolution_action appropriate to the root cause "
+            "identified.",
+            "If ADJUST_LEDGER is selected, admin enters the adjustment_amount and "
+            "a mandatory justification note.",
+            "Admin submits the resolution; the system requires a secondary "
+            "confirmation for any ADJUST_LEDGER action exceeding a configurable "
+            "materiality threshold.",
+        ],
+        postconditions=(
+            "The discrepancy record transitions from OPEN to RESOLVED with the "
+            "resolution_action, investigation_notes, and reviewing admin_id "
+            "permanently appended to the immutable audit trail. If ADJUST_LEDGER "
+            "was selected, a compensating ledger entry is posted referencing the "
+            "original discrepancy_id, and the affected resident's or vendor's "
+            "balance is recalculated in real time."
+        ),
+        screenshot="Admin Panel → Billing Discrepancy Audit, showing a "
+                   "side-by-side expected-vs-actual balance comparison with the "
+                   "full transaction chain timeline below.",
+        edge_cases=[
+            "Discrepancy involves a vendor settlement already paid out: "
+            "ADJUST_LEDGER is disabled until the linked payout batch is placed on "
+            "hold, preventing a correction from being silently absorbed into a "
+            "future payout.",
+            "Same discrepancy_id resubmitted twice due to a network retry: system "
+            "de-duplicates on discrepancy_id and rejects the second resolution "
+            "attempt with a CONFLICT response.",
+            "Pro Tip: always document investigation_notes before selecting "
+            "MARK_FALSE_POSITIVE — recurring false-positive patterns without notes "
+            "make it impossible to later tune the reconciliation engine's "
+            "sensitivity.",
+        ],
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-ADM-05", "Broadcast Messaging to Residents & Vendors",
+        preconditions=[
+            "The admin account holds the BROADCAST_SEND permission grant.",
+            "At least one target audience segment (all residents, specific "
+            "block/tower, all vendors, or a custom filter) is available.",
+        ],
+        inputs=[
+            "audience_segment (enum: ALL_RESIDENTS | SPECIFIC_BLOCK | ALL_VENDORS "
+            "| CUSTOM_FILTER, required)",
+            "message_title (string, max 120 characters, required)",
+            "message_body (string, max 2000 characters, required)",
+            "delivery_channel (multi-select: IN_APP | SMS | EMAIL, required, at "
+            "least one)",
+            "scheduled_send_time (datetime, optional — defaults to immediate)",
+        ],
+        steps=[
+            "Admin opens Broadcast Messaging and selects an audience_segment.",
+            "If CUSTOM_FILTER is selected, admin defines filter criteria (e.g. "
+            "outstanding balance above a threshold, specific unit range).",
+            "Admin composes message_title and message_body.",
+            "Admin selects one or more delivery_channel options.",
+            "Admin optionally sets a scheduled_send_time, or leaves it blank to "
+            "send immediately.",
+            "Admin reviews an audience-size preview count before final submission.",
+            "Admin confirms and submits the broadcast for delivery.",
+        ],
+        postconditions=(
+            "A broadcast_message record is persisted with status QUEUED or SENT. "
+            "The notification engine fans the message out to every recipient in "
+            "the resolved audience_segment across each selected delivery_channel. "
+            "A delivery receipt log is created per recipient, capturing "
+            "sent_at, delivered_at, and read_at (where the channel supports read "
+            "receipts) for later audit."
+        ),
+        screenshot="Admin Panel → Broadcast Messaging, showing the audience "
+                   "segment selector, message composer, and a live recipient-count "
+                   "preview badge.",
+        edge_cases=[
+            "CUSTOM_FILTER resolves to zero matching recipients: system blocks "
+            "submission and surfaces a warning rather than silently sending to "
+            "nobody.",
+            "message_body exceeds the SMS channel's character limit: system "
+            "automatically truncates the SMS variant with a “read more in app” "
+            "suffix while keeping the full text intact for IN_APP and EMAIL "
+            "channels.",
+            "Pro Tip: use scheduled_send_time to queue due-date reminders for "
+            "early morning delivery — open and response rates measured across "
+            "societies are consistently higher before 10 AM.",
+        ],
+    )
+
+    doc.add_page_break()
+
+    # ---------------- Section 3: Resident workflows ----------------
+    add_kicker(doc, "Functional Blueprints — Resident")
+    doc.add_heading("Resident User Workflows", level=1)
+    doc.add_paragraph(
+        "The Resident role transacts exclusively against its own household ledger "
+        "and the vendors it has chosen to link. Every resident-facing workflow is "
+        "documented below with the exact fields, sequence, and system state "
+        "changes required for a complete, production-grade implementation."
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-RES-01", "Discovering Verified Nearby Vendors",
+        preconditions=[
+            "Resident account is active and linked to a registered residential "
+            "unit.",
+            "At least one vendor with status VERIFIED exists within the "
+            "resident's society service area.",
+        ],
+        inputs=[
+            "vendor_category_filter (enum, optional: Grocery | Dairy | Laundry | "
+            "Pharmacy | Household Services | All)",
+            "search_query (string, optional free-text)",
+            "sort_order (enum: DISTANCE | RATING | RECENTLY_ADDED, optional, "
+            "default DISTANCE)",
+        ],
+        steps=[
+            "Resident opens the Vendor Discovery tab from the home dashboard.",
+            "Resident optionally applies a vendor_category_filter or enters a "
+            "search_query.",
+            "Resident optionally changes sort_order to reorder results.",
+            "Resident reviews the returned list, each entry showing verification "
+            "badge, category, rating, and estimated distance.",
+            "Resident taps a vendor card to view the full storefront profile, "
+            "including catalogue and service radius confirmation for their unit.",
+            "Resident taps “Link Vendor” to request a household-ledger linkage "
+            "with the selected vendor.",
+        ],
+        postconditions=(
+            "A vendor_link request record is created in status "
+            "PENDING_VENDOR_ACCEPTANCE, associated with the resident's household "
+            "ledger and the selected vendor_id. The vendor receives a real-time "
+            "notification to accept the linkage before any ledger token can be "
+            "issued against that household."
+        ),
+        screenshot="Resident App → Vendor Discovery, showing a filterable "
+                   "list of verified vendor cards with distance, rating, and "
+                   "category badges, and a detail sheet for the selected vendor.",
+        edge_cases=[
+            "No vendors match the applied vendor_category_filter within the "
+            "society: system displays an explicit “no vendors yet in this "
+            "category” state with an option to notify the resident when one is "
+            "onboarded, rather than an empty blank screen.",
+            "Resident attempts to link a vendor already at its configured maximum "
+            "concurrent household count: request is rejected with a clear "
+            "capacity-reached message instead of silently queuing indefinitely.",
+            "Pro Tip: check the verification badge date — a vendor re-verified "
+            "within the last 90 days reflects the most current KYC and service "
+            "radius data.",
+        ],
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-RES-02", "Initiating & Topping Up a Secure Ledger Balance",
+        preconditions=[
+            "Resident's household ledger exists and is in ACTIVE status.",
+            "Resident has at least one verified payment instrument (UPI, "
+            "linked bank account, or card) on file.",
+        ],
+        inputs=[
+            "top_up_amount (decimal, currency INR, minimum ₹100, required)",
+            "payment_instrument_id (UUID, required)",
+            "auto_reload_threshold (decimal, optional)",
+            "auto_reload_amount (decimal, required only if auto_reload_threshold "
+            "is set)",
+        ],
+        steps=[
+            "Resident opens My Ledger and selects “Add Funds.”",
+            "Resident enters top_up_amount or selects a preset amount chip.",
+            "Resident selects a payment_instrument_id from saved instruments or "
+            "adds a new one.",
+            "Resident optionally configures auto_reload_threshold and "
+            "auto_reload_amount to enable automatic top-ups when the balance "
+            "runs low.",
+            "Resident confirms the transaction; the system routes the request to "
+            "the configured payment gateway for authorisation.",
+            "On gateway authorisation success, the system credits the household "
+            "ledger balance in real time and issues a digital receipt.",
+        ],
+        postconditions=(
+            "A ledger_transaction record of type CREDIT_TOPUP is appended to the "
+            "household's immutable ledger with the authorised amount, gateway "
+            "reference ID, and timestamp. The resident's available balance "
+            "reflects the new total instantly across all connected vendor and "
+            "admin views. If auto-reload was configured, the "
+            "auto_reload_threshold and auto_reload_amount are persisted against "
+            "the household's ledger settings for future automatic triggers."
+        ),
+        screenshot="Resident App → My Ledger → Add Funds, showing preset "
+                   "amount chips, a saved payment-instrument selector, and an "
+                   "auto-reload toggle with threshold slider.",
+        edge_cases=[
+            "Payment gateway authorisation fails or times out: no ledger credit "
+            "is posted, the resident sees an explicit failure reason "
+            "(insufficient funds, instrument declined, gateway timeout), and the "
+            "attempt is logged for support diagnostics without double-charging on "
+            "retry.",
+            "auto_reload_threshold set higher than auto_reload_amount would "
+            "sensibly cover: system warns the resident that reloads may trigger "
+            "more frequently than intended, but does not block the configuration.",
+            "Pro Tip: enable auto-reload with a threshold set to roughly one "
+            "week's typical vendor spend to avoid a linked vendor ever being "
+            "unable to complete a purchase due to an empty balance.",
+        ],
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-RES-03", "Authorising a Direct-to-Door Vendor Digital Token",
+        preconditions=[
+            "Resident's household is linked (status ACCEPTED) to the requesting "
+            "vendor.",
+            "Household ledger balance is sufficient to cover the requested token "
+            "amount, or the society's credit-limit policy permits a negative "
+            "balance up to its configured ceiling.",
+        ],
+        inputs=[
+            "vendor_id (UUID, required)",
+            "token_amount (decimal, required)",
+            "item_description (string, optional, vendor-supplied)",
+            "authorization_method (enum: IN_APP_APPROVE | BIOMETRIC_CONFIRM | "
+            "PIN_CONFIRM, required)",
+        ],
+        steps=[
+            "Vendor initiates a token request against the resident's linked "
+            "household with token_amount and an optional item_description.",
+            "Resident receives a real-time push notification presenting the "
+            "pending token request.",
+            "Resident opens the request and reviews vendor identity, "
+            "token_amount, and item_description.",
+            "Resident authorises using the configured authorization_method "
+            "(in-app approval, biometric, or PIN).",
+            "System validates sufficient balance or available credit limit at "
+            "the moment of authorisation.",
+            "Upon successful validation, the system finalises the token, debits "
+            "the household ledger, and issues a digital receipt to both parties.",
+        ],
+        postconditions=(
+            "A ledger_transaction record of type DEBIT_VENDOR_TOKEN is appended "
+            "to the household ledger, referencing vendor_id, token_amount, and "
+            "the authorization_method used. The vendor's pending-settlement "
+            "balance increases by token_amount. Both resident and vendor receive "
+            "a matching digital receipt with a shared transaction reference ID."
+        ),
+        screenshot="Resident App → Token Authorisation, showing a pending "
+                   "request card with vendor name, verification badge, requested "
+                   "amount, and Approve / Decline buttons.",
+        edge_cases=[
+            "Household balance and available credit limit are both insufficient "
+            "at authorisation time: the token request is automatically declined "
+            "with reason INSUFFICIENT_BALANCE, and the vendor is notified to "
+            "collect payment by an alternate method for that transaction.",
+            "Resident does not respond within the configured request expiry "
+            "window (default 15 minutes): the token request auto-expires to "
+            "EXPIRED status, and the vendor must re-initiate if the transaction "
+            "is still valid.",
+            "Pro Tip: enable BIOMETRIC_CONFIRM as the default authorization_method "
+            "for households above a configurable daily token-value threshold to "
+            "reduce accidental or coerced approvals.",
+        ],
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-RES-04", "Automated Recurring Society Bill Payment Setup",
+        preconditions=[
+            "Resident's household ledger is ACTIVE with at least one open or "
+            "upcoming maintenance due.",
+            "Resident has at least one verified payment instrument on file.",
+        ],
+        inputs=[
+            "payment_instrument_id (UUID, required)",
+            "auto_pay_trigger (enum: ON_DUE_DATE | N_DAYS_BEFORE_DUE, required)",
+            "trigger_offset_days (integer, required only if auto_pay_trigger = "
+            "N_DAYS_BEFORE_DUE)",
+            "max_auto_pay_amount (decimal, optional cap)",
+        ],
+        steps=[
+            "Resident opens My Ledger → Recurring Payments and selects "
+            "“Set Up Auto-Pay.”",
+            "Resident selects a payment_instrument_id to be charged "
+            "automatically.",
+            "Resident selects an auto_pay_trigger and, if applicable, a "
+            "trigger_offset_days value.",
+            "Resident optionally sets max_auto_pay_amount as a safety ceiling, "
+            "above which auto-pay will not fire and a manual review notification "
+            "is sent instead.",
+            "Resident reviews a summary confirming the next three scheduled "
+            "auto-pay dates and amounts.",
+            "Resident confirms; the system activates the recurring payment "
+            "mandate.",
+        ],
+        postconditions=(
+            "An auto_pay_mandate record is persisted in ACTIVE status against the "
+            "household ledger. On each subsequent billing cycle, the system "
+            "automatically initiates a payment on the configured trigger date, "
+            "posting a CREDIT_AUTO_PAY ledger_transaction upon success, or a "
+            "FAILED_AUTO_PAY flag with resident notification upon failure — "
+            "never silently skipping a cycle without notice."
+        ),
+        screenshot="Resident App → Recurring Payments → Set Up Auto-Pay, "
+                   "showing the trigger-timing selector and a three-cycle payment "
+                   "preview schedule.",
+        edge_cases=[
+            "Scheduled auto-pay amount exceeds max_auto_pay_amount (e.g. after a "
+            "penalty was applied): auto-pay is suppressed for that cycle and the "
+            "resident receives a manual-payment-required notification instead of "
+            "an unexpected larger charge.",
+            "Configured payment_instrument_id expires or is removed before the "
+            "next trigger date: the mandate transitions to PAUSED and the "
+            "resident is prompted to update their instrument before the next "
+            "billing cycle.",
+            "Pro Tip: choose N_DAYS_BEFORE_DUE with a 2–3 day offset rather than "
+            "ON_DUE_DATE — it leaves a buffer to retry automatically once before "
+            "a due is ever marked overdue.",
+        ],
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-RES-05", "Historical Statement Export (CSV / PDF)",
+        preconditions=[
+            "Resident's household ledger contains at least one historical "
+            "transaction.",
+        ],
+        inputs=[
+            "date_range_start (date, required)",
+            "date_range_end (date, required)",
+            "export_format (enum: CSV | PDF, required)",
+            "transaction_type_filter (enum, optional: ALL | SOCIETY_DUES | "
+            "VENDOR_TOKENS | TOP_UPS)",
+        ],
+        steps=[
+            "Resident opens My Ledger → Statements & Export.",
+            "Resident selects date_range_start and date_range_end.",
+            "Resident optionally applies a transaction_type_filter to narrow the "
+            "export scope.",
+            "Resident selects export_format (CSV for spreadsheet analysis, PDF "
+            "for a formatted statement suitable for record-keeping).",
+            "Resident taps “Generate Export”; the system compiles the requested "
+            "ledger slice.",
+            "System delivers the completed file as an in-app download and, if "
+            "configured, an emailed copy.",
+        ],
+        postconditions=(
+            "An export_request record is logged with the requesting resident_id, "
+            "the applied date range and filters, and a completed_at timestamp. "
+            "The generated file exactly mirrors the immutable ledger data for "
+            "the requested range — no export operation can mutate underlying "
+            "ledger records."
+        ),
+        screenshot="Resident App → Statements & Export, showing a date-range "
+                   "picker, format toggle (CSV/PDF), and a generated-file download "
+                   "card.",
+        edge_cases=[
+            "Requested date_range spans a period with zero transactions: system "
+            "still generates a valid, correctly headered empty statement rather "
+            "than returning an error.",
+            "date_range_end precedes date_range_start: input validation blocks "
+            "generation until the range is corrected.",
+            "Pro Tip: use the PDF format when submitting a statement for society "
+            "audit or dispute purposes — it includes the resident's account "
+            "verification header that CSV exports omit by design.",
+        ],
+    )
+
+    doc.add_page_break()
+
+    # ---------------- Section 4: Vendor workflows ----------------
+    add_kicker(doc, "Functional Blueprints — Vendor")
+    doc.add_heading("Vendor User Workflows", level=1)
+    doc.add_paragraph(
+        "The Vendor role operates a digital storefront linked to one or more "
+        "resident households across its verified societies. Every vendor-facing "
+        "workflow below is documented to the same exhaustive input/output "
+        "standard used for the Admin and Resident roles."
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-VEN-01", "Account Provisioning & Digital Storefront Setup",
+        preconditions=[
+            "Vendor application has been APPROVED via PK-WF-ADM-01.",
+            "Vendor has received a provisioning invite to complete account "
+            "activation.",
+        ],
+        inputs=[
+            "storefront_name (string, required)",
+            "business_category (enum: Grocery | Dairy | Laundry | Pharmacy | "
+            "Household Services, required)",
+            "catalogue_items (array of {item_name, unit_price, unit_of_measure}, "
+            "required, minimum 1 entry)",
+            "service_radius_km (decimal, required)",
+            "settlement_bank_account (account number + IFSC, required)",
+        ],
+        steps=[
+            "Vendor accepts the provisioning invite and sets an account password.",
+            "Vendor enters storefront_name and confirms business_category "
+            "(pre-filled from the approved KYC application).",
+            "Vendor adds catalogue_items, specifying unit_price and "
+            "unit_of_measure for each.",
+            "Vendor confirms or adjusts service_radius_km within the ceiling "
+            "approved during KYC review.",
+            "Vendor enters settlement_bank_account details for payout routing.",
+            "Vendor submits; the system runs a penny-drop verification against "
+            "the settlement_bank_account before activating the storefront.",
+        ],
+        postconditions=(
+            "On successful penny-drop verification, the vendor account "
+            "transitions to ACTIVE and the storefront becomes visible in "
+            "resident-facing Vendor Discovery within its service_radius_km. The "
+            "catalogue_items are persisted as the vendor's live pricing "
+            "reference, used to pre-populate future token requests."
+        ),
+        screenshot="Vendor App → Storefront Setup, showing the catalogue "
+                   "builder with item rows, a service-radius map selector, and "
+                   "the bank-account verification step.",
+        edge_cases=[
+            "Penny-drop verification fails (account name mismatch or invalid "
+            "IFSC): storefront remains in PENDING_BANK_VERIFICATION and cannot go "
+            "live until corrected, preventing payouts from routing to an "
+            "unverified account.",
+            "service_radius_km entered exceeds the ceiling approved during KYC: "
+            "input is capped at the approved maximum with an explanatory message "
+            "rather than a silent server-side truncation.",
+            "Pro Tip: keep catalogue_items unit_price current — token requests "
+            "pre-populate from this list, and stale pricing is the single most "
+            "common source of resident-reported billing disputes.",
+        ],
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-VEN-02", "Real-Time Ledger Updates Per Customer Household",
+        preconditions=[
+            "Vendor storefront is ACTIVE.",
+            "At least one household has an ACCEPTED linkage with the vendor.",
+        ],
+        inputs=[
+            "household_id (UUID, required)",
+            "line_items (array of {catalogue_item_id, quantity}, required, "
+            "minimum 1 entry)",
+            "delivery_confirmation (boolean, required)",
+        ],
+        steps=[
+            "Vendor opens the Household Ledger view and selects a linked "
+            "household_id.",
+            "Vendor adds line_items from the catalogue, specifying quantity for "
+            "each.",
+            "System computes the total token_amount from current catalogue "
+            "pricing.",
+            "Vendor marks delivery_confirmation once goods or services are "
+            "handed over.",
+            "Vendor submits the request, which routes to the resident for "
+            "authorisation per PK-WF-RES-03.",
+            "Vendor monitors the request status (Pending, Approved, Declined, "
+            "Expired) in real time on the same screen.",
+        ],
+        postconditions=(
+            "A token_request record is created referencing household_id, "
+            "line_items, and computed token_amount, in status "
+            "PENDING_RESIDENT_AUTHORIZATION. Upon resident approval, the "
+            "household's ledger debit and the vendor's pending-settlement "
+            "balance update atomically and in real time, visible to the vendor "
+            "without a manual refresh."
+        ),
+        screenshot="Vendor App → Household Ledger, showing a linked-household "
+                   "selector, catalogue line-item picker, and a live request-status "
+                   "tracker.",
+        edge_cases=[
+            "Vendor attempts to submit a token_request against a household whose "
+            "linkage has been revoked since the last screen refresh: system "
+            "rejects the submission with a LINKAGE_INACTIVE error and prompts the "
+            "vendor to re-request linkage.",
+            "Catalogue pricing changes between when the vendor opens the ledger "
+            "screen and submits the request: system recomputes token_amount from "
+            "current pricing at submission time and displays the recalculated "
+            "total for vendor confirmation before sending to the resident.",
+            "Pro Tip: always set delivery_confirmation only at the point of "
+            "actual handover — token requests submitted before delivery create "
+            "avoidable disputes if a resident declines after receiving goods.",
+        ],
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-VEN-03", "Transactional Request Routing & Digital Receipt Processing",
+        preconditions=[
+            "A token_request exists in status APPROVED (resident-authorised).",
+        ],
+        inputs=[
+            "token_request_id (UUID, required)",
+            "receipt_delivery_channel (multi-select: IN_APP | SMS | EMAIL, "
+            "required, at least one)",
+        ],
+        steps=[
+            "System automatically routes an APPROVED token_request to the "
+            "vendor's transaction queue in real time.",
+            "Vendor opens the transaction queue and selects the completed "
+            "token_request_id.",
+            "Vendor confirms the receipt_delivery_channel(s) for the digital "
+            "receipt (defaults to the resident's saved preference).",
+            "Vendor triggers “Issue Receipt,” generating a system receipt "
+            "referencing the token_request_id, itemised line_items, and final "
+            "token_amount.",
+            "System delivers the digital receipt to the resident across the "
+            "selected channel(s) and archives a copy in the vendor's transaction "
+            "history.",
+        ],
+        postconditions=(
+            "A digital_receipt record is generated and immutably linked to its "
+            "source token_request_id. The transaction is marked COMPLETED in "
+            "both the vendor's and resident's transaction histories, and the "
+            "underlying ledger_transaction becomes eligible for inclusion in the "
+            "vendor's next payout settlement batch."
+        ),
+        screenshot="Vendor App → Transaction Queue, showing an approved "
+                   "request card with an “Issue Receipt” action and a delivery-"
+                   "channel confirmation checklist.",
+        edge_cases=[
+            "Vendor attempts to issue a receipt for a token_request not yet in "
+            "APPROVED status: the action is disabled with an inline explanation "
+            "of the current status, preventing a receipt from referencing an "
+            "unauthorised transaction.",
+            "Notification delivery to the resident's device fails on all "
+            "selected channels (e.g. offline device, invalid email): system "
+            "retries on an exponential backoff schedule and the digital_receipt "
+            "remains permanently retrievable from the resident's in-app "
+            "transaction history regardless of delivery outcome.",
+            "Pro Tip: enable both IN_APP and SMS as default delivery channels — "
+            "residents without consistent data connectivity still receive "
+            "confirmation, reducing “did I actually pay” support queries.",
+        ],
+    )
+
+    add_workflow_block(
+        doc, "PK-WF-VEN-04", "Payout Settlement Processing",
+        preconditions=[
+            "Vendor has one or more COMPLETED transactions not yet included in "
+            "a settled payout batch.",
+            "Vendor's settlement_bank_account is in VERIFIED status.",
+        ],
+        inputs=[
+            "settlement_cycle (enum: DAILY | WEEKLY | BI_WEEKLY, vendor-configured, "
+            "required)",
+            "payout_batch_id (UUID, system-generated at cycle close)",
+        ],
+        steps=[
+            "At the close of each settlement_cycle, the system automatically "
+            "aggregates all COMPLETED transactions not yet paid out into a new "
+            "payout_batch_id.",
+            "Vendor opens the Settlements tab to review the batch summary — "
+            "transaction count, gross amount, and any platform fee deductions.",
+            "Vendor reviews itemised transactions within the batch, each linked "
+            "back to its originating token_request_id and digital_receipt.",
+            "Admin releases the payout batch for processing per the society's "
+            "configured approval policy (auto-release or manual admin approval).",
+            "System initiates the bank transfer to the vendor's "
+            "settlement_bank_account.",
+            "Vendor receives a real-time settlement confirmation once the "
+            "transfer clears.",
+        ],
+        postconditions=(
+            "The payout_batch transitions from PENDING → PROCESSING → "
+            "SETTLED, with each state transition timestamped on the immutable "
+            "audit trail. Every included transaction is marked PAID_OUT, "
+            "preventing it from being included in any future batch. The vendor's "
+            "pending-settlement balance decreases by the batch's net amount, and "
+            "a settlement receipt is generated for the vendor's records."
+        ),
+        screenshot="Vendor App → Settlements, showing the current "
+                   "payout_batch summary card, an itemised transaction list, and "
+                   "a settlement-status progress tracker.",
+        edge_cases=[
+            "Bank transfer fails at the processing stage (account closed, "
+            "incorrect details flagged post-verification): payout_batch reverts "
+            "to FAILED status, the vendor is notified immediately, and no "
+            "included transaction is marked PAID_OUT until a corrected transfer "
+            "succeeds.",
+            "Vendor changes settlement_cycle mid-period: the change takes effect "
+            "only from the next full cycle boundary, and the current in-flight "
+            "payout_batch completes under the previous cycle configuration to "
+            "avoid double-counting or gaps in settlement coverage.",
+            "Pro Tip: reconcile the itemised transaction list against your own "
+            "delivery records before each cycle closes — any discrepancy is far "
+            "faster to resolve pre-settlement than after a payout has already "
+            "been transferred.",
+        ],
+    )
+
+    out_path = os.path.join(OUT_DIR, "PakkaHisaab_UserGuide.docx")
+    doc.save(out_path)
+    return out_path
+
+
+if __name__ == "__main__":
+    os.makedirs(OUT_DIR, exist_ok=True)
+    brochure_path = build_brochure()
+    guide_path = build_user_guide()
+    print(f"Brochure saved to: {brochure_path}")
+    print(f"User guide saved to: {guide_path}")

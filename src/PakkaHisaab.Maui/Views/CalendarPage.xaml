@@ -34,7 +34,7 @@
                            TextColor="White" FontSize="22" />
                 </Border>
                 <VerticalStackLayout Grid.Column="2" Spacing="1" VerticalOptions="Center">
-                    <Label Text="{Binding HelperName}" FontFamily="PoppinsBold" FontSize="18" TextColor="White" />
+                    <Label Text="{Binding HelperName}" FontFamily="{DynamicResource FontBold}" FontSize="18" TextColor="White" />
                     <Label Text="{Binding CategoryKey, Converter={StaticResource TranslateKey}}"
                            FontSize="12" TextColor="#CCFBF1" />
                 </VerticalStackLayout>
@@ -110,7 +110,7 @@
                                         HeightRequest="36">
                                     <VerticalStackLayout VerticalOptions="Center" Spacing="0">
                                         <Label HorizontalTextAlignment="Center"
-                                               FontFamily="PoppinsSemiBold" FontSize="12"
+                                               FontFamily="{DynamicResource FontSemiBold}" FontSize="12"
                                                TextColor="{Binding TextColor}"
                                                Text="{Binding DayNumber}" />
                                         <Label HorizontalTextAlignment="Center" FontSize="8"
@@ -132,7 +132,7 @@
 
             <!-- Live settlement summary -->
             <Border Grid.Row="3" Style="{StaticResource Card}" Padding="10,8" BackgroundColor="#F0FDFA">
-                <Label FontFamily="PoppinsSemiBold" FontSize="13" TextColor="{StaticResource Primary}"
+                <Label FontFamily="{DynamicResource FontSemiBold}" FontSize="13" TextColor="{StaticResource Primary}"
                        Text="{Binding SummaryLabel}" />
             </Border>
 

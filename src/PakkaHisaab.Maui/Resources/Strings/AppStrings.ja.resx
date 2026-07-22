@@ -4,14 +4,68 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_SplashTagline" xml:space="preserve">
+    <value>お手伝いさんの出勤と給与を、かんたんに</value>
+  </data>
   <data name="App_Tagline" xml:space="preserve">
     <value>タップ。記録。精算。</value>
+  </data>
+  <data name="Calendar_Ledger" xml:space="preserve">
+    <value>前払い・台帳</value>
+  </data>
+  <data name="Calendar_Summary" xml:space="preserve">
+    <value>欠勤 {0} 日 · 支払額 ₹ {1:N0}</value>
+  </data>
+  <data name="Calendar_UnitsPrompt" xml:space="preserve">
+    <value>配達数量（{0}）</value>
+  </data>
+  <data name="Calendar_UnitsSummary" xml:space="preserve">
+    <value>{0:0.#} {1} 配達済み · 支払額 ₹ {2:N0}</value>
+  </data>
+  <data name="Calendar_UnitsTitle" xml:space="preserve">
+    <value>配達</value>
+  </data>
+  <data name="Category_Cleaner" xml:space="preserve">
+    <value>掃除係</value>
+  </data>
+  <data name="Category_Cook" xml:space="preserve">
+    <value>料理人</value>
+  </data>
+  <data name="Category_Driver" xml:space="preserve">
+    <value>運転手</value>
+  </data>
+  <data name="Category_Gardener" xml:space="preserve">
+    <value>庭師</value>
+  </data>
+  <data name="Category_HouseHelp" xml:space="preserve">
+    <value>家事手伝い</value>
+  </data>
+  <data name="Category_MilkMan" xml:space="preserve">
+    <value>牛乳配達員</value>
+  </data>
+  <data name="Category_Newspaper" xml:space="preserve">
+    <value>新聞配達</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>その他</value>
+  </data>
+  <data name="Category_Tutor" xml:space="preserve">
+    <value>家庭教師</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>
+  <data name="Common_Confirm" xml:space="preserve">
+    <value>確認</value>
+  </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>削除</value>
+  </data>
+  <data name="Common_Deleted" xml:space="preserve">
+    <value>削除しました</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Common_Or" xml:space="preserve">
     <value>または</value>
@@ -22,6 +76,12 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>保存しました</value>
   </data>
+  <data name="Dash_DemoBanner" xml:space="preserve">
+    <value>デモモード — サンプルデータ、同期はオフです。データはこの端末内にのみ保存されます。</value>
+  </data>
+  <data name="Dash_Empty" xml:space="preserve">
+    <value>お手伝いさんがまだ登録されていません。＋をタップして最初のお手伝いさんを追加してください。</value>
+  </data>
   <data name="Dash_OpenCalendar" xml:space="preserve">
     <value>カレンダー</value>
   </data>
@@ -31,17 +91,270 @@
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>今月の支払額：</value>
   </data>
+  <data name="Day_Fr" xml:space="preserve">
+    <value>金</value>
+  </data>
+  <data name="Day_Mo" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="Day_Sa" xml:space="preserve">
+    <value>土</value>
+  </data>
+  <data name="Day_Su" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="Day_Th" xml:space="preserve">
+    <value>木</value>
+  </data>
+  <data name="Day_Tu" xml:space="preserve">
+    <value>火</value>
+  </data>
+  <data name="Day_We" xml:space="preserve">
+    <value>水</value>
+  </data>
+  <data name="Forecast_Pattern" xml:space="preserve">
+    <value>{0}によく欠勤 · 月に約{1}回</value>
+  </data>
+  <data name="Help_Advance_Examples" xml:space="preserve">
+    <value>• "Gave Raju an advance of 200"
+• "200 rupees udhaar to Geeta"</value>
+  </data>
+  <data name="Help_Attendance_Examples" xml:space="preserve">
+    <value>• "Geeta was absent today" / "Geeta didn't come" / "Geeta chutti"
+• "Geeta came" / "Geeta is present" / "Geeta aayi"
+• "Half day for Geeta" / "Geeta half-day" / "Geeta aadha din"</value>
+  </data>
+  <data name="Help_Attendance_Title" xml:space="preserve">
+    <value>出勤（結果を表示するため、そのお手伝いさんのカレンダーを開きます）</value>
+  </data>
+  <data name="Help_Bonus_Examples" xml:space="preserve">
+    <value>• "Diwali bonus 500 for Geeta"</value>
+  </data>
+  <data name="Help_Calendar_Body" xml:space="preserve">
+    <value>日付をタップすると、出勤 → 欠勤 → 半日 の順に切り替わります。単位制のお手伝いさん（牛乳配達員など）の場合は、日付をタップして配達数量を入力します。今月の集計と累計支払額が表示されます。</value>
+  </data>
+  <data name="Help_Calendar_Title" xml:space="preserve">
+    <value>カレンダー</value>
+  </data>
+  <data name="Help_Deduction_Examples" xml:space="preserve">
+    <value>• "Deducted 500 rupees from Geeta"
+• "Kata 100 from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Examples" xml:space="preserve">
+    <value>• "Raju delivered 1.5 litres"
+• "1.5 liters milk from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Title" xml:space="preserve">
+    <value>配達 — 牛乳配達員などの単位制のお手伝いさん向け（カレンダーも開きます）</value>
+  </data>
+  <data name="Help_EditDelete_Body" xml:space="preserve">
+    <value>ホーム画面のお手伝いさんのカードにある鉛筆アイコンをタップすると、同じフォームから詳細の編集や削除ができます。</value>
+  </data>
+  <data name="Help_EditDelete_Title" xml:space="preserve">
+    <value>お手伝いさんの編集・削除</value>
+  </data>
+  <data name="Help_Features" xml:space="preserve">
+    <value>機能</value>
+  </data>
+  <data name="Help_Home_Body" xml:space="preserve">
+    <value>すべてのお手伝いさん、今日の出勤状況、今月の合計支払額を確認できます。マイクをタップすると、音声で出勤、配達、台帳の記録を入力できます。</value>
+  </data>
+  <data name="Help_Home_Title" xml:space="preserve">
+    <value>ホーム</value>
+  </data>
+  <data name="Help_Ledger_Body" xml:space="preserve">
+    <value>お手伝いさんの給与に対する前払い、ボーナス、控除を記録し、今月の累計を確認できます。</value>
+  </data>
+  <data name="Help_Payment_Examples" xml:space="preserve">
+    <value>• "Paid Geeta 4500 salary"
+• "Settled Raju 1260"</value>
+  </data>
+  <data name="Help_Payment_Title" xml:space="preserve">
+    <value>支払い・精算</value>
+  </data>
+  <data name="Help_Reports_Body" xml:space="preserve">
+    <value>1人のお手伝いさん、または世帯全体のPDFレポートを作成できます。</value>
+  </data>
+  <data name="Help_Settle_Body" xml:space="preserve">
+    <value>給与の内訳（総支給額 − 無給欠勤 − 前払い）を確認し、UPIで支払うか、現金支払いを記録します。</value>
+  </data>
+  <data name="Help_Tip" xml:space="preserve">
+    <value>ヒント：出勤と配達に関する音声コマンドは、記録した日を確認できるようそのお手伝いさんのカレンダーに直接移動します。前払い、控除、ボーナス、支払いのコマンドはホーム画面にとどまり、そこで合計額が更新されます。</value>
+  </data>
+  <data name="Help_VoiceCommands" xml:space="preserve">
+    <value>音声コマンド</value>
+  </data>
+  <data name="Help_VoiceIntro" xml:space="preserve">
+    <value>ホーム画面のマイクボタンをタップして、以下のいずれかを話してください。お手伝いさんの名前ははっきりと発音してください。お手伝いさんが1人だけの場合は、名前を省略できます。完全オフラインで動作し、英語またはローマ字表記のヒンディー語に対応しています。</value>
+  </data>
+  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
+    <value>月間の許容欠勤日数</value>
+  </data>
+  <data name="HelperForm_CarryOver" xml:space="preserve">
+    <value>未消化の休暇を繰り越す</value>
+  </data>
+  <data name="HelperForm_Category" xml:space="preserve">
+    <value>カテゴリー</value>
+  </data>
+  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
+    <value>このお手伝いさんと記録をアプリから削除しますか？</value>
+  </data>
+  <data name="HelperForm_MonthlyWage" xml:space="preserve">
+    <value>月給（₹）</value>
+  </data>
+  <data name="HelperForm_Name" xml:space="preserve">
+    <value>名前</value>
+  </data>
+  <data name="HelperForm_NameRequired" xml:space="preserve">
+    <value>名前を入力してください</value>
+  </data>
+  <data name="HelperForm_PerUnit" xml:space="preserve">
+    <value>配達数量に応じて支払う（牛乳、新聞など）</value>
+  </data>
+  <data name="HelperForm_RatePerUnit" xml:space="preserve">
+    <value>単価（₹）</value>
+  </data>
+  <data name="HelperForm_Title" xml:space="preserve">
+    <value>お手伝いさん</value>
+  </data>
+  <data name="HelperForm_UnitLabel" xml:space="preserve">
+    <value>単位</value>
+  </data>
+  <data name="HelperForm_UpiId" xml:space="preserve">
+    <value>UPI ID（支払い用）</value>
+  </data>
+  <data name="HelperForm_WhatsApp" xml:space="preserve">
+    <value>WhatsApp番号</value>
+  </data>
+  <data name="LedgerType_Advance" xml:space="preserve">
+    <value>前払い</value>
+  </data>
+  <data name="LedgerType_Bonus" xml:space="preserve">
+    <value>ボーナス</value>
+  </data>
+  <data name="LedgerType_Deduction" xml:space="preserve">
+    <value>控除</value>
+  </data>
+  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
+    <value>配達料金</value>
+  </data>
+  <data name="LedgerType_SalaryPayment" xml:space="preserve">
+    <value>給与支払い</value>
+  </data>
+  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
+    <value>今月の前払い</value>
+  </data>
+  <data name="Ledger_Amount" xml:space="preserve">
+    <value>金額（₹）</value>
+  </data>
+  <data name="Ledger_DeleteConfirm" xml:space="preserve">
+    <value>この記録を削除しますか？この操作は元に戻せません。</value>
+  </data>
+  <data name="Ledger_Empty" xml:space="preserve">
+    <value>今月の記録はまだありません。＋をタップして前払いを記録してください。</value>
+  </data>
+  <data name="Ledger_InvalidAmount" xml:space="preserve">
+    <value>有効な金額を入力してください</value>
+  </data>
+  <data name="Ledger_NewEntry" xml:space="preserve">
+    <value>新しい台帳記録</value>
+  </data>
+  <data name="Ledger_Note" xml:space="preserve">
+    <value>メモ（任意）</value>
+  </data>
+  <data name="Legal_PrivacyBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+PakkaHisaab（「本アプリ」）は、Amit Kumar Agrawal（「当方」）が開発・運営しています。本プライバシーポリシーは、本アプリのご利用時における情報の取り扱いについて説明するものです。
+
+1. 収集する情報
+- お客様が入力する家事お手伝いさんの詳細情報：氏名、カテゴリー、WhatsApp番号、UPI ID。
+- お客様がお手伝いさんについて作成する出勤、給与、前払い、精算の記録。
+- Microsoft App Centerを通じた基本的な端末・利用状況の診断情報（クラッシュログ、アプリのパフォーマンス）。不具合の修正と安定性の向上のみを目的として使用されます。
+- マイクボタンをタップしたときにのみ取得される音声データ。出勤・台帳の記録を作成するために端末上で処理され、処理後は保存・送信されません。
+
+2. 情報の利用方法
+お客様が入力したデータは、出勤の記録、給与の計算、管理するお手伝いさんへの支払いの記録など、本アプリの主要機能を提供するためにのみ使用されます。デモモードでは、すべてのデータはお客様の端末内にとどまり、同期は行われません。
+
+3. データの保存と共有
+お客様のデータは端末内にローカルで保存されます（SQLite）。アカウントでサインインした場合（デモモード以外）、お客様が自身の複数の端末からアクセスできるようにするためのみに、データは当社サーバーに同期されます。当社は、お客様のデータを販売したり、広告目的で第三者と共有したりすることはありません。支払いは、お客様がご自身の端末にインストールしているUPIアプリ（Google Pay、PhonePe、Paytmなど）を通じて行われます。本アプリがお客様の銀行認証情報を処理・保存することはありません。
+
+4. データの保持と削除
+お客様は、本アプリ内からいつでもお手伝いさんの記録を削除できます。設定 &gt; アカウントとデータを削除 から、アカウントおよび関連するすべてのデータを完全に削除することができます。
+
+5. セキュリティ
+当社は、ローカル保存や、同期されたアカウントに対する安全な通信（HTTPS）など、お客様のデータを保護するために合理的な技術的対策を講じています。
+
+6. お子様のプライバシー
+本アプリは子供を対象としておらず、18歳未満の方によるご利用は意図されていません。
+
+7. 本ポリシーの変更
+当社は本ポリシーを随時更新することがあります。変更後も本アプリのご利用を継続された場合、更新後のポリシーに同意したものとみなされます。
+
+8. お問い合わせ
+プライバシーに関するご質問やご依頼は、Amit Kumar Agrawal（amit.agrawal.hyd@outlook.com）までご連絡ください。</value>
+  </data>
+  <data name="Legal_TermsBody" xml:space="preserve">
+    <value>Effective Date: 14 July 2026
+
+本利用規約（「本規約」）は、Amit Kumar Agrawal（「当方」）が開発・運営するPakkaHisaab（「本アプリ」）のご利用に適用されます。本アプリをご利用いただくことにより、お客様は本規約に同意したものとみなされます。
+
+1. 本アプリの利用
+PakkaHisaabは、お客様が管理する家事お手伝いさん（家事手伝い、牛乳配達員、運転手など）の出勤、給与、前払い、支払いを記録するためのアプリです。入力するデータの正確性については、お客様ご自身の責任となります。
+
+2. お客様のアカウント
+お客様は、ログイン認証情報の機密保持、およびご自身のアカウントで行われるすべての活動について責任を負います。デモモードはアカウントを必要とせず、すべてのデータはお客様の端末内にのみ保存されます。
+
+3. お支払い
+本アプリ自体は支払い処理を行いません。「UPIで支払う」機能は、お客様の端末に既にインストールされているUPIアプリに処理を引き渡すものであり、実際の支払いはお客様と、お客様が選択した決済プロバイダおよび受取人との間で行われます。当社は、失敗、遅延、または争いのある取引について責任を負いません。
+
+4. 禁止事項
+お客様は、本アプリを違法な目的で使用したり、本アプリを害し、無効化し、もしくは損なう方法で使用したり、他者による本アプリの利用を妨げたりしないことに同意するものとします。
+
+5. 保証の否認
+本アプリは、明示・黙示を問わずいかなる保証もなく、「現状のまま」提供されます。当社は、本アプリがエラーのないこと、中断されないこと、または特定の目的に適合することを保証しません。
+
+6. 責任の制限
+法律で許容される最大限の範囲において、Amit Kumar Agrawalは、本アプリのご利用に起因する間接的、付随的、または結果的な損害（第三者のUPIアプリを利用した支払いに起因するデータの損失や金銭的損失を含む）について責任を負いません。
+
+7. 解約
+お客様は、設定 &gt; アカウントとデータを削除 から、いつでも本アプリの利用を停止し、アカウントを削除することができます。当社は、本アプリの不正利用に対して、アクセスを停止または終了させることがあります。
+
+8. 準拠法
+本規約は、抵触法の原則にかかわらず、インドの法律に準拠します。
+
+9. 本規約の変更
+当社は本規約を随時更新することがあります。変更後も本アプリのご利用を継続された場合、更新後の規約に同意したものとみなされます。
+
+10. お問い合わせ
+本規約に関するご質問は、Amit Kumar Agrawal（amit.agrawal.hyd@outlook.com）までご連絡ください。</value>
+  </data>
   <data name="Login_CreateAccount" xml:space="preserve">
     <value>アカウント作成</value>
   </data>
+  <data name="Login_DemoHint" xml:space="preserve">
+    <value>登録不要ですぐにオフラインで試せます。ギータ（家事手伝い）とラジュ（牛乳配達員）のサンプルデータで体験してください。</value>
+  </data>
+  <data name="Login_DisplayName" xml:space="preserve">
+    <value>お名前</value>
+  </data>
   <data name="Login_Email" xml:space="preserve">
     <value>メールアドレス</value>
+  </data>
+  <data name="Login_Failed" xml:space="preserve">
+    <value>サインインに失敗しました。入力内容と接続をご確認ください。</value>
+  </data>
+  <data name="Login_MissingFields" xml:space="preserve">
+    <value>メールアドレスとパスワードを入力してください</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
     <value>パスワード</value>
   </data>
   <data name="Login_SignIn" xml:space="preserve">
     <value>サインイン</value>
+  </data>
+  <data name="Login_ToggleMode" xml:space="preserve">
+    <value>初めての方はアカウントを作成 · すでにお持ちの方はサインイン</value>
   </data>
   <data name="Login_TryDemo" xml:space="preserve">
     <value>デモを試す</value>
@@ -58,17 +371,185 @@
   <data name="Notify_SalaryTitle" xml:space="preserve">
     <value>給与支払い</value>
   </data>
+  <data name="Onboard_GetStarted" xml:space="preserve">
+    <value>はじめる</value>
+  </data>
+  <data name="Onboard_Next" xml:space="preserve">
+    <value>次へ</value>
+  </data>
+  <data name="Onboard_Skip" xml:space="preserve">
+    <value>スキップ</value>
+  </data>
+  <data name="Onboard_Slide1_Body" xml:space="preserve">
+    <value>日付をタップして、出勤・欠勤・半日を記録します。牛乳や配達もまとめて、すべてが1つのすっきりした帳簿（カタ）にまとまります。</value>
+  </data>
+  <data name="Onboard_Slide1_Title" xml:space="preserve">
+    <value>2タップで完了する台帳</value>
+  </data>
+  <data name="Onboard_Slide2_Body" xml:space="preserve">
+    <value>毎日午後5時のリマインダーが、今日の出勤について確認します。通知からそのまま「欠勤」を記録でき、アプリを開く必要はありません。</value>
+  </data>
+  <data name="Onboard_Slide2_Title" xml:space="preserve">
+    <value>午後5時に、忘れずお知らせ</value>
+  </data>
+  <data name="Onboard_Slide3_Body" xml:space="preserve">
+    <value>給与から欠勤分と前払い分を差し引いた金額を自動計算します。お好きなUPIアプリで支払うか現金払いを記録し、PDFレポートをWhatsAppで共有できます。</value>
+  </data>
+  <data name="Onboard_Slide3_Title" xml:space="preserve">
+    <value>UPIで数秒に精算</value>
+  </data>
+  <data name="Report_Absences" xml:space="preserve">
+    <value>欠勤</value>
+  </data>
+  <data name="Report_Advances" xml:space="preserve">
+    <value>前払い</value>
+  </data>
+  <data name="Report_Bonuses" xml:space="preserve">
+    <value>ボーナス</value>
+  </data>
+  <data name="Report_Date" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="Report_Deduction" xml:space="preserve">
+    <value>控除</value>
+  </data>
   <data name="Report_FinalPayable" xml:space="preserve">
     <value>支払額</value>
+  </data>
+  <data name="Report_GeneratedBy" xml:space="preserve">
+    <value>作成者</value>
+  </data>
+  <data name="Report_GenerationFailed" xml:space="preserve">
+    <value>レポートを作成できませんでした。もう一度お試しください。</value>
+  </data>
+  <data name="Report_GrossWage" xml:space="preserve">
+    <value>総支給額</value>
+  </data>
+  <data name="Report_Helper" xml:space="preserve">
+    <value>お手伝いさん</value>
+  </data>
+  <data name="Report_HouseholdTitle" xml:space="preserve">
+    <value>世帯サマリー</value>
+  </data>
+  <data name="Report_LedgerTitle" xml:space="preserve">
+    <value>お手伝いさん月次台帳</value>
+  </data>
+  <data name="Report_Movements" xml:space="preserve">
+    <value>資金の動き</value>
+  </data>
+  <data name="Report_ShareTitle" xml:space="preserve">
+    <value>レポートを共有</value>
+  </data>
+  <data name="Report_Status" xml:space="preserve">
+    <value>状況</value>
+  </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>合計</value>
+  </data>
+  <data name="Report_Units" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="Report_UnpaidAbsences" xml:space="preserve">
+    <value>無給欠勤</value>
+  </data>
+  <data name="Reports_GenerateShare" xml:space="preserve">
+    <value>PDFを作成して共有</value>
+  </data>
+  <data name="Reports_HouseholdDescription" xml:space="preserve">
+    <value>すべてのお手伝いさんの総合サマリー</value>
+  </data>
+  <data name="Reports_LedgerDescription" xml:space="preserve">
+    <value>1人のお手伝いさんの日々の出勤とお金の記録</value>
+  </data>
+  <data name="Reports_Title" xml:space="preserve">
+    <value>レポート</value>
+  </data>
+  <data name="Security_RootedMessage" xml:space="preserve">
+    <value>この端末はroot化／脱獄されている可能性があります。この端末では金融データの安全性が低下する場合があります。標準的な端末でPakkaHisaabをご利用いただくことをお勧めします。</value>
+  </data>
+  <data name="Security_RootedTitle" xml:space="preserve">
+    <value>端末に関する警告</value>
+  </data>
+  <data name="Settings_Account" xml:space="preserve">
+    <value>アカウント</value>
   </data>
   <data name="Settings_DeleteAccount" xml:space="preserve">
     <value>アカウントとデータを削除</value>
   </data>
+  <data name="Settings_DeleteDemoNote" xml:space="preserve">
+    <value>デモデータはこの端末から消去されます。</value>
+  </data>
+  <data name="Settings_DeleteFailed" xml:space="preserve">
+    <value>アカウントを削除できませんでした。パスワードと接続をご確認ください。</value>
+  </data>
+  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
+    <value>確認のためパスワードを入力してください</value>
+  </data>
+  <data name="Settings_DeleteTitle" xml:space="preserve">
+    <value>アカウントを削除</value>
+  </data>
+  <data name="Settings_DeleteWarning" xml:space="preserve">
+    <value>この操作を行うと、アカウントおよびすべてのお手伝いさん・出勤・支払いの記録が、この端末と当社サーバーの両方から完全に削除されます。この操作は元に戻せません。</value>
+  </data>
+  <data name="Settings_Help" xml:space="preserve">
+    <value>ヘルプ</value>
+  </data>
+  <data name="Settings_HelpAndVoice" xml:space="preserve">
+    <value>ヘルプと音声コマンド</value>
+  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>言語</value>
   </data>
+  <data name="Settings_Legal" xml:space="preserve">
+    <value>法的情報</value>
+  </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>ログアウト</value>
+  </data>
+  <data name="Settings_Privacy" xml:space="preserve">
+    <value>プライバシーポリシー</value>
+  </data>
+  <data name="Settings_Terms" xml:space="preserve">
+    <value>利用規約</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Settle_AmountToPay" xml:space="preserve">
+    <value>支払う金額（必要に応じて編集）</value>
+  </data>
+  <data name="Settle_ConfirmBody" xml:space="preserve">
+    <value>{0}への ₹ {1:N0} の支払いは完了しましたか？</value>
+  </data>
+  <data name="Settle_ConfirmTitle" xml:space="preserve">
+    <value>支払いは完了しましたか？</value>
+  </data>
+  <data name="Settle_ConfirmYes" xml:space="preserve">
+    <value>はい、支払いました</value>
+  </data>
+  <data name="Settle_InvalidAmount" xml:space="preserve">
+    <value>有効な金額を入力してください</value>
+  </data>
+  <data name="Settle_LogCash" xml:space="preserve">
+    <value>現金支払いを記録</value>
+  </data>
+  <data name="Settle_NoUpiApp" xml:space="preserve">
+    <value>この端末にUPIアプリが見つかりません</value>
+  </data>
+  <data name="Settle_NoUpiIdHint" xml:space="preserve">
+    <value>ワンタップUPI支払いを有効にするには、このお手伝いさんにUPI IDを追加してください。</value>
+  </data>
+  <data name="Settle_PayVia" xml:space="preserve">
+    <value>UPIで支払う</value>
+  </data>
+  <data name="Settle_Recorded" xml:space="preserve">
+    <value>支払いを記録しました</value>
+  </data>
+  <data name="Settle_Title" xml:space="preserve">
+    <value>精算</value>
+  </data>
+  <data name="Settle_UpiNote" xml:space="preserve">
+    <value>給与 {0} - PakkaHisaab</value>
   </data>
   <data name="Status_Absent" xml:space="preserve">
     <value>欠勤</value>
@@ -87,5 +568,8 @@
   </data>
   <data name="Tab_Settings" xml:space="preserve">
     <value>設定</value>
+  </data>
+  <data name="Voice_NotUnderstood" xml:space="preserve">
+    <value>うまく聞き取れませんでした。例：「Gave Geeta 500 advance」のように話してみてください。</value>
   </data>
 </root>

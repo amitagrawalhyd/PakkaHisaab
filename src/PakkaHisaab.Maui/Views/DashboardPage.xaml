@@ -14,13 +14,13 @@
             <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
                 <Image Grid.Column="0" Source="logo.png" HeightRequest="46" WidthRequest="46" />
                 <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
-                    <Label Text="PakkaHisaab" FontFamily="PoppinsBold" FontSize="20" TextColor="White" />
+                    <Label Text="PakkaHisaab" FontFamily="{DynamicResource FontBold}" FontSize="20" TextColor="White" />
                     <Label Text="{Binding TotalPayable, StringFormat='{0}'}" FontSize="13" TextColor="#CCFBF1">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{helpers:Translate Dash_TotalPayable}" TextColor="#CCFBF1" FontSize="13" />
                                 <Span Text=" " />
-                                <Span Text="{Binding TotalPayable}" TextColor="White" FontFamily="PoppinsSemiBold" FontSize="13" />
+                                <Span Text="{Binding TotalPayable}" TextColor="White" FontFamily="{DynamicResource FontSemiBold}" FontSize="13" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -76,7 +76,7 @@
                                         </Border>
 
                                         <VerticalStackLayout Grid.Column="1" Spacing="2">
-                                            <Label FontFamily="PoppinsSemiBold" FontSize="16" Text="{Binding Name}" />
+                                            <Label FontFamily="{DynamicResource FontSemiBold}" FontSize="16" Text="{Binding Name}" />
                                             <Label Style="{StaticResource MutedLabel}"
                                                    Text="{Binding CategoryKey, Converter={StaticResource TranslateKey}}" />
                                             <Label Style="{StaticResource MutedLabel}" FontSize="11"
@@ -91,7 +91,7 @@
                                                    Text="{Binding TodayStatusIcon}"
                                                    TextColor="{Binding TodayStatusColor}"
                                                    HorizontalTextAlignment="End" />
-                                            <Label FontFamily="PoppinsBold" FontSize="15"
+                                            <Label FontFamily="{DynamicResource FontBold}" FontSize="15"
                                                    TextColor="{StaticResource Primary}"
                                                    Text="{Binding PayableLabel}" />
                                         </VerticalStackLayout>
@@ -110,7 +110,7 @@
 
                                         <HorizontalStackLayout Grid.Row="1" Grid.Column="1" Spacing="16" Margin="0,4,0,0">
                                             <Label FontSize="13" TextColor="{StaticResource Secondary}"
-                                                   FontFamily="PoppinsSemiBold"
+                                                   FontFamily="{DynamicResource FontSemiBold}"
                                                    Text="{helpers:Translate Dash_OpenCalendar}">
                                                 <Label.GestureRecognizers>
                                                     <TapGestureRecognizer
@@ -119,7 +119,7 @@
                                                 </Label.GestureRecognizers>
                                             </Label>
                                             <Label FontSize="13" TextColor="{StaticResource Success}"
-                                                   FontFamily="PoppinsSemiBold"
+                                                   FontFamily="{DynamicResource FontSemiBold}"
                                                    Text="{helpers:Translate Dash_Settle}">
                                                 <Label.GestureRecognizers>
                                                     <TapGestureRecognizer

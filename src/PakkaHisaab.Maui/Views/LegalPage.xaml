@@ -4,7 +4,7 @@
              x:Class="PakkaHisaab.Maui.Views.LegalPage">
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="14">
-            <Label x:Name="titleLabel" FontFamily="PoppinsBold" FontSize="22" TextColor="{StaticResource Primary}" />
+            <Label x:Name="titleLabel" FontFamily="{DynamicResource FontBold}" FontSize="22" TextColor="{StaticResource Primary}" />
             <Label x:Name="bodyLabel" FontSize="14" TextColor="{StaticResource TextPrimary}" LineHeight="1.4" />
         </VerticalStackLayout>
     </ScrollView>

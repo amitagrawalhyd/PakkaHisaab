@@ -4,14 +4,68 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="App_SplashTagline" xml:space="preserve">
+    <value>도우미 출근과 급여 관리를 간편하게</value>
+  </data>
   <data name="App_Tagline" xml:space="preserve">
     <value>탭하고, 기록하고, 정산하세요.</value>
+  </data>
+  <data name="Calendar_Ledger" xml:space="preserve">
+    <value>선불금 및 장부</value>
+  </data>
+  <data name="Calendar_Summary" xml:space="preserve">
+    <value>결근 {0}일 · 지급액 ₹ {1:N0}</value>
+  </data>
+  <data name="Calendar_UnitsPrompt" xml:space="preserve">
+    <value>배달 수량 ({0})</value>
+  </data>
+  <data name="Calendar_UnitsSummary" xml:space="preserve">
+    <value>{0:0.#} {1} 배달 · 지급액 ₹ {2:N0}</value>
+  </data>
+  <data name="Calendar_UnitsTitle" xml:space="preserve">
+    <value>배달</value>
+  </data>
+  <data name="Category_Cleaner" xml:space="preserve">
+    <value>청소부</value>
+  </data>
+  <data name="Category_Cook" xml:space="preserve">
+    <value>요리사</value>
+  </data>
+  <data name="Category_Driver" xml:space="preserve">
+    <value>운전기사</value>
+  </data>
+  <data name="Category_Gardener" xml:space="preserve">
+    <value>정원사</value>
+  </data>
+  <data name="Category_HouseHelp" xml:space="preserve">
+    <value>가사도우미</value>
+  </data>
+  <data name="Category_MilkMan" xml:space="preserve">
+    <value>우유 배달원</value>
+  </data>
+  <data name="Category_Newspaper" xml:space="preserve">
+    <value>신문 배달원</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>기타</value>
+  </data>
+  <data name="Category_Tutor" xml:space="preserve">
+    <value>과외 교사</value>
   </data>
   <data name="Common_Cancel" xml:space="preserve">
     <value>취소</value>
   </data>
+  <data name="Common_Confirm" xml:space="preserve">
+    <value>확인</value>
+  </data>
   <data name="Common_Delete" xml:space="preserve">
     <value>삭제</value>
+  </data>
+  <data name="Common_Deleted" xml:space="preserve">
+    <value>삭제됨</value>
+  </data>
+  <data name="Common_OK" xml:space="preserve">
+    <value>확인</value>
   </data>
   <data name="Common_Or" xml:space="preserve">
     <value>또는</value>
@@ -22,6 +76,12 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>저장됨</value>
   </data>
+  <data name="Dash_DemoBanner" xml:space="preserve">
+    <value>데모 모드 — 샘플 데이터, 동기화 꺼짐. 데이터는 이 기기에만 저장됩니다.</value>
+  </data>
+  <data name="Dash_Empty" xml:space="preserve">
+    <value>아직 등록된 도우미가 없습니다. +를 눌러 첫 도우미를 추가하세요.</value>
+  </data>
   <data name="Dash_OpenCalendar" xml:space="preserve">
     <value>캘린더</value>
   </data>
@@ -31,17 +91,270 @@
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>이번 달 지급액:</value>
   </data>
+  <data name="Day_Fr" xml:space="preserve">
+    <value>금</value>
+  </data>
+  <data name="Day_Mo" xml:space="preserve">
+    <value>월</value>
+  </data>
+  <data name="Day_Sa" xml:space="preserve">
+    <value>토</value>
+  </data>
+  <data name="Day_Su" xml:space="preserve">
+    <value>일</value>
+  </data>
+  <data name="Day_Th" xml:space="preserve">
+    <value>목</value>
+  </data>
+  <data name="Day_Tu" xml:space="preserve">
+    <value>화</value>
+  </data>
+  <data name="Day_We" xml:space="preserve">
+    <value>수</value>
+  </data>
+  <data name="Forecast_Pattern" xml:space="preserve">
+    <value>보통 {0}에 결근 · 월 약 {1}회</value>
+  </data>
+  <data name="Help_Advance_Examples" xml:space="preserve">
+    <value>• "Gave Raju an advance of 200"
+• "200 rupees udhaar to Geeta"</value>
+  </data>
+  <data name="Help_Attendance_Examples" xml:space="preserve">
+    <value>• "Geeta was absent today" / "Geeta didn't come" / "Geeta chutti"
+• "Geeta came" / "Geeta is present" / "Geeta aayi"
+• "Half day for Geeta" / "Geeta half-day" / "Geeta aadha din"</value>
+  </data>
+  <data name="Help_Attendance_Title" xml:space="preserve">
+    <value>출근 (결과를 보여주기 위해 해당 도우미의 캘린더가 열립니다)</value>
+  </data>
+  <data name="Help_Bonus_Examples" xml:space="preserve">
+    <value>• "Diwali bonus 500 for Geeta"</value>
+  </data>
+  <data name="Help_Calendar_Body" xml:space="preserve">
+    <value>날짜를 탭하면 출근 → 결근 → 반일 순으로 전환됩니다. 단위별 도우미(예: 우유 배달원)의 경우, 날짜를 탭하여 배달 수량을 입력합니다. 이번 달 요약과 누적 지급액을 보여줍니다.</value>
+  </data>
+  <data name="Help_Calendar_Title" xml:space="preserve">
+    <value>캘린더</value>
+  </data>
+  <data name="Help_Deduction_Examples" xml:space="preserve">
+    <value>• "Deducted 500 rupees from Geeta"
+• "Kata 100 from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Examples" xml:space="preserve">
+    <value>• "Raju delivered 1.5 litres"
+• "1.5 liters milk from Raju"</value>
+  </data>
+  <data name="Help_Delivery_Title" xml:space="preserve">
+    <value>배달 — 단위별 도우미(예: 우유 배달원) (캘린더도 함께 열립니다)</value>
+  </data>
+  <data name="Help_EditDelete_Body" xml:space="preserve">
+    <value>홈 화면의 도우미 카드에 있는 연필 아이콘을 탭하면 같은 화면에서 정보를 수정하거나 삭제할 수 있습니다.</value>
+  </data>
+  <data name="Help_EditDelete_Title" xml:space="preserve">
+    <value>도우미 수정 / 삭제</value>
+  </data>
+  <data name="Help_Features" xml:space="preserve">
+    <value>기능</value>
+  </data>
+  <data name="Help_Home_Body" xml:space="preserve">
+    <value>모든 도우미와 오늘의 출근 상태, 이번 달 총 지급액을 확인하세요. 마이크를 탭하여 음성으로 출근, 배달, 장부 내역을 기록할 수 있습니다.</value>
+  </data>
+  <data name="Help_Home_Title" xml:space="preserve">
+    <value>홈</value>
+  </data>
+  <data name="Help_Ledger_Body" xml:space="preserve">
+    <value>도우미 급여에 대한 선불금, 보너스, 공제 내역을 기록하고 이번 달 누적 합계를 확인하세요.</value>
+  </data>
+  <data name="Help_Payment_Examples" xml:space="preserve">
+    <value>• "Paid Geeta 4500 salary"
+• "Settled Raju 1260"</value>
+  </data>
+  <data name="Help_Payment_Title" xml:space="preserve">
+    <value>지급 / 정산</value>
+  </data>
+  <data name="Help_Reports_Body" xml:space="preserve">
+    <value>도우미 한 명 또는 전체 가구에 대한 PDF 보고서를 생성하세요.</value>
+  </data>
+  <data name="Help_Settle_Body" xml:space="preserve">
+    <value>급여 내역(총 급여 − 무급 결근 − 선불금)을 확인하고 UPI로 결제하거나 현금 결제를 기록하세요.</value>
+  </data>
+  <data name="Help_Tip" xml:space="preserve">
+    <value>팁: 출근 및 배달 명령을 사용하면 기록된 날짜를 바로 확인할 수 있도록 해당 도우미의 캘린더로 이동합니다. 선불금, 공제, 보너스, 지급 명령은 홈 화면에 그대로 남아 합계를 업데이트합니다.</value>
+  </data>
+  <data name="Help_VoiceCommands" xml:space="preserve">
+    <value>음성 명령</value>
+  </data>
+  <data name="Help_VoiceIntro" xml:space="preserve">
+    <value>홈 화면의 마이크 버튼을 탭하고 다음 중 하나를 말해보세요. 도우미의 이름을 명확하게 말해주세요 — 도우미가 한 명뿐이라면 이름을 생략해도 됩니다. 완전한 오프라인 상태에서 영어 또는 로마자 힌디어로 작동합니다.</value>
+  </data>
+  <data name="HelperForm_AllowedAbsences" xml:space="preserve">
+    <value>월별 허용 결근일수</value>
+  </data>
+  <data name="HelperForm_CarryOver" xml:space="preserve">
+    <value>미사용 휴가 이월</value>
+  </data>
+  <data name="HelperForm_Category" xml:space="preserve">
+    <value>카테고리</value>
+  </data>
+  <data name="HelperForm_DeleteConfirm" xml:space="preserve">
+    <value>이 도우미와 관련 기록을 앱에서 삭제하시겠습니까?</value>
+  </data>
+  <data name="HelperForm_MonthlyWage" xml:space="preserve">
+    <value>월급 (₹)</value>
+  </data>
+  <data name="HelperForm_Name" xml:space="preserve">
+    <value>이름</value>
+  </data>
+  <data name="HelperForm_NameRequired" xml:space="preserve">
+    <value>이름을 입력해주세요</value>
+  </data>
+  <data name="HelperForm_PerUnit" xml:space="preserve">
+    <value>배달 단위별 지급 (우유, 신문…)</value>
+  </data>
+  <data name="HelperForm_RatePerUnit" xml:space="preserve">
+    <value>단위당 요율 (₹)</value>
+  </data>
+  <data name="HelperForm_Title" xml:space="preserve">
+    <value>도우미</value>
+  </data>
+  <data name="HelperForm_UnitLabel" xml:space="preserve">
+    <value>단위</value>
+  </data>
+  <data name="HelperForm_UpiId" xml:space="preserve">
+    <value>UPI ID (결제용)</value>
+  </data>
+  <data name="HelperForm_WhatsApp" xml:space="preserve">
+    <value>WhatsApp 번호</value>
+  </data>
+  <data name="LedgerType_Advance" xml:space="preserve">
+    <value>선불금</value>
+  </data>
+  <data name="LedgerType_Bonus" xml:space="preserve">
+    <value>보너스</value>
+  </data>
+  <data name="LedgerType_Deduction" xml:space="preserve">
+    <value>공제</value>
+  </data>
+  <data name="LedgerType_DeliveryCharge" xml:space="preserve">
+    <value>배달 요금</value>
+  </data>
+  <data name="LedgerType_SalaryPayment" xml:space="preserve">
+    <value>급여 지급</value>
+  </data>
+  <data name="Ledger_AdvancesThisMonth" xml:space="preserve">
+    <value>이번 달 선불금</value>
+  </data>
+  <data name="Ledger_Amount" xml:space="preserve">
+    <value>금액 (₹)</value>
+  </data>
+  <data name="Ledger_DeleteConfirm" xml:space="preserve">
+    <value>이 항목을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</value>
+  </data>
+  <data name="Ledger_Empty" xml:space="preserve">
+    <value>이번 달 기록이 없습니다. +를 눌러 선불금을 기록하세요.</value>
+  </data>
+  <data name="Ledger_InvalidAmount" xml:space="preserve">
+    <value>유효한 금액을 입력하세요</value>
+  </data>
+  <data name="Ledger_NewEntry" xml:space="preserve">
+    <value>새 장부 항목</value>
+  </data>
+  <data name="Ledger_Note" xml:space="preserve">
+    <value>메모 (선택 사항)</value>
+  </data>
+  <data name="Legal_PrivacyBody" xml:space="preserve">
+    <value>시행일: 2026년 7월 14일
+
+PakkaHisaab("본 앱")는 Amit Kumar Agrawal("당사", "저희", "본인")가 개발 및 운영합니다. 본 개인정보 처리방침은 귀하가 본 앱을 이용할 때 당사가 정보를 어떻게 처리하는지 설명합니다.
+
+1. 수집하는 정보
+- 귀하가 입력하는 가사 도우미 정보: 이름, 카테고리, WhatsApp 번호, UPI ID.
+- 귀하가 도우미를 위해 생성하는 출근, 급여, 선불금 및 정산 기록.
+- Microsoft App Center를 통한 기본적인 기기 및 사용 진단 정보(충돌 로그, 앱 성능)로, 오직 버그 수정과 안정성 향상을 위해서만 사용됩니다.
+- 마이크 버튼을 탭했을 때만 캡처되는 음성 오디오로, 출근/장부 항목을 기록하기 위해 기기 내에서 처리되며 처리 후에는 저장되거나 전송되지 않습니다.
+
+2. 정보 이용 방법
+귀하가 입력한 데이터는 출근 추적, 급여 계산, 관리하는 도우미에 대한 결제 기록 등 본 앱의 핵심 기능을 제공하는 목적으로만 사용됩니다. 데모 모드에서는 모든 데이터가 귀하의 기기에만 저장되며 동기화되지 않습니다.
+
+3. 데이터 저장 및 공유
+귀하의 데이터는 귀하의 기기(SQLite)에 로컬로 저장됩니다. 계정으로 로그인한 경우(데모 모드가 아닌 경우), 귀하의 데이터는 여러 기기에서 접근할 수 있도록 당사 서버와 동기화됩니다. 당사는 귀하의 데이터를 판매하거나 광고 목적으로 제3자와 공유하지 않습니다. 결제는 귀하가 직접 설치한 UPI 앱(Google Pay, PhonePe, Paytm 등)을 통해 시작되며, 본 앱은 귀하의 은행 정보를 처리하거나 저장하지 않습니다.
+
+4. 데이터 보관 및 삭제
+귀하는 언제든지 앱 내에서 도우미 기록을 삭제할 수 있습니다. 설정 &gt; 내 계정 및 데이터 삭제 메뉴에서 계정과 관련된 모든 데이터를 영구적으로 삭제할 수 있습니다.
+
+5. 보안
+당사는 로컬 저장 및 동기화 계정에 대한 안전한 전송(HTTPS)을 포함하여 귀하의 데이터를 보호하기 위해 합리적인 기술적 조치를 취합니다.
+
+6. 아동의 개인정보
+본 앱은 아동을 대상으로 하지 않으며, 18세 미만의 사용을 의도하지 않습니다.
+
+7. 본 정책의 변경
+당사는 수시로 본 정책을 업데이트할 수 있습니다. 변경 후에도 본 앱을 계속 이용하는 경우 업데이트된 정책에 동의하는 것으로 간주됩니다.
+
+8. 문의하기
+개인정보와 관련된 문의나 요청 사항은 amit.agrawal.hyd@outlook.com으로 Amit Kumar Agrawal에게 연락해주세요.</value>
+  </data>
+  <data name="Legal_TermsBody" xml:space="preserve">
+    <value>시행일: 2026년 7월 14일
+
+본 서비스 이용약관("약관")은 Amit Kumar Agrawal("당사", "저희", "본인")가 개발 및 운영하는 PakkaHisaab("본 앱")의 이용을 규율합니다. 본 앱을 이용함으로써 귀하는 본 약관에 동의하는 것입니다.
+
+1. 앱의 이용
+PakkaHisaab는 귀하가 관리하는 가사 도우미(가사도우미, 우유 배달원, 운전기사 등)의 출근, 급여, 선불금 및 결제를 추적할 수 있도록 돕습니다. 귀하는 입력하는 데이터의 정확성에 대한 책임이 있습니다.
+
+2. 귀하의 계정
+귀하는 로그인 정보의 기밀을 유지하고 귀하의 계정에서 발생하는 모든 활동에 대한 책임이 있습니다. 데모 모드는 계정이 필요하지 않으며 모든 데이터를 귀하의 기기에만 보관합니다.
+
+3. 결제
+본 앱은 결제를 직접 처리하지 않습니다. 'UPI로 결제'는 귀하의 기기에 이미 설치된 UPI 앱으로 연결되며, 이루어지는 모든 결제는 귀하와 귀하가 선택한 결제 제공업체 및 수취인 간의 거래입니다. 당사는 실패, 지연 또는 분쟁이 발생한 거래에 대해 책임을 지지 않습니다.
+
+4. 허용되는 이용
+귀하는 본 앱을 불법적인 목적으로 이용하거나, 본 앱을 손상, 비활성화시키거나 다른 사용자의 이용을 방해하는 방식으로 이용하지 않을 것에 동의합니다.
+
+5. 무보증
+본 앱은 명시적이든 묵시적이든 어떠한 종류의 보증도 없이 "있는 그대로" 제공됩니다. 당사는 본 앱이 오류 없이, 중단 없이, 또는 특정 목적에 적합하게 작동할 것을 보장하지 않습니다.
+
+6. 책임의 제한
+법이 허용하는 최대 범위 내에서, Amit Kumar Agrawal은 제3자 UPI 앱을 통한 결제로 인해 발생하는 데이터 손실이나 금전적 손실을 포함하여 귀하의 본 앱 이용으로 인해 발생하는 간접적, 부수적 또는 결과적 손해에 대해 책임을 지지 않습니다.
+
+7. 해지
+귀하는 언제든지 설정 &gt; 내 계정 및 데이터 삭제를 통해 본 앱의 이용을 중단하고 계정을 삭제할 수 있습니다. 당사는 본 앱의 오남용에 대해 접근을 정지하거나 종료할 수 있습니다.
+
+8. 준거법
+본 약관은 법의 충돌 원칙과 관계없이 인도 법률의 적용을 받습니다.
+
+9. 본 약관의 변경
+당사는 수시로 본 약관을 업데이트할 수 있습니다. 변경 후에도 본 앱을 계속 이용하는 경우 업데이트된 약관에 동의하는 것으로 간주됩니다.
+
+10. 문의하기
+본 약관에 대한 문의 사항은 amit.agrawal.hyd@outlook.com으로 Amit Kumar Agrawal에게 연락해주세요.</value>
+  </data>
   <data name="Login_CreateAccount" xml:space="preserve">
     <value>계정 만들기</value>
   </data>
+  <data name="Login_DemoHint" xml:space="preserve">
+    <value>즉시 오프라인으로, 가입 없이 이용 가능합니다. 기타(가사도우미)와 라주(우유 배달원)의 샘플 데이터로 둘러보세요.</value>
+  </data>
+  <data name="Login_DisplayName" xml:space="preserve">
+    <value>이름</value>
+  </data>
   <data name="Login_Email" xml:space="preserve">
     <value>이메일</value>
+  </data>
+  <data name="Login_Failed" xml:space="preserve">
+    <value>로그인에 실패했습니다. 입력 정보와 연결 상태를 확인하세요.</value>
+  </data>
+  <data name="Login_MissingFields" xml:space="preserve">
+    <value>이메일과 비밀번호를 입력해주세요</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
     <value>비밀번호</value>
   </data>
   <data name="Login_SignIn" xml:space="preserve">
     <value>로그인</value>
+  </data>
+  <data name="Login_ToggleMode" xml:space="preserve">
+    <value>처음이신가요? 계정 만들기 · 계정이 있으신가요? 로그인</value>
   </data>
   <data name="Login_TryDemo" xml:space="preserve">
     <value>데모 사용해보기</value>
@@ -58,17 +371,185 @@
   <data name="Notify_SalaryTitle" xml:space="preserve">
     <value>급여 지급일</value>
   </data>
+  <data name="Onboard_GetStarted" xml:space="preserve">
+    <value>시작하기</value>
+  </data>
+  <data name="Onboard_Next" xml:space="preserve">
+    <value>다음</value>
+  </data>
+  <data name="Onboard_Skip" xml:space="preserve">
+    <value>건너뛰기</value>
+  </data>
+  <data name="Onboard_Slide1_Body" xml:space="preserve">
+    <value>날짜를 탭하여 출근, 결근 또는 반일로 표시하세요. 우유와 배달도 마찬가지로 — 모든 내역이 하나의 깔끔한 장부에 정리됩니다.</value>
+  </data>
+  <data name="Onboard_Slide1_Title" xml:space="preserve">
+    <value>2번의 탭으로 끝나는 장부</value>
+  </data>
+  <data name="Onboard_Slide2_Body" xml:space="preserve">
+    <value>매일 오후 5시에 오늘의 출근 여부를 묻는 알림이 도착합니다. 알림에서 바로 '결근'으로 표시할 수 있어 앱을 열 필요가 없습니다.</value>
+  </data>
+  <data name="Onboard_Slide2_Title" xml:space="preserve">
+    <value>오후 5시, 절대 잊지 마세요</value>
+  </data>
+  <data name="Onboard_Slide3_Body" xml:space="preserve">
+    <value>급여에서 결근과 선불금을 뺀 금액을 자동으로 계산해 드립니다. 어떤 UPI 앱으로도 결제하거나 현금 결제를 기록하고, PDF 보고서를 WhatsApp으로 공유하세요.</value>
+  </data>
+  <data name="Onboard_Slide3_Title" xml:space="preserve">
+    <value>UPI로 몇 초 만에 정산</value>
+  </data>
+  <data name="Report_Absences" xml:space="preserve">
+    <value>결근</value>
+  </data>
+  <data name="Report_Advances" xml:space="preserve">
+    <value>선불금</value>
+  </data>
+  <data name="Report_Bonuses" xml:space="preserve">
+    <value>보너스</value>
+  </data>
+  <data name="Report_Date" xml:space="preserve">
+    <value>날짜</value>
+  </data>
+  <data name="Report_Deduction" xml:space="preserve">
+    <value>공제</value>
+  </data>
   <data name="Report_FinalPayable" xml:space="preserve">
     <value>지급액</value>
+  </data>
+  <data name="Report_GeneratedBy" xml:space="preserve">
+    <value>생성:</value>
+  </data>
+  <data name="Report_GenerationFailed" xml:space="preserve">
+    <value>보고서를 생성할 수 없습니다. 다시 시도해주세요.</value>
+  </data>
+  <data name="Report_GrossWage" xml:space="preserve">
+    <value>총 급여</value>
+  </data>
+  <data name="Report_Helper" xml:space="preserve">
+    <value>도우미</value>
+  </data>
+  <data name="Report_HouseholdTitle" xml:space="preserve">
+    <value>가구 요약</value>
+  </data>
+  <data name="Report_LedgerTitle" xml:space="preserve">
+    <value>도우미 월간 장부</value>
+  </data>
+  <data name="Report_Movements" xml:space="preserve">
+    <value>자금 내역</value>
+  </data>
+  <data name="Report_ShareTitle" xml:space="preserve">
+    <value>보고서 공유</value>
+  </data>
+  <data name="Report_Status" xml:space="preserve">
+    <value>상태</value>
+  </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>합계</value>
+  </data>
+  <data name="Report_Units" xml:space="preserve">
+    <value>수량</value>
+  </data>
+  <data name="Report_UnpaidAbsences" xml:space="preserve">
+    <value>무급 결근</value>
+  </data>
+  <data name="Reports_GenerateShare" xml:space="preserve">
+    <value>PDF 생성 및 공유</value>
+  </data>
+  <data name="Reports_HouseholdDescription" xml:space="preserve">
+    <value>모든 도우미에 대한 전체 요약</value>
+  </data>
+  <data name="Reports_LedgerDescription" xml:space="preserve">
+    <value>도우미 한 명의 일별 출근 및 금전 내역</value>
+  </data>
+  <data name="Reports_Title" xml:space="preserve">
+    <value>보고서</value>
+  </data>
+  <data name="Security_RootedMessage" xml:space="preserve">
+    <value>이 기기는 루팅/탈옥된 것으로 보입니다. 이 상태에서는 금융 데이터의 보안이 취약할 수 있습니다. 일반 기기에서 PakkaHisaab을 사용하시기를 권장합니다.</value>
+  </data>
+  <data name="Security_RootedTitle" xml:space="preserve">
+    <value>기기 경고</value>
+  </data>
+  <data name="Settings_Account" xml:space="preserve">
+    <value>계정</value>
   </data>
   <data name="Settings_DeleteAccount" xml:space="preserve">
     <value>내 계정 및 데이터 삭제</value>
   </data>
+  <data name="Settings_DeleteDemoNote" xml:space="preserve">
+    <value>데모 데이터가 이 기기에서 삭제됩니다.</value>
+  </data>
+  <data name="Settings_DeleteFailed" xml:space="preserve">
+    <value>계정을 삭제할 수 없습니다. 비밀번호와 연결 상태를 확인하세요.</value>
+  </data>
+  <data name="Settings_DeletePasswordPrompt" xml:space="preserve">
+    <value>확인을 위해 비밀번호를 입력하세요</value>
+  </data>
+  <data name="Settings_DeleteTitle" xml:space="preserve">
+    <value>계정 삭제</value>
+  </data>
+  <data name="Settings_DeleteWarning" xml:space="preserve">
+    <value>이 작업은 이 기기와 서버에 있는 회원님의 계정, 그리고 모든 도우미, 출근, 결제 기록을 영구적으로 삭제합니다. 이 작업은 되돌릴 수 없습니다.</value>
+  </data>
+  <data name="Settings_Help" xml:space="preserve">
+    <value>도움말</value>
+  </data>
+  <data name="Settings_HelpAndVoice" xml:space="preserve">
+    <value>도움말 및 음성 명령</value>
+  </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>언어</value>
   </data>
+  <data name="Settings_Legal" xml:space="preserve">
+    <value>법적 고지</value>
+  </data>
   <data name="Settings_Logout" xml:space="preserve">
     <value>로그아웃</value>
+  </data>
+  <data name="Settings_Privacy" xml:space="preserve">
+    <value>개인정보 처리방침</value>
+  </data>
+  <data name="Settings_Terms" xml:space="preserve">
+    <value>서비스 이용약관</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="Settle_AmountToPay" xml:space="preserve">
+    <value>지급 금액 (필요시 수정)</value>
+  </data>
+  <data name="Settle_ConfirmBody" xml:space="preserve">
+    <value>{0}에게 ₹ {1:N0}을(를) 지급 완료하셨습니까?</value>
+  </data>
+  <data name="Settle_ConfirmTitle" xml:space="preserve">
+    <value>결제 완료?</value>
+  </data>
+  <data name="Settle_ConfirmYes" xml:space="preserve">
+    <value>예, 지급했습니다</value>
+  </data>
+  <data name="Settle_InvalidAmount" xml:space="preserve">
+    <value>유효한 금액을 입력하세요</value>
+  </data>
+  <data name="Settle_LogCash" xml:space="preserve">
+    <value>현금 결제 기록</value>
+  </data>
+  <data name="Settle_NoUpiApp" xml:space="preserve">
+    <value>이 기기에서 UPI 앱을 찾을 수 없습니다</value>
+  </data>
+  <data name="Settle_NoUpiIdHint" xml:space="preserve">
+    <value>원탭 UPI 결제를 사용하려면 이 도우미에게 UPI ID를 추가하세요.</value>
+  </data>
+  <data name="Settle_PayVia" xml:space="preserve">
+    <value>UPI로 결제</value>
+  </data>
+  <data name="Settle_Recorded" xml:space="preserve">
+    <value>결제가 기록되었습니다</value>
+  </data>
+  <data name="Settle_Title" xml:space="preserve">
+    <value>정산</value>
+  </data>
+  <data name="Settle_UpiNote" xml:space="preserve">
+    <value>급여 {0} - PakkaHisaab</value>
   </data>
   <data name="Status_Absent" xml:space="preserve">
     <value>결근</value>
@@ -87,5 +568,8 @@
   </data>
   <data name="Tab_Settings" xml:space="preserve">
     <value>설정</value>
+  </data>
+  <data name="Voice_NotUnderstood" xml:space="preserve">
+    <value>죄송합니다, 이해하지 못했습니다. 예: 'Gave Geeta 500 advance'.</value>
   </data>
 </root>
