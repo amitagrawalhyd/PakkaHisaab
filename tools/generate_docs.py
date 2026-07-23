@@ -391,7 +391,7 @@ def build_brochure():
 
     section = doc.sections[0]
     add_page_border(section)
-    add_footer_with_page_number(section, "PakkaHisaab — Confidential Product Brochure")
+    add_footer_with_page_number(section, "PakkaHisaab — Product Brochure")
 
     # ---------------- Cover Page ----------------
     doc.add_paragraph().paragraph_format.space_after = Pt(6)
@@ -404,13 +404,13 @@ def build_brochure():
 
     tagline = doc.add_paragraph(style="Subtitle")
     tagline.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    tagline.add_run("Every Rupee, Reconciled. Every Neighbour, Connected.")
+    tagline.add_run("Tap. Track. Settle.")
 
     sub2 = doc.add_paragraph()
     sub2.alignment = WD_ALIGN_PARAGRAPH.CENTER
     r = sub2.add_run(
-        "The Unified Community Ledger, Local Vendor Network, and\n"
-        "Automated Society Accounting Ecosystem"
+        "The Offline-First Ledger for Household Help — Attendance, Wages,\n"
+        "Voice Commands and UPI Settlement in One App"
     )
     r.font.size = Pt(12.5)
     r.font.color.rgb = SLATE
@@ -420,144 +420,162 @@ def build_brochure():
 
     add_image_placeholder(
         doc,
-        "Insert HD Hero Graphic: “Connected Smart Communities” — isometric "
-        "illustration of a residential tower linked via glowing data-threads to a "
-        "society admin dashboard and a row of local vendor storefronts (grocer, "
-        "dairy, laundry, pharmacy), evoking a real-time, trust-verified commerce mesh.",
+        "Insert screenshot: Dashboard home screen — helper cards (Geeta, Raju), "
+        "the \"Payable this month\" total, today's attendance status icons, and the "
+        "mic button used for Voice-to-Ledger.",
         height_cm=6.0,
     )
 
     add_meta_table(doc, [
-        ("Document Class", "Enterprise Product Brochure & Value Proposition"),
-        ("Prepared For", "Residential Welfare Associations, Society Management Committees & Vendor Partners"),
-        ("Version", "v1.0 — Market Release Edition"),
-        ("Date", "19 July 2026"),
+        ("Document Class", "Product Brochure & Value Proposition"),
+        ("Prepared For", "Households employing domestic help, and PakkaHisaab support/ops teams"),
+        ("Version", "v1.0 — reflects the shipped feature set"),
+        ("Date", "23 July 2026"),
     ])
 
     doc.add_page_break()
 
-    # ---------------- Section 2: Strategic Vision ----------------
-    add_kicker(doc, "The Strategic Vision")
-    doc.add_heading("Architecting the End of Fragmented Local Commerce", level=1)
+    # ---------------- Section 2: The Problem & The Approach ----------------
+    add_kicker(doc, "The Problem & The Approach")
+    doc.add_heading("Replacing the Torn Notebook Page with One Shared Ledger", level=1)
 
     doc.add_paragraph(
-        "Every residential society today runs on two broken ledgers. The first is the "
-        "society's own maintenance book — a patchwork of spreadsheets, WhatsApp "
-        "reminders, and cash receipts that no auditor can fully trust. The second is "
-        "the informal tab every household keeps with the neighbourhood milkman, grocer, "
-        "or laundry vendor — a ledger that lives on a torn notebook page and "
-        "reconciles, if at all, once a month, from memory. PakkaHisaab is architected "
-        "to collapse both of these fragmented systems into a single, verifiable, "
-        "real-time source of truth."
+        "Almost every household that employs a maid, cook, driver, gardener, or "
+        "milkman keeps track of their pay the same informal way: a notebook page, a "
+        "mental tally of advances given mid-month, and a memory of who was absent on "
+        "which day. None of it reconciles cleanly — an advance given on the 12th is "
+        "forgotten by the 30th, an absence is disputed because nobody wrote it down, "
+        "and \"how much do I owe her this month\" gets re-derived from scratch every "
+        "settlement day. PakkaHisaab replaces that notebook with a structured, always-"
+        "current ledger per helper, kept on the household's own phone."
     )
 
-    doc.add_heading("Unified Data Pipelines, Not Siloed Apps", level=2)
+    doc.add_heading("One Formula, Everywhere It's Used", level=2)
     doc.add_paragraph(
-        "From a CTO's vantage point, the core engineering thesis is deceptively simple: "
-        "treat every rupee that moves between a resident, a vendor, and a society "
-        "management committee as a single event in one canonical transaction pipeline "
-        "— not three disconnected records living in three disconnected notebooks or "
-        "apps. PakkaHisaab's ledger engine ingests society maintenance dues, vendor "
-        "purchase tokens, and penalty accruals into one append-only, double-entry "
-        "reconciliation core. The result is a system where a society auditor, a "
-        "resident, and a vendor can all query the exact same underlying truth, "
-        "filtered only by their role — never a divergent copy of it."
+        "The engineering thesis is simple: the payable amount a household sees on "
+        "screen, the amount synced to the cloud, and the amount printed on a shared "
+        "PDF statement must always agree — because they come from exactly one "
+        "formula, implemented once. PakkaHisaab.Shared.Domain.SalaryCalculator computes "
+        "Final Payable = Monthly Wage − (Unpaid Absences × Daily Rate) − Advances − "
+        "Other Deductions + Bonuses − Already Paid, with support for a configurable "
+        "monthly allowed-absence quota, optional leave carry-over month to month, and "
+        "a separate per-unit wage model (rate × units delivered) for helpers like a "
+        "milkman who are paid by delivery rather than a fixed salary. That one static "
+        "method is called by the mobile app for instant offline totals, by the API for "
+        "server-side verification, and by the PDF report generator — never three "
+        "different implementations quietly drifting apart."
     )
 
-    doc.add_heading("Zero-Friction Local Billing", level=2)
+    doc.add_heading("Offline-First by Construction, Not by Exception", level=2)
     doc.add_paragraph(
-        "Traditional hyperlocal commerce fails to digitize because the billing friction "
-        "exceeds the trust benefit — no small vendor will adopt a POS terminal for a "
-        "₹40 bottle of milk. PakkaHisaab inverts this economics by making the "
-        "resident's existing society-verified identity the payment credential itself. A "
-        "vendor issues a digital token against a pre-authorised household ledger line; no "
-        "card, no POS hardware, no manual invoice — just a running balance that both "
-        "parties can see, trust, and settle on a predictable cycle."
+        "Every tap — marking attendance, logging an advance, recording a delivery — "
+        "writes to a local SQLite database first, so the UI never waits on a network "
+        "call. Each row carries an IsDirty flag, a ModifiedAtUtc timestamp, and a "
+        "RowVersion watermark; a background Shiny.Jobs worker drains that outbox to the "
+        "API opportunistically, tagging each batch with a ClientBatchId so a retried "
+        "push after a lost response can never double-apply. The app is fully usable "
+        "with no connectivity at all, which matters in practice — the household or the "
+        "helper's own signal is not always reliable, and \"the app is down\" should "
+        "never be the reason today's attendance didn't get logged."
     )
 
-    doc.add_heading("Data Privacy as a First-Class Architectural Constraint", level=2)
+    doc.add_heading("Voice-to-Ledger for Hands-Free Entries", level=2)
     doc.add_paragraph(
-        "Because the platform sits at the intersection of financial data, residential "
-        "identity, and vendor commercial activity, privacy cannot be an afterthought "
-        "bolted on post-launch. PakkaHisaab enforces strict data compartmentalisation by "
-        "design: a vendor's system can only ever resolve a household's ledger balance and "
-        "transaction authorisation — never a resident's personal identifiers, unit "
-        "ownership documents, or society-wide financial records. Conversely, a society "
-        "admin's audit view surfaces reconciliation-grade transaction metadata without "
-        "exposing a vendor's proprietary pricing or customer base beyond that single "
-        "society."
+        "A rule-based natural-language parser — running entirely on-device, no network "
+        "required — understands short spoken commands in English and romanized Hindi: "
+        "\"Gave Geeta 500 advance,\" \"Raju delivered 1.5 litres,\" \"Geeta was absent "
+        "today.\" It is a genuinely useful shortcut for a user who doesn't want to open "
+        "forms for a thirty-second entry, and the same parser is exposed server-side "
+        "at POST /ai/parse so any thin client can reuse it — one implementation, two "
+        "hosts."
     )
 
     add_shaded_paragraph_box(
         doc,
         [
-            "PakkaHisaab is not a bookkeeping app bolted onto a chat group. It is a "
-            "purpose-built financial operating system for the residential society — "
-            "engineered around one ledger, one identity graph, and zero manual "
-            "reconciliation."
+            "PakkaHisaab is a focused, single-purpose ledger for one household's "
+            "domestic help — not a multi-tenant platform. Its value is in getting that "
+            "one job right: one formula, one offline-first data path, one shared "
+            "source of truth between the phone, the sync service, and the printed "
+            "statement."
         ],
         fill="E4F1F0", border_color="0E7C7B",
-        label="CTO PERSPECTIVE", label_color=TEAL,
+        label="ENGINEERING PERSPECTIVE", label_color=TEAL,
     )
 
     doc.add_page_break()
 
     # ---------------- Section 3: Value Pillars ----------------
     add_kicker(doc, "Value Pillars & Core Capabilities")
-    doc.add_heading("From Technical Capability to Enterprise Benefit", level=1)
+    doc.add_heading("From Feature to Everyday Household Benefit", level=1)
     doc.add_paragraph(
-        "PakkaHisaab's engineering investments translate directly into measurable "
-        "operating outcomes for society management committees, quantifiable revenue "
-        "capture for local vendors, and frictionless daily convenience for residents. "
-        "The four pillars below define the platform's market position."
+        "The four pillars below are the shipped capabilities of the app today, and "
+        "the concrete, everyday problem each one removes for a household managing "
+        "domestic help."
     )
 
     pillars = [
-        ("01", "Automated Ledger Reconciliation",
-         "Replaces error-prone manual bookkeeping with real-time transactional precision.",
+        ("01", "Automated Attendance & Salary Engine",
+         "Turns a month of scattered memory into one always-current, disputable-free number.",
          [
-             "Every maintenance due, penalty, vendor token, and settlement posts to an "
-             "immutable double-entry ledger the instant it occurs — no month-end "
-             "spreadsheet reconstruction, no reconciliation backlog.",
-             "Society treasurers reclaim an average of 15–20 hours per month previously "
-             "spent manually cross-checking cash receipts against bank statements and "
-             "vendor chits.",
-             "Discrepancy flags surface automatically the moment a recorded transaction "
-             "deviates from an expected balance, turning a quarterly audit fire-drill "
-             "into a continuous, always-current compliance posture.",
+             "Tap-to-cycle attendance (Present → Absent → Half-Day) per helper per day, "
+             "plus a separate per-unit entry mode for delivery-based helpers (e.g. "
+             "litres of milk); a configurable monthly allowed-absence quota with "
+             "optional carry-over of unused leave to the next month.",
+             "The payable amount recalculates instantly from the shared "
+             "SalaryCalculator formula the moment any attendance, advance, deduction, "
+             "or bonus is logged — there is no separate \"run payroll\" step and "
+             "nothing to reconstruct at month end.",
+             "Business value: removes the single biggest source of household-helper "
+             "pay disputes — disagreement over how many days were actually absent, "
+             "and how much was already advanced — because both sides can see the "
+             "same running ledger at any time, not just on settlement day.",
          ]),
-        ("02", "Unified Vendor Network Hub",
-         "Bridges local micro-commerce directly with captive residential micro-markets.",
+        ("02", "Offline-First Reliability with Background Cloud Sync",
+         "Works the moment you open it, with or without a signal, and never loses an entry.",
          [
-             "Verified local vendors — milk, grocery, laundry, pharmacy, and household "
-             "services — are onboarded once and instantly discoverable to every "
-             "resident inside their serviced societies.",
-             "Vendors gain a captive, trust-pre-qualified customer base without paying "
-             "the customer-acquisition premium demanded by generic hyperlocal "
-             "marketplaces.",
-             "Residents gain a single directory of society-vetted vendors, replacing "
-             "word-of-mouth trust with platform-verified KYC and transaction history.",
+             "All data is written to on-device SQLite first; a background sync job "
+             "pushes to the cloud API and pulls remote changes opportunistically, "
+             "using idempotent batches so a dropped connection mid-sync can never "
+             "create duplicate ledger rows.",
+             "A dedicated Demo mode seeds an isolated local database with sample "
+             "helpers (no account, no network, sync disabled) — useful for trying the "
+             "app instantly, and specifically built to satisfy app-store reviewers "
+             "who need to evaluate the app without creating real data.",
+             "Business value: a household never loses today's attendance entry to a "
+             "bad connection, and never needs to \"wait for the app to load\" before "
+             "logging something that just happened.",
          ]),
-        ("03", "Intelligent Notification Engine",
-         "Contextual triggers that reduce outstanding dues and shrink processing cycles.",
+        ("03", "Voice-to-Ledger & Smart Notifications",
+         "Reduces the two most common failure modes of manual tracking: forgetting to log, and forgetting to pay.",
          [
-             "Context-aware reminders escalate tone and channel based on due-date "
-             "proximity and resident response history — not a blanket broadcast blast.",
-             "Grace-period and penalty triggers fire automatically per the society's "
-             "configured policy, removing the treasurer from the uncomfortable role of "
-             "manual debt collector.",
-             "Vendors receive real-time settlement notifications the moment a payout "
-             "batch clears, closing the loop between a sale and confirmed cash-in-hand.",
+             "Speak a short command — \"Gave Geeta 500 advance\", \"Raju delivered 1.5 "
+             "litres\" — and the on-device parser logs it without opening a single "
+             "form; recognized in English and romanized Hindi today.",
+             "A daily 5 PM reminder to mark attendance (with an inline \"Mark Absent\" "
+             "action right in the notification shade — no need to even open the app), "
+             "plus automatic salary-due alerts from the 1st–10th of the month that "
+             "cancel themselves the instant a payment is recorded.",
+             "An absence-pattern forecast (\"Usually absent on Mondays · ~2/month\") "
+             "surfaces on the Dashboard once enough attendance history exists, so a "
+             "household can plan around a helper's typical pattern rather than being "
+             "surprised by it.",
          ]),
-        ("04", "Cross-Platform Real-Time Visibility",
-         "One dashboard experience, consistently available across every device and role.",
+        ("04", "Instant UPI Settlement & Shareable PDF Statements",
+         "Turns \"pay the milkman\" from an unrecorded cash handoff into a one-tap, logged transaction.",
          [
-             "Society admins, residents, and vendors each see a role-tailored dashboard "
-             "rendered from the same live data — no nightly batch sync, no stale exports.",
-             "Transaction graphs, due-balance trends, and vendor performance metrics "
-             "update the instant an underlying event posts to the ledger.",
-             "Fully responsive across web and mobile, so committee members and vendors "
-             "alike can act from a phone in the moment a decision is needed.",
+             "The Settlement screen shows the computed breakdown (gross wage, absence "
+             "deduction, advances, final payable) and launches the phone's own "
+             "installed UPI apps via a pre-filled upi://pay deep link — no card, no "
+             "POS hardware, no separate invoice — or logs a plain cash payment "
+             "instead.",
+             "Two PDF report types — a per-helper monthly ledger with daily breakdown, "
+             "and a household-wide summary across all helpers — generate on-device and "
+             "share directly to WhatsApp in one tap.",
+             "Business value: gives a household a real paper trail for what was paid "
+             "and when, useful for their own records, without requiring the helper to "
+             "adopt any technology at all — the deep link, the record-keeping, and the "
+             "sharing all happen on the household's side.",
          ]),
     ]
 
@@ -587,138 +605,135 @@ def build_brochure():
 
     add_image_placeholder(
         doc,
-        "Insert HD Product Mockup: Cross-Platform Dashboard UI showing real-time "
-        "transaction graphs — society due-collection curve, vendor settlement volume, "
-        "and resident ledger balance trend, rendered side-by-side on a tablet and phone "
-        "frame.",
+        "Insert screenshot grid: Calendar (tap-to-cycle attendance), Ledger (advance/"
+        "deduction/bonus entries), and Settlement (computed payable + UPI app chooser) "
+        "screens side by side on a phone frame.",
         height_cm=6.5,
     )
 
     doc.add_page_break()
 
-    # ---------------- Section 4: Security, Compliance & Scale ----------------
-    add_kicker(doc, "Security, Compliance & Scale")
-    doc.add_heading("Bank-Grade Trust, Built Into the Foundation", level=1)
+    # ---------------- Section 4: Security & Compliance ----------------
+    add_kicker(doc, "Security & Compliance")
+    doc.add_heading("What's Actually Implemented, in Plain Terms", level=1)
     doc.add_paragraph(
-        "A platform that touches household finances and residential identity earns the "
-        "right to operate only by treating security as non-negotiable infrastructure, "
-        "not a feature checkbox. PakkaHisaab is engineered to the standard a financial "
-        "institution would demand of any system holding a ledger of record."
+        "The app handles household financial data, so the security posture below is "
+        "described exactly as implemented — no claims beyond what the code does today."
     )
 
     sec_items = [
-        "Encryption at Rest — All ledger, KYC, and transaction records are encrypted "
-        "at rest using AES-256, with keys managed through a dedicated key-management "
-        "service and rotated on a defined schedule.",
-        "Encryption in Transit — Every client-to-server and service-to-service call is "
-        "enforced over TLS 1.2+, with certificate pinning on mobile clients to defeat "
-        "man-in-the-middle interception on untrusted networks.",
-        "Role-Based Data Isolation — Society admins, residents, and vendors operate "
-        "against strictly scoped data views enforced at the query layer — not merely "
-        "hidden in the UI — so a compromised client session cannot exfiltrate data "
-        "outside its authorised role boundary.",
-        "Immutable Audit Trails — Every ledger mutation is appended with an "
-        "actor-stamped, timestamped audit record that is never overwritten, giving "
-        "society committees a defensible compliance trail for RWA statutory audits.",
-        "KYC-Gated Vendor Onboarding — Vendors are cryptographically verified against "
-        "government-issued identity and business documentation before any household "
-        "ledger can be linked to their storefront, eliminating anonymous commercial "
-        "actors from the network.",
-        "Elastic, Horizontally Scalable Infrastructure — The ledger and notification "
-        "services are built on a horizontally scalable cloud-native architecture, "
-        "load-tested to sustain peak month-end billing cycles across thousands of "
-        "concurrent societies without degradation.",
-        "Automated Backups & Disaster Recovery — Point-in-time database snapshots and "
-        "geo-redundant backups ensure a recovery point objective measured in minutes, "
-        "not days, protecting every society's financial history against infrastructure "
-        "failure.",
+        "Password Storage — passwords are never stored in plain text or reversibly "
+        "encrypted; PasswordHasher.cs hashes them with PBKDF2-SHA256, 100,000 "
+        "iterations and a random 16-byte salt per user, and verifies with a "
+        "constant-time comparison to resist timing attacks.",
+        "API Authentication — every API call is authenticated with a JWT bearer "
+        "token, signed HMAC-SHA256 by the server with a configurable expiry window; "
+        "there is no session state to attack on the server side.",
+        "Right to Delete — a genuine \"Delete My Account\" flow (DELETE /account) "
+        "hard-deletes the user's server-side records and wipes the local database in "
+        "the same action, satisfying app-store data-deletion requirements rather than "
+        "just hiding the account.",
+        "Local-First Data Minimization — Demo mode makes zero network calls; a user "
+        "who never creates an account never sends any data off the device at all, "
+        "because the local SQLite copy is the primary store, not a cache in front of "
+        "a cloud original.",
+        "Disclosed Diagnostics — crash and usage telemetry is integrated via the App "
+        "Center SDK and disclosed in the in-app privacy policy, not collected "
+        "silently (note: Microsoft retired App Center in March 2025; a documented "
+        "migration path to Sentry or Firebase Crashlytics exists for the next "
+        "telemetry refresh).",
+        "Device-Integrity Advisory — on a rooted or jailbroken device the app shows "
+        "a non-blocking warning rather than silently operating without disclosure, "
+        "consistent with app-store guidelines that permit warning rather than "
+        "hard-blocking such devices.",
     ]
     add_bullets(doc, sec_items)
 
     add_shaded_paragraph_box(
         doc,
         [
-            "PakkaHisaab's infrastructure has been architected against the same threat "
-            "model used to evaluate core banking middleware: encrypted data at every "
-            "layer, least-privilege access by role, and an audit trail that cannot be "
-            "silently altered."
+            "Nothing above is aspirational — every item traces to a specific file in "
+            "the codebase (PasswordHasher.cs, TokenService.cs, AccountEndpoints.cs, "
+            "App.xaml.cs) and can be re-verified by reading it."
         ],
         fill="FDECEC", border_color="A32A2A",
-        label="SECURITY NOTE", label_color=DANGER,
+        label="HONESTY NOTE", label_color=DANGER,
     )
 
     doc.add_page_break()
 
-    # ---------------- Section 5: CTA ----------------
-    add_kicker(doc, "Get Started Today")
-    doc.add_heading("Your Onboarding Matrix: From Signup to First Reconciled Ledger", level=1)
+    # ---------------- Section 5: Try It ----------------
+    add_kicker(doc, "See It Working")
+    doc.add_heading("A Real Path You Can Walk Through Today", level=1)
     doc.add_paragraph(
-        "PakkaHisaab is engineered for same-week activation. The matrix below is the "
-        "definitive path for a Society Management Committee and its Local Vendor "
-        "Partners to move from first contact to a fully reconciled, live ledger."
+        "Unlike a roadmap pitch, every step below is something you can actually do "
+        "in the current build right now — no signup required to start."
     )
 
-    doc.add_heading("For Residential Societies", level=2)
-    society_rows = [
+    doc.add_heading("For a Household (the mobile app)", level=2)
+    household_rows = [
         ("Step", "Action", "Outcome"),
-        ("1", "Register your society and upload the resident unit directory",
-         "Society workspace provisioned with a unique society ledger ID"),
-        ("2", "Configure maintenance slabs, due dates, and grace-period / penalty rules",
-         "Automated billing engine activated for every unit"),
-        ("3", "Invite committee members and assign admin roles",
-         "RBAC-scoped access live for treasurer, secretary, and auditors"),
-        ("4", "Approve nearby vendors from the verified network directory",
-         "Vendors become bookable by every resident in the society"),
-        ("5", "Go live — residents receive app access and their opening ledger balance",
-         "Full real-time reconciliation begins from day one"),
+        ("1", "Open the app and tap \"Try Demo\" (or register a real account)",
+         "Instant offline sample data — Geeta (house help) and Raju (milkman) — or a synced account"),
+        ("2", "Tap + to add a helper: name, category, monthly wage or per-unit rate, "
+              "allowed absences",
+         "A new helper card appears on the Dashboard"),
+        ("3", "Open the helper's Calendar and tap today to mark attendance, or use the "
+              "mic to say \"Geeta was absent today\"",
+         "Attendance is recorded and the month summary updates immediately"),
+        ("4", "Tap Settle on the helper card",
+         "Computed payable shown; pay via UPI app chooser or log cash"),
+        ("5", "Open Reports, pick a month, generate a PDF and share it",
+         "A per-helper or household-wide statement lands in WhatsApp"),
     ]
-    society_table = doc.add_table(rows=len(society_rows), cols=3)
-    society_table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    for i, row in enumerate(society_rows):
-        cells = society_table.rows[i].cells
+    household_table = doc.add_table(rows=len(household_rows), cols=3)
+    household_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    for i, row in enumerate(household_rows):
+        cells = household_table.rows[i].cells
         for j, val in enumerate(row):
             cells[j].text = ""
             r = cells[j].paragraphs[0].add_run(val)
             if i == 0:
                 r.bold = True
         if i == 0:
-            set_repeat_header(society_table.rows[i])
-    society_table.columns[0].width = Cm(1.6)
-    society_table.columns[1].width = Cm(7.0)
-    society_table.columns[2].width = Cm(6.1)
-    shade_table_zebra(society_table, "0B1F3A", BAND_GREY)
+            set_repeat_header(household_table.rows[i])
+    household_table.columns[0].width = Cm(1.6)
+    household_table.columns[1].width = Cm(7.0)
+    household_table.columns[2].width = Cm(6.1)
+    shade_table_zebra(household_table, "0B1F3A", BAND_GREY)
 
     doc.add_paragraph().paragraph_format.space_after = Pt(4)
 
-    doc.add_heading("For Local & Nearby Vendors", level=2)
-    vendor_rows = [
+    doc.add_heading("For Support & Operations (the Admin console)", level=2)
+    admin_rows = [
         ("Step", "Action", "Outcome"),
-        ("1", "Submit business KYC (identity proof, address proof, trade licence)",
-         "Vendor application enters the verification queue"),
-        ("2", "Complete platform verification review",
-         "Vendor profile approved and digitally badge-verified"),
-        ("3", "Set up your digital storefront — catalogue, pricing, and service radius",
-         "Storefront becomes visible to all residents in linked societies"),
-        ("4", "Link approved households and begin issuing digital ledger tokens",
-         "Real-time per-household ledger tracking activated"),
-        ("5", "Receive scheduled payout settlements to your linked bank account",
-         "Automated, reconciled payouts on a predictable cycle"),
+        ("1", "Run `dotnet run --project src/PakkaHisaab.Admin` and sign in with an "
+              "account flagged IsAdmin",
+         "Cookie-authenticated access to the ops dashboard"),
+        ("2", "View the Dashboard",
+         "KPIs — total users, active/total helpers, pending settlements (₹), paid "
+         "this month (₹), sync batches in the last 7 days — plus charts for user "
+         "growth, 30-day attendance, settlements and ledger movement"),
+        ("3", "Browse Users, Helpers, Attendance, Ledger and Settlements",
+         "Read/manage views over the same data the mobile app writes"),
+        ("4", "Check Sync Batches",
+         "Confirms the offline-first mobile clients are pushing/pulling correctly"),
     ]
-    vendor_table = doc.add_table(rows=len(vendor_rows), cols=3)
-    vendor_table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    for i, row in enumerate(vendor_rows):
-        cells = vendor_table.rows[i].cells
+    admin_table = doc.add_table(rows=len(admin_rows), cols=3)
+    admin_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+    for i, row in enumerate(admin_rows):
+        cells = admin_table.rows[i].cells
         for j, val in enumerate(row):
             cells[j].text = ""
             r = cells[j].paragraphs[0].add_run(val)
             if i == 0:
                 r.bold = True
         if i == 0:
-            set_repeat_header(vendor_table.rows[i])
-    vendor_table.columns[0].width = Cm(1.6)
-    vendor_table.columns[1].width = Cm(7.0)
-    vendor_table.columns[2].width = Cm(6.1)
-    shade_table_zebra(vendor_table, "0E7C7B", BAND_TEAL)
+            set_repeat_header(admin_table.rows[i])
+    admin_table.columns[0].width = Cm(1.6)
+    admin_table.columns[1].width = Cm(7.0)
+    admin_table.columns[2].width = Cm(6.1)
+    shade_table_zebra(admin_table, "0E7C7B", BAND_TEAL)
 
     doc.add_paragraph().paragraph_format.space_after = Pt(10)
 
@@ -731,7 +746,7 @@ def build_brochure():
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p.paragraph_format.space_before = Pt(10)
     p.paragraph_format.space_after = Pt(2)
-    r1 = p.add_run("Ready to Reconcile Every Rupee?")
+    r1 = p.add_run("Ready to Try It?")
     r1.font.bold = True
     r1.font.size = Pt(16)
     r1.font.color.rgb = WHITE
@@ -740,8 +755,8 @@ def build_brochure():
     p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p2.paragraph_format.space_after = Pt(10)
     r2 = p2.add_run(
-        "Register your society or vendor storefront at pakkahisaab.app "
-        "and go live within the same billing cycle."
+        "Try Demo needs no signup, no network, and touches no real data — "
+        "the fastest way to see every feature above working. pakkahisaab.app"
     )
     r2.font.size = Pt(11)
     r2.font.color.rgb = RGBColor(0xE9, 0xD9, 0xA8)
