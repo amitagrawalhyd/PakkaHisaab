@@ -4,7 +4,8 @@
                android:icon="@mipmap/appicon"
                android:roundIcon="@mipmap/appicon_round"
                android:supportsRtl="true"
-               android:label="PakkaHisaab">
+               android:label="PakkaHisaab"
+               android:enableOnBackInvokedCallback="false">
     <!-- Firebase Cloud Messaging: legacy Instance ID receivers required by Xamarin.Firebase.Messaging -->
     <receiver
       android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver"

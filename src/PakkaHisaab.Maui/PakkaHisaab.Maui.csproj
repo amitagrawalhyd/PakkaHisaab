@@ -4,8 +4,12 @@
     <!-- Android is the default (and only CI/free-deploy) target — net8.0 mobile workload
          packs are EOL upstream (aka.ms/maui-support-policy) and no longer resolve on
          current SDKs (net9.0 is the oldest still-installable workload band). Build iOS
-         explicitly on a Mac with -p:IncludeIos=true. -->
-    <TargetFrameworks>net9.0-android</TargetFrameworks>
+         explicitly on a Mac with -p:IncludeIos=true.
+         Explicit android36.0 (not the unqualified "net9.0-android" moniker) so the
+         compile-against/target SDK is pinned to API 36 regardless of whichever Android
+         SDK packs happen to be installed — min OS support stays at API 26 (Android 8.0)
+         via SupportedOSPlatformVersion below, unaffected by the target SDK bump. -->
+    <TargetFrameworks>net9.0-android36.0</TargetFrameworks>
     <TargetFrameworks Condition="'$(IncludeIos)' == 'true'">$(TargetFrameworks);net9.0-ios</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <RootNamespace>PakkaHisaab.Maui</RootNamespace>
@@ -16,8 +20,8 @@
 
     <ApplicationTitle>PakkaHisaab</ApplicationTitle>
     <ApplicationId>com.clearkhata.pakkahisaab</ApplicationId>
-    <ApplicationDisplayVersion>1.0.1</ApplicationDisplayVersion>
-    <ApplicationVersion>2</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0.2</ApplicationDisplayVersion>
+    <ApplicationVersion>5</ApplicationVersion>
 
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">12.2</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
