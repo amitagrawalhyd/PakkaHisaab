@@ -572,4 +572,16 @@
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>عذرًا، لم أفهم ذلك. جرّب: 'Gave Geeta 500 advance'.</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>يلزم إذن الميكروفون للأوامر الصوتية. فعّله من الإعدادات.</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>لم يُسمع شيء. حاول مرة أخرى وتحدث فور النقر على الميكروفون.</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>تعذّرت مطابقة ذلك بأي مساعد. حاول ذكر الاسم، مثال: 'Gave Geeta 500 advance'.</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>حدث خطأ ما في الإدخال الصوتي. يرجى المحاولة مرة أخرى.</value>
+  </data>
 </root>

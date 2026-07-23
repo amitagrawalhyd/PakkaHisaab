@@ -572,4 +572,16 @@ Settings &gt; Delete My Account &amp; Data വഴി നിങ്ങൾക്ക
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>ക്ഷമിക്കണം, മനസ്സിലായില്ല. ശ്രമിക്കുക: 'Gave Geeta 500 advance'.</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>വോയ്‌സ് കമാൻഡുകൾക്ക് മൈക്രോഫോൺ അനുമതി ആവശ്യമാണ്. ക്രമീകരണങ്ങളിൽ ഇത് ഓണാക്കുക.</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>ഒന്നും കേട്ടില്ല. മൈക്ക് ടാപ്പ് ചെയ്ത ഉടനെ സംസാരിച്ച് വീണ്ടും ശ്രമിക്കുക.</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>ഒരു ഹെൽപ്പറുമായും പൊരുത്തപ്പെടുത്താൻ കഴിഞ്ഞില്ല. അവരുടെ പേര് കൂടി ഉൾപ്പെടുത്തി ശ്രമിക്കുക, ഉദാ: 'Gave Geeta 500 advance'.</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>വോയ്‌സ് ഇൻപുട്ടിൽ എന്തോ പിഴവ് സംഭവിച്ചു. ദയവായി വീണ്ടും ശ്രമിക്കുക.</value>
+  </data>
 </root>

@@ -50,6 +50,7 @@ public partial class DashboardViewModel : BaseViewModel
     [ObservableProperty] bool isDemoBannerVisible;
     [ObservableProperty] string totalPayable = "₹ 0";
     [ObservableProperty] bool isEmpty;
+    [ObservableProperty] bool isListening;
 
     [RelayCommand]
     public async Task LoadAsync()
@@ -125,12 +126,31 @@ public partial class DashboardViewModel : BaseViewModel
     [RelayCommand]
     async Task VoiceEntryAsync()
     {
-        var result = await _voice.CaptureAndApplyAsync();
-        await Toast(result?.Confirmation ?? Loc["Voice_NotUnderstood"]);
-        if (result is null) return;
+        if (IsListening) return; // avoid overlapping mic sessions from a double-tap
+        IsListening = true;
+        try
+        {
+            var result = await _voice.CaptureAndApplyAsync();
+            await Toast(VoiceMessageFor(result));
+            if (result.Outcome != VoiceOutcome.Success) return;
 
-        await LoadAsync();
-        if (result.ShowOnCalendar)
-            await Shell.Current.GoToAsync($"calendar?helperId={result.HelperId}");
+            await LoadAsync();
+            if (result.ShowOnCalendar)
+                await Shell.Current.GoToAsync($"calendar?helperId={result.HelperId}");
+        }
+        finally
+        {
+            IsListening = false;
+        }
     }
+
+    string VoiceMessageFor(VoiceLedgerResult result) => result.Outcome switch
+    {
+        VoiceOutcome.Success => result.Confirmation!,
+        VoiceOutcome.PermissionDenied => Loc["Voice_PermissionDenied"],
+        VoiceOutcome.NoSpeechDetected => Loc["Voice_NoSpeech"],
+        VoiceOutcome.HelperNotRecognized => Loc["Voice_HelperNotRecognized"],
+        VoiceOutcome.IntentNotRecognized => Loc["Voice_NotUnderstood"],
+        _ => Loc["Voice_Error"]
+    };
 }

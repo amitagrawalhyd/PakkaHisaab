@@ -572,4 +572,16 @@ Pour toute question concernant les présentes Conditions, contactez Amit Kumar A
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>Désolé, je n'ai pas compris. Essayez : « Gave Geeta 500 advance ».</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>L'autorisation du microphone est nécessaire pour les commandes vocales. Activez-la dans Réglages.</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>Rien entendu. Réessayez et parlez juste après avoir appuyé sur le micro.</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>Impossible de faire correspondre cela à un aidant. Essayez d'inclure son nom, par ex. « Gave Geeta 500 advance ».</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>Une erreur s'est produite avec l'entrée vocale. Veuillez réessayer.</value>
+  </data>
 </root>

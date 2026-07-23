@@ -587,4 +587,16 @@ For any questions about these Terms, contact Amit Kumar Agrawal at amit.agrawal.
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>Sorry, I didn't catch that. Try: 'Gave Geeta 500 advance'.</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>Microphone permission is needed for voice commands. Enable it in Settings.</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>Didn't hear anything. Try again and speak right after tapping the mic.</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>Couldn't match that to a helper. Try including their name, e.g. 'Gave Geeta 500 advance'.</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>Something went wrong with voice input. Please try again.</value>
+  </data>
 </root>

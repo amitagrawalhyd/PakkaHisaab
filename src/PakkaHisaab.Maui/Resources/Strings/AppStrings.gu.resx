@@ -572,4 +572,16 @@ PakkaHisaab તમને તમે સંભાળો છો તે ઘરેલ
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>માફ કરશો, મને એ સમજાયું નહીં. પ્રયાસ કરો: 'Gave Geeta 500 advance'.</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>વૉઇસ કમાન્ડ માટે માઇક્રોફોનની પરવાનગી જરૂરી છે. સેટિંગ્સમાં તેને ચાલુ કરો.</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>કંઈ સંભળાયું નહીં. માઇક ટૅપ કર્યા પછી તરત બોલીને ફરી પ્રયાસ કરો.</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>તેને કોઈ હેલ્પર સાથે મેળ ખાઈ શક્યા નહીં. તેમનું નામ સામેલ કરીને પ્રયાસ કરો, દા.ત. 'Gave Geeta 500 advance'.</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>વૉઇસ ઇનપુટમાં કંઈક ખોટું થયું. કૃપા કરી ફરી પ્રયાસ કરો.</value>
+  </data>
 </root>

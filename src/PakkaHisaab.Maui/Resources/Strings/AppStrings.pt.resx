@@ -572,4 +572,16 @@ Para dúvidas sobre estes Termos, entre em contato com Amit Kumar Agrawal pelo e
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>Desculpe, não entendi. Tente: 'Gave Geeta 500 advance'.</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>É necessária permissão de microfone para comandos de voz. Ative-a em Configurações.</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>Nada foi ouvido. Tente novamente e fale logo após tocar no microfone.</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>Não foi possível identificar um ajudante. Tente incluir o nome, ex.: 'Gave Geeta 500 advance'.</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>Ocorreu um erro na entrada de voz. Tente novamente.</value>
+  </data>
 </root>

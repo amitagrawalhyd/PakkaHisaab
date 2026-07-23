@@ -572,4 +572,16 @@ Untuk pertanyaan mengenai Ketentuan ini, hubungi Amit Kumar Agrawal di amit.agra
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>Maaf, saya tidak mengerti. Coba: 'Gave Geeta 500 advance'.</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>Izin mikrofon diperlukan untuk perintah suara. Aktifkan di Pengaturan.</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>Tidak ada yang terdengar. Coba lagi dan bicara segera setelah mengetuk mikrofon.</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>Tidak dapat mencocokkan dengan pekerja. Coba sertakan namanya, mis. 'Gave Geeta 500 advance'.</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>Terjadi kesalahan pada input suara. Silakan coba lagi.</value>
+  </data>
 </root>

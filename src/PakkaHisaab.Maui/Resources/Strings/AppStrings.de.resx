@@ -572,4 +572,16 @@ Bei Fragen zu diesen Bedingungen wenden Sie sich an Amit Kumar Agrawal unter ami
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>Entschuldigung, das habe ich nicht verstanden. Versuchen Sie es mit: 'Gave Geeta 500 advance'.</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>Für Sprachbefehle wird die Mikrofonberechtigung benötigt. Aktivieren Sie sie in den Einstellungen.</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>Nichts gehört. Versuchen Sie es erneut und sprechen Sie direkt nach dem Antippen des Mikrofons.</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>Konnte das keiner Hilfskraft zuordnen. Nennen Sie den Namen, z. B. 'Gave Geeta 500 advance'.</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>Bei der Spracheingabe ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.</value>
+  </data>
 </root>

@@ -572,4 +572,16 @@ PakkaHisaab آپ کو اپنے زیر انتظام گھریلو ملازمین (
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>معذرت، میں سمجھ نہیں سکا۔ آزمائیں: 'Gave Geeta 500 advance'۔</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>صوتی کمانڈز کے لیے مائیکروفون کی اجازت درکار ہے۔ اسے ترتیبات میں فعال کریں۔</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>کچھ سنائی نہیں دیا۔ مائیک ٹیپ کرنے کے فوراً بعد بول کر دوبارہ کوشش کریں۔</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>کسی مددگار سے مماثل نہیں ہوا۔ نام شامل کر کے کوشش کریں، مثلاً: 'Gave Geeta 500 advance'۔</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>صوتی ان پٹ میں کچھ خرابی ہوئی۔ براہ کرم دوبارہ کوشش کریں۔</value>
+  </data>
 </root>

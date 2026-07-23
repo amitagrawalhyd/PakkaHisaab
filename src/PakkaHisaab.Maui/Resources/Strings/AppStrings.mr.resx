@@ -572,4 +572,16 @@ PakkaHisaab तुम्हाला तुम्ही व्यवस्था
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>माफ करा, ते समजले नाही. प्रयत्न करा: 'Gave Geeta 500 advance'.</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>आवाज कमांड्ससाठी मायक्रोफोन परवानगी आवश्यक आहे. सेटिंग्जमध्ये ती सुरू करा.</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>काहीही ऐकू आले नाही. माइक टॅप केल्यानंतर लगेच बोलून पुन्हा प्रयत्न करा.</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>ते कोणत्याही मदतनीसाशी जुळले नाही. त्यांचे नाव समाविष्ट करून प्रयत्न करा, उदा. 'Gave Geeta 500 advance'.</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>आवाज इनपुटमध्ये काहीतरी चूक झाली. कृपया पुन्हा प्रयत्न करा.</value>
+  </data>
 </root>

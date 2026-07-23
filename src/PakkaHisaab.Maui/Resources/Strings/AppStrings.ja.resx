@@ -572,4 +572,16 @@ PakkaHisaabは、お客様が管理する家事お手伝いさん（家事手伝
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>うまく聞き取れませんでした。例：「Gave Geeta 500 advance」のように話してみてください。</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>音声コマンドにはマイクの許可が必要です。設定で有効にしてください。</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>何も聞き取れませんでした。マイクをタップした直後に話してもう一度お試しください。</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>該当するヘルパーが見つかりませんでした。名前を含めてお試しください。例：「Gave Geeta 500 advance」。</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>音声入力でエラーが発生しました。もう一度お試しください。</value>
+  </data>
 </root>

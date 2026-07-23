@@ -572,4 +572,16 @@ Kwa maswali yoyote kuhusu Masharti haya, wasiliana na Amit Kumar Agrawal kupitia
   <data name="Voice_NotUnderstood" xml:space="preserve">
     <value>Samahani, sikuelewa hilo. Jaribu: 'Gave Geeta 500 advance'.</value>
   </data>
+  <data name="Voice_PermissionDenied" xml:space="preserve">
+    <value>Ruhusa ya kipaza sauti inahitajika kwa amri za sauti. Iwashe kwenye Mipangilio.</value>
+  </data>
+  <data name="Voice_NoSpeech" xml:space="preserve">
+    <value>Hakuna kilichosikika. Jaribu tena na uzungumze mara tu baada ya kugusa maikrofoni.</value>
+  </data>
+  <data name="Voice_HelperNotRecognized" xml:space="preserve">
+    <value>Imeshindwa kulinganisha na msaidizi. Jaribu kutaja jina lake, mfano: 'Gave Geeta 500 advance'.</value>
+  </data>
+  <data name="Voice_Error" xml:space="preserve">
+    <value>Hitilafu imetokea kwenye ingizo la sauti. Tafadhali jaribu tena.</value>
+  </data>
 </root>
