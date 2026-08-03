@@ -139,15 +139,24 @@ role scoped to the Admin web app resource — no new GitHub secrets needed).
 
 ---
 
-## 2.6 Public website — pakkahisaab.app (privacy policy, terms, App Links)
+## 2.6 Public website — privacy policy, terms, App Links
 
 `web/` is a small static site (privacy policy, terms, `.well-known/assetlinks.json`) deployed
 free via GitHub Pages by `.github/workflows/pages-deploy.yml` on every push to `main` that
-touches `web/**`. `Constants.PrivacyPolicyUrl`/`TermsUrl` point at it, and Play/App Store both
-require a live, publicly-reachable privacy policy URL to approve a submission — this is not
-optional.
+touches `web/**`. `Constants.PrivacyPolicyUrl`/`TermsUrl` point at the default
+`https://amitagrawalhyd.github.io/PakkaHisaab/` URL, and Play/App Store both require a live,
+publicly-reachable privacy policy URL to approve a submission — this is not optional.
 
-One-time setup:
+> **No custom domain right now.** `web/CNAME` (which pointed this at `pakkahisaab.app`) was
+> removed — the domain currently resolves to an unrelated/parked page, not this site, which
+> silently broke the Play Store-linked privacy/terms URLs via GitHub Pages' automatic
+> `github.io` → custom-domain redirect (a 301 to a domain that then 404s looks like the whole
+> site is down, not just a wrong domain). Once `pakkahisaab.app` is confirmed to actually
+> resolve to content you control, re-add `web/CNAME` with its hostname, follow the DNS setup
+> below, and only then update `Constants.cs` — verify the custom domain serves `/privacy` and
+> `/terms` correctly *before* pointing the app/store listings at it, not after.
+
+One-time setup (for re-enabling the custom domain later):
 
 1. Pages is already enabled on the repo (`gh api -X POST repos/<owner>/<repo>/pages -f
    build_type=workflow`) and the workflow deploys on push. This alone does **not** make
