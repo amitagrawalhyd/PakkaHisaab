@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using PakkaHisaab.Api.Auth;
-using PakkaHisaab.Api.Services;
 using PakkaHisaab.Infrastructure.Auth;
 using PakkaHisaab.Infrastructure.Data;
 using PakkaHisaab.Shared.Dtos;
@@ -13,8 +12,7 @@ public static class AuthEndpoints
     {
         var group = app.MapGroup("/auth").WithTags("Auth");
 
-        group.MapPost("/register", async (RegisterRequest req, AppDbContext db, ITokenService tokens,
-            ITranslationService translator, CancellationToken ct) =>
+        group.MapPost("/register", async (RegisterRequest req, AppDbContext db, ITokenService tokens) =>
         {
             var email = req.Email.Trim().ToLowerInvariant();
             if (string.IsNullOrWhiteSpace(email) || req.Password.Length < 8)
@@ -31,13 +29,11 @@ public static class AuthEndpoints
                     code = "EMAIL_TAKEN"
                 });
 
-            var displayName = req.DisplayName.Trim();
             var user = new User
             {
                 Id = Guid.NewGuid(),
                 Email = email,
-                DisplayName = displayName,
-                DisplayNameEnglish = await translator.TranslateToEnglishAsync(displayName, ct),
+                DisplayName = req.DisplayName.Trim(),
                 PhoneNumber = req.PhoneNumber,
                 PasswordHash = PasswordHasher.Hash(req.Password),
                 CreatedAtUtc = DateTime.UtcNow

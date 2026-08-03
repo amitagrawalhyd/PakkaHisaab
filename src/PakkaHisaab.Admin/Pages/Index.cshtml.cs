@@ -31,7 +31,7 @@ public class IndexModel : PageModel
     public List<string> SettlementLabels { get; set; } = new() { "Pending", "Paid" };
     public List<decimal> SettlementValues { get; set; } = new();
 
-    public List<(string Name, string? NameEnglish, string Email, DateTime CreatedAtUtc)> RecentUsers { get; set; } = new();
+    public List<(string Name, string Email, DateTime CreatedAtUtc)> RecentUsers { get; set; } = new();
 
     public async Task OnGetAsync(CancellationToken ct)
     {
@@ -102,8 +102,8 @@ public class IndexModel : PageModel
         var recent = await _db.Users
             .OrderByDescending(u => u.CreatedAtUtc)
             .Take(5)
-            .Select(u => new { u.DisplayName, u.DisplayNameEnglish, u.Email, u.CreatedAtUtc })
+            .Select(u => new { u.DisplayName, u.Email, u.CreatedAtUtc })
             .ToListAsync(ct);
-        RecentUsers = recent.Select(u => (u.DisplayName, u.DisplayNameEnglish, u.Email, u.CreatedAtUtc)).ToList();
+        RecentUsers = recent.Select(u => (u.DisplayName, u.Email, u.CreatedAtUtc)).ToList();
     }
 }

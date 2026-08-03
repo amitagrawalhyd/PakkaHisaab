@@ -53,12 +53,6 @@ public partial class SettingsViewModel : BaseViewModel
     [RelayCommand]
     async Task LogoutAsync()
     {
-        var page = Shell.Current.CurrentPage;
-        bool confirm = await page.DisplayAlert(
-            Loc["Settings_LogoutTitle"], Loc["Settings_LogoutConfirm"],
-            Loc["Settings_LogoutYes"], Loc["Common_Cancel"]);
-        if (!confirm) return;
-
         await _auth.LogoutAsync();
         await Shell.Current.GoToAsync("//login");
     }

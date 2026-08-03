@@ -27,13 +27,8 @@ public interface ISyncService
 public sealed class SyncService : ISyncService
 {
     readonly AppDbContext _db;
-    readonly ITranslationService _translator;
 
-    public SyncService(AppDbContext db, ITranslationService translator)
-    {
-        _db = db;
-        _translator = translator;
-    }
+    public SyncService(AppDbContext db) => _db = db;
 
     public async Task<SyncPushResponse> PushAsync(Guid userId, SyncPushRequest request, CancellationToken ct)
     {
@@ -59,13 +54,13 @@ public sealed class SyncService : ISyncService
             await using var tx = await _db.Database.BeginTransactionAsync(ct);
 
             foreach (var dto in request.Helpers)
-                await UpsertAsync<Helper, HelperDto>(userId, dto, response, MapHelperAsync, ct);
+                await UpsertAsync<Helper, HelperDto>(userId, dto, response, MapHelper, ct);
             foreach (var dto in request.Attendance)
-                await UpsertAsync<AttendanceEntry, AttendanceDto>(userId, dto, response, SyncAsync<AttendanceDto, AttendanceEntry>(MapAttendance), ct);
+                await UpsertAsync<AttendanceEntry, AttendanceDto>(userId, dto, response, MapAttendance, ct);
             foreach (var dto in request.LedgerEntries)
-                await UpsertAsync<LedgerEntry, LedgerEntryDto>(userId, dto, response, MapLedgerAsync, ct);
+                await UpsertAsync<LedgerEntry, LedgerEntryDto>(userId, dto, response, MapLedger, ct);
             foreach (var dto in request.Settlements)
-                await UpsertAsync<Settlement, SettlementDto>(userId, dto, response, SyncAsync<SettlementDto, Settlement>(MapSettlement), ct);
+                await UpsertAsync<Settlement, SettlementDto>(userId, dto, response, MapSettlement, ct);
 
             response.ServerWatermark = await CurrentWatermarkAsync(userId, ct);
 
@@ -126,7 +121,7 @@ public sealed class SyncService : ISyncService
 
     async Task UpsertAsync<TEntity, TDto>(
         Guid userId, TDto dto, SyncPushResponse response,
-        Func<TDto, TEntity, CancellationToken, Task> mapAsync, CancellationToken ct)
+        Action<TDto, TEntity> map, CancellationToken ct)
         where TEntity : SyncEntityBase, new()
         where TDto : ISyncEntity
     {
@@ -148,7 +143,7 @@ public sealed class SyncService : ISyncService
         }
 
         entity ??= set.Add(new TEntity { Id = dto.Id, UserId = userId }).Entity;
-        await mapAsync(dto, entity, ct);
+        map(dto, entity);
         entity.UserId = userId;
         entity.ModifiedAtUtc = dto.ModifiedAtUtc;
         entity.IsDeleted = dto.IsDeleted;
@@ -156,27 +151,16 @@ public sealed class SyncService : ISyncService
         response.AcceptedRowVersions[dto.Id] = entity.RowVersion;
     }
 
-    /// <summary>Adapts a synchronous mapper (entities with no translatable free text) to the
-    /// async delegate shape <see cref="UpsertAsync{TEntity,TDto}"/> expects.</summary>
-    static Func<TDto, TEntity, CancellationToken, Task> SyncAsync<TDto, TEntity>(Action<TDto, TEntity> map) =>
-        (d, e, _) => { map(d, e); return Task.CompletedTask; };
-
     // ---------- mapping (DTO ⇄ entity) ----------
 
-    async Task MapHelperAsync(HelperDto d, Helper e, CancellationToken ct)
+    static void MapHelper(HelperDto d, Helper e)
     {
-        bool nameChanged = e.Name != d.Name;
         e.Name = d.Name; e.WhatsAppNumber = d.WhatsAppNumber; e.UpiId = d.UpiId;
         e.Category = d.Category; e.WageType = d.WageType; e.MonthlyWage = d.MonthlyWage;
         e.RatePerUnit = d.RatePerUnit; e.UnitLabel = d.UnitLabel;
         e.MonthlyAllowedAbsences = d.MonthlyAllowedAbsences;
         e.CarryOverLeaveAllowed = d.CarryOverLeaveAllowed;
         e.CarriedOverLeaves = d.CarriedOverLeaves; e.IsActive = d.IsActive;
-
-        // Only re-translate when the name actually changed — avoids re-billing the
-        // translation API on every unrelated field edit (wage, category, absences, ...).
-        if (nameChanged)
-            e.NameEnglish = await _translator.TranslateToEnglishAsync(d.Name, ct);
     }
 
     static void MapAttendance(AttendanceDto d, AttendanceEntry e)
@@ -185,15 +169,11 @@ public sealed class SyncService : ISyncService
         e.UnitsDelivered = d.UnitsDelivered;
     }
 
-    async Task MapLedgerAsync(LedgerEntryDto d, LedgerEntry e, CancellationToken ct)
+    static void MapLedger(LedgerEntryDto d, LedgerEntry e)
     {
-        bool noteChanged = e.Note != d.Note;
         e.HelperId = d.HelperId; e.Type = d.Type; e.Amount = d.Amount; e.Method = d.Method;
         e.Note = d.Note; e.Period = d.Period; e.OccurredAtUtc = d.OccurredAtUtc;
         e.UpiTransactionRef = d.UpiTransactionRef;
-
-        if (noteChanged)
-            e.NoteEnglish = await _translator.TranslateToEnglishAsync(d.Note, ct);
     }
 
     static void MapSettlement(SettlementDto d, Settlement e)

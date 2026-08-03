@@ -33,9 +33,8 @@ public class IndexModel : PageModel
         }
     }
 
-    public record Row(Guid Id, DateTime OccurredAtUtc, string HelperName, string? HelperNameEnglish,
-        string OwnerEmail, LedgerEntryType Type, decimal Amount, PaymentMethod Method,
-        string? Note, string? NoteEnglish, string Period);
+    public record Row(Guid Id, DateTime OccurredAtUtc, string HelperName, string OwnerEmail,
+        LedgerEntryType Type, decimal Amount, PaymentMethod Method, string? Note, string Period);
 
     public async Task OnGetAsync(CancellationToken ct)
     {
@@ -44,14 +43,12 @@ public class IndexModel : PageModel
             join h in _db.Helpers.AsNoTracking() on l.HelperId equals h.Id
             join u in _db.Users.AsNoTracking() on l.UserId equals u.Id
             where !l.IsDeleted
-            select new { l, h.Name, h.NameEnglish, u.Email };
+            select new { l, h.Name, u.Email };
 
         if (!string.IsNullOrWhiteSpace(Q))
         {
             var term = Q.Trim();
-            query = query.Where(x =>
-                x.Name.Contains(term) || (x.NameEnglish != null && x.NameEnglish.Contains(term))
-                || x.Email.Contains(term));
+            query = query.Where(x => x.Name.Contains(term) || x.Email.Contains(term));
         }
         if (Type is not null) query = query.Where(x => x.l.Type == Type);
         if (!string.IsNullOrWhiteSpace(Period)) query = query.Where(x => x.l.Period == Period);
@@ -62,8 +59,7 @@ public class IndexModel : PageModel
 
         Rows = await query.OrderByDescending(x => x.l.OccurredAtUtc)
             .Skip((Page - 1) * PageSize).Take(PageSize)
-            .Select(x => new Row(x.l.Id, x.l.OccurredAtUtc, x.Name, x.NameEnglish, x.Email,
-                x.l.Type, x.l.Amount, x.l.Method, x.l.Note, x.l.NoteEnglish, x.l.Period))
+            .Select(x => new Row(x.l.Id, x.l.OccurredAtUtc, x.Name, x.Email, x.l.Type, x.l.Amount, x.l.Method, x.l.Note, x.l.Period))
             .ToListAsync(ct);
     }
 

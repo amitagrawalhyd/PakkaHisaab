@@ -37,11 +37,11 @@
             <Button Text="{helpers:Translate Login_SignIn}"
                     Command="{Binding SubmitCommand}"
                     IsVisible="{Binding IsRegisterMode, Converter={StaticResource InvertBool}}"
-                    IsEnabled="{Binding CanSubmit}" />
+                    IsEnabled="{Binding IsNotBusy}" />
             <Button Text="{helpers:Translate Login_CreateAccount}"
                     Command="{Binding SubmitCommand}"
                     IsVisible="{Binding IsRegisterMode}"
-                    IsEnabled="{Binding CanSubmit}" />
+                    IsEnabled="{Binding IsNotBusy}" />
 
             <Label HorizontalTextAlignment="Center" TextColor="{StaticResource Primary}"
                    FontFamily="{DynamicResource FontSemiBold}"

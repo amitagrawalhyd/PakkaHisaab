@@ -25,17 +25,9 @@ public interface IDataService
     Task DeleteLedgerEntryAsync(Guid id);
 
     Task<SettlementBreakdown> ComputeSettlementAsync(Guid helperId, int year, int month);
-    Task<SettlementDto?> GetSettlementAsync(Guid helperId, string period);
     Task<SettlementDto> MarkPaidAsync(Guid helperId, string period, decimal amount,
         PaymentMethod method, string? upiRef);
-    /// <summary>Past months (before the current one) that still have money owed and no
-    /// recorded payment — the arrears list behind the Dashboard's "N months pending" badge.
-    /// Bounded to <paramref name="maxLookbackMonths"/> and to the helper's earliest activity.</summary>
-    Task<List<PendingSettlement>> GetUnpaidPeriodsAsync(Guid helperId, int maxLookbackMonths = 24);
 }
-
-/// <summary>One unpaid past month, as surfaced to the Dashboard/arrears UI.</summary>
-public sealed record PendingSettlement(int Year, int Month, string Period, SettlementBreakdown Breakdown);
 
 /// <summary>
 /// The single write path for all business data. Every mutation:
@@ -244,58 +236,6 @@ public sealed class DataService : IDataService
         return SalaryCalculator.Compute(helper, year, month, attendance, ledger);
     }
 
-    public async Task<List<PendingSettlement>> GetUnpaidPeriodsAsync(Guid helperId, int maxLookbackMonths = 24)
-    {
-        var conn = await _db.GetConnectionAsync();
-
-        var earliestAttendance = await conn.Table<LocalAttendance>()
-            .Where(a => a.HelperId == helperId && !a.IsDeleted)
-            .OrderBy(a => a.Date).FirstOrDefaultAsync();
-        var earliestLedger = await conn.Table<LocalLedgerEntry>()
-            .Where(l => l.HelperId == helperId && !l.IsDeleted)
-            .OrderBy(l => l.Period).FirstOrDefaultAsync();
-
-        DateTime? earliestActivity = null;
-        if (earliestAttendance is not null)
-            earliestActivity = new DateTime(int.Parse(earliestAttendance.Date[..4]), int.Parse(earliestAttendance.Date[5..7]), 1);
-        if (earliestLedger is not null)
-        {
-            var ledgerMonth = new DateTime(int.Parse(earliestLedger.Period[..4]), int.Parse(earliestLedger.Period[5..7]), 1);
-            if (earliestActivity is null || ledgerMonth < earliestActivity) earliestActivity = ledgerMonth;
-        }
-
-        var today = DateTime.Today;
-        var candidates = SettlementPeriodPlanner.EnumerateBackPeriods(
-            today.Year, today.Month, earliestActivity, maxLookbackMonths);
-        if (candidates.Count == 0) return [];
-
-        var paidPeriods = (await conn.Table<LocalSettlement>()
-                .Where(s => s.HelperId == helperId && s.Status == SettlementStatus.Paid && !s.IsDeleted)
-                .ToListAsync())
-            .Select(s => s.Period).ToHashSet();
-
-        var results = new List<PendingSettlement>();
-        foreach (var (year, month) in candidates)
-        {
-            var period = $"{year:D4}-{month:D2}";
-            if (paidPeriods.Contains(period)) continue;
-
-            var breakdown = await ComputeSettlementAsync(helperId, year, month);
-            if (breakdown.FinalPayable > 0)
-                results.Add(new PendingSettlement(year, month, period, breakdown));
-        }
-        return results;
-    }
-
-    public async Task<SettlementDto?> GetSettlementAsync(Guid helperId, string period)
-    {
-        var conn = await _db.GetConnectionAsync();
-        var row = await conn.Table<LocalSettlement>()
-            .Where(s => s.HelperId == helperId && s.Period == period && !s.IsDeleted)
-            .FirstOrDefaultAsync();
-        return row?.ToDto();
-    }
-
     public async Task<SettlementDto> MarkPaidAsync(Guid helperId, string period, decimal amount,
         PaymentMethod method, string? upiRef)
     {
@@ -319,36 +259,6 @@ public sealed class DataService : IDataService
         settlement.IsDirty = true;
         settlement.ModifiedAtUtc = DateTime.UtcNow;
         await conn.InsertOrReplaceAsync(settlement);
-
-        // Roll the unused leave allowance forward onto the helper record — otherwise
-        // CarryOverLeaveAllowed helpers would keep the same balance forever.
-        var periodParts = period.Split('-');
-        if (periodParts.Length == 2
-            && int.TryParse(periodParts[0], out var year)
-            && int.TryParse(periodParts[1], out var month))
-        {
-            var helperRow = await conn.FindAsync<LocalHelper>(helperId);
-            if (helperRow is not null && helperRow.CarryOverLeaveAllowed)
-            {
-                // Settling months out of order (Calendar now allows picking any past month) must
-                // not let an older arrear's numbers clobber a more recent month's already-applied
-                // carry-forward — only the latest Paid period may write the balance. "yyyy-MM"
-                // periods sort correctly as plain strings.
-                var paidPeriods = await conn.Table<LocalSettlement>()
-                    .Where(s => s.HelperId == helperId && s.Status == SettlementStatus.Paid && !s.IsDeleted)
-                    .ToListAsync();
-                var latestPaidPeriod = paidPeriods.Select(s => s.Period).Max();
-
-                if (string.CompareOrdinal(period, latestPaidPeriod) >= 0)
-                {
-                    var breakdown = await ComputeSettlementAsync(helperId, year, month);
-                    helperRow.CarriedOverLeaves = breakdown.LeavesToCarryForward;
-                    helperRow.IsDirty = true;
-                    helperRow.ModifiedAtUtc = DateTime.UtcNow;
-                    await conn.UpdateAsync(helperRow);
-                }
-            }
-        }
 
         // Paid → stop nagging: cancel the 1st–10th salary alert for this helper.
         await _notifications.CancelSalaryAlertAsync(helperId);

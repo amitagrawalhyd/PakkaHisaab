@@ -9,16 +9,12 @@ namespace PakkaHisaab.Maui.ViewModels;
 
 /// <summary>Salary settlement: breakdown → UPI app grid / Cash → mark paid → sync + stop alerts.</summary>
 [QueryProperty(nameof(HelperIdRaw), "helperId")]
-[QueryProperty(nameof(YearRaw), "year")]
-[QueryProperty(nameof(MonthRaw), "month")]
 public partial class SettlementViewModel : BaseViewModel
 {
     readonly IDataService _data;
     readonly IUpiService _upi;
     HelperDto? _helper;
     SettlementBreakdown? _breakdown;
-    int _year;
-    int _month;
 
     public SettlementViewModel(IDataService data, IUpiService upi)
     {
@@ -27,11 +23,6 @@ public partial class SettlementViewModel : BaseViewModel
     }
 
     public string? HelperIdRaw { get; set; }
-    /// <summary>Optional — falls back to the current month when absent (e.g. Dashboard's
-    /// direct "Settle" link). Set explicitly when arriving from Calendar's month browser so a
-    /// past month can be settled instead of always defaulting to today.</summary>
-    public string? YearRaw { get; set; }
-    public string? MonthRaw { get; set; }
 
     [ObservableProperty] string helperName = string.Empty;
     [ObservableProperty] string periodLabel = string.Empty;
@@ -42,13 +33,6 @@ public partial class SettlementViewModel : BaseViewModel
     /// <summary>Manual amount amendment — pre-filled with the computed payable.</summary>
     [ObservableProperty] string amountToPay = string.Empty;
     [ObservableProperty] bool hasUpiId;
-    /// <summary>True when settling any month other than the current one — shown as a chip so a
-    /// back-dated payment never looks identical to a current-month one.</summary>
-    [ObservableProperty] bool isBackdated;
-    /// <summary>True once this period already has a recorded payment — Pay actions are hidden
-    /// so re-visiting an old settled month can't accidentally double-pay it.</summary>
-    [ObservableProperty] bool isAlreadyPaid;
-    [ObservableProperty] string alreadyPaidLabel = string.Empty;
 
     public async Task InitializeAsync()
     {
@@ -57,27 +41,16 @@ public partial class SettlementViewModel : BaseViewModel
         if (_helper is null) return;
 
         var today = DateTime.Today;
-        _year = int.TryParse(YearRaw, out var y) ? y : today.Year;
-        _month = int.TryParse(MonthRaw, out var m) ? m : today.Month;
-        var period = new DateTime(_year, _month, 1);
-        IsBackdated = period.Year != today.Year || period.Month != today.Month;
-
-        _breakdown = await _data.ComputeSettlementAsync(helperId, _year, _month);
+        _breakdown = await _data.ComputeSettlementAsync(helperId, today.Year, today.Month);
 
         HelperName = _helper.Name;
-        PeriodLabel = period.ToString("MMMM yyyy", Loc.CurrentCulture);
+        PeriodLabel = today.ToString("MMMM yyyy", Loc.CurrentCulture);
         GrossLabel = $"₹ {_breakdown.GrossWage:N2}";
         AbsenceLabel = $"− ₹ {_breakdown.AbsenceDeduction:N2} ({_breakdown.UnpaidAbsenceDays:0.#})";
         AdvanceLabel = $"− ₹ {_breakdown.Advances:N2}";
         PayableLabel = $"₹ {_breakdown.FinalPayable:N2}";
         AmountToPay = Math.Max(0, _breakdown.FinalPayable).ToString("0.##");
         HasUpiId = !string.IsNullOrWhiteSpace(_helper.UpiId);
-
-        var existing = await _data.GetSettlementAsync(helperId, $"{_year:D4}-{_month:D2}");
-        IsAlreadyPaid = existing?.Status == SettlementStatus.Paid;
-        AlreadyPaidLabel = IsAlreadyPaid
-            ? Loc.Get("Settle_AlreadyPaid", existing!.PaidAtUtc?.ToLocalTime().ToString("dd MMM yyyy") ?? "-", existing.FinalPayable)
-            : string.Empty;
     }
 
     /// <summary>Hands off to the OS's native UPI app chooser — it shows the real installed apps'
@@ -85,7 +58,7 @@ public partial class SettlementViewModel : BaseViewModel
     [RelayCommand]
     async Task PayWithUpiAsync()
     {
-        if (IsAlreadyPaid || _helper is null || !decimal.TryParse(AmountToPay, out var amount) || amount <= 0)
+        if (_helper is null || !decimal.TryParse(AmountToPay, out var amount) || amount <= 0)
         {
             await Toast(Loc["Settle_InvalidAmount"]);
             return;
@@ -112,7 +85,7 @@ public partial class SettlementViewModel : BaseViewModel
     [RelayCommand]
     async Task PayCashAsync()
     {
-        if (IsAlreadyPaid || _helper is null || !decimal.TryParse(AmountToPay, out var amount) || amount <= 0)
+        if (_helper is null || !decimal.TryParse(AmountToPay, out var amount) || amount <= 0)
         {
             await Toast(Loc["Settle_InvalidAmount"]);
             return;
@@ -122,7 +95,7 @@ public partial class SettlementViewModel : BaseViewModel
 
     async Task CompleteAsync(decimal amount, PaymentMethod method)
     {
-        var period = $"{_year:D4}-{_month:D2}";
+        var period = DateTime.Today.ToString("yyyy-MM");
         // Updates SQLite, triggers the Shiny sync job and stops the salary notifications.
         await _data.MarkPaidAsync(_helper!.Id, period, amount, method, null);
         await Toast(Loc["Settle_Recorded"]);

@@ -37,15 +37,8 @@
             <tbody>
                 @foreach (var h in Model.Rows)
                 {
-                    var n = PakkaHisaab.Admin.Helpers.Translated.For(h.Name, h.NameEnglish);
                     <tr>
-                        <td class="fw-semibold">
-                            @n.Display
-                            @if (n.Original is not null)
-                            {
-                                <div class="text-secondary small fw-normal">@n.Original</div>
-                            }
-                        </td>
+                        <td class="fw-semibold">@h.Name</td>
                         <td class="text-secondary">@h.OwnerEmail</td>
                         <td>@h.Category</td>
                         <td>@(h.WageType == WageType.MonthlySalary ? $"₹{h.MonthlyWage:N0}/mo" : $"₹{h.RatePerUnit:N2}/{h.UnitLabel}")</td>
@@ -58,7 +51,7 @@
                                 <a href="/Helpers/Edit/@h.Id" class="btn btn-outline-secondary"><i class="bi bi-pencil"></i></a>
                                 <button type="button" class="btn btn-outline-danger"
                                         data-confirm-action="?handler=Remove&id=@h.Id&@Model.QueryString&page=@Model.Page"
-                                        data-confirm-title="Remove @n.Display?"
+                                        data-confirm-title="Remove @h.Name?"
                                         data-confirm-body="Marks the helper deleted; the change syncs to the owner's app on next sync."
                                         data-confirm-button="Remove">
                                     <i class="bi bi-trash"></i>

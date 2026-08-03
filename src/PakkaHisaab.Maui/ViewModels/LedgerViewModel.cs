@@ -11,27 +11,18 @@ public record LedgerRow(Guid Id, string DateLabel, string TypeLabel, string Amou
 
 /// <summary>Dedicated cash-advance / ledger screen. Adding an entry opens a bottom sheet.</summary>
 [QueryProperty(nameof(HelperIdRaw), "helperId")]
-[QueryProperty(nameof(YearRaw), "year")]
-[QueryProperty(nameof(MonthRaw), "month")]
 public partial class LedgerViewModel : BaseViewModel
 {
     readonly IDataService _data;
     Guid _helperId;
-    string _period = string.Empty;
 
     public LedgerViewModel(IDataService data) => _data = data;
 
     public string? HelperIdRaw { get; set; }
-    /// <summary>Optional — falls back to the current month when absent. Set explicitly when
-    /// arriving from Calendar's month browser so entries added here (advances, bonuses,
-    /// deductions) attribute to the month being reconciled instead of always today.</summary>
-    public string? YearRaw { get; set; }
-    public string? MonthRaw { get; set; }
 
     public ObservableCollection<LedgerRow> Entries { get; } = new();
 
     [ObservableProperty] string helperName = string.Empty;
-    [ObservableProperty] string periodLabel = string.Empty;
     [ObservableProperty] string advanceTotal = "₹ 0";
 
     // Bottom-sheet form state
@@ -49,19 +40,13 @@ public partial class LedgerViewModel : BaseViewModel
         if (!Guid.TryParse(HelperIdRaw, out _helperId)) return;
         var helper = await _data.GetHelperAsync(_helperId);
         HelperName = helper?.Name ?? string.Empty;
-
-        var today = DateTime.Today;
-        int year = int.TryParse(YearRaw, out var y) ? y : today.Year;
-        int month = int.TryParse(MonthRaw, out var m) ? m : today.Month;
-        _period = $"{year:D4}-{month:D2}";
-        PeriodLabel = new DateTime(year, month, 1).ToString("MMMM yyyy", Loc.CurrentCulture);
-
         await LoadAsync();
     }
 
     async Task LoadAsync()
     {
-        var entries = await _data.GetLedgerAsync(_helperId, _period);
+        var period = DateTime.Today.ToString("yyyy-MM");
+        var entries = await _data.GetLedgerAsync(_helperId, period);
 
         Entries.Clear();
         foreach (var e in entries)
@@ -105,7 +90,6 @@ public partial class LedgerViewModel : BaseViewModel
             Type = SelectedType,
             Amount = amount,
             Method = PaymentMethod.Cash,
-            Period = _period,
             Note = string.IsNullOrWhiteSpace(Note) ? null : Note.Trim()
         });
 

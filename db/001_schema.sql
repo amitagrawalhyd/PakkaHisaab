@@ -22,7 +22,6 @@ CREATE TABLE dbo.Users
     Id                          UNIQUEIDENTIFIER NOT NULL CONSTRAINT PK_Users PRIMARY KEY DEFAULT NEWSEQUENTIALID(),
     Email                       NVARCHAR(256)    NOT NULL,
     DisplayName                 NVARCHAR(128)    NOT NULL,
-    DisplayNameEnglish          NVARCHAR(128)    NULL,       -- machine-translated, for Admin display
     PhoneNumber                 NVARCHAR(32)     NULL,
     PasswordHash                NVARCHAR(MAX)    NOT NULL,
     CreatedAtUtc                DATETIME2(3)     NOT NULL CONSTRAINT DF_Users_Created DEFAULT SYSUTCDATETIME(),
@@ -41,7 +40,6 @@ CREATE TABLE dbo.Helpers
     Id                      UNIQUEIDENTIFIER NOT NULL CONSTRAINT PK_Helpers PRIMARY KEY,  -- client-generated GUID
     UserId                  UNIQUEIDENTIFIER NOT NULL,
     Name                    NVARCHAR(128)    NOT NULL,
-    NameEnglish             NVARCHAR(128)    NULL,       -- machine-translated, for Admin display
     WhatsAppNumber          NVARCHAR(32)     NOT NULL CONSTRAINT DF_Helpers_WA DEFAULT N'',
     UpiId                   NVARCHAR(128)    NULL,
     Category                INT              NOT NULL,   -- HelperCategory enum
@@ -95,7 +93,6 @@ CREATE TABLE dbo.LedgerEntries
     Amount              DECIMAL(12,2)    NOT NULL,
     Method              INT              NOT NULL,   -- 0 UPI, 1 Cash, 2 Bank
     Note                NVARCHAR(512)    NULL,
-    NoteEnglish         NVARCHAR(512)    NULL,       -- machine-translated, for Admin display
     Period              CHAR(7)          NOT NULL,   -- yyyy-MM settlement bucket
     OccurredAtUtc       DATETIME2(3)     NOT NULL,
     UpiTransactionRef   NVARCHAR(64)     NULL,
@@ -145,18 +142,4 @@ CREATE TABLE dbo.SyncBatches
 );
 GO
 CREATE INDEX IX_Batch_User_Processed ON dbo.SyncBatches (UserId, ProcessedAtUtc);
-GO
-
-/* ---------------------------------------------------- TranslationSettings -- */
-/* Singleton row (Id always 1) toggled from the Admin console — off by default. */
-IF OBJECT_ID(N'dbo.TranslationSettings') IS NULL
-CREATE TABLE dbo.TranslationSettings
-(
-    Id          INT             NOT NULL CONSTRAINT PK_TranslationSettings PRIMARY KEY CHECK (Id = 1),
-    Enabled     BIT             NOT NULL CONSTRAINT DF_TranslationSettings_Enabled DEFAULT 0,
-    Provider    NVARCHAR(20)    NOT NULL CONSTRAINT DF_TranslationSettings_Provider DEFAULT N'GoogleFree'
-);
-GO
-IF NOT EXISTS (SELECT 1 FROM dbo.TranslationSettings WHERE Id = 1)
-    INSERT INTO dbo.TranslationSettings (Id, Enabled, Provider) VALUES (1, 0, N'GoogleFree');
 GO

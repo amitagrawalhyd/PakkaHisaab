@@ -15,14 +15,7 @@
         <VerticalStackLayout Padding="20" Spacing="16">
 
             <Label Style="{StaticResource TitleLabel}" Text="{Binding HelperName}" />
-            <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="8" Margin="0,-12,0,0">
-                <Label Style="{StaticResource MutedLabel}" Text="{Binding PeriodLabel}" />
-                <!-- Back-dated settlements must never look identical to a current-month one. -->
-                <Border Grid.Column="1" IsVisible="{Binding IsBackdated}" StrokeThickness="0"
-                        BackgroundColor="#FEF3C7" StrokeShape="RoundRectangle 8" Padding="8,2">
-                    <Label FontSize="11" TextColor="#92400E" Text="{helpers:Translate Settle_Backdated}" />
-                </Border>
-            </Grid>
+            <Label Style="{StaticResource MutedLabel}" Margin="0,-12,0,0" Text="{Binding PeriodLabel}" />
 
             <!-- Breakdown card: Wage − Unpaid Absences − Advances = Final Payable -->
             <Border Style="{StaticResource Card}">
@@ -48,35 +41,27 @@
                 </VerticalStackLayout>
             </Border>
 
-            <!-- Already settled: block re-payment instead of letting it silently double-count. -->
-            <Border IsVisible="{Binding IsAlreadyPaid}" Style="{StaticResource Card}"
-                    BackgroundColor="#F0FDFA" Stroke="{StaticResource Primary}" StrokeThickness="1">
-                <Label FontSize="13" TextColor="{StaticResource Primary}" Text="{Binding AlreadyPaidLabel}" />
+            <!-- Manual amount amendment -->
+            <Label Style="{StaticResource MutedLabel}" Text="{helpers:Translate Settle_AmountToPay}" />
+            <Border Style="{StaticResource InputBorder}">
+                <Entry Keyboard="Numeric" Text="{Binding AmountToPay}" FontSize="18" />
             </Border>
 
-            <VerticalStackLayout IsVisible="{Binding IsAlreadyPaid, Converter={StaticResource InvertBool}}" Spacing="16">
-                <!-- Manual amount amendment -->
-                <Label Style="{StaticResource MutedLabel}" Text="{helpers:Translate Settle_AmountToPay}" />
-                <Border Style="{StaticResource InputBorder}">
-                    <Entry Keyboard="Numeric" Text="{Binding AmountToPay}" FontSize="18" />
-                </Border>
+            <!-- Pay via UPI: hands off to the OS's native app chooser, which shows the real
+                 installed apps (Google Pay, PhonePe, Paytm, …) with their own icons — this app
+                 never renders provider logos itself. -->
+            <Button Text="{helpers:Translate Settle_PayVia}"
+                    IsVisible="{Binding HasUpiId}"
+                    Command="{Binding PayWithUpiCommand}" />
 
-                <!-- Pay via UPI: hands off to the OS's native app chooser, which shows the real
-                     installed apps (Google Pay, PhonePe, Paytm, …) with their own icons — this app
-                     never renders provider logos itself. -->
-                <Button Text="{helpers:Translate Settle_PayVia}"
-                        IsVisible="{Binding HasUpiId}"
-                        Command="{Binding PayWithUpiCommand}" />
+            <Label Style="{StaticResource MutedLabel}" FontSize="12"
+                   IsVisible="{Binding HasUpiId, Converter={StaticResource InvertBool}}"
+                   Text="{helpers:Translate Settle_NoUpiIdHint}" />
 
-                <Label Style="{StaticResource MutedLabel}" FontSize="12"
-                       IsVisible="{Binding HasUpiId, Converter={StaticResource InvertBool}}"
-                       Text="{helpers:Translate Settle_NoUpiIdHint}" />
-
-                <!-- Cash fallback -->
-                <Button Style="{StaticResource SecondaryButton}"
-                        Text="{helpers:Translate Settle_LogCash}"
-                        Command="{Binding PayCashCommand}" />
-            </VerticalStackLayout>
+            <!-- Cash fallback -->
+            <Button Style="{StaticResource SecondaryButton}"
+                    Text="{helpers:Translate Settle_LogCash}"
+                    Command="{Binding PayCashCommand}" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

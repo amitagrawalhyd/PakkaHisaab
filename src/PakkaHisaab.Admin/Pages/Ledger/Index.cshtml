@@ -34,17 +34,9 @@
             <tbody>
                 @foreach (var l in Model.Rows)
                 {
-                    var hn = PakkaHisaab.Admin.Helpers.Translated.For(l.HelperName, l.HelperNameEnglish);
-                    var note = PakkaHisaab.Admin.Helpers.Translated.For(l.Note ?? "—", l.Note is null ? null : l.NoteEnglish);
                     <tr>
                         <td class="text-secondary">@l.OccurredAtUtc.ToString("dd MMM yyyy")</td>
-                        <td class="fw-semibold">
-                            @hn.Display
-                            @if (hn.Original is not null)
-                            {
-                                <div class="text-secondary small fw-normal">@hn.Original</div>
-                            }
-                        </td>
+                        <td class="fw-semibold">@l.HelperName</td>
                         <td class="text-secondary">@l.OwnerEmail</td>
                         <td>
                             @{ var tb = PakkaHisaab.Admin.Helpers.Badge.LedgerType(l.Type); }
@@ -55,18 +47,12 @@
                             @{ var mb = PakkaHisaab.Admin.Helpers.Badge.Method(l.Method); }
                             <ph-badge text="@mb.Text" kind="@mb.Kind" />
                         </td>
-                        <td class="text-secondary small">
-                            @note.Display
-                            @if (note.Original is not null)
-                            {
-                                <div class="small">@note.Original</div>
-                            }
-                        </td>
+                        <td class="text-secondary small">@(l.Note ?? "—")</td>
                         <td class="text-end">
                             <button type="button" class="btn btn-sm btn-outline-danger"
                                     data-confirm-action="?handler=Remove&id=@l.Id&@Model.QueryString&page=@Model.Page"
                                     data-confirm-title="Remove this ledger entry?"
-                                    data-confirm-body="This ₹@l.Amount.ToString("N2") @l.Type.ToString().ToLower() entry for @hn.Display will be removed and synced to the owner's app."
+                                    data-confirm-body="This ₹@l.Amount.ToString("N2") @l.Type.ToString().ToLower() entry for @l.HelperName will be removed and synced to the owner's app."
                                     data-confirm-button="Remove">
                                 <i class="bi bi-trash"></i>
                             </button>

@@ -14,8 +14,6 @@
     <Grid>
         <VerticalStackLayout Padding="20" Spacing="14">
 
-            <Label Style="{StaticResource MutedLabel}" Text="{Binding PeriodLabel}" />
-
             <Border Style="{StaticResource Card}" BackgroundColor="#F0FDFA">
                 <Grid ColumnDefinitions="*,Auto">
                     <Label VerticalOptions="Center" FontFamily="{DynamicResource FontSemiBold}"

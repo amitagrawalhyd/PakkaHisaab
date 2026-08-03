@@ -33,8 +33,8 @@ public class IndexModel : PageModel
         }
     }
 
-    public record Row(Guid Id, string Name, string? NameEnglish, string OwnerEmail, HelperCategory Category,
-        WageType WageType, decimal MonthlyWage, decimal RatePerUnit, string UnitLabel, bool IsActive);
+    public record Row(Guid Id, string Name, string OwnerEmail, HelperCategory Category, WageType WageType,
+        decimal MonthlyWage, decimal RatePerUnit, string UnitLabel, bool IsActive);
 
     public async Task OnGetAsync(CancellationToken ct)
     {
@@ -47,9 +47,7 @@ public class IndexModel : PageModel
         if (!string.IsNullOrWhiteSpace(Q))
         {
             var term = Q.Trim();
-            query = query.Where(x =>
-                x.h.Name.Contains(term) || (x.h.NameEnglish != null && x.h.NameEnglish.Contains(term))
-                || x.Email.Contains(term));
+            query = query.Where(x => x.h.Name.Contains(term) || x.Email.Contains(term));
         }
         if (Category is not null) query = query.Where(x => x.h.Category == Category);
         if (ActiveOnly) query = query.Where(x => x.h.IsActive);
@@ -60,7 +58,7 @@ public class IndexModel : PageModel
 
         Rows = await query.OrderBy(x => x.h.Name)
             .Skip((Page - 1) * PageSize).Take(PageSize)
-            .Select(x => new Row(x.h.Id, x.h.Name, x.h.NameEnglish, x.Email, x.h.Category, x.h.WageType,
+            .Select(x => new Row(x.h.Id, x.h.Name, x.Email, x.h.Category, x.h.WageType,
                 x.h.MonthlyWage, x.h.RatePerUnit, x.h.UnitLabel, x.h.IsActive))
             .ToListAsync(ct);
     }
@@ -77,7 +75,7 @@ public class IndexModel : PageModel
         helper.RowVersion = await _db.NextRowVersionAsync();
         await _db.SaveChangesAsync();
 
-        TempData["Flash"] = $"{helper.NameEnglish ?? helper.Name} removed.";
+        TempData["Flash"] = $"{helper.Name} removed.";
         return RedirectToPage(new { Q, Category, ActiveOnly, Page });
     }
 }
