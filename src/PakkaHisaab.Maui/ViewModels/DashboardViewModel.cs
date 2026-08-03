@@ -25,6 +25,11 @@ public partial class HelperCardViewModel : ObservableObject
     [ObservableProperty] string todayStatusIcon = IconFont.CheckCircle;
     [ObservableProperty] Color todayStatusColor = Colors.Gray;
     [ObservableProperty] string? forecastLabel;
+    /// <summary>e.g. "⚠ 2 months pending" — set when past (pre-current-month) settlements are
+    /// still unpaid. Drives whether "Settle" jumps straight to this month or to Calendar so the
+    /// user can pick which back month to pay first.</summary>
+    [ObservableProperty] string? arrearsLabel;
+    public bool HasArrears => !string.IsNullOrEmpty(ArrearsLabel);
 }
 
 public partial class DashboardViewModel : BaseViewModel
@@ -49,14 +54,21 @@ public partial class DashboardViewModel : BaseViewModel
 
     [ObservableProperty] bool isDemoBannerVisible;
     [ObservableProperty] string totalPayable = "₹ 0";
+    [ObservableProperty] string totalPayableSubtitle = string.Empty;
     [ObservableProperty] bool isEmpty;
     [ObservableProperty] bool isListening;
+
+    // Small minimum visible duration so a very fast local-only load (this app's dashboard is
+    // almost all SQLite reads) still gives the native pull-to-refresh spinner a full animation
+    // cycle rather than flashing instantly.
+    static readonly TimeSpan MinRefreshDuration = TimeSpan.FromMilliseconds(400);
 
     [RelayCommand]
     public async Task LoadAsync()
     {
         if (IsBusy) return;
         IsBusy = true;
+        var startedUtc = DateTime.UtcNow;
         try
         {
             IsDemoBannerVisible = _session.IsDemo;
@@ -67,10 +79,12 @@ public partial class DashboardViewModel : BaseViewModel
             Helpers.Clear();
             decimal total = 0;
 
+            int helperCount = 0;
             foreach (var h in helpers)
             {
                 var breakdown = await _data.ComputeSettlementAsync(h.Id, today.Year, today.Month);
                 total += Math.Max(0, breakdown.FinalPayable);
+                helperCount++;
 
                 var att = await _data.GetAttendanceAsync(h.Id, today.Year, today.Month);
                 var todayRow = att.FirstOrDefault(a => a.Date == today.ToString("yyyy-MM-dd"));
@@ -82,22 +96,34 @@ public partial class DashboardViewModel : BaseViewModel
                     _ => (IconFont.CheckCircle, Color.FromArgb("#CBD5E1"))
                 };
 
+                var arrears = await _data.GetUnpaidPeriodsAsync(h.Id);
+
                 Helpers.Add(new HelperCardViewModel
                 {
                     Helper = h,
                     PayableLabel = $"₹ {breakdown.FinalPayable:N0}",
                     TodayStatusIcon = icon,
                     TodayStatusColor = color,
-                    ForecastLabel = await _forecast.GetForecastLabelAsync(h.Id)
+                    ForecastLabel = await _forecast.GetForecastLabelAsync(h.Id),
+                    ArrearsLabel = arrears.Count > 0 ? Loc.Get("Dash_ArrearsPending", arrears.Count) : null
                 });
 
-                await _notifications.ScheduleSalaryAlertsAsync(h);
+                // Only keep nagging while this month is actually still owed — otherwise a paid
+                // month gets its 1st-10th reminder wrongly re-armed on every dashboard refresh.
+                if (breakdown.FinalPayable > 0)
+                    await _notifications.ScheduleSalaryAlertsAsync(h);
+                else
+                    await _notifications.CancelSalaryAlertAsync(h.Id);
             }
 
             TotalPayable = $"₹ {total:N0}";
+            TotalPayableSubtitle = helperCount > 0 ? Loc.Get("Dash_TotalAcrossHelpers", helperCount) : string.Empty;
         }
         finally
         {
+            var elapsed = DateTime.UtcNow - startedUtc;
+            if (elapsed < MinRefreshDuration)
+                await Task.Delay(MinRefreshDuration - elapsed);
             IsBusy = false;
         }
     }
@@ -115,9 +141,14 @@ public partial class DashboardViewModel : BaseViewModel
     Task OpenCalendarAsync(HelperCardViewModel card) =>
         Shell.Current.GoToAsync($"calendar?helperId={card.Helper.Id}");
 
+    /// <summary>Straight to this month's Settlement when nothing older is owed (unchanged,
+    /// zero-friction path). When back months are still unpaid, routes to Calendar instead —
+    /// it already has month-browsing and its own Settle button, reused here as the "pick which
+    /// month" UI rather than building a separate picker.</summary>
     [RelayCommand]
-    Task OpenSettlementAsync(HelperCardViewModel card) =>
-        Shell.Current.GoToAsync($"settlement?helperId={card.Helper.Id}");
+    Task OpenSettlementAsync(HelperCardViewModel card) => card.HasArrears
+        ? Shell.Current.GoToAsync($"calendar?helperId={card.Helper.Id}")
+        : Shell.Current.GoToAsync($"settlement?helperId={card.Helper.Id}");
 
     /// <summary>Voice-to-Ledger from the dashboard mic button. Attendance/delivery commands are
     /// the recordings that live on the Calendar screen, so for those we jump straight there to

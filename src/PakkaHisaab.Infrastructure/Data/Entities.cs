@@ -9,6 +9,10 @@ public class User
     [Key] public Guid Id { get; set; }
     [MaxLength(256)] public string Email { get; set; } = string.Empty;
     [MaxLength(128)] public string DisplayName { get; set; } = string.Empty;
+    /// <summary>Machine-translated copy of <see cref="DisplayName"/>, populated by
+    /// <c>ITranslationService</c> at registration. Null until translated (or if the
+    /// translation service isn't configured) — Admin falls back to <see cref="DisplayName"/>.</summary>
+    [MaxLength(128)] public string? DisplayNameEnglish { get; set; }
     [MaxLength(32)] public string? PhoneNumber { get; set; }
     public string PasswordHash { get; set; } = string.Empty; // PBKDF2, see PasswordHasher
     public DateTime CreatedAtUtc { get; set; }
@@ -32,6 +36,9 @@ public abstract class SyncEntityBase
 public class Helper : SyncEntityBase
 {
     [MaxLength(128)] public string Name { get; set; } = string.Empty;
+    /// <summary>Machine-translated copy of <see cref="Name"/> — see
+    /// <see cref="User.DisplayNameEnglish"/> for the translation/fallback contract.</summary>
+    [MaxLength(128)] public string? NameEnglish { get; set; }
     [MaxLength(32)] public string WhatsAppNumber { get; set; } = string.Empty;
     [MaxLength(128)] public string? UpiId { get; set; }
     public HelperCategory Category { get; set; }
@@ -60,6 +67,9 @@ public class LedgerEntry : SyncEntityBase
     [Column(TypeName = "decimal(12,2)")] public decimal Amount { get; set; }
     public PaymentMethod Method { get; set; }
     [MaxLength(512)] public string? Note { get; set; }
+    /// <summary>Machine-translated copy of <see cref="Note"/> — see
+    /// <see cref="User.DisplayNameEnglish"/> for the translation/fallback contract.</summary>
+    [MaxLength(512)] public string? NoteEnglish { get; set; }
     [MaxLength(7)] public string Period { get; set; } = string.Empty; // yyyy-MM
     public DateTime OccurredAtUtc { get; set; }
     [MaxLength(64)] public string? UpiTransactionRef { get; set; }
@@ -81,6 +91,21 @@ public class Settlement : SyncEntityBase
 public class RowVersionTicket
 {
     [Key] public long Id { get; set; }
+}
+
+/// <summary>
+/// Singleton row (Id is always 1) controlling whether ITranslationService actually calls out
+/// to a translation provider. Admin-editable on Pages/Settings — off by default, since it's a
+/// network call with real (if small) cost, and turning it on shouldn't require a redeploy.
+/// </summary>
+public class TranslationSettings
+{
+    public const int SingletonId = 1;
+    [Key] public int Id { get; set; } = SingletonId;
+    public bool Enabled { get; set; }
+    /// <summary>"GoogleFree" (unofficial, no key, no cost) or "GoogleCloud" (official, paid,
+    /// needs GoogleTranslate:ApiKey configured).</summary>
+    [MaxLength(20)] public string Provider { get; set; } = "GoogleFree";
 }
 
 /// <summary>Idempotency ledger: one row per processed sync push batch.</summary>

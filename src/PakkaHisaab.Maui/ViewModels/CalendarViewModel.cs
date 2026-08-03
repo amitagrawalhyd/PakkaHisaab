@@ -124,11 +124,11 @@ public partial class CalendarViewModel : BaseViewModel
 
     [RelayCommand]
     Task OpenLedgerAsync() =>
-        Shell.Current.GoToAsync($"ledger?helperId={_helperId}");
+        Shell.Current.GoToAsync($"ledger?helperId={_helperId}&year={CurrentMonth.Year}&month={CurrentMonth.Month}");
 
     [RelayCommand]
     Task OpenSettlementAsync() =>
-        Shell.Current.GoToAsync($"settlement?helperId={_helperId}");
+        Shell.Current.GoToAsync($"settlement?helperId={_helperId}&year={CurrentMonth.Year}&month={CurrentMonth.Month}");
 
     /// <summary>Bound to Shell.BackButtonBehavior so both the nav-bar back arrow and the
     /// Android hardware back button return straight to the Dashboard's helper list.

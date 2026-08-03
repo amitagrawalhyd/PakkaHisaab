@@ -28,6 +28,14 @@ builder.Services.AddDbContext<AppDbContext>(o =>
 builder.Services.AddScoped<ISyncService, SyncService>();
 builder.Services.AddSingleton<ITokenService, TokenService>();
 
+// Translation: off by default (dbo.TranslationSettings, Admin-editable at Settings). The
+// selector checks that flag before ever touching a provider, so a disabled feature makes zero
+// network calls. GoogleFree needs no configuration; GoogleCloud needs GoogleTranslate:ApiKey.
+builder.Services.AddScoped<ITranslationSettingsStore, TranslationSettingsStore>();
+builder.Services.AddHttpClient<GoogleFreeTranslateService>(c => c.Timeout = TimeSpan.FromSeconds(10));
+builder.Services.AddHttpClient<GoogleCloudTranslateService>(c => c.Timeout = TimeSpan.FromSeconds(10));
+builder.Services.AddScoped<ITranslationService, TranslationServiceSelector>();
+
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(o =>

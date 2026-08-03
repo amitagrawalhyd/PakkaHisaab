@@ -76,6 +76,9 @@
   <data name="Common_Saved" xml:space="preserve">
     <value>Saved</value>
   </data>
+  <data name="Dash_ArrearsPending" xml:space="preserve">
+    <value>⚠ {0} month(s) pending</value>
+  </data>
   <data name="Dash_DemoBanner" xml:space="preserve">
     <value>Demo mode — sample data, sync off. Data stays on this device.</value>
   </data>
@@ -87,6 +90,9 @@
   </data>
   <data name="Dash_Settle" xml:space="preserve">
     <value>Settle</value>
+  </data>
+  <data name="Dash_TotalAcrossHelpers" xml:space="preserve">
+    <value>across {0} helper(s)</value>
   </data>
   <data name="Dash_TotalPayable" xml:space="preserve">
     <value>Payable this month:</value>
@@ -521,6 +527,15 @@ For any questions about these Terms, contact Amit Kumar Agrawal at amit.agrawal.
   <data name="Settings_Logout" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="Settings_LogoutConfirm" xml:space="preserve">
+    <value>You'll need to sign in again to access your data on this device.</value>
+  </data>
+  <data name="Settings_LogoutTitle" xml:space="preserve">
+    <value>Log out?</value>
+  </data>
+  <data name="Settings_LogoutYes" xml:space="preserve">
+    <value>Log out</value>
+  </data>
   <data name="Settings_Privacy" xml:space="preserve">
     <value>Privacy Policy</value>
   </data>
@@ -530,8 +545,14 @@ For any questions about these Terms, contact Amit Kumar Agrawal at amit.agrawal.
   <data name="Settings_Title" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="Settle_AlreadyPaid" xml:space="preserve">
+    <value>✓ Already settled on {0}, ₹ {1:N2} paid</value>
+  </data>
   <data name="Settle_AmountToPay" xml:space="preserve">
     <value>Amount to pay (edit if needed)</value>
+  </data>
+  <data name="Settle_Backdated" xml:space="preserve">
+    <value>Back-dated settlement</value>
   </data>
   <data name="Settle_ConfirmBody" xml:space="preserve">
     <value>Did you complete the payment of ₹ {1:N0} to {0}?</value>

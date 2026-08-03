@@ -19,8 +19,8 @@ public class IndexModel : PageModel
     public int TotalPages { get; set; }
     public string QueryString => Q is null ? "" : $"q={Uri.EscapeDataString(Q)}";
 
-    public record UserRow(Guid Id, string DisplayName, string Email, string? Phone, DateTime CreatedAtUtc,
-        bool IsAdmin, int HelperCount);
+    public record UserRow(Guid Id, string DisplayName, string? DisplayNameEnglish, string Email, string? Phone,
+        DateTime CreatedAtUtc, bool IsAdmin, int HelperCount);
 
     public async Task OnGetAsync(CancellationToken ct)
     {
@@ -28,7 +28,9 @@ public class IndexModel : PageModel
         if (!string.IsNullOrWhiteSpace(Q))
         {
             var term = Q.Trim();
-            query = query.Where(u => u.DisplayName.Contains(term) || u.Email.Contains(term));
+            query = query.Where(u =>
+                u.DisplayName.Contains(term) || (u.DisplayNameEnglish != null && u.DisplayNameEnglish.Contains(term))
+                || u.Email.Contains(term));
         }
 
         var total = await query.CountAsync(ct);
@@ -46,8 +48,8 @@ public class IndexModel : PageModel
             .Select(g => new { UserId = g.Key, Count = g.Count() })
             .ToDictionaryAsync(x => x.UserId, x => x.Count, ct);
 
-        Rows = users.Select(u => new UserRow(u.Id, u.DisplayName, u.Email, u.PhoneNumber, u.CreatedAtUtc,
-            u.IsAdmin, helperCounts.GetValueOrDefault(u.Id))).ToList();
+        Rows = users.Select(u => new UserRow(u.Id, u.DisplayName, u.DisplayNameEnglish, u.Email, u.PhoneNumber,
+            u.CreatedAtUtc, u.IsAdmin, helperCounts.GetValueOrDefault(u.Id))).ToList();
     }
 
     public async Task<IActionResult> OnPostToggleAdminAsync(Guid id)
@@ -74,7 +76,7 @@ public class IndexModel : PageModel
 
         user.IsAdmin = !user.IsAdmin;
         await _db.SaveChangesAsync();
-        TempData["Flash"] = $"{user.DisplayName} is {(user.IsAdmin ? "now" : "no longer")} an admin.";
+        TempData["Flash"] = $"{user.DisplayNameEnglish ?? user.DisplayName} is {(user.IsAdmin ? "now" : "no longer")} an admin.";
         return RedirectToPage(new { Q, Page });
     }
 
@@ -106,7 +108,7 @@ public class IndexModel : PageModel
             await tx.CommitAsync();
         });
 
-        TempData["Flash"] = $"{user.DisplayName}'s account and all data were deleted.";
+        TempData["Flash"] = $"{user.DisplayNameEnglish ?? user.DisplayName}'s account and all data were deleted.";
         return RedirectToPage(new { Q, Page });
     }
 }

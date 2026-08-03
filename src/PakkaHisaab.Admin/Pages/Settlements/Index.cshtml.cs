@@ -31,7 +31,7 @@ public class IndexModel : PageModel
         }
     }
 
-    public record Row(Guid Id, string HelperName, string OwnerEmail, string Period,
+    public record Row(Guid Id, string HelperName, string? HelperNameEnglish, string OwnerEmail, string Period,
         SettlementStatus Status, decimal FinalPayable, DateTime? PaidAtUtc);
 
     public async Task OnGetAsync(CancellationToken ct)
@@ -41,7 +41,7 @@ public class IndexModel : PageModel
             join h in _db.Helpers.AsNoTracking() on s.HelperId equals h.Id
             join u in _db.Users.AsNoTracking() on s.UserId equals u.Id
             where !s.IsDeleted
-            select new { s, h.Name, u.Email };
+            select new { s, h.Name, h.NameEnglish, u.Email };
 
         if (Status is not null) query = query.Where(x => x.s.Status == Status);
         if (!string.IsNullOrWhiteSpace(Period)) query = query.Where(x => x.s.Period == Period);
@@ -52,7 +52,7 @@ public class IndexModel : PageModel
 
         Rows = await query.OrderByDescending(x => x.s.Period)
             .Skip((Page - 1) * PageSize).Take(PageSize)
-            .Select(x => new Row(x.s.Id, x.Name, x.Email, x.s.Period, x.s.Status, x.s.FinalPayable, x.s.PaidAtUtc))
+            .Select(x => new Row(x.s.Id, x.Name, x.NameEnglish, x.Email, x.s.Period, x.s.Status, x.s.FinalPayable, x.s.PaidAtUtc))
             .ToListAsync(ct);
     }
 

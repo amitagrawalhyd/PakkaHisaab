@@ -10,10 +10,18 @@ public partial class LoginViewModel : BaseViewModel
 
     public LoginViewModel(IAuthService auth) => _auth = auth;
 
-    [ObservableProperty] string email = string.Empty;
-    [ObservableProperty] string password = string.Empty;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanSubmit))]
+    string email = string.Empty;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanSubmit))]
+    string password = string.Empty;
     [ObservableProperty] string displayName = string.Empty;
     [ObservableProperty] bool isRegisterMode;
+
+    /// <summary>Drives the Sign-in/Create-account button's IsEnabled — a disabled button with
+    /// empty fields beats a tappable one that only complains after the fact (TestReport M-02).</summary>
+    public bool CanSubmit => IsNotBusy && !string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password);
 
     [RelayCommand]
     async Task SubmitAsync()
@@ -44,6 +52,7 @@ public partial class LoginViewModel : BaseViewModel
         }
 
         IsBusy = true;
+        OnPropertyChanged(nameof(CanSubmit));
         try
         {
             var outcome = IsRegisterMode
@@ -58,6 +67,7 @@ public partial class LoginViewModel : BaseViewModel
         finally
         {
             IsBusy = false;
+            OnPropertyChanged(nameof(CanSubmit));
         }
     }
 

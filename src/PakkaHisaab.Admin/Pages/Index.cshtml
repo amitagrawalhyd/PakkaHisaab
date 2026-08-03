@@ -69,8 +69,15 @@
                     <tbody>
                         @foreach (var u in Model.RecentUsers)
                         {
+                            var n = PakkaHisaab.Admin.Helpers.Translated.For(u.Name, u.NameEnglish);
                             <tr>
-                                <td class="fw-semibold">@u.Name</td>
+                                <td class="fw-semibold">
+                                    @n.Display
+                                    @if (n.Original is not null)
+                                    {
+                                        <div class="text-secondary small fw-normal">@n.Original</div>
+                                    }
+                                </td>
                                 <td class="text-secondary">@u.Email</td>
                                 <td class="text-secondary">@u.CreatedAtUtc.ToString("dd MMM yyyy")</td>
                             </tr>

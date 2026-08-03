@@ -24,6 +24,10 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
+                    <!-- Clarifies the total is a sum across every helper, not one helper's
+                         settlement amount (they can legitimately differ — TestReport S-04). -->
+                    <Label Text="{Binding TotalPayableSubtitle}" FontSize="11" TextColor="#99F6E4"
+                           IsVisible="{Binding TotalPayableSubtitle, Converter={StaticResource NotEmpty}}" />
                 </VerticalStackLayout>
                 <!-- Voice-to-Ledger mic -->
                 <Border Grid.Column="2" Stroke="White" StrokeThickness="1.5"
@@ -38,7 +42,7 @@
             </Grid>
         </Border>
 
-        <RefreshView Grid.Row="1" Command="{Binding LoadCommand}" IsRefreshing="{Binding IsBusy}">
+        <RefreshView Grid.Row="1" Command="{Binding LoadCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <ScrollView>
                 <VerticalStackLayout Padding="20" Spacing="14">
 
@@ -83,6 +87,10 @@
                                                    TextColor="{StaticResource Secondary}"
                                                    IsVisible="{Binding ForecastLabel, Converter={StaticResource NotEmpty}}"
                                                    Text="{Binding ForecastLabel}" />
+                                            <Label FontSize="11" TextColor="{StaticResource Danger}"
+                                                   FontFamily="{DynamicResource FontSemiBold}"
+                                                   IsVisible="{Binding ArrearsLabel, Converter={StaticResource NotEmpty}}"
+                                                   Text="{Binding ArrearsLabel}" />
                                         </VerticalStackLayout>
 
                                         <VerticalStackLayout Grid.Column="2" Grid.RowSpan="2" Spacing="4"
