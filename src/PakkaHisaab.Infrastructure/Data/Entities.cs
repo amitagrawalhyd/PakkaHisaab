@@ -98,6 +98,11 @@ public class RowVersionTicket
 /// to a translation provider. Admin-editable on Pages/Settings — off by default, since it's a
 /// network call with real (if small) cost, and turning it on shouldn't require a redeploy.
 /// </summary>
+/// <remarks>Explicit [Table] because AppDbContext's DbSet is named
+/// <c>TranslationSettingsRow</c> (avoiding a name clash with this type inside the DbContext
+/// class body) — without this, EF's convention would target a nonexistent
+/// "TranslationSettingsRow" table instead of the real "TranslationSettings" one.</remarks>
+[Table("TranslationSettings")]
 public class TranslationSettings
 {
     public const int SingletonId = 1;
