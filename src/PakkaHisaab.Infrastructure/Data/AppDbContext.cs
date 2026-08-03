@@ -13,6 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<Settlement> Settlements => Set<Settlement>();
     public DbSet<SyncBatch> SyncBatches => Set<SyncBatch>();
     public DbSet<RowVersionTicket> RowVersionTickets => Set<RowVersionTicket>();
+    public DbSet<TranslationSettings> TranslationSettingsRow => Set<TranslationSettings>();
 
     protected override void OnModelCreating(ModelBuilder mb)
     {
@@ -50,6 +51,10 @@ public class AppDbContext : DbContext
         });
 
         mb.Entity<SyncBatch>().HasIndex(x => new { x.UserId, x.ProcessedAtUtc });
+
+        // Off by default — see TranslationSettings' doc comment.
+        mb.Entity<TranslationSettings>().HasData(
+            new TranslationSettings { Id = TranslationSettings.SingletonId, Enabled = false, Provider = "GoogleFree" });
     }
 
     /// <summary>Next value of the global row-version counter (provider-aware).</summary>

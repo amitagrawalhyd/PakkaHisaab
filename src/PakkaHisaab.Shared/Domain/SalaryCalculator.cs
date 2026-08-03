@@ -63,7 +63,7 @@ public static class SalaryCalculator
                         + (helper.CarryOverLeaveAllowed ? helper.CarriedOverLeaves : 0);
         decimal unpaidAbsences = Math.Max(0, effectiveAbsences - allowance);
         int leavesToCarryForward = helper.CarryOverLeaveAllowed
-            ? (int)Math.Max(0, allowance - effectiveAbsences)
+            ? (int)Math.Round(Math.Max(0, allowance - effectiveAbsences), MidpointRounding.AwayFromZero)
             : 0;
 
         if (helper.WageType == WageType.PerUnitDelivery)

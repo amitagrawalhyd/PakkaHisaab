@@ -19,8 +19,15 @@
             <tbody>
                 @foreach (var u in Model.Rows)
                 {
+                    var n = PakkaHisaab.Admin.Helpers.Translated.For(u.DisplayName, u.DisplayNameEnglish);
                     <tr>
-                        <td class="fw-semibold"><a href="/Users/Details/@u.Id">@u.DisplayName</a></td>
+                        <td class="fw-semibold">
+                            <a href="/Users/Details/@u.Id">@n.Display</a>
+                            @if (n.Original is not null)
+                            {
+                                <div class="text-secondary small fw-normal">@n.Original</div>
+                            }
+                        </td>
                         <td class="text-secondary">@u.Email</td>
                         <td class="text-secondary">@(u.Phone ?? "—")</td>
                         <td>@u.HelperCount</td>
@@ -39,7 +46,7 @@
                                 </form>
                                 <button type="button" class="btn btn-outline-danger"
                                         data-confirm-action="?handler=Delete&id=@u.Id&q=@Model.Q&page=@Model.Page"
-                                        data-confirm-title="Delete @u.DisplayName?"
+                                        data-confirm-title="Delete @n.Display?"
                                         data-confirm-body="This permanently erases the account, all helpers, attendance, ledger entries and settlements. This cannot be undone."
                                         data-confirm-button="Delete permanently">
                                     <i class="bi bi-trash"></i>

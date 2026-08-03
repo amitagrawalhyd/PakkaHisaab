@@ -38,9 +38,8 @@ public sealed class ApiClient : IApiClient
     {
         var client = _factory.CreateClient("pakkahisaab");
         client.BaseAddress = new Uri(Constants.ApiBaseUrl);
-        // Azure SQL free-tier serverless DB auto-pauses when idle and can take up to ~60s to
-        // resume on the next request; the server already retries (EnableRetryOnFailure), so the
-        // client just needs to outlast that cold-start window instead of giving up first.
+        // Generous safety margin for occasional App Service cold starts (e.g. after a deploy
+        // or restart) rather than a tight timeout that could cancel an in-flight request.
         client.Timeout = TimeSpan.FromSeconds(100);
         return client;
     }

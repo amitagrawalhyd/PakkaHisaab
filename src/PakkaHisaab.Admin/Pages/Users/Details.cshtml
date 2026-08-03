@@ -8,6 +8,7 @@
 }
 else
 {
+    var profileName = PakkaHisaab.Admin.Helpers.Translated.For(Model.Profile.DisplayName, Model.Profile.DisplayNameEnglish);
     <div class="d-flex align-items-center gap-2 mb-3">
         <a href="/Users" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back to users</a>
     </div>
@@ -17,10 +18,14 @@ else
             <div class="ph-card ph-card-body">
                 <div class="d-flex align-items-center gap-3 mb-3">
                     <span class="ph-avatar" style="width:52px;height:52px;font-size:1.1rem">
-                        @string.Concat(Model.Profile.DisplayName.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(w => char.ToUpperInvariant(w[0])))
+                        @string.Concat(profileName.Display.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(w => char.ToUpperInvariant(w[0])))
                     </span>
                     <div>
-                        <div class="fw-bold">@Model.Profile.DisplayName</div>
+                        <div class="fw-bold">@profileName.Display</div>
+                        @if (profileName.Original is not null)
+                        {
+                            <div class="text-secondary small">@profileName.Original</div>
+                        }
                         <div class="text-secondary small">@Model.Profile.Email</div>
                     </div>
                 </div>
@@ -58,8 +63,15 @@ else
                 <tbody>
                     @foreach (var h in Model.Helpers)
                     {
+                        var hn = PakkaHisaab.Admin.Helpers.Translated.For(h.Name, h.NameEnglish);
                         <tr>
-                            <td class="fw-semibold"><a href="/Helpers/Edit/@h.Id">@h.Name</a></td>
+                            <td class="fw-semibold">
+                                <a href="/Helpers/Edit/@h.Id">@hn.Display</a>
+                                @if (hn.Original is not null)
+                                {
+                                    <div class="text-secondary small fw-normal">@hn.Original</div>
+                                }
+                            </td>
                             <td>@h.Category</td>
                             <td>@(h.WageType == WageType.MonthlySalary ? $"₹{h.MonthlyWage:N0}/mo" : $"₹{h.RatePerUnit:N2}/{h.UnitLabel}")</td>
                             <td>
