@@ -92,6 +92,58 @@ notifications, which need a real Android runtime to verify.
    design — it supports legitimate multi-installment payments). Delete every "Salary Payment"
    row for that month to fully clear it.
 
+## 11. Log cash payment no longer crashes the app (bug fix)
+1. Root cause: recording a payment (`MarkPaidAsync`) kicks off a background sync to the server
+   right before returning control to the Settlement screen. That sync ran on a fire-and-forget
+   background thread whose early setup steps (reading the stored auth token, etc.) sat outside
+   any try/catch — an exception there (e.g. a transient network blip, or the Android
+   SecureStorage/Keystore throwing on some devices) became an unobserved background-thread
+   exception, which can take the whole app down instead of just failing that one sync attempt.
+2. Fix, three layers deep:
+   - `SyncEngine.SynchronizeAsync` now wraps its *entire* body (not just the network calls) in
+     one try/catch, so nothing it does can ever throw uncaught — a failure always comes back as
+     `false` (row stays dirty, retried on the next scheduled sync) instead of an exception.
+   - Push/pull calls now retry up to 3 times with a short backoff before giving up, so a single
+     transient blip at the exact moment of payment doesn't immediately surrender.
+   - Two platform-level safety nets were added as defense-in-depth (`TaskScheduler.
+     UnobservedTaskException` in `App.xaml.cs`, `AndroidEnvironment.UnhandledExceptionRaiser`
+     in `MainApplication.cs`) so *any* future stray background-thread exception anywhere in the
+     app logs and is swallowed instead of crashing the process.
+   - `SettlementViewModel.CompleteAsync`: navigating home after a successful payment no longer
+     depends on the confirmation toast succeeding — wrapped in try/finally so a payment is never
+     followed by a stuck screen for any reason.
+3. **Manual test**: with the device in Airplane Mode (forces the background sync to fail every
+   time), tap **Log cash payment** (and separately, **Pay via UPI**) on several helpers/months.
+   Expect: "Payment recorded" toast and immediate navigation to Home every single time — no
+   crash, no freeze, no stuck screen — even though the sync itself is guaranteed to fail while
+   offline. Turn Wi-Fi back on afterward and pull-to-refresh on Dashboard; confirm the payments
+   sync up shortly after (rows were left dirty, not lost).
+4. Also repeat with normal connectivity a few times back-to-back to confirm nothing regressed
+   in the success path (payment recorded, synced, navigates home, as before).
+
+## 12. Log cash payment crash, take two — real root cause was a navigation infinite loop (bug fix)
+1. The fix in section 11 above did not actually stop the crash — reproduced live on a physical
+   device (SM-S948B) in Demo mode (where sync is disabled entirely, ruling out section 11's
+   fix as relevant) by tapping **Log cash payment**. logcat showed a `F/mono-rt` fatal error: an
+   unbounded recursive stack of identical frames ending in a StackOverflowException, which
+   cannot be caught by any try/catch and kills the process outright.
+2. Root cause: `AppShell.OnTabReselected` (`AppShell.xaml.cs`) is subscribed to `Shell.Navigating`
+   to work around Shell not popping a tab's pushed pages when you re-tap the already-active tab.
+   `SettlementViewModel.GoHomeAsync()` calls `Shell.Current.Navigation.PopToRootAsync()` directly
+   after a successful payment — but `PopToRootAsync()` itself synchronously raises a new
+   `Navigating` event *before* the navigation stack has actually shrunk. That re-enters
+   `OnTabReselected`, which sees the same "still pushed, same target" condition and calls
+   `PopToRootAsync()` again — forever.
+3. Fix: `OnTabReselected` now guards against this re-entrancy with a simple `_isPoppingToRoot`
+   flag, set before calling `PopToRootAsync()` and cleared in a `finally` after it completes.
+   The nested `Navigating` event fired from inside `PopToRootAsync()` now sees the flag set and
+   returns immediately instead of recursing.
+4. **Manual test**: tap **Settle** on a helper, then **Log cash payment** (or **Pay via UPI**).
+   Expect: payment recorded, immediate clean navigation back to Dashboard with the updated
+   balance, no crash — repeat back-to-back on multiple helpers. Also verify the original
+   tab-reselect fix still works: push a page (e.g. **Calendar**) onto a tab, then re-tap that
+   same tab in the bottom bar; expect it to pop back to that tab's root screen.
+
 ## Note on translations
 
 New strings for this change were added by hand directly to the neutral

@@ -39,14 +39,33 @@ public partial class AppShell : Shell
         };
     }
 
-    void OnTabReselected(object? sender, ShellNavigatingEventArgs e)
+    // Guards against re-entrancy: PopToRootAsync() below itself raises a new Navigating event
+    // synchronously, before the stack has actually been popped — without this guard, that
+    // nested event re-enters this same handler, sees the same "count > 1, same target" verdict,
+    // and calls PopToRootAsync() again, forever, until the process stack-overflows and crashes
+    // (a StackOverflowException can't be caught, so no try/catch anywhere fixes this).
+    bool _isPoppingToRoot;
+
+    async void OnTabReselected(object? sender, ShellNavigatingEventArgs e)
     {
+        if (_isPoppingToRoot) return;
+
         var section = CurrentItem?.CurrentItem;
         if (section is null || section.Navigation.NavigationStack.Count <= 1)
             return; // nothing pushed on the current tab — ordinary navigation, nothing to correct
 
         string target = e.Target.Location.OriginalString.TrimEnd('/');
-        if (target.EndsWith("/" + section.Route, StringComparison.Ordinal))
-            _ = section.Navigation.PopToRootAsync();
+        if (!target.EndsWith("/" + section.Route, StringComparison.Ordinal))
+            return;
+
+        _isPoppingToRoot = true;
+        try
+        {
+            await section.Navigation.PopToRootAsync();
+        }
+        finally
+        {
+            _isPoppingToRoot = false;
+        }
     }
 }
