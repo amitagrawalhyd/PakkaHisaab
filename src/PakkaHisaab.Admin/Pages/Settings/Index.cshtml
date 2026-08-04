@@ -40,3 +40,23 @@
         </form>
     </div>
 </div>
+
+<div class="ph-card mt-3" style="max-width:640px">
+    <div class="ph-card-header"><h2>Fix Names (one-time)</h2></div>
+    <div class="ph-card-body">
+        <p class="text-secondary small">
+            Names entered before this fix may have been machine-<strong>translated</strong> by
+            meaning instead of <strong>transliterated</strong> by sound — e.g. a helper named
+            Hindi "आशा" showing as "Hope" instead of "Asha". This re-derives every helper's and
+            account's English name using transliteration only. Safe to run more than once;
+            requires automatic translation to be enabled above.
+        </p>
+        <button type="button" class="btn btn-outline-secondary"
+                data-confirm-action="?handler=FixNames"
+                data-confirm-title="Fix helper and account names?"
+                data-confirm-body="Re-checks every helper and account name and corrects any that were previously translated by meaning instead of transliterated by sound. This calls the translation provider once per name and may take a moment for a large list."
+                data-confirm-button="Fix names">
+            <i class="bi bi-magic me-1"></i>Fix helper &amp; account names
+        </button>
+    </div>
+</div>

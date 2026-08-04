@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using PakkaHisaab.Infrastructure.Auth;
 using PakkaHisaab.Infrastructure.Data;
+using PakkaHisaab.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,14 @@ builder.Services.AddRazorPages(o =>
 });
 
 builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
+
+// Same translation setup as the API (dbo.TranslationSettings is shared, so a toggle made in
+// either app applies to both) — needed here for the Settings page's "Fix Names" maintenance
+// action, which re-derives Helper.NameEnglish / User.DisplayNameEnglish directly in this app.
+builder.Services.AddScoped<ITranslationSettingsStore, TranslationSettingsStore>();
+builder.Services.AddHttpClient<GoogleFreeTranslateService>(c => c.Timeout = TimeSpan.FromSeconds(10));
+builder.Services.AddHttpClient<GoogleCloudTranslateService>(c => c.Timeout = TimeSpan.FromSeconds(10));
+builder.Services.AddScoped<ITranslationService, TranslationServiceSelector>();
 
 var app = builder.Build();
 
