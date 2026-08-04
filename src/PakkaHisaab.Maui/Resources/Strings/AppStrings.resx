@@ -563,6 +563,9 @@ For any questions about these Terms, contact Amit Kumar Agrawal at amit.agrawal.
   <data name="Settle_ConfirmYes" xml:space="preserve">
     <value>Yes, paid</value>
   </data>
+  <data name="Settle_Failed" xml:space="preserve">
+    <value>Could not record the payment. Please try again.</value>
+  </data>
   <data name="Settle_InvalidAmount" xml:space="preserve">
     <value>Enter a valid amount</value>
   </data>

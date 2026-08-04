@@ -123,8 +123,20 @@ public partial class SettlementViewModel : BaseViewModel
     async Task CompleteAsync(decimal amount, PaymentMethod method)
     {
         var period = $"{_year:D4}-{_month:D2}";
-        // Updates SQLite, triggers the Shiny sync job and stops the salary notifications.
-        await _data.MarkPaidAsync(_helper!.Id, period, amount, method, null);
+        try
+        {
+            // Updates SQLite, triggers the Shiny sync job and stops the salary notifications.
+            await _data.MarkPaidAsync(_helper!.Id, period, amount, method, null);
+        }
+        catch (Exception)
+        {
+            // A failure here must never leave the user staring at an unresponsive screen with
+            // no feedback — [RelayCommand]'s async void-like execution swallows unhandled
+            // exceptions silently otherwise, which looks exactly like "nothing happened".
+            await Toast(Loc["Settle_Failed"]);
+            return;
+        }
+
         await Toast(Loc["Settle_Recorded"]);
         await GoHomeAsync();
     }

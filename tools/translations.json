@@ -108,6 +108,7 @@
     "Settle_ConfirmBody": "Did you complete the payment of ₹ {1:N0} to {0}?",
     "Settle_ConfirmYes": "Yes, paid",
     "Settle_Recorded": "Payment recorded",
+    "Settle_Failed": "Could not record the payment. Please try again.",
     "Settle_UpiNote": "Salary {0} - PakkaHisaab",
     "Settle_Backdated": "Back-dated settlement",
     "Settle_AlreadyPaid": "✓ Already settled on {0}, ₹ {1:N2} paid",

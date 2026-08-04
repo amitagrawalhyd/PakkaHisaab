@@ -57,6 +57,27 @@ notifications, which need a real Android runtime to verify.
    `CarriedOverLeaves` is **not** rolled back to that older month's smaller number — the more
    recent month's value should still stand.
 
+## 8. Deleting a payment un-settles the month (bug fix)
+1. Settle a month (UPI or Cash) — confirm the app navigates back to Home/Calendar as expected
+   and shows "Payment recorded".
+2. Open **Ledger** for that same month, find the "Salary Payment" entry just created, delete it
+   (confirm the delete prompt).
+3. Go back to **Settlement** for that same month. Expect: the "✓ Already settled" banner is
+   gone, Pay-via-UPI/Cash buttons are visible again, and the payable amount reflects the
+   payment no longer existing. (Previously this stayed stuck on "Already settled" forever,
+   with no way to re-pay the month.)
+4. Re-settle the month — should succeed normally, showing "Already settled" again afterward.
+
+## 9. Settle always navigates home (bug fix)
+1. Settle a helper with `CarryOverLeaveAllowed = true` for the very first time (no prior
+   payment history) via both UPI and Cash on different helpers/months, confirming each one
+   navigates back to Home immediately after "Payment recorded" — no case where the app stays
+   on the Settlement screen with no feedback.
+2. If a settle ever silently fails to navigate again, expect a "Could not record the payment.
+   Please try again." toast now instead of no feedback at all — report that toast appearing (or
+   the underlying issue) rather than a stuck screen, since it now indicates a real remaining bug
+   rather than a swallowed exception.
+
 ## Note on translations
 
 New strings for this change were added by hand directly to the neutral

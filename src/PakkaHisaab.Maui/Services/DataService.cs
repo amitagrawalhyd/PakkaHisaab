@@ -229,7 +229,35 @@ public sealed class DataService : IDataService
         row.IsDirty = true;
         row.ModifiedAtUtc = DateTime.UtcNow;
         await conn.UpdateAsync(row);
+
+        // Deleting the payment that settled a month must un-settle it — otherwise
+        // SalaryCalculator correctly shows money owed again, but the separate
+        // LocalSettlement.Status flag stays "Paid" forever, so the Settlement screen keeps
+        // showing "already settled" and blocks re-paying the very month that's now unpaid.
+        if (row.Type == LedgerEntryType.SalaryPayment)
+            await RevertSettlementIfUnpaidAsync(conn, row.HelperId, row.Period);
+
         await _sync.RequestSyncAsync();
+    }
+
+    static async Task RevertSettlementIfUnpaidAsync(SQLiteAsyncConnection conn, Guid helperId, string period)
+    {
+        int remainingPayments = await conn.Table<LocalLedgerEntry>()
+            .Where(l => l.HelperId == helperId && l.Period == period
+                        && l.Type == LedgerEntryType.SalaryPayment && !l.IsDeleted)
+            .CountAsync();
+        if (remainingPayments > 0) return; // another payment still covers this period
+
+        var settlement = await conn.Table<LocalSettlement>()
+            .Where(s => s.HelperId == helperId && s.Period == period && !s.IsDeleted)
+            .FirstOrDefaultAsync();
+        if (settlement is null || settlement.Status != SettlementStatus.Paid) return;
+
+        settlement.Status = SettlementStatus.Pending;
+        settlement.PaidAtUtc = null;
+        settlement.IsDirty = true;
+        settlement.ModifiedAtUtc = DateTime.UtcNow;
+        await conn.UpdateAsync(settlement);
     }
 
     // ---------- Settlement ----------
@@ -337,7 +365,10 @@ public sealed class DataService : IDataService
                 var paidPeriods = await conn.Table<LocalSettlement>()
                     .Where(s => s.HelperId == helperId && s.Status == SettlementStatus.Paid && !s.IsDeleted)
                     .ToListAsync();
-                var latestPaidPeriod = paidPeriods.Select(s => s.Period).Max();
+                // paidPeriods always contains at least the row just written above in the normal
+                // case, but must not assume that — Max() on an empty sequence throws, which would
+                // otherwise abort MarkPaidAsync entirely and strand the caller mid-settlement.
+                var latestPaidPeriod = paidPeriods.Count > 0 ? paidPeriods.Max(s => s.Period) : period;
 
                 if (string.CompareOrdinal(period, latestPaidPeriod) >= 0)
                 {
