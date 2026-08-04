@@ -144,6 +144,37 @@ notifications, which need a real Android runtime to verify.
    tab-reselect fix still works: push a page (e.g. **Calendar**) onto a tab, then re-tap that
    same tab in the bottom bar; expect it to pop back to that tab's root screen.
 
+## 13. Voice-to-Ledger and helper names now work in Hindi and other languages (feature)
+1. Root cause: `VoiceLedgerService.CaptureAndApplyAsync` recognizes speech using the device's
+   current UI language (`CultureInfo.CurrentUICulture`). If that's anything other than English,
+   the recognizer returns text in that script (e.g. Devanagari for Hindi) — but
+   `VoiceLedgerParser`'s keyword lists and fuzzy/Soundex helper-name matching only understand
+   English/Latin text, and helper names typed in a non-Latin keyboard were stored in the
+   database exactly as typed. Neither side could ever match the other.
+2. Fix: added `GoogleFreeTranslateService` (`Services/TranslationService.cs`), which calls the
+   free, unofficial Google Translate endpoint (no API key/billing — the same trick behind most
+   "free Google Translate" scripts). It's a best-effort translator: ASCII-only text skips the
+   network call entirely (no latency/cost for existing English users), and any failure
+   (offline, blocked, timeout, unexpected response) falls back to returning the original text
+   unchanged — it can never throw or block a caller on network availability.
+   - `HelperFormViewModel.SaveAsync` now translates the Name field to English before saving, so
+     the database always holds an English name regardless of what script it was typed in.
+   - `VoiceLedgerService.CaptureAndApplyAsync` now translates the recognized speech to English
+     before handing it to `VoiceLedgerParser.Parse`, so a command spoken in Hindi (or any other
+     supported language) is matched using the same English-only parser and database names.
+3. **Verified live** on a physical device (SM-S948B, Release config against the real Azure
+   backend): an existing helper named "प्रह्लाद" (Devanagari) was re-saved and correctly became
+   "Prahlad" in well under a second, with no errors.
+4. **Manual test**: add or rename a helper using a non-English keyboard (e.g. type a Hindi name)
+   and save; confirm it displays in English afterward. Set the app's language to Hindi
+   (Settings), then try a voice command entirely in Hindi mentioning that helper's name (e.g.
+   "प्रह्लाद को पांच सौ एडवांस दो"); expect it to log correctly against the English-named
+   helper. Test with Wi-Fi off too — expect the existing (untranslated) behavior, not a crash or
+   hang, since translation fails open.
+5. Known limitation: this is a free-text machine translation, not a name-aware transliteration
+   — a name that also happens to be a real word in the source language (e.g. Hindi "आशा", which
+   means "hope") may translate to that word's English meaning instead of its phonetic spelling.
+
 ## Note on translations
 
 New strings for this change were added by hand directly to the neutral

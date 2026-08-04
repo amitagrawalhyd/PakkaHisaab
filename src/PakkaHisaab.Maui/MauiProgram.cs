@@ -100,6 +100,7 @@ public static class MauiProgram
         s.AddSingleton<IUpiService, UpiService>();
         s.AddSingleton<IPdfReportService, PdfReportService>();
         s.AddSingleton<IVoiceLedgerService, VoiceLedgerService>();
+        s.AddSingleton<ITranslationService, GoogleFreeTranslateService>();
         s.AddSingleton<IForecastService, ForecastService>();
         s.AddSingleton<IDeviceIntegrityService, DeviceIntegrityService>();
         s.AddSingleton<ITelemetryService, TelemetryService>();

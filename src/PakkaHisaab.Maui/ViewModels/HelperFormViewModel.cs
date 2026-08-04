@@ -10,9 +10,14 @@ namespace PakkaHisaab.Maui.ViewModels;
 public partial class HelperFormViewModel : BaseViewModel
 {
     readonly IDataService _data;
+    readonly ITranslationService _translate;
     HelperDto _editing = new();
 
-    public HelperFormViewModel(IDataService data) => _data = data;
+    public HelperFormViewModel(IDataService data, ITranslationService translate)
+    {
+        _data = data;
+        _translate = translate;
+    }
 
     public string? HelperId { get; set; }
 
@@ -69,7 +74,12 @@ public partial class HelperFormViewModel : BaseViewModel
             return;
         }
 
-        _editing.Name = Name.Trim();
+        // Voice-to-Ledger only matches helper names written in English/Latin script (see
+        // VoiceLedgerParser + VoiceLedgerService) — a name typed in Hindi or another language's
+        // keyboard is translated to English here so voice commands can find this helper
+        // regardless of what script it was entered in. No-op (and no network call) if the name
+        // is already ASCII/English; falls back to the as-typed name if translation fails.
+        _editing.Name = (await _translate.TranslateToEnglishAsync(Name.Trim())).Trim();
         _editing.WhatsAppNumber = WhatsAppNumber.Trim();
         _editing.UpiId = string.IsNullOrWhiteSpace(UpiId) ? null : UpiId.Trim();
         _editing.Category = SelectedCategory;

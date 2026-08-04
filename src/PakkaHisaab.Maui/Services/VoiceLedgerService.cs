@@ -29,9 +29,12 @@ public interface IVoiceLedgerService
 }
 
 /// <summary>
-/// Voice-to-Ledger: MAUI native ISpeechToText → shared rule-based parser → IDataService.
-/// Works completely offline (the parser is local); "Deducted 500 rupees from Geeta" becomes
-/// a ledger row in one breath.
+/// Voice-to-Ledger: MAUI native ISpeechToText → best-effort English translation → shared
+/// rule-based parser → IDataService. The parser itself is local and the core flow works fully
+/// offline; "Deducted 500 rupees from Geeta" becomes a ledger row in one breath. When the
+/// device's language isn't English, ListenAsync recognizes speech in that language/script (see
+/// below), so recognized text is translated to English first — the parser and the helper names
+/// stored in the database (see HelperFormViewModel) are English/Latin-only by design.
 /// </summary>
 public sealed class VoiceLedgerService : IVoiceLedgerService
 {
@@ -40,12 +43,14 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
     readonly ISpeechToText _speech;
     readonly IDataService _data;
     readonly ITelemetryService _telemetry;
+    readonly ITranslationService _translate;
 
-    public VoiceLedgerService(ISpeechToText speech, IDataService data, ITelemetryService telemetry)
+    public VoiceLedgerService(ISpeechToText speech, IDataService data, ITelemetryService telemetry, ITranslationService translate)
     {
         _speech = speech;
         _data = data;
         _telemetry = telemetry;
+        _translate = translate;
     }
 
     public async Task<VoiceLedgerResult> CaptureAndApplyAsync(CancellationToken ct = default)
@@ -78,8 +83,14 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
                 return new VoiceLedgerResult(VoiceOutcome.NoSpeechDetected);
             }
 
+            // ListenAsync recognized speech in whatever language the device UI is set to (see
+            // above) — the parser below only understands English keywords and the English
+            // helper names stored in the database, so translate before parsing. A no-op (and no
+            // network call) when the recognized text is already ASCII/English.
+            var text = await _translate.TranslateToEnglishAsync(result.Text, ct);
+
             var helpers = await _data.GetHelpersAsync();
-            var command = VoiceLedgerParser.Parse(result.Text, helpers.Select(h => h.Name).ToList());
+            var command = VoiceLedgerParser.Parse(text, helpers.Select(h => h.Name).ToList());
             _telemetry.Track("voice_command", ("intent", command.Intent.ToString()));
 
             // Intent checked first: if the action itself wasn't understood, saying "couldn't
