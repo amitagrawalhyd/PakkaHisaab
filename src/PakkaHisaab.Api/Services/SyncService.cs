@@ -67,6 +67,12 @@ public sealed class SyncService : ISyncService
             foreach (var dto in request.Settlements)
                 await UpsertAsync<Settlement, SettlementDto>(userId, dto, response, SyncAsync<SettlementDto, Settlement>(MapSettlement), ct);
 
+            // Flush the upserts (and their freshly-allocated RowVersions) before computing the
+            // watermark — CurrentWatermarkAsync issues its own MaxAsync() queries against the
+            // database, which only see what's actually been written, not what the change
+            // tracker still holds in memory. Computing it earlier always returned the
+            // pre-push watermark instead of the post-push one.
+            await _db.SaveChangesAsync(ct);
             response.ServerWatermark = await CurrentWatermarkAsync(userId, ct);
 
             _db.SyncBatches.Add(new SyncBatch
