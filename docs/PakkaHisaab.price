@@ -1,0 +1,180 @@
+================================================================================
+ PakkaHisaab — Azure Cost & Availability Analysis (Min Required Paid Plan)
+ Region: Central India | Prepared: 2026-07-24 | Pricing source: Azure Retail
+ Prices API (prices.azure.com), live-queried, INR, Consumption rates.
+================================================================================
+
+--------------------------------------------------------------------------------
+0. READ THIS FIRST — on "100% availability"
+--------------------------------------------------------------------------------
+No Azure service, and no cloud provider, sells or contractually guarantees
+100% uptime. Every Azure SLA document (App Service, SQL Database, everything)
+is a percentage below 100%, paired with a *service-credit* remedy — if Microsoft
+misses the number, you get a partial bill credit, not compensation for the
+outage itself, and not a promise it won't happen again.
+
+What this document gives you instead: the highest SLA Microsoft actually
+publishes for each component in this plan, the combined ceiling for the whole
+stack, and what it would cost to push closer to (never reach) 100% if you ever
+need that. Treat "100%" as the marketing rounding of "as close as this budget
+gets" — the real number below is 99.94%.
+
+--------------------------------------------------------------------------------
+1. PER-ITEM PRICING — Min Required Paid Plan
+--------------------------------------------------------------------------------
+All rates fetched live from https://prices.azure.com/api/retail/prices,
+armRegionName=centralindia, currencyCode=INR, 2026-07-24.
+
+  ITEM 1 — App Service Plan (compute for BOTH API and Admin)
+  ------------------------------------------------------------
+    Resource        : plan-pakkahisaab (already provisioned)
+    Hosts            : api-pakkahisaab-amitagrawal + admin-pakkahisaab-amitagrawal
+                        (2 sites on 1 plan — Admin adds ₹0 extra)
+    SKU              : B1 Basic, Linux
+    Meter            : "Azure App Service Basic Plan - Linux" / B1
+    Rate             : Rs. 1.6991 / hour
+    Billing model    : Consumption (always-on, 24x7 metering — Basic tier has
+                        no auto-pause; it runs whether or not it's used)
+    Max hours/month  : 744 (31-day month — this is the ceiling, not the average)
+    MONTHLY MAX      : Rs. 1,264.34
+
+  ITEM 2 — Azure SQL Database (data for API + Admin, same DB)
+  ------------------------------------------------------------
+    Resource        : sql-pakkahisaab-amitagrawal / PakkaHisaab
+    Recommended SKU  : Basic (5 DTU, 2 GB max storage)
+    Meter            : "SQL Database Single Basic" / B DTU
+    Rate             : Rs. 17.3779 / day
+    Billing model    : Consumption, always-on, no auto-pause (this is the
+                        change from your CURRENT config — see section 4)
+    Max days/month   : 31
+    MONTHLY MAX      : Rs. 538.71
+
+  ITEM 3 — Admin console compute
+  ------------------------------------------------------------
+    Rs. 0 — shares Item 1's App Service Plan (numberOfSites: 2). No separate
+    App Service Plan is needed or recommended; splitting it would only add a
+    second B1 bill for zero functional benefit at this scale.
+
+  ITEM 4 — Bandwidth / egress
+  ------------------------------------------------------------
+    First ~100 GB/month outbound is free in most Azure regions. This app's
+    sync payloads are small delta batches (see the user-capacity analysis
+    from this session) — realistically Rs. 0/month at anywhere near the
+    200-300 household range this plan supports.
+
+  ITEM 5 — Backup storage (Azure SQL point-in-time restore)
+  ------------------------------------------------------------
+    Free allowance = 100% of provisioned database size (2 GB for Basic tier).
+    At light usage this stays within the free allowance: Rs. 0/month.
+    (Flag: grows if the SyncBatches table isn't purged — see section 5.)
+
+--------------------------------------------------------------------------------
+2. TOTAL MONTHLY PRICE
+--------------------------------------------------------------------------------
+
+    Item                                   Rate            Monthly MAX (INR)
+    ------------------------------------   -------------   ------------------
+    App Service Plan B1 (API + Admin)      Rs 1.6991/hr    Rs   1,264.34
+    Azure SQL Database Basic (5 DTU/2GB)   Rs 17.3779/day  Rs     538.71
+    Admin console (shared plan)            -               Rs       0.00
+    Bandwidth (est., within free tier)     -               Rs       0.00
+    Backup storage (est., within free)     -               Rs       0.00
+    ------------------------------------   -------------   ------------------
+    TOTAL MONTHLY MAX                                      Rs   1,803.05
+    ------------------------------------   -------------   ------------------
+    ~ USD equivalent (approx, FX varies)                   ~ $21-22 / month
+
+  Why "MAX" and not a flat number: both meters are hourly/daily consumption,
+  so the bill scales with the days in that calendar month.
+    30-day month actual : ~Rs 1,780.83
+    31-day month (MAX)  : Rs 1,803.05   <- use this as your budget ceiling
+    28-day month (Feb)  : ~Rs 1,657.75
+
+  ANNUAL COST (12 months, using each month's real day-count, not 12x the max):
+    Rs 1,803.05 (x7 months of 31 days) + Rs 1,780.83 (x4 months of 30 days)
+    + Rs 1,657.75 (1 month of 28 days)
+    ~= Rs 21,343 / year  (~ $257 / year)
+    Budget ceiling if you want a single round number: Rs 21,700/year.
+
+--------------------------------------------------------------------------------
+3. AVAILABILITY ANALYSIS — the closest to "100%" this plan gets
+--------------------------------------------------------------------------------
+  Component SLAs (Microsoft-published, current):
+    App Service, Basic tier, single or multi-instance : 99.95%
+      -> allowed downtime: 8,760 hrs/yr x 0.05% = 4.38 hours/year
+    Azure SQL Database, Basic tier, single database    : 99.99%
+      -> allowed downtime: 8,760 hrs/yr x 0.01% = 0.88 hours/year
+
+  COMBINED CEILING (API needs both to be up -> multiply uptime, not add):
+    0.9995 x 0.9999 = 0.99940  ->  99.94%
+    Allowed combined downtime  :  ~5.3 hours / year  (~26 minutes / month)
+
+  This 99.94% is the CONTRACTUAL ceiling for the plan priced in section 1 —
+  the actual observed uptime is usually better, but nothing above this is
+  promised, and Microsoft's only remedy for missing it is a bill credit
+  (typically 10-25% of that month's charge for the affected service),
+  not prevention or compensation for your own downtime/business impact.
+
+  What is NOT covered by these SLAs (i.e. can still cause an outage this
+  plan doesn't protect against):
+    - The incident that started this conversation: a paused/free-tier SQL
+      DB is a CONFIGURATION state, not a platform outage — no SLA credit
+      would have applied, because the DB was technically "available," just
+      configured to pause. This plan removes that specific failure mode by
+      moving off the free/serverless auto-pause model entirely (Item 2).
+    - Your own app-level bugs, bad deploys, DNS issues, client-side crashes.
+    - Regional Azure outages (Central India as a whole going down) — both
+      items live in ONE region with no failover. This is the biggest gap
+      between 99.94% and "actually always up."
+
+  TO PUSH CLOSER TO 100% (optional — NOT included in the min plan, priced
+  separately, roughly DOUBLES the bill):
+    - Second App Service (B1) + SQL Active Geo-Replication secondary in a
+      second region (e.g. South India) + Azure Front Door/Traffic Manager
+      for failover routing.
+    - Rough added cost: + Rs 1,264 (2nd App Service) + Rs 539 (2nd DB
+      replica) + Front Door (usage-based, ~Rs 3,000-4,000/mo at this
+      traffic volume) = approx +Rs 4,800-5,800/month, ~Rs 6,600-7,600/month
+      total. Still not 100% — regional failover typically adds a "nine"
+      at best (~99.99% combined with correct automated failover), and
+      requires engineering work this document doesn't scope or estimate.
+    - Given the capacity analysis (this plan comfortably serves 200-300
+      households), this spend is very unlikely to be justified until well
+      past that scale.
+
+--------------------------------------------------------------------------------
+4. CHANGE FROM CURRENT STATE
+--------------------------------------------------------------------------------
+  Current (as of this session, post-fix): SQL Database on General Purpose
+  Serverless (GP_S_Gen5, 0.5-2 vCore, autoPauseDelay 60 min,
+  freeLimitExhaustionBehavior=BillOverUsage). This is usage-billed and can
+  be CHEAPER in a light-traffic month than the flat Rs 538.71 Basic-tier
+  price above, but:
+    - It still auto-pauses after 60 idle minutes (now safe to auto-resume
+      since billing is allowed, but every pause still costs ~30-60s of
+      cold-start latency on the next request).
+    - Its SLA is the same 99.99% tier-wide, so no availability difference.
+    - Its cost is NOT capped the way Basic tier's flat rate is — a busy
+      month billed per-vCore-second could exceed Rs 538.71 (see the
+      Serverless-always-on comparison from the earlier capacity analysis:
+      Rs 54.18/vCore-hour, dramatically more than Basic if it stays warm).
+  This document prices Basic tier because "min required PAID plan" was
+  interpreted as the cheapest PREDICTABLE, always-on, no-cold-start
+  configuration — not the cheapest possible bill in a quiet month.
+  No infrastructure change has been made based on this document; the
+  SQL tier switch from Serverless to Basic is a proposal, pending your go-ahead.
+
+--------------------------------------------------------------------------------
+5. OPEN ITEM AFFECTING BOTH PRICE AND AVAILABILITY
+--------------------------------------------------------------------------------
+  `PurgeOldSyncBatches` (named in DEPLOYMENT.md's hardening checklist as a
+  daily Elastic Job) is NOT currently implemented. The SyncBatches table
+  grows unbounded with every sync push. Left unchecked, it is the fastest
+  route to hitting the Basic tier's 2 GB storage ceiling, which would cause
+  write failures — a real availability risk this pricing plan does not
+  protect against. Recommend implementing this before scaling past a few
+  dozen active households, independent of which SQL tier is chosen.
+
+================================================================================
+ END OF ANALYSIS
+================================================================================
