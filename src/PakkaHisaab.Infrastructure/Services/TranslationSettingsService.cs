@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PakkaHisaab.Infrastructure.Data;
 
-namespace PakkaHisaab.Api.Services;
+namespace PakkaHisaab.Infrastructure.Services;
 
 public interface ITranslationSettingsStore
 {
@@ -62,6 +62,20 @@ public sealed class TranslationServiceSelector : ITranslationService
         {
             "GoogleCloud" => await _cloud.TranslateToEnglishAsync(text, ct),
             _ => await _free.TranslateToEnglishAsync(text, ct) // "GoogleFree" and any unknown value
+        };
+    }
+
+    public async Task<string?> TransliterateToLatinAsync(string? text, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(text)) return null;
+
+        var (enabled, provider) = await _settings.GetAsync(ct);
+        if (!enabled) return null;
+
+        return provider switch
+        {
+            "GoogleCloud" => await _cloud.TransliterateToLatinAsync(text, ct),
+            _ => await _free.TransliterateToLatinAsync(text, ct)
         };
     }
 }

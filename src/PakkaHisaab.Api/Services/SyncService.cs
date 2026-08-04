@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using PakkaHisaab.Infrastructure.Data;
+using PakkaHisaab.Infrastructure.Services;
 using PakkaHisaab.Shared.Dtos;
 using PakkaHisaab.Shared.Sync;
 
@@ -179,10 +180,12 @@ public sealed class SyncService : ISyncService
         e.CarryOverLeaveAllowed = d.CarryOverLeaveAllowed;
         e.CarriedOverLeaves = d.CarriedOverLeaves; e.IsActive = d.IsActive;
 
-        // Only re-translate when the name actually changed — avoids re-billing the
+        // Only re-transliterate when the name actually changed — avoids re-billing the
         // translation API on every unrelated field edit (wage, category, absences, ...).
+        // Transliteration, not translation: a name is a sound, not a sentence with a meaning —
+        // e.g. Hindi "आशा" must become "aasha" (phonetic), never "Hope" (what the word means).
         if (nameChanged)
-            e.NameEnglish = await _translator.TranslateToEnglishAsync(d.Name, ct);
+            e.NameEnglish = await _translator.TransliterateToLatinAsync(d.Name, ct);
     }
 
     static void MapAttendance(AttendanceDto d, AttendanceEntry e)

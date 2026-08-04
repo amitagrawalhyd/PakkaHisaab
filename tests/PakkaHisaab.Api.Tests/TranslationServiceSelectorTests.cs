@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Abstractions;
-using PakkaHisaab.Api.Services;
+using PakkaHisaab.Infrastructure.Services;
 
 namespace PakkaHisaab.Api.Tests;
 

@@ -1,16 +1,26 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
-namespace PakkaHisaab.Api.Services;
+namespace PakkaHisaab.Infrastructure.Services;
 
 public interface ITranslationService
 {
-    /// <summary>Translates arbitrary user-entered text to English for Admin display. Returns
-    /// null when there's nothing to translate, the service isn't configured, or the call
-    /// fails — callers must treat null as "no translation available yet" and fall back to the
-    /// original text; a translation failure must never block the underlying write.</summary>
+    /// <summary>Translates arbitrary user-entered text to English for Admin display, preserving
+    /// meaning — use for free-text sentences (e.g. ledger notes). Returns null when there's
+    /// nothing to translate, the service isn't configured, or the call fails — callers must
+    /// treat null as "no translation available yet" and fall back to the original text; a
+    /// translation failure must never block the underlying write.</summary>
     Task<string?> TranslateToEnglishAsync(string? text, CancellationToken ct = default);
+
+    /// <summary>Phonetic transliteration into Latin letters, preserving SOUND rather than
+    /// meaning — use for proper nouns like a helper's name, where a meaning-based translation
+    /// would silently turn the name into an unrelated English word (e.g. Hindi "आशा" must
+    /// become "aasha", never the semantic translation "Hope"). Same null/fallback contract as
+    /// <see cref="TranslateToEnglishAsync"/>.</summary>
+    Task<string?> TransliterateToLatinAsync(string? text, CancellationToken ct = default);
 }
 
 /// <summary>
@@ -61,6 +71,14 @@ public sealed class GoogleCloudTranslateService : ITranslationService
             return null;
         }
     }
+
+    /// <summary>The Cloud Translation v2 REST API (what this class uses) has no romanization
+    /// mode — that's only in Cloud Translation Advanced (v3, <c>:romanizeText</c>), which needs
+    /// a GCP project + service-account auth rather than a plain API key. Returning null here is
+    /// safe and intentional: the Admin UI's Translated.For helper already falls back to showing
+    /// the original (untranslated) name, which is strictly better than a wrong, meaning-based one.</summary>
+    public Task<string?> TransliterateToLatinAsync(string? text, CancellationToken ct = default) =>
+        Task.FromResult<string?>(null);
 
     record TranslateRequest(
         [property: JsonPropertyName("q")] string Q,
@@ -146,5 +164,63 @@ public sealed class GoogleFreeTranslateService : ITranslationService
                 sb.Append(pair[0].GetString());
         }
         return sb.ToString();
+    }
+
+    public async Task<string?> TransliterateToLatinAsync(string? text, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+            return null;
+
+        try
+        {
+            // dt=rm ("romanization") instead of dt=t ("translation") — same endpoint, but this
+            // mode returns the phonetic Latin spelling of the SOURCE text instead of its English
+            // meaning, e.g. Hindi "आशा" -> "aasha", not the semantic translation "Hope".
+            var url = "https://translate.googleapis.com/translate_a/single" +
+                      $"?client=gtx&sl=auto&tl=en&dt=rm&q={Uri.EscapeDataString(text)}";
+            using var response = await _http.GetAsync(url, ct);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogWarning(
+                    "Free Google Translate (romanize) endpoint returned {Status} — leaving the field untransliterated",
+                    response.StatusCode);
+                return null;
+            }
+
+            var json = await response.Content.ReadAsStringAsync(ct);
+            var romanized = ParseRomanization(json);
+            return string.IsNullOrWhiteSpace(romanized) ? null : romanized;
+        }
+        catch (Exception ex) when (ex is not OperationCanceledException)
+        {
+            _logger.LogWarning(ex, "Free Google Translate (romanize) call failed — leaving the field untransliterated");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Response shape for <c>dt=rm</c> alone, e.g. <c>[[[null,null,null,"aasha"]],null,"hi"]</c>
+    /// — a single segment whose 4th element is the phonetic Latin spelling. If the source text
+    /// is already Latin script, Google returns no romanization array at all (root[0] is null),
+    /// which the checks below fall through safely.
+    /// </summary>
+    public static string? ParseRomanization(string json)
+    {
+        using var doc = JsonDocument.Parse(json);
+        var root = doc.RootElement;
+        if (root.ValueKind != JsonValueKind.Array || root.GetArrayLength() == 0)
+            return null;
+
+        var segments = root[0];
+        if (segments.ValueKind != JsonValueKind.Array || segments.GetArrayLength() == 0)
+            return null;
+
+        var segment = segments[0];
+        if (segment.ValueKind == JsonValueKind.Array && segment.GetArrayLength() > 3
+            && segment[3].ValueKind == JsonValueKind.String)
+            return segment[3].GetString();
+
+        return null;
     }
 }

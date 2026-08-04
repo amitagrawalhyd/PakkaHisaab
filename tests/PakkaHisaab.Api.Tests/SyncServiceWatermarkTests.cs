@@ -2,6 +2,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using PakkaHisaab.Api.Services;
 using PakkaHisaab.Infrastructure.Data;
+using PakkaHisaab.Infrastructure.Services;
 using PakkaHisaab.Shared.Dtos;
 using PakkaHisaab.Shared.Enums;
 using PakkaHisaab.Shared.Sync;

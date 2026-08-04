@@ -3,6 +3,7 @@ using PakkaHisaab.Api.Auth;
 using PakkaHisaab.Api.Services;
 using PakkaHisaab.Infrastructure.Auth;
 using PakkaHisaab.Infrastructure.Data;
+using PakkaHisaab.Infrastructure.Services;
 using PakkaHisaab.Shared.Dtos;
 
 namespace PakkaHisaab.Api.Endpoints;
@@ -37,7 +38,10 @@ public static class AuthEndpoints
                 Id = Guid.NewGuid(),
                 Email = email,
                 DisplayName = displayName,
-                DisplayNameEnglish = await translator.TranslateToEnglishAsync(displayName, ct),
+                // Transliteration, not translation: a person's name is a sound, not a sentence
+                // with a meaning — e.g. Hindi "आशा" must become "aasha" (phonetic), never the
+                // semantic translation "Hope".
+                DisplayNameEnglish = await translator.TransliterateToLatinAsync(displayName, ct),
                 PhoneNumber = req.PhoneNumber,
                 PasswordHash = PasswordHasher.Hash(req.Password),
                 CreatedAtUtc = DateTime.UtcNow

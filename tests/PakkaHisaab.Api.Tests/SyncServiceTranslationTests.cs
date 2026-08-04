@@ -2,6 +2,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using PakkaHisaab.Api.Services;
 using PakkaHisaab.Infrastructure.Data;
+using PakkaHisaab.Infrastructure.Services;
 using PakkaHisaab.Shared.Dtos;
 using PakkaHisaab.Shared.Enums;
 using PakkaHisaab.Shared.Sync;
@@ -65,8 +66,8 @@ public sealed class SyncServiceTranslationTests : IDisposable
         await sut.PushAsync(_userId, PushOneHelper(helper), CancellationToken.None);
 
         var saved = await _db.Helpers.SingleAsync(h => h.Id == helper.Id);
-        Assert.Equal("[en] राजू", saved.NameEnglish);
-        Assert.Equal(new[] { "राजू" }, translator.Requests);
+        Assert.Equal("[lit] राजू", saved.NameEnglish);
+        Assert.Equal(new[] { "राजू" }, translator.TransliterationRequests);
     }
 
     [Fact]
@@ -83,7 +84,7 @@ public sealed class SyncServiceTranslationTests : IDisposable
         helper.ModifiedAtUtc = DateTime.UtcNow.AddSeconds(1);
         await sut.PushAsync(_userId, PushOneHelper(helper), CancellationToken.None);
 
-        Assert.Single(translator.Requests); // billed for the translation exactly once
+        Assert.Single(translator.TransliterationRequests); // billed for the transliteration exactly once
         var saved = await _db.Helpers.SingleAsync(h => h.Id == helper.Id);
         Assert.Equal(6000, saved.MonthlyWage);
     }
@@ -100,9 +101,9 @@ public sealed class SyncServiceTranslationTests : IDisposable
         helper.ModifiedAtUtc = DateTime.UtcNow.AddSeconds(1);
         await sut.PushAsync(_userId, PushOneHelper(helper), CancellationToken.None);
 
-        Assert.Equal(new[] { "Geeta", "Geetanjali" }, translator.Requests);
+        Assert.Equal(new[] { "Geeta", "Geetanjali" }, translator.TransliterationRequests);
         var saved = await _db.Helpers.SingleAsync(h => h.Id == helper.Id);
-        Assert.Equal("[en] Geetanjali", saved.NameEnglish);
+        Assert.Equal("[lit] Geetanjali", saved.NameEnglish);
     }
 
     [Fact]

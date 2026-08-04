@@ -6,6 +6,7 @@ using PakkaHisaab.Api.Auth;
 using PakkaHisaab.Api.Endpoints;
 using PakkaHisaab.Api.Services;
 using PakkaHisaab.Infrastructure.Data;
+using PakkaHisaab.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
