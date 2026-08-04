@@ -2,6 +2,7 @@ using System.Globalization;
 using CommunityToolkit.Maui.Media;
 using PakkaHisaab.Maui.Helpers;
 using PakkaHisaab.Shared.Domain;
+using PakkaHisaab.Shared.Dtos;
 using PakkaHisaab.Shared.Enums;
 
 namespace PakkaHisaab.Maui.Services;
@@ -31,19 +32,56 @@ public interface IVoiceLedgerService
 /// <summary>
 /// Voice-to-Ledger: MAUI native ISpeechToText → best-effort English translation → shared
 /// rule-based parser → IDataService. The parser itself is local and the core flow works fully
-/// offline; "Deducted 500 rupees from Geeta" becomes a ledger row in one breath. When the
-/// device's language isn't English, ListenAsync recognizes speech in that language/script (see
-/// below), so recognized text is translated to English first — the parser and the helper names
-/// stored in the database (see HelperFormViewModel) are English/Latin-only by design.
+/// offline; "Deducted 500 rupees from Geeta" becomes a ledger row in one breath. Helper names
+/// are stored and displayed exactly as entered, in whatever language/script — never rewritten.
+/// When the device's language isn't English, ListenAsync recognizes speech in that language/
+/// script (see below), so both the recognized text and a throwaway English translation of each
+/// helper's name are used purely to resolve intent/helper for this one command; the result is
+/// reported back using each helper's real, unmodified name.
 /// </summary>
 public sealed class VoiceLedgerService : IVoiceLedgerService
 {
     static readonly TimeSpan ListenTimeout = TimeSpan.FromSeconds(12);
 
+    // Android's on-device speech recognizer needs a region-qualified BCP-47 tag (e.g. "or-IN")
+    // to find an installed language pack for that language — LocalizationResourceManager's
+    // SupportedLanguages deliberately uses bare codes like "or" for UI-string resx lookup
+    // (where a region doesn't matter), but passing that same bare code straight to the
+    // recognizer makes it silently fall back to the device's default locale instead of erroring
+    // (confirmed via logcat: requesting "or" recognized speech as en_IN, not Odia, so nothing
+    // downstream — translation, matching — ever had real Odia text to work with). This app is
+    // India-focused, so every Indic language maps to its "-IN" region; the rest map to a
+    // sensible default region for that language.
+    static readonly Dictionary<string, string> SpeechRecognitionLocales = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ["en"] = "en-IN", ["hi"] = "hi-IN", ["bn"] = "bn-IN", ["te"] = "te-IN", ["mr"] = "mr-IN",
+        ["ta"] = "ta-IN", ["gu"] = "gu-IN", ["ur"] = "ur-IN", ["kn"] = "kn-IN", ["or"] = "or-IN",
+        ["ml"] = "ml-IN", ["pa"] = "pa-IN", ["zh-Hans"] = "zh-CN", ["es"] = "es-ES",
+        ["fr"] = "fr-FR", ["ar"] = "ar-SA", ["pt"] = "pt-BR", ["de"] = "de-DE",
+        ["ja"] = "ja-JP", ["ru"] = "ru-RU", ["id"] = "id-ID", ["sw"] = "sw-KE", ["ko"] = "ko-KR"
+    };
+
+    static CultureInfo GetSpeechRecognitionCulture()
+    {
+        var code = CultureInfo.CurrentUICulture.Name;
+        if (!SpeechRecognitionLocales.TryGetValue(code, out var mapped))
+            return CultureInfo.CurrentUICulture;
+
+        try { return new CultureInfo(mapped); }
+        catch (CultureNotFoundException) { return CultureInfo.CurrentUICulture; }
+    }
+
     readonly ISpeechToText _speech;
     readonly IDataService _data;
     readonly ITelemetryService _telemetry;
     readonly ITranslationService _translate;
+
+    // In-memory only — never persisted, never synced, never shown. A repeat customer's helper
+    // list rarely changes between voice commands in the same app session, so caching each
+    // helper's English match-name here means only the FIRST voice command after adding/renaming
+    // a non-English helper pays for a translation call; every command after that is instant.
+    // Keyed by helper Id, invalidated automatically if the stored (unmodified) Name changes.
+    readonly Dictionary<Guid, (string Name, string Translated)> _nameCache = new();
 
     public VoiceLedgerService(ISpeechToText speech, IDataService data, ITelemetryService telemetry, ITranslationService translate)
     {
@@ -51,6 +89,18 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
         _data = data;
         _telemetry = telemetry;
         _translate = translate;
+    }
+
+    async Task<string> GetCachedTranslatedNameAsync(HelperDto helper, CancellationToken ct)
+    {
+        if (_nameCache.TryGetValue(helper.Id, out var cached) && cached.Name == helper.Name)
+            return cached.Translated;
+
+        // Transliteration, not translation: a name is a sound, not a sentence with a meaning —
+        // e.g. Hindi "आशा" must become "aasha" (phonetic), never "Hope" (what the word means).
+        var translated = await _translate.TransliterateToLatinAsync(helper.Name, ct);
+        _nameCache[helper.Id] = (helper.Name, translated);
+        return translated;
     }
 
     public async Task<VoiceLedgerResult> CaptureAndApplyAsync(CancellationToken ct = default)
@@ -69,7 +119,7 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
             SpeechToTextResult result;
             try
             {
-                result = await _speech.ListenAsync(CultureInfo.CurrentUICulture, new Progress<string>(), timeoutCts.Token);
+                result = await _speech.ListenAsync(GetSpeechRecognitionCulture(), new Progress<string>(), timeoutCts.Token);
             }
             catch (OperationCanceledException) when (!ct.IsCancellationRequested)
             {
@@ -83,14 +133,29 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
                 return new VoiceLedgerResult(VoiceOutcome.NoSpeechDetected);
             }
 
-            // ListenAsync recognized speech in whatever language the device UI is set to (see
-            // above) — the parser below only understands English keywords and the English
-            // helper names stored in the database, so translate before parsing. A no-op (and no
-            // network call) when the recognized text is already ASCII/English.
-            var text = await _translate.TranslateToEnglishAsync(result.Text, ct);
-
             var helpers = await _data.GetHelpersAsync();
-            var command = VoiceLedgerParser.Parse(text, helpers.Select(h => h.Name).ToList());
+
+            // ListenAsync recognized speech in whatever language the device UI is set to (see
+            // above), and helper names are stored exactly as the user typed them — never
+            // rewritten to another script (see HelperFormViewModel). The parser below only
+            // understands English keywords/names, so both are translated to English here for
+            // matching purposes only; the translated names are never persisted or shown, they
+            // exist only long enough to resolve which helper was meant. Run in parallel — each
+            // call is a no-op (no network round-trip) when its input is already ASCII/English.
+            var translateCommand = _translate.TranslateToEnglishAsync(result.Text, ct);
+            var translateNames = Task.WhenAll(helpers.Select(h => GetCachedTranslatedNameAsync(h, ct)));
+            await Task.WhenAll(translateCommand, translateNames);
+            var text = translateCommand.Result;
+            var translatedNames = translateNames.Result;
+
+            // First English translation wins if two helpers happen to translate to the same
+            // name — matches the pre-existing "ambiguous name" handling in VoiceLedgerParser,
+            // which already refuses to guess between equally-plausible helpers.
+            var byTranslatedName = new Dictionary<string, HelperDto>(StringComparer.OrdinalIgnoreCase);
+            for (int i = 0; i < helpers.Count; i++)
+                byTranslatedName.TryAdd(translatedNames[i], helpers[i]);
+
+            var command = VoiceLedgerParser.Parse(text, byTranslatedName.Keys.ToList());
             _telemetry.Track("voice_command", ("intent", command.Intent.ToString()));
 
             // Intent checked first: if the action itself wasn't understood, saying "couldn't
@@ -98,8 +163,10 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
             if (command.Intent == VoiceIntent.Unknown)
                 return new VoiceLedgerResult(VoiceOutcome.IntentNotRecognized, BuildSuggestionMessage(command));
 
-            var helper = helpers.FirstOrDefault(h =>
-                h.Name.Equals(command.HelperNameHint, StringComparison.OrdinalIgnoreCase));
+            HelperDto? helper = command.HelperNameHint is not null
+                && byTranslatedName.TryGetValue(command.HelperNameHint, out var matched)
+                    ? matched
+                    : null;
             if (helper is null && helpers.Count == 1)
                 helper = helpers[0]; // only one helper — no ambiguity
             if (helper is null)
