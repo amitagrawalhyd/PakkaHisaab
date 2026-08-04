@@ -81,8 +81,13 @@ public partial class SettlementViewModel : BaseViewModel
     }
 
     /// <summary>Hands off to the OS's native UPI app chooser — it shows the real installed apps'
-    /// own icons directly from Android, so this app never needs to embed provider logos itself.</summary>
-    [RelayCommand]
+    /// own icons directly from Android, so this app never needs to embed provider logos itself.
+    /// AllowConcurrentExecutions=false: [RelayCommand]'s generated AsyncRelayCommand allows
+    /// concurrent runs by default, so a fast double-tap (easy to do while waiting for the UPI
+    /// app chooser or a confirm dialog) could fire CompleteAsync twice and write two "Salary
+    /// Payment" ledger rows for the same month — deleting only one then leaves the settlement
+    /// correctly still "Paid" by the other, looking like the delete-to-unpay fix doesn't work.</summary>
+    [RelayCommand(AllowConcurrentExecutions = false)]
     async Task PayWithUpiAsync()
     {
         if (IsAlreadyPaid || _helper is null || !decimal.TryParse(AmountToPay, out var amount) || amount <= 0)
@@ -108,8 +113,9 @@ public partial class SettlementViewModel : BaseViewModel
             await CompleteAsync(amount, PaymentMethod.Upi);
     }
 
-    /// <summary>"Cash" logging option — no deep link, just record it.</summary>
-    [RelayCommand]
+    /// <summary>"Cash" logging option — no deep link, just record it. AllowConcurrentExecutions=
+    /// false for the same double-tap reason as PayWithUpiAsync.</summary>
+    [RelayCommand(AllowConcurrentExecutions = false)]
     async Task PayCashAsync()
     {
         if (IsAlreadyPaid || _helper is null || !decimal.TryParse(AmountToPay, out var amount) || amount <= 0)

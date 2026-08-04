@@ -78,6 +78,20 @@ notifications, which need a real Android runtime to verify.
    the underlying issue) rather than a stuck screen, since it now indicates a real remaining bug
    rather than a swallowed exception.
 
+## 10. Double-tap Pay no longer creates duplicate payments (bug fix)
+1. On Settlement, tap **Pay via UPI** or **Log cash payment** twice in very quick succession
+   (or tap-and-hold rapidly). Expect: the button becomes disabled/unresponsive to the second
+   tap while the first is processing — only one "Salary Payment" ledger entry should be
+   created, not two.
+2. Open **Ledger** for that month and confirm there is exactly one "Salary Payment" row for
+   this settlement.
+3. If you already have test data from before this fix, check every month you've settled for
+   *more than one* "Salary Payment" row — a leftover duplicate from the old bug will make a
+   month look permanently "already settled" even after deleting one of the two rows, since the
+   app correctly refuses to un-settle a month while *any* payment still exists for it (by
+   design — it supports legitimate multi-installment payments). Delete every "Salary Payment"
+   row for that month to fully clear it.
+
 ## Note on translations
 
 New strings for this change were added by hand directly to the neutral
