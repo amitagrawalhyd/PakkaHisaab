@@ -17,6 +17,17 @@ public partial class App : Application
         _integrity = integrity;
         _telemetry = telemetry;
 
+        // Belt-and-suspenders: a fire-and-forget background Task (e.g. the sync engine's
+        // post-payment nudge) is supposed to catch everything itself, but if a future change
+        // ever reopens that gap, an exception nobody awaits must never be the thing that takes
+        // the whole app down — log it and mark it observed instead of letting the runtime
+        // treat it as fatal.
+        TaskScheduler.UnobservedTaskException += (_, args) =>
+        {
+            _telemetry.TrackError(args.Exception, "unobserved_task_exception");
+            args.SetObserved();
+        };
+
         // Telemetry + crash reporting (App Store compliance: disclosed in privacy policy).
         // NOTE: Visual Studio App Center was retired by Microsoft (Mar 2025). The SDK still
         // works offline-safe, but for a live free backend use Sentry (sentry.io free tier,

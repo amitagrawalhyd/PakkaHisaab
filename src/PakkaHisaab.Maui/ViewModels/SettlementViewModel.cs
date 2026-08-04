@@ -143,8 +143,18 @@ public partial class SettlementViewModel : BaseViewModel
             return;
         }
 
-        await Toast(Loc["Settle_Recorded"]);
-        await GoHomeAsync();
+        // The payment is already safely recorded at this point (MarkPaidAsync above succeeded) —
+        // a toast is cosmetic, so if showing it ever throws (a UI-toolkit hiccup, unrelated to
+        // the payment itself) that must not strand the user on this screen. finally guarantees
+        // navigation home regardless.
+        try
+        {
+            await Toast(Loc["Settle_Recorded"]);
+        }
+        finally
+        {
+            await GoHomeAsync();
+        }
     }
 
     /// <summary>Bound to Shell.BackButtonBehavior so both the nav-bar back arrow and the

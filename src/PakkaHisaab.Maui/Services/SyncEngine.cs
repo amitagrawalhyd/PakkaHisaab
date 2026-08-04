@@ -46,83 +46,131 @@ public sealed class SyncEngine : ISyncEngine
     public Task RequestSyncAsync()
     {
         if (IsSuspended || _session.IsDemo) return Task.CompletedTask;
-        _ = Task.Run(() => SynchronizeAsync()); // background thread; UI stays at zero latency
+        // Fire-and-forget: SynchronizeAsync is fully self-guarded (see below) and can never
+        // throw, but this catch is cheap insurance — an uncaught exception on a background
+        // Task nobody awaits becomes an unobserved task exception, which must never be the
+        // thing that decides whether the app stays up (see App.xaml.cs's belt-and-suspenders
+        // TaskScheduler.UnobservedTaskException handler for the same reasoning).
+        _ = Task.Run(async () =>
+        {
+            try { await SynchronizeAsync(); }
+            catch (Exception ex) { _telemetry.TrackError(ex, "sync_fire_and_forget"); }
+        });
         return Task.CompletedTask;
     }
 
+    /// <summary>A payment (or any other local write) must never appear to fail — or crash the
+    /// app — just because the background sync to the server hit a network blip at that exact
+    /// moment. Everything here, including token lookup and the busy-gate check, is inside one
+    /// outer try/catch so a failure can only ever come back as "false" (rows stay dirty and are
+    /// retried on the next Shiny job run or manual refresh) — never an exception that escapes
+    /// this method.</summary>
     public async Task<bool> SynchronizeAsync(CancellationToken ct = default)
     {
-        if (IsSuspended || _session.IsDemo) return true;
-        if (await _session.GetAccessTokenAsync() is null) return false;
-        if (!await _gate.WaitAsync(0, ct)) return true; // a cycle is already running
-
         try
         {
-            var conn = await _db.GetConnectionAsync();
+            if (IsSuspended || _session.IsDemo) return true;
+            if (await _session.GetAccessTokenAsync() is null) return false;
+            if (!await _gate.WaitAsync(0, ct)) return true; // a cycle is already running
 
-            // ---- PUSH (outbox drain) ----
-            var dirtyHelpers = await conn.Table<LocalHelper>().Where(x => x.IsDirty).ToListAsync();
-            var dirtyAttendance = await conn.Table<LocalAttendance>().Where(x => x.IsDirty).ToListAsync();
-            var dirtyLedger = await conn.Table<LocalLedgerEntry>().Where(x => x.IsDirty).ToListAsync();
-            var dirtySettlements = await conn.Table<LocalSettlement>().Where(x => x.IsDirty).ToListAsync();
-
-            if (dirtyHelpers.Count + dirtyAttendance.Count + dirtyLedger.Count + dirtySettlements.Count > 0)
+            try
             {
-                var push = new SyncPushRequest
+                var conn = await _db.GetConnectionAsync();
+
+                // ---- PUSH (outbox drain) ----
+                var dirtyHelpers = await conn.Table<LocalHelper>().Where(x => x.IsDirty).ToListAsync();
+                var dirtyAttendance = await conn.Table<LocalAttendance>().Where(x => x.IsDirty).ToListAsync();
+                var dirtyLedger = await conn.Table<LocalLedgerEntry>().Where(x => x.IsDirty).ToListAsync();
+                var dirtySettlements = await conn.Table<LocalSettlement>().Where(x => x.IsDirty).ToListAsync();
+
+                if (dirtyHelpers.Count + dirtyAttendance.Count + dirtyLedger.Count + dirtySettlements.Count > 0)
                 {
-                    ClientBatchId = Guid.NewGuid(),
-                    DeviceId = _session.DeviceId,
-                    Helpers = dirtyHelpers.Select(x => x.ToDto()).ToList(),
-                    Attendance = dirtyAttendance.Select(x => x.ToDto()).ToList(),
-                    LedgerEntries = dirtyLedger.Select(x => x.ToDto()).ToList(),
-                    Settlements = dirtySettlements.Select(x => x.ToDto()).ToList()
-                };
+                    var push = new SyncPushRequest
+                    {
+                        ClientBatchId = Guid.NewGuid(),
+                        DeviceId = _session.DeviceId,
+                        Helpers = dirtyHelpers.Select(x => x.ToDto()).ToList(),
+                        Attendance = dirtyAttendance.Select(x => x.ToDto()).ToList(),
+                        LedgerEntries = dirtyLedger.Select(x => x.ToDto()).ToList(),
+                        Settlements = dirtySettlements.Select(x => x.ToDto()).ToList()
+                    };
 
-                var pushRes = await _api.PushAsync(push, ct);
-                if (pushRes is null) return false; // offline — rows stay dirty, retry later
+                    // Transient blips (a dropped packet, a free-tier App Service cold start)
+                    // are exactly the kind of failure a payment-time sync is likely to hit —
+                    // worth a couple of quick retries before giving up and leaving rows dirty
+                    // for the next scheduled Shiny run.
+                    var pushRes = await WithRetryAsync(() => _api.PushAsync(push, ct), ct);
+                    if (pushRes is null) return false; // offline — rows stay dirty, retry later
 
-                foreach (var h in dirtyHelpers) Accept(h, pushRes);
-                foreach (var a in dirtyAttendance) Accept(a, pushRes);
-                foreach (var l in dirtyLedger) Accept(l, pushRes);
-                foreach (var s in dirtySettlements) Accept(s, pushRes);
+                    foreach (var h in dirtyHelpers) Accept(h, pushRes);
+                    foreach (var a in dirtyAttendance) Accept(a, pushRes);
+                    foreach (var l in dirtyLedger) Accept(l, pushRes);
+                    foreach (var s in dirtySettlements) Accept(s, pushRes);
 
-                await conn.UpdateAllAsync(dirtyHelpers);
-                await conn.UpdateAllAsync(dirtyAttendance);
-                await conn.UpdateAllAsync(dirtyLedger);
-                await conn.UpdateAllAsync(dirtySettlements);
+                    await conn.UpdateAllAsync(dirtyHelpers);
+                    await conn.UpdateAllAsync(dirtyAttendance);
+                    await conn.UpdateAllAsync(dirtyLedger);
+                    await conn.UpdateAllAsync(dirtySettlements);
+                }
+
+                // ---- PULL (server deltas since watermark) ----
+                long watermark = long.Parse(
+                    Preferences.Default.Get(Constants.KeySyncWatermark, "0"));
+                var pullRes = await WithRetryAsync(() => _api.PullAsync(new SyncPullRequest
+                {
+                    SinceWatermark = watermark,
+                    DeviceId = _session.DeviceId
+                }, ct), ct);
+                if (pullRes is null) return false;
+
+                foreach (var dto in pullRes.Helpers)
+                    await ApplyIfNewerAsync(conn, dto.ToLocal(), dto.ModifiedAtUtc);
+                foreach (var dto in pullRes.Attendance)
+                    await ApplyIfNewerAsync(conn, dto.ToLocal(), dto.ModifiedAtUtc);
+                foreach (var dto in pullRes.LedgerEntries)
+                    await ApplyIfNewerAsync(conn, dto.ToLocal(), dto.ModifiedAtUtc);
+                foreach (var dto in pullRes.Settlements)
+                    await ApplyIfNewerAsync(conn, dto.ToLocal(), dto.ModifiedAtUtc);
+
+                Preferences.Default.Set(Constants.KeySyncWatermark, pullRes.NewWatermark.ToString());
+                return true;
             }
-
-            // ---- PULL (server deltas since watermark) ----
-            long watermark = long.Parse(
-                Preferences.Default.Get(Constants.KeySyncWatermark, "0"));
-            var pullRes = await _api.PullAsync(new SyncPullRequest
+            finally
             {
-                SinceWatermark = watermark,
-                DeviceId = _session.DeviceId
-            }, ct);
-            if (pullRes is null) return false;
-
-            foreach (var dto in pullRes.Helpers)
-                await ApplyIfNewerAsync(conn, dto.ToLocal(), dto.ModifiedAtUtc);
-            foreach (var dto in pullRes.Attendance)
-                await ApplyIfNewerAsync(conn, dto.ToLocal(), dto.ModifiedAtUtc);
-            foreach (var dto in pullRes.LedgerEntries)
-                await ApplyIfNewerAsync(conn, dto.ToLocal(), dto.ModifiedAtUtc);
-            foreach (var dto in pullRes.Settlements)
-                await ApplyIfNewerAsync(conn, dto.ToLocal(), dto.ModifiedAtUtc);
-
-            Preferences.Default.Set(Constants.KeySyncWatermark, pullRes.NewWatermark.ToString());
-            return true;
+                _gate.Release();
+            }
         }
         catch (Exception ex)
         {
             _telemetry.TrackError(ex, "sync_cycle_failed");
             return false;
         }
-        finally
+    }
+
+    /// <summary>Retries a flaky network call up to 3 attempts total (400ms, 800ms backoff)
+    /// before giving up. Retries both on an exception (timeout, DNS blip, connection reset)
+    /// and on a null result (the API client's own "request failed" signal) — either way, the
+    /// caller treats a final null as "offline, try again on the next sync cycle" exactly as
+    /// before; this just avoids surrendering to a single transient hiccup first.</summary>
+    static async Task<T?> WithRetryAsync<T>(Func<Task<T?>> action, CancellationToken ct, int maxAttempts = 3)
+        where T : class
+    {
+        for (var attempt = 1; attempt <= maxAttempts; attempt++)
         {
-            _gate.Release();
+            try
+            {
+                var result = await action();
+                if (result is not null || attempt == maxAttempts) return result;
+            }
+            catch when (attempt < maxAttempts)
+            {
+                // fall through to backoff below and try again
+            }
+
+            await Task.Delay(TimeSpan.FromMilliseconds(400 * attempt), ct);
         }
+
+        return null;
     }
 
     static void Accept(LocalEntityBase row, SyncPushResponse res)
