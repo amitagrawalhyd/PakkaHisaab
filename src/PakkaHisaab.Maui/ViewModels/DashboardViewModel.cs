@@ -180,8 +180,11 @@ public partial class DashboardViewModel : BaseViewModel
         VoiceOutcome.Success => result.Confirmation!,
         VoiceOutcome.PermissionDenied => Loc["Voice_PermissionDenied"],
         VoiceOutcome.NoSpeechDetected => Loc["Voice_NoSpeech"],
-        VoiceOutcome.HelperNotRecognized => Loc["Voice_HelperNotRecognized"],
-        VoiceOutcome.IntentNotRecognized => Loc["Voice_NotUnderstood"],
+        // VoiceLedgerService now fills Confirmation with a specific, actionable suggestion
+        // (e.g. the exact command to try, or which helper it couldn't tell apart) — fall back
+        // to the generic keyed message only on the off chance it couldn't build one.
+        VoiceOutcome.HelperNotRecognized => result.Confirmation ?? Loc["Voice_HelperNotRecognized"],
+        VoiceOutcome.IntentNotRecognized => result.Confirmation ?? Loc["Voice_NotUnderstood"],
         _ => Loc["Voice_Error"]
     };
 }

@@ -1,5 +1,6 @@
 using System.Globalization;
 using CommunityToolkit.Maui.Media;
+using PakkaHisaab.Maui.Helpers;
 using PakkaHisaab.Shared.Domain;
 using PakkaHisaab.Shared.Enums;
 
@@ -81,14 +82,17 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
             var command = VoiceLedgerParser.Parse(result.Text, helpers.Select(h => h.Name).ToList());
             _telemetry.Track("voice_command", ("intent", command.Intent.ToString()));
 
+            // Intent checked first: if the action itself wasn't understood, saying "couldn't
+            // find that helper" would be misleading — neither half of the command landed.
+            if (command.Intent == VoiceIntent.Unknown)
+                return new VoiceLedgerResult(VoiceOutcome.IntentNotRecognized, BuildSuggestionMessage(command));
+
             var helper = helpers.FirstOrDefault(h =>
                 h.Name.Equals(command.HelperNameHint, StringComparison.OrdinalIgnoreCase));
             if (helper is null && helpers.Count == 1)
                 helper = helpers[0]; // only one helper — no ambiguity
             if (helper is null)
-                return new VoiceLedgerResult(VoiceOutcome.HelperNotRecognized);
-            if (command.Intent == VoiceIntent.Unknown)
-                return new VoiceLedgerResult(VoiceOutcome.IntentNotRecognized);
+                return new VoiceLedgerResult(VoiceOutcome.HelperNotRecognized, BuildSuggestionMessage(command));
 
             var today = DateOnly.FromDateTime(DateTime.Today);
             var period = DateTime.Today.ToString("yyyy-MM");
@@ -146,5 +150,27 @@ public sealed class VoiceLedgerService : IVoiceLedgerService
             _telemetry.TrackError(ex, "voice_capture");
             return new VoiceLedgerResult(VoiceOutcome.Error);
         }
+    }
+
+    /// <summary>Turns VoiceLedgerParser's structured, UI-free suggestion into the specific,
+    /// localized message the user actually sees — falls back to the generic keyed message only
+    /// if the parser genuinely had nothing more specific to offer.</summary>
+    static string BuildSuggestionMessage(VoiceCommand command)
+    {
+        var loc = LocalizationResourceManager.Instance;
+        return command.Suggestion switch
+        {
+            VoiceSuggestionKind.GenericExample =>
+                loc.Get("Voice_SuggestGeneric", command.SuggestionArgs![0]),
+            VoiceSuggestionKind.KeywordFoundNoAmount =>
+                loc.Get("Voice_SuggestNoAmount", command.SuggestionArgs![0], command.SuggestionArgs[1]),
+            VoiceSuggestionKind.DeliveryNoUnits =>
+                loc.Get("Voice_SuggestNoUnits", command.SuggestionArgs![0]),
+            VoiceSuggestionKind.HelperNotFound =>
+                loc.Get("Voice_SuggestHelperNotFound", string.Join(", ", command.SuggestionArgs!)),
+            VoiceSuggestionKind.HelperAmbiguous =>
+                loc.Get("Voice_SuggestHelperAmbiguous", command.SuggestionArgs![0], command.SuggestionArgs[1]),
+            _ => command.Intent == VoiceIntent.Unknown ? loc["Voice_NotUnderstood"] : loc["Voice_HelperNotRecognized"]
+        };
     }
 }

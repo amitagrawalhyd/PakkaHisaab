@@ -623,4 +623,19 @@ For any questions about these Terms, contact Amit Kumar Agrawal at amit.agrawal.
   <data name="Voice_Error" xml:space="preserve">
     <value>Something went wrong with voice input. Please try again.</value>
   </data>
+  <data name="Voice_SuggestGeneric" xml:space="preserve">
+    <value>Sorry, I didn't catch that. Try: "{0}"</value>
+  </data>
+  <data name="Voice_SuggestNoAmount" xml:space="preserve">
+    <value>Heard a {0} mention but no amount. Try: "{1}"</value>
+  </data>
+  <data name="Voice_SuggestNoUnits" xml:space="preserve">
+    <value>Heard a delivery mention but no quantity. Try: "{0}"</value>
+  </data>
+  <data name="Voice_SuggestHelperNotFound" xml:space="preserve">
+    <value>Couldn't match a helper name. You have: {0}. Try saying it clearly.</value>
+  </data>
+  <data name="Voice_SuggestHelperAmbiguous" xml:space="preserve">
+    <value>Did you mean {0} or {1}? Please repeat the name clearly.</value>
+  </data>
 </root>
